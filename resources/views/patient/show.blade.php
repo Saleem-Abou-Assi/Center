@@ -44,16 +44,15 @@
                 <th>Status</th> 
                 <th>Bill Details</th>
             </tr>
-            @for ($i = 0; $i < count($depts); $i++)
+            @for ($i = 0; $i < count($patient->Dept); $i++)
             
             <tr>
-                <td>{{$depts[$i]->title  }}</td>
-                <td>{{$depts[$i]->pivot->illness }}</td> 
-                <td>{{$depts[$i]->pivot->description }}</td>
-                <td>{{$depts[$i]->pivot->cure }}</td>
-                <td>{{$depts[$i]->pivot->doctor_name }}</td>
-                <td>{{$apds[$i]->full_cost}}</td>
-                <td>{{$apds[$i]->status}}</td>
+                <td>{{$patient->Dept[$i]->title  }}</td>
+                <td>{{$patient->Dept[$i]->pivot->illness }}</td> 
+                <td>{{$patient->Dept[$i]->pivot->description }}</td>
+                <td>{{$patient->Dept[$i]->pivot->cure }}</td>
+                <td>{{$patient->Dept[$i]->pivot->doctor_name }}</td>
+                <td>{{$apds[$i]->full_cost}}</td>    
                 <td><a href="{{ route('accounter.index', $apds[$i]->id) }}">Show</a>   </td>
                                      
 

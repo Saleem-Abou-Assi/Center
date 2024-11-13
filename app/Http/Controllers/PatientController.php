@@ -97,12 +97,13 @@ class PatientController extends Controller
      }
 
     public function show($patient_id) {
-        $patient = Patient::findOrFail($patient_id); // Fetch the product by ID
-        $depts = $patient->Dept()->get();
+        // $patient1 = Patient::findOrFail($patient_id); // Fetch the product by ID
+        // $depts = $patient->Dept()->get();
+        $patient = Patient::with('Dept')->where('id', $patient_id)->first();
+        
         $account = Accounter::where('patient_id',$patient_id)->first();
         $apds = APD::where('A_id',$account->id)->get();
-      
- 
-        return view('patient.show', ['patient'=>$patient,'depts'=>$depts,'apds'=>$apds]); // Pass the product to the view
+
+        return view('patient.show', ['patient'=>$patient,'apds'=>$apds]); // Pass the product to the view
     }
 }

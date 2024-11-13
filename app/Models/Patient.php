@@ -15,7 +15,7 @@ class Patient extends Model
 
     public function Dept(): BelongsToMany
     {
-        return $this->belongsToMany(Department::class, 'patient_depts', 'patient_id', 'dept_id',)->withPivot('doctor_name', 'illness', 'description', 'cure');
+        return $this->belongsToMany(Department::class, 'patient_depts', 'patient_id', 'dept_id',)->withPivot('id','doctor_name', 'illness', 'description', 'cure');
     }
 
     public function accounter(): HasOne
