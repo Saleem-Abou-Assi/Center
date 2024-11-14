@@ -41,7 +41,7 @@
                         <td>{{ $department->created_at }}</td>
                         <td>{{ $department->updated_at }}</td>
     
-                        <td>
+                        <td class="action-td">
                             <a href="{{ route('department.edit', $department->id) }}" class="action-btn">Edit</a>                        
                                 <form action="{{ route('department.destroy', $department->id) }}" method="POST">
                                     @csrf

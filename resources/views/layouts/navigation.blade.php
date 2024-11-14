@@ -53,6 +53,7 @@
   li a:hover{
     background-color:#007561c5 ;
     color: white;
+    text-decoration: none;  
   }
   li a {
     display: block;

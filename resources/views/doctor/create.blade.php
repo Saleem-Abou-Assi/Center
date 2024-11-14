@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
     <title>Doctor Management</title>
-    <link rel="stylesheet" type="text/css" href="doctor.css">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    @include('layouts.navigation')
 </head>
 <body>
-    <div class="container">
+    <div class="C-container">
         <h1>{{ isset($doctor) ? 'Edit Doctor' : 'Add Doctor' }}</h1>
 
         <form action="{{ isset($doctor) ? route('doctor.update', $doctor->id) : route('doctor.store') }}" method="POST">

@@ -107,7 +107,7 @@ a {
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 /* From Uiverse.io by AqFox */ 
 .custom-btn {
@@ -151,4 +151,6 @@ a:hover {
   .boton {
    padding-top: 15px;
   }
- 
+body{
+  margin: 0;
+}

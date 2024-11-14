@@ -23,7 +23,8 @@ thead {
 
 th, td {  
     padding: 10px;  
-    text-align: left;  
+    text-align: left; 
+   
     border-bottom: 1px solid #ddd; /* Row border */  
 }  
 
@@ -93,3 +94,45 @@ tbody tr:nth-child(even) {
   .container h1{
     padding: 15px;
   }
+.action-btn{
+  padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    
+}
+a.action-btn {
+    background-color: #007561;  /* Your theme green */
+    color: white;
+    text-decoration: none;  
+    
+}
+
+a.action-btn:hover {
+    background-color: #006f5a;
+    text-decoration: none;  
+    color: white;
+}
+
+/* Delete button specific */
+button.action-btn {
+    background-color: #dc3545;  /* Red for delete */
+    color: white;
+}
+
+button.action-btn:hover {
+    background-color: #c82333;
+}
+
+/* Remove form default margins */
+form {
+    margin: 0;
+}
+.action-td{
+  display: flex;
+  gap: 10px;  /* Space between buttons */
+  align-items: center;
+}
