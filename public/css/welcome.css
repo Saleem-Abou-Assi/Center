@@ -1,0 +1,132 @@
+.card-container{
+    padding-top: 20px ;
+    
+   }
+   
+   /* Card specific styles */
+   .card {
+     justify-items: center;
+     display: inline-block;
+     background-color: #fff; /* White background */
+     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds shadow to the card */
+     width: 80%; 
+     height: auto;/* Width of the card */
+     padding: 20px; /* Padding inside the card */
+     text-align: center; /* Aligns text to the center */
+     border-radius: 8px; /* Rounded corners */
+     transition: transform 0.3s; /* Animation for hover effect */
+   }
+   
+   .card:hover {
+     transform: translateY(-10px); /* Moves card up slightly on hover */
+   }
+   .icon{
+    
+    height: auto;
+    background-color: #f0f0f0; /* Light gray background */
+    width: auto; /* Width of the icon background */
+    
+    /* Makes the background circular */
+    display: flex; /* Uses flexbox to center the icon */
+    align-items: center; /* Centers icon vertically */
+    justify-content: center; /* Centers icon horizontally */
+    margin: auto; /* Aligns the icon background to center of card */
+    margin-bottom: 20px; /* Distance between icon and text */
+    background-color: transparent;
+   }
+   .card-container{
+    
+    display: inline-block;
+    justify-content: center;
+    margin-right: 10px;
+    background-color: #00ffd565; /* White background */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds shadow to the card */
+    width: 25vw; /* Width of the card */
+    padding: 20px; /* Padding inside the card */
+    text-align: center; /* Aligns text to the center */
+    border-radius: 8px; /* Rounded corners */
+    transition: transform 0.3s;
+   }
+   .cards{
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+    flex-wrap: wrap;
+   }
+   
+   .icon img{
+    width: 100%;
+   
+   }
+   @media (max-width: 800px) { /* Change the max-width to your desired breakpoint */  
+    .card-holder {  
+      flex-direction: column; /* Stack cards vertically */  
+      align-items: center; /* Center cards horizontally */  
+    }  
+  
+    .card-container {  
+      width: 80%; /* Adjust the width of cards on small screens */  
+      margin: 10px 0; /* Add vertical margin */  
+    }  
+  }
+ .heading{
+  height: 300px;
+  text-align: center;
+ }
+ .card-holder{
+  display: flex;
+  justify-content: center;
+  
+ }
+ body{
+  background-image: url('../images/back.jpg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+ .heading h1{
+  color: white;
+  font-size: xx-large;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding-top:10vh ;
+ }
+  .nav{
+
+    justify-content: space-between;
+    align-items: center;
+    display: fixed;
+    top: 0;
+    
+  }
+  .nav-items{
+    list-style: none;
+    display: flex;
+    padding-left:10px;
+    align-items: center;
+  }
+  .nav-items > li{
+    padding: 10px;
+  }
+  
+  li a:hover{
+    background-color:#007561c5 ;
+    color: white;
+  }
+  li a {
+    display: block;
+    color: #000;
+    padding: 16px 16px;
+    text-decoration: none;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: fit-content;
+    background-color: #f1f1f1;
+  }

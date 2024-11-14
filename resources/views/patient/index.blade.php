@@ -1,38 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="{{ asset('css/tables.css') }}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    @include('layouts.navigation')
     <title>Patient Management</title>
-    <style>
-        /* Add your CSS styling here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        form {
-            display: inline;
-        }
-    </style>
+    
 </head>
 <body>
     <div class="container">
         <h1>Patients</h1>
-
+        <div class="table-container">
         <table>
             <thead>
                 <tr>
@@ -77,7 +55,7 @@
                 @endforeach
             </tbody>
         </table>
-
+        </div>
         <a href="{{ route('patient.create') }}">Add patient</a>
     </div>
 </body>

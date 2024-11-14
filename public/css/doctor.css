@@ -1,0 +1,29 @@
+.table-container {  
+    max-height: 400px; /* Adjust as needed */  
+    overflow-y: auto;  
+    border: 1px solid #e0e0e0; /* Optional border styling */  
+    border-radius: 5px; /* Optional rounded corners */  
+}  
+
+table {  
+    width: 100%;  
+    border-collapse: collapse;  
+}  
+
+thead {  
+    background-color: #8FA3C5; /* Header background color */  
+    color: white; /* Header text color */  
+    position: sticky;  
+    top: 0; /* Stick to the top */  
+    z-index: 1; /* Ensure it is above other content */  
+}  
+
+th, td {  
+    padding: 10px;  
+    text-align: left;  
+    border-bottom: 1px solid #ddd; /* Row border */  
+}  
+
+tbody tr:nth-child(even) {  
+    background-color: #f2f2f2; /* Zebra striping effect */  
+}

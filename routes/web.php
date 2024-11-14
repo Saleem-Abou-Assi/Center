@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/patients', [PatientController::class, 'index'])->name('patient.index');
 Route::get('/patients/create', [PatientController::class, 'create'])->name('patient.create');
