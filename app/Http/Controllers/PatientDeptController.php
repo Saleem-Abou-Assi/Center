@@ -43,6 +43,7 @@ class PatientDeptController extends Controller
             'PD_id' => $patientDept->id,
             'A_id' => $accounter_id,
             'doctor_id' => $request->doctor,
+            'patient_name' => $patient->name,
             'check_in_type' => $request->check_in_type,
             'given_cure' => $request->given_cure,
             'tools'=> $request->tools,

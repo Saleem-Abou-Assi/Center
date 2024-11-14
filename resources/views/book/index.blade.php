@@ -2,7 +2,7 @@
 <html>
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Patient Management</title>
+    <title>Book Management</title>
     <style>
         /* Add your CSS styling here */
         .container {
@@ -31,18 +31,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>Patients</h1>
+        <h1>Booking</h1>
 
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>Patient Name</th>
                     <th>Phone</th>
-                    <th>Address</th>
-                    <th>Gender</th>
-                    <th>Age</th>
-                   
+                    <th>Department</th>
+                    <th>Doctor</th>
+                    <th>Date & Time</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Actions</th>
@@ -50,30 +49,25 @@
             </thead>
             <tbody>
                 <!-- Add your patient data rows here -->
-                @foreach ($patients as $patient)
-                @php
-                   
-                @endphp
+                @foreach ($books as $book)
+
                     <tr>
-                        <td>{{ $patient->id }}</td>
-                        <td>{{ $patient->name }}</td>
-                        <td>{{ $patient->phone }}</td>
-                        <td>{{ $patient->address }}</td>
-                        <td>{{ $patient->gender }}</td>
-                        <td>{{ $patient->age }}</td>
-                        <td>{{ $patient->job }}</td>
-                     
-                        <td>{{ $patient->created_at }}</td>
-                        <td>{{ $patient->updated_at }}</td>
+                        <td>{{ $book->id }}</td>
+                        <td>{{ $book->patient_name }}</td>
+                        <td>{{ $book->phone }}</td>
+                        <td>{{ $dept }}</td>
+                        <td>{{ $book->doctor_id }}</td>
+                        <td>{{ $book->bookDate }}</td>
+                        <td>{{ $book->created_at }}</td>
+                        <td>{{ $book->updated_at }}</td>
                         <td>
-                            <a href="{{ route('patient.edit', $patient->id) }}">Edit</a>
+                            <a href="{{ route('book.edit', $book->id) }}">Edit</a>
                         
-                                <form action="{{ route('patient.destroy', $patient->id) }}" method="POST">
+                                <form action="{{ route('book.destroy', $book->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Delete</button>
-                                </form>
-                                <a href="{{ route('patient.show', $patient->id) }}">Show</a>                        
+                                </form>                   
 
                         </td>
                     </tr>
@@ -81,7 +75,7 @@
             </tbody>
         </table>
 
-        <a href="{{ route('patient.create') }}">Add patient</a>
+        <a href="{{ route('book.create') }}">Add book</a>
     </div>
 </body>
 </html>

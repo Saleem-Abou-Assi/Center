@@ -30,35 +30,37 @@
             <li>Phone: {{ $doctor->phone }}</li>
             <li>Address: {{ $doctor->address }}</li>
             <li>specialization: {{ $doctor->specialization }}</li>
-            <li>Department Name: {{$dept->title}}</li>
+            <li>Department Name: {{$doctor->Dept->title}}</li>
         </ul>
 
-        {{-- <table>
+        <table>
             <tr>
                 <th>Department__</th>
-                <th>Illness__</th>
-                <th>Description__</th>
-                <th>Cure__</th>
-                <th>Doctor Name__</th>
+                <th>Patient Name</th>
+                <th>Check In Type__</th>
+                <th>Given Cure__</th>
+                <th>Tools__</th>
+                {{-- <th>Doctor Name__</th> --}}
                 <th>Total Cost</th>
-                <th>Status</th>
+                {{-- <th>Status</th> --}}
                 <th>Bill Details</th>
             </tr>
-            @for ($i = 0; $i < count($depts); $i++)
-            
+            @foreach ($doctor->APD as $apd)
+    
+           
             <tr>
-                <td>{{$depts[$i]->title  }}</td>
-                <td>{{$depts[$i]->pivot->illness }}</td> 
-                <td>{{$depts[$i]->pivot->description }}</td>
-                <td>{{$depts[$i]->pivot->cure }}</td>
-                <td>{{$depts[$i]->pivot->doctor_name }}</td>
-                <td>{{$apds[$i]->full_cost}}</td>
-                <td>{{$apds[$i]->status}}</td>
-                <td><a href="{{ route('accounter.index', $apds[$i]->id) }}">Show</a>   </td>
+                <td>{{$doctor->Dept->title  }}</td>
+                <td>{{$apd->patient_name }}</td>
+                <td>{{$apd->check_in_type }}</td> 
+                <td>{{$apd->given_cure }}</td>
+                <td>{{$apd->tools }}</td>
+            
+                <td>{{$apd->full_cost}}</td>
+                <td><a href="{{ route('accounter.index', $apd->id) }}">Show</a>   </td>
                                      
 
             </tr>
-            @endfor
+            @endforeach 
     
 
           
@@ -67,7 +69,7 @@
             </tr>
 
 
-        </table> --}}
+        </table>
 
         <a href="{{ route('doctor.index') }}">Back to Doctors</a>    </div>
 </body>

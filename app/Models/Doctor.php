@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Hash;
 use PHPUnit\Framework\Attributes\Depends;
@@ -13,7 +14,7 @@ class Doctor extends Model
     protected $fillable = [
         'name','phone','address','specialization','dept_id'
     ];
-
+ 
     
     public function Dept() : BelongsTo
     {
@@ -30,4 +31,9 @@ class Doctor extends Model
         return $this->hasOne(Accounter::class);
     }
     
+    public function APD():HasMany
+    {
+        return $this->hasMany(APD::class);
+    }
+
 }

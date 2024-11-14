@@ -91,14 +91,8 @@ class DoctorController extends Controller
      }
 
     public function show($doctor_id) {
-        $doctor = Doctor::findOrFail($doctor_id); // Fetch the product by ID
-        $dept = Department::findOrFail($doctor->dept_id);
-        // $depts = $doctor->Dept()->get();
-        $apds = APD::where('doctor_id',$doctor_id)->get();
-
-        
-
-        return view('doctor.show', ['doctor'=>$doctor,'dept','apds'=>$apds]); // Pass the product to the view
+        $doctor = Doctor::with('Dept','APD')->where('id',$doctor_id)->first(); // Fetch the product by ID
+        return view('doctor.show', ['doctor'=>$doctor]); // Pass the product to the view
     }
 
 }

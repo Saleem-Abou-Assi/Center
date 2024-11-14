@@ -87,8 +87,14 @@
             {{-- patient account details --}}
             <div class="form-group">
                 <label for="check_in_type">Check In Type</label>
-                <input type="text" required id="check_in_type" name="check_in_type" >
+                <select type="text" required id="check_in_type" name="check_in_type" >
+                    <option value="">Select Type</option>
+                    <option value="eye">Eye</option>
+                    <option value="body">Body</option>
+                    <option value="bones">Bones</option>
+                </select>
             </div>
+            
             <div class="form-group">
                 <label for="given_cure">Given Cure</label>
                 <input type="text" required id="given_cure" name="given_cure" >

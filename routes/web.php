@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccounterController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
@@ -41,3 +42,11 @@ Route::post('/patientDept', [PatientDeptController::class, 'store'])->name('pati
 
 Route::get('/accounter/{apd_id}',[AccounterController::class,'index'])->name('accounter.index');
 
+
+
+Route::get('/books', [BookController::class, 'index'])->name('book.index');
+Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
+Route::post('/books', [BookController::class, 'store'])->name('book.store');
+Route::get('/books/{book_id}/edit', [BookController::class, 'edit'])->name('book.edit');
+Route::put('/books/{book_id}', [BookController::class, 'update'])->name('book.update');
+Route::delete('/books/{book_id}', [BookController::class, 'destroy'])->name('book.destroy');

@@ -31,7 +31,29 @@
             <li>Address: {{ $patient->address }}</li>
             <li>Gender: {{ $patient->Gender }}</li>
             <li>Age: {{ $patient->age }}</li>
+            <li>Relation: {{ $patient->relation }}</li>
+            <li>Children: {{ $patient->childerCount }}</li>
+            <li>Smooking: {{ $patient->smooking }}</li>
+            <li>Old Surgery: {{ $patient->oldSurgery }}</li>
+            <li>Algiry: {{ $patient->alirgy }}</li>
+            <li>Disease: {{ $patient->disease }}</li>
+            <li>Dite: {{ $patient->dite }}</li>
+            <li>Permenant Cures: {{ $patient->permenantCure }}</li>
+            <li>Cosmetic: {{ $patient->Cosmetic }}</li>
+            <li>Current Disease: {{ $patient->CurrentDisease }}</li>
         </ul>
+        <table>
+            <tr>
+                <th>Field Name</th>
+                <th>Field Value</th>
+            </tr>
+            @foreach ($patient->Field as $field)
+            <tr>
+                <td>{{ $field->name }}</td>
+                <td>{{ $field->value }}</td>
+            </tr>
+            @endforeach
+        </table>
 
         <table>
             <tr>
