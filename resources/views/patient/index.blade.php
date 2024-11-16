@@ -26,10 +26,13 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Address</th>
+                    
                     <th>Gender</th>
                     <th>Age</th>
+                    <th>Job</th>
                     <th>Created At</th>
                     <th>Updated At</th>
+                    
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -46,6 +49,8 @@
                         <td>{{ $patient->address }}</td>
                         <td>{{ $patient->Gender }}</td>
                         <td>{{ $patient->age }}</td>
+                        <td>{{ $patient->job }}</td>
+                     
                         <td>{{ $patient->created_at }}</td>
                         <td>{{ $patient->updated_at }}</td>
                         <td class="action-td">

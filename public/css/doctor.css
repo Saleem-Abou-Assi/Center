@@ -131,9 +131,113 @@ tbody tr:nth-child(even) {
     color: white;
   }
   body{
-    background-image: url('../images/back.jpg');
+    background-image: url('../images/back.png');
     background-repeat: no-repeat;
     background-position: right;
     background-size: cover;
     background-attachment: fixed;
+    margin: 0;
   }
+  .ul ul {
+    list-style: none;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+    width: 300px;
+}
+
+.ul li {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    align-items: center;
+}
+
+.ul li:last-child {
+    border-bottom: none;
+}
+
+/* Label styling */
+.ul li::before {
+    content: attr(data-label);
+    font-weight: bold;
+    min-width: 140px;
+    color: black;
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+/* Value styling */
+.ul li span {
+    text-align: right;
+    flex-grow: 1;
+}
+
+.ul {
+    display: flex;
+    justify-content: center;
+}
+.page-title1 h1{
+  color:white;
+  text-align: center;
+  font-size: 3rem;
+  font-family:'lato' ,sans-serif;
+}
+.show-head{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.custom-btn {
+  width: 60px;
+  height: 20px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+  font-size: 15px;
+  text-decoration: none;  
+}
+
+.btn-2 {
+  background: #007561c5;
+  background: linear-gradient(0deg, #004dff 0%, #004dff 100%);
+  border: none;
+  
+}
+
+.btn-2:before {
+  height: 0%;
+  width: 2px;
+}
+
+.btn-2:hover {
+  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+.boton {
+ padding-top: 15px;
+ display: flex;
+ justify-content: center;
+
+}
+#relations{
+  padding-top: 10px;
+}

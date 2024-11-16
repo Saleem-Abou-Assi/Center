@@ -13,10 +13,7 @@ class PatientDept extends Model
     'illness','description','cure'
     ]; 
 
-    public function Doctor() :HasOne
-    {
-        return $this->hasOne(Doctor::class);
-    }
+   
 
     public function Accounter():HasMany
     {
