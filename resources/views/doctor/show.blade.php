@@ -3,22 +3,7 @@
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Doctor Management</title>
-    <style>
-        /* Add your CSS styling here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-    </style>
+    
     
 </head>
 <body>

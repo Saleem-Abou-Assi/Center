@@ -1,0 +1,139 @@
+.table-container {  
+    max-height: 400px; /* Adjust as needed */  
+    overflow-y: auto;  
+    border: 1px solid #e0e0e0; /* Optional border styling */  
+    border-radius: 5px; /* Optional rounded corners */  
+}  
+
+table {  
+    width: 100%;  
+    border-collapse: collapse;  
+}  
+
+thead {  
+    background-color: #8FA3C5; /* Header background color */  
+    color: white; /* Header text color */  
+    position: sticky;  
+    top: 0; /* Stick to the top */  
+    z-index: 1; /* Ensure it is above other content */  
+}  
+
+th, td {  
+    padding: 10px;  
+    text-align: left;  
+    border-bottom: 1px solid #ddd; /* Row border */  
+}  
+
+tbody tr:nth-child(even) {  
+    background-color: #f2f2f2; /* Zebra striping effect */  
+}
+.cta {
+    position: relative;
+    margin: auto;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: none; 
+  }
+  
+  .cta:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 50px;
+    background: #b1dae7;
+    width: 45px;
+    height: 45px;
+    transition: all 0.3s ease;
+  }
+  
+  .cta span {
+    position: relative;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #234567;
+    
+  }
+  
+  .cta svg {
+    position: relative;
+    top: 0;
+    margin-left: 10px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #234567;
+    stroke-width: 2;
+    transform: translateX(-5px);
+    transition: all 0.3s ease;
+  }
+  
+  .cta:hover:before {
+    width: 100%;
+    background: #b1dae7;
+  }
+  
+  .cta:hover svg {
+    transform: translateX(0);
+  }
+  
+  .cta:active {
+    transform: scale(0.95);
+  }
+  .action-btn{
+    padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+      
+  }
+  a.action-btn {
+      background-color: #007561c5;  /* Your theme green */
+      color: white;
+      text-decoration: none;  
+      
+  }
+  
+  a.action-btn:hover {
+      background-color: #006f5a;
+      text-decoration: none;  
+      color: white;
+  }
+  
+  /* Delete button specific */
+  button.action-btn {
+      background-color: #dc3545;  /* Red for delete */
+      color: white;
+  }
+  
+  button.action-btn:hover {
+      background-color: #c82333;
+  }
+  .container{
+    padding: 20px;
+    background-color: #f1f1f1;
+    box-shadow: #000;
+  }
+  .page-title{
+    width: 100%;
+    height: 100px;
+    padding: 25px;
+    text-align: center;
+    color: white;
+  }
+  body{
+    background-image: url('../images/back.jpg');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+    background-attachment: fixed;
+  }

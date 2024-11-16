@@ -1,26 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     <title>Department Management</title>
-    <style>
-        /* Add your CSS styling here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        form {
-            max-width: 400px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-    </style>
+    @include('layouts.navigation')
 </head>
 <body>
-    <div class="container">
+
+    <div class="C-container">
         <h1>{{ isset($department) ? 'Edit department' : 'Add department' }}</h1>
 
         <form action="{{ isset($department) ? route('department.update', $department->id) : route('department.store') }}" method="POST">
@@ -35,10 +22,18 @@
             </div>
         
         
-            <button type="submit">{{ isset($department) ? 'Update' : 'Create' }}</button>
+            <button type="submit" class="cta">
+                <span>{{ isset($department) ? 'Update' : 'Create' }}</span>
+                <svg width="15px" height="10px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+                </svg>
+            </button>
+  
         </form>
-
-        <a href="{{ route('department.index') }}">Back to departments</a>
+        <div class="boton">
+        <a href="{{ route('department.index') }}" class="custom-btn btn-2">Go Back</a>
+        </div>
     </div>
 </body>
 </html>

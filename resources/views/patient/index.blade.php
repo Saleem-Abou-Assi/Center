@@ -1,38 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="{{ asset('css/patiant.css') }}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    @include('layouts.navigation')
     <title>Patient Management</title>
-    <style>
-        /* Add your CSS styling here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        form {
-            display: inline;
-        }
-    </style>
+    
 </head>
 <body>
+    <div class="page-title"> <h1>Patients</h1></div>
     <div class="container">
-        <h1>Patients</h1>
-
+    <a href="{{ route('patient.create') }}" class="cta"><span>Add patient</span>
+    <svg width="15px" height="10px" viewBox="0 0 13 10">    
+        <path d="M1,5 L11,5"></path>
+        <polyline points="8 1 12 5 8 9"></polyline>
+     </svg>
+    </a>
+    <br>
+    <br>
+        <div class="table-container">
         <table>
             <thead>
                 <tr>
@@ -40,11 +26,13 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Address</th>
+                    
                     <th>Gender</th>
                     <th>Age</th>
-                   
+                    <th>Job</th>
                     <th>Created At</th>
                     <th>Updated At</th>
+                    
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -59,29 +47,29 @@
                         <td>{{ $patient->name }}</td>
                         <td>{{ $patient->phone }}</td>
                         <td>{{ $patient->address }}</td>
-                        <td>{{ $patient->gender }}</td>
+                        <td>{{ $patient->Gender }}</td>
                         <td>{{ $patient->age }}</td>
                         <td>{{ $patient->job }}</td>
                      
                         <td>{{ $patient->created_at }}</td>
                         <td>{{ $patient->updated_at }}</td>
-                        <td>
-                            <a href="{{ route('patient.edit', $patient->id) }}">Edit</a>
+                        <td class="action-td">
+                            <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">Edit</a>
                         
                                 <form action="{{ route('patient.destroy', $patient->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit">Delete</button>
+                                    <button type="submit" class="action-btn">Delete</button>
                                 </form>
-                                <a href="{{ route('patient.show', $patient->id) }}">Show</a>                        
+                                <a href="{{ route('patient.show', $patient->id) }}" class="action-btn">Show</a>                        
 
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-
-        <a href="{{ route('patient.create') }}">Add patient</a>
+        </div>
+       
     </div>
 </body>
 </html>

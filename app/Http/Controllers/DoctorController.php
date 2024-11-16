@@ -51,7 +51,8 @@ class DoctorController extends Controller
     public function edit($id)
     {
         $doctor = Doctor::find($id);
-        return view('doctor.create', ['doctor' => $doctor]);
+        $depts = Department::all();
+        return view('doctor.create', ['doctor' => $doctor,'depts'=>$depts]);
     }
 
     public function update(Request $request,$doctor_id)

@@ -1,26 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
     <title>Doctor Management</title>
-    <style>
-        /* Add your CSS styling here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        form {
-            max-width: 400px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    @include('layouts.navigation')
 </head>
 <body>
-    <div class="container">
+    <div class="C-container">
         <h1>{{ isset($doctor) ? 'Edit Doctor' : 'Add Doctor' }}</h1>
 
         <form action="{{ isset($doctor) ? route('doctor.update', $doctor->id) : route('doctor.store') }}" method="POST">
@@ -51,20 +38,28 @@
             </div>
 
             <div class="form-group">
-                <label for="department">Department Title</label>
+                <div class="select-box">
+                    <label for="department">Department Title</label>
                 <select id="department" required name="department" >
                     <option value="">Select Department</option>
                     @foreach ($depts as $dept)
                     <option value="{{$dept->id}}">{{$dept->title}}</option>
-
+                </div>
                     @endforeach
                 </select>
             </div>
-
-            <button type="submit">{{ isset($doctor) ? 'Update' : 'Create' }}</button>
+            <div class="form-group">
+            <button type="submit" class="cta"><span>{{ isset($doctor) ? 'Update' : 'Create' }}</span>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+                </svg>
+            </button>
         </form>
-
-        <a href="{{ route('doctor.index') }}">Back to Patients</a>
+        <br/>
+        <div class="boton">
+        <a href="{{ route('doctor.index') }}" class="custom-btn btn-2">Go Back</a>
+        </div>
     </div>
 </body>
 </html>
