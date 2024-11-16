@@ -7,9 +7,20 @@
     @include('layouts.navigation')
 </head>
 <body>
+    <div class="page-title">
+    <h1>Doctors</h1>
+    </div>
     <div class="container">
-        <h1>Doctors</h1>
 
+        
+ <a href="{{ route('doctor.create') }}" class="cta"><span>Add doctor</span>
+ <svg width="15px" height="10px" viewBox="0 0 13 10">    
+        <path d="M1,5 L11,5"></path>
+        <polyline points="8 1 12 5 8 9"></polyline>
+     </svg>
+ </a>
+ <br/>
+ <br/>
         <div class="table-container">  
     <table>  
         <thead>  
@@ -34,14 +45,14 @@
                     <td>{{ $doctor->specialization }}</td>  
                     <td>{{ $doctor->created_at }}</td>  
                     <td>{{ $doctor->updated_at }}</td>  
-                    <td>  
-                        <a href="{{ route('doctor.edit', $doctor->id) }}">Edit</a>  
+                    <td class="action-td">  
+                        <a href="{{ route('doctor.edit', $doctor->id) }}" class="action-btn">Edit</a>  
                         <form action="{{ route('doctor.destroy', $doctor->id) }}" method="POST" style="display:inline;">  
                             @csrf  
                             @method('DELETE')  
-                            <button type="submit">Delete</button>  
+                            <button type="submit" class="action-btn">Delete</button>  
                         </form>  
-                        <a href="{{ route('doctor.show', $doctor->id) }}">Show</a>  
+                        <a href="{{ route('doctor.show', $doctor->id) }}" class="action-btn">Show</a>  
                     </td>  
                 </tr>  
             @endforeach  
@@ -49,7 +60,7 @@
     </table>  
 </div>
 
-        <a href="{{ route('doctor.create') }}">Add doctor</a>
+       
     </div>
 </body>
 </html>

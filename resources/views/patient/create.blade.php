@@ -1,26 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/form.css') }}">
     <title>Patient Management</title>
-    <style>
-        /* Add your CSS styling here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        form {
-            max-width: 400px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-    </style>
+    @include('layouts.navigation')
 </head>
 <body>
-    <div class="container">
+    <div class="C-container">
         <h1>{{ isset($patient) ? 'Edit Patient' : 'Add Patient' }}</h1>
 
         <form action="{{ isset($patient) ? route('patient.update', $patient->id) : route('patient.store') }}" method="POST">
@@ -45,12 +31,14 @@
             </div>
         
             <div class="form-group">
+                <div  class="select-box">
                 <label for="gender">Gender</label>
                 <select id="gender" required name="gender">
                     <option value="">Select Gender</option>
                     <option value="male" {{ isset($patient) && $patient->gender == 'Male' ? 'selected' : '' }}>Male</option>
                     <option value="female" {{ isset($patient) && $patient->gender == 'Female' ? 'selected' : '' }}>Female</option>
                 </select>
+                </div>
             </div>
         
             <div class="form-group">

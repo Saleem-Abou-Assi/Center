@@ -7,8 +7,10 @@
     @include('layouts.navigation')
 </head>
 <body>
-    <div class="container">
+    <div class="page-title">
         <h1>Department</h1>
+    </div>
+    <div class="container">
         
         <a href="{{ route('department.create') }}" class="cta"> <span>Add Department</span>
         <svg width="15px" height="10px" viewBox="0 0 13 10">    
@@ -16,7 +18,7 @@
         <polyline points="8 1 12 5 8 9"></polyline>
      </svg>
 </a>
-<br/>
+        <br/>
         <br/>
     <div class="table-container">
         <table>
