@@ -9,7 +9,7 @@
 
     <title>Patient Management</title>
     
-</head>
+</head> 
 <body>
     <div class="page-title"> <h1>Patients</h1></div>
     <div class="container">
@@ -56,6 +56,7 @@
                      
                         <td>{{ $patient->created_at }}</td>
                         <td>{{ $patient->updated_at }}</td>
+                        {{$patient->links}}
                         <td class="action-td">
                             <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">Edit</a>
                         
