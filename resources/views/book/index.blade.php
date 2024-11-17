@@ -1,37 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+@include('layouts.navigation')
+<link rel="stylesheet" href="{{ asset('css/doctor.css') }}">
     <title>Book Management</title>
-    <style>
-        /* Add your CSS styling here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        form {
-            display: inline;
-        }
-    </style>
+    
 </head>
 <body>
+    <div class="page-title"><h1>Booking</h1></div>
     <div class="container">
-        <h1>Booking</h1>
+    <a href="{{ route('book.create') }}" class="cta"><span>Add book</span>
+    <svg width="15px" height="10px" viewBox="0 0 13 10">    
+        <path d="M1,5 L11,5"></path>
+        <polyline points="8 1 12 5 8 9"></polyline>
+     </svg>
+    </a>
+    <br>
+    <br>
+      
 
         <table>
             <thead>
@@ -75,7 +61,7 @@
             </tbody>
         </table>
 
-        <a href="{{ route('book.create') }}">Add book</a>
+        
     </div>
 </body>
 </html>

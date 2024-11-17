@@ -17,7 +17,7 @@
         
             <div class="form-group">
                 <label for="name">Name</label>
-                <input autofocus type="text" id="name" name="name" required value="{{ isset($patient) ? $patient->name : '' }}">
+                <input type="text" id="name" name="name" required value="{{ isset($patient) ? $patient->name : '' }}" autofocus>
             </div>
         
             <div class="form-group">
@@ -49,7 +49,7 @@
             <div class="form-group">
                 <label for="job">Job</label>
                 <input type="text" id="job" name="job" required value="{{ isset($patient) ? $patient->job : '' }}">
-                </div>
+            </div>
                 <div class="form-group">
                     <div class="select-box">
                     <label for="relation">Relation</label>
@@ -60,10 +60,9 @@
                         <option value="divorced" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
                         
                     </select>
-                    </div>
                 </div> 
                 <div class="form-group">
-                <label for="children">Childred</label>
+                <label for="children">Children</label>
                 <input type="number" id="children" name="children"  value="{{ isset($patient) ? $patient->children : '' }}">
             </div> <div class="form-group">
                 <label for="smooking">Smooking</label>
