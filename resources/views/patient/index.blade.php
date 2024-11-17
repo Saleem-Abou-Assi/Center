@@ -56,11 +56,7 @@
                      
                         <td>{{ $patient->created_at }}</td>
                         <td>{{ $patient->updated_at }}</td>
-                        @if ($patients->hasPages())
-                        <div class="pagination">
-                            {{ $patients->links() }}
-                        </div>
-                    @endif
+                      
                         <td class="action-td">
                             <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">Edit</a>
                         
@@ -87,6 +83,11 @@
                         </td>
                     </tr>
                 @endforeach
+                @if ($patients->hasPages())
+                <div class="pagination">
+                    {{ $patients->links() }}
+                </div>
+            @endif
                 @if (session()->has('success'))
     <div class="alert alert-success">
         {{ session()->get('success') }}
