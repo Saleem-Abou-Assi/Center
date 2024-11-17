@@ -6,7 +6,7 @@
 
         <title>Laravel</title>
         <link rel="stylesheet" href="css/welcome.css">
-        <link rel="preload" as="image" href=images/Back.png">
+        <link rel="preload" as="image" href="images/Back.png">
         </head>
        
        
