@@ -85,3 +85,48 @@ th{
     align-items: center; /* Center vertically */
     min-height: 100vh; /* Ensure the body takes full viewport height */ 
   }
+  .boton {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+   
+   }
+   .add-btn  {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #0562af9f;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 17px;
+    padding: 10px;
+    width: 150px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+   }
+   
+  .add-btn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+   }
+   
+   .add-btn span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -15px;
+    transition: 0.5s;
+   }
+   
+   .add-btn:hover span {
+    padding-right: 15px;
+   }
+   
+   .add-btn:hover span:after {
+    opacity: 1;
+    right: 0;
+   }

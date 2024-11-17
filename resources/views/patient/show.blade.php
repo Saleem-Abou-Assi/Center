@@ -59,7 +59,7 @@
                 <th>Cure</th>
                 <th>Doctor Name</th>
                 <th>Total Cost</th>
-                <th>Status</th> 
+      
                 <th>Bill Details</th>
             </tr>
             </thead>
@@ -72,7 +72,7 @@
                 <td>{{$patient->Dept[$i]->pivot->cure }}</td>
                 <td>{{$patient->Dept[$i]->pivot->doctor_name }}</td>
                 <td>{{$apds[$i]->full_cost}}</td>    
-                <td><a href="{{ route('accounter.index', $apds[$i]->id) }}">Show</a>   </td>
+                <td><a href="{{ route('accounter.index', $apds[$i]->id) }}" class="action-btn">Show</a>   </td>
                                      
 
             </tr>

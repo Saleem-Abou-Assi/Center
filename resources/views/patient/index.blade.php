@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <link rel="stylesheet" href="{{ asset('css/patiant.css') }}">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     @include('layouts.navigation')
+
     <title>Patient Management</title>
     
 </head>
@@ -56,13 +59,24 @@
                         <td class="action-td">
                             <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">Edit</a>
                         
-                                <form action="{{ route('patient.destroy', $patient->id) }}" method="POST">
+                                <form id="deleteForm" action="{{ route('patient.destroy', $patient->id) }}" method="POST" onsubmit="return confirmCustom()">
                                     @csrf
-                                   
-                                   
+
                                     @method('DELETE')
                                     <button type="submit" class="action-btn">Delete</button>
                                 </form>
+
+                                <div id="confirm-modal" class="modal" style="display: none;">
+                                    <div class="modal-content" style="background-color: #4e9dec; color: white; padding: 15px; border-radius: 5px; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 300px; text-align: center;">
+                                        <p>Are you sure you want to delete this patient?</p>
+                                        <p style="font-weight: bold; color: rgb(0, 0, 0);">Warning: all the patient data will be deleted</p>
+                                        <div style="display: flex; justify-content: center;">
+                                            <button onclick="closeModal()" style="background-color: transparent; border:black; color: white; margin-right: 10px;">Cancel</button>
+                                            <button onclick="deletePatient()" style="background-color: transparent; border:black ; color: white; font-weight: bold;">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <a href="{{ route('patient.show', $patient->id) }}" class="action-btn">Show</a>                        
 
                         </td>
@@ -84,5 +98,21 @@
         </div>
        
     </div>
+{{-- styling th econfirmation messege --}}
+    <script>
+       function confirmCustom() {
+    document.getElementById('confirm-modal').style.display = 'block';
+    return false;
+}
+
+function closeModal() {
+    document.getElementById('confirm-modal').style.display = 'none';
+}
+
+function deletePatient() {
+    document.getElementById('confirm-modal').style.display = 'none';
+    document.getElementById('deleteForm').submit();
+}
+        </script>
 </body>
 </html>

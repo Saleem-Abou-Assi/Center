@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('specialization');
             
             $table->unsignedBigInteger('dept_id');
-            $table->foreign('dept_id')->references('id')->on('departments');
+            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade')->onUpdate('cascade');
 
             
             

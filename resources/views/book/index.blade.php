@@ -41,18 +41,18 @@
                         <td>{{ $book->id }}</td>
                         <td>{{ $book->patient_name }}</td>
                         <td>{{ $book->phone }}</td>
-                        <td>{{ $dept }}</td>
+                  
                         <td>{{ $book->doctor_id }}</td>
                         <td>{{ $book->bookDate }}</td>
                         <td>{{ $book->created_at }}</td>
                         <td>{{ $book->updated_at }}</td>
-                        <td>
-                            <a href="{{ route('book.edit', $book->id) }}">Edit</a>
+                        <td class="action-td">
+                            <a href="{{ route('book.edit', $book->id) }}" class="action-btn">Edit</a>
                         
                                 <form action="{{ route('book.destroy', $book->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit">Delete</button>
+                                    <button type="submit" class="action-btn">Delete</button>
                                 </form>                   
 
                         </td>

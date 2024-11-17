@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('dept_id');
+            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade')->onUpdate('cascade');
+
+       
+            $table->unsignedBigInteger('doctor_id');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->string('patient_name');
+            $table->string('phone');
+            $table->dateTime('bookDate');
+
             $table->timestamps();
         });
     }

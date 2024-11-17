@@ -131,9 +131,9 @@ class PatientController extends Controller
                         ['name' => $fieldName], // Condition to check
                         ['value' => $fieldValue] // Values to update or create
                     );
-            
+            $field->save();
                     // Attach the field to the patient
-                    $patient->fields()->syncWithoutDetaching([$field->id]);
+                    $patient->Field()->syncWithoutDetaching([$field->id]);
                 }
             }
             

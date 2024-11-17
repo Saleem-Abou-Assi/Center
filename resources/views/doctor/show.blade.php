@@ -47,7 +47,7 @@
                 <td>{{$apd->tools }}</td>
             
                 <td>{{$apd->full_cost}}</td>
-                <td><a href="{{ route('accounter.index', $apd->id) }}">Show</a>   </td>
+                <td><a href="{{ route('accounter.index', $apd->id) }}" class="action-btn">Show</a>   </td>
                                      
 
             </tr>

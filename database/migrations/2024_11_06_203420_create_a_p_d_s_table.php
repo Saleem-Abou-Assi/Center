@@ -14,19 +14,20 @@ return new class extends Migration
         Schema::create('a_p_d_s', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('PD_id');
-            $table->foreign('PD_id')->references('id')->on('patient_depts');
+            $table->foreign('PD_id')->references('id')->on('patient_depts')->onDelete('cascade')->onUpdate('cascade');
 
             $table->unsignedBigInteger('A_id');
-            $table->foreign('A_id')->references('id')->on('accounters');
+            $table->foreign('A_id')->references('id')->on('accounters')->onDelete('cascade')->onUpdate('cascade');
 
             $table->unsignedBigInteger('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade')->onUpdate('cascade');
 
             $table->enum('check_in_type',['body','eye','bones']);
             $table->string('given_cure');
             $table->string('tools');
             $table->integer('full_cost');
-            $table->enum('status',['paid','unpaid']);       
+            $table->enum('status',['paid','unpaid']);      
+            $table->string('patient_name'); 
             
             $table->timestamps();
         });
