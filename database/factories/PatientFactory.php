@@ -19,6 +19,8 @@ class PatientFactory extends Factory
           'address' => $this->faker->address,
            'gender' => $this->faker->randomElement(['male', 'female']),
             'age' => $this->faker->numberBetween(1, 90),
+            'job'=> $this->faker->text(5),
+            'relation'=> $this->faker->randomElement(['married']),
          // Adjust the range as needed 
          ]; }
 }

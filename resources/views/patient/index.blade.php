@@ -56,14 +56,17 @@
                      
                         <td>{{ $patient->created_at }}</td>
                         <td>{{ $patient->updated_at }}</td>
-                        {{$patient->links}}
+                        @if ($patients->hasPages())
+                        <div class="pagination">
+                            {{ $patients->links() }}
+                        </div>
+                    @endif
                         <td class="action-td">
                             <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">Edit</a>
                         
-                                <form action="{{ route('patient.destroy', $patient->id) }}" method="POST" onsubmit="return confirmCustom()">
+                                <form id="deleteForm" action="{{ route('patient.destroy', $patient->id) }}" method="POST" onsubmit="return confirmCustom()">
                                     @csrf
-                                   
-                                   
+
                                     @method('DELETE')
                                     <button type="submit" class="action-btn">Delete</button>
                                 </form>

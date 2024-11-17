@@ -14,17 +14,6 @@ return new class extends Migration
         Schema::create('dept_books', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedBigInteger('dept_id');
-            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->unsignedBigInteger('book_id');
-            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->unsignedBigInteger('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->dateTime('bookDate');
-
 
             $table->timestamps();
         });

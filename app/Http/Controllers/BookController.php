@@ -56,7 +56,9 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
-        return view('book.create', ['book' => $book]);
+        $depts = Department::all();
+        $doctors = Doctor::all();
+        return view('book.create', ['book' => $book,'depts'=>$depts,'doctors'=>$doctors]);
     }
 
     public function update(Request $request,$book_id)
@@ -65,7 +67,7 @@ class BookController extends Controller
             $book = Book::where('id',$book_id)->first();
             
  
-            $book = Book::create([
+            $book->update([
                 'dept_id' => $request->dept_id,
                  'doctor_id'=> $request->doctor_id,
                  'bookDate'=> $request->bookDate,

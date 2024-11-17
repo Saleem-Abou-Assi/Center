@@ -115,6 +115,14 @@ tbody tr:nth-child(even) {
       text-decoration: none;  
       color: white;
   }
+  .action-td{
+    display: flex;
+    gap: 10px;  /* Space between buttons */
+    align-items: center;
+    padding-left: 18px;
+    margin: 10px auto;
+    
+  }
   
   /* Delete button specific */
   button.action-btn {

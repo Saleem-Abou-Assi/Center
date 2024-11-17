@@ -59,7 +59,7 @@
                 <th>Cure</th>
                 <th>Doctor Name</th>
                 <th>Total Cost</th>
-                <th>Status</th> 
+      
                 <th>Bill Details</th>
             </tr>
             </thead>
