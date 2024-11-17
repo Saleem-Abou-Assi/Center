@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('patient_fields', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade')->onUpdate('cascade');
 
             $table->unsignedBigInteger('field_id');
-            $table->foreign('field_id')->references('id')->on('fields');            
+            $table->foreign('field_id')->references('id')->on('fields')->onDelete('cascade')->onUpdate('cascade');            
 
             $table->timestamps();
         });

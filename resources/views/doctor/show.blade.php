@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+@include('layouts.navigation')
+<link rel="stylesheet" href="{{ asset(path: 'css/doctor.css') }}">
     <title>Doctor Management</title>
     
     
 </head>
 <body>
+<div class="show-head">
+<div class="page-title1"><h1>Doctor Details</h1></div>
+<div class="ul">
+<ul>
+    <li data-label="Name:">{{ $doctor->name }}</li>
+    <li data-label="Phone:">{{ $doctor->phone }}</li>
+    <li data-label="Address:">{{ $doctor->address }}</li>
+    <li data-label="Specialization:">{{ $doctor->specialization }}</li>
+    <li data-label="Department:">{{$doctor->Dept->title}}</li>
+</ul>
+</div>
+</div>
     <div class="container">
-        <h1>Doctor Details</h1>
-
-        <ul>
-            <li>Name: {{ $doctor->name }}</li>
-            <li>Phone: {{ $doctor->phone }}</li>
-            <li>Address: {{ $doctor->address }}</li>
-            <li>specialization: {{ $doctor->specialization }}</li>
-            <li>Department Name: {{$doctor->Dept->title}}</li>
-        </ul>
-
+       
+    <div class="table-container">
         <table>
+            <thead>
             <tr>
-                <th>Department__</th>
+                <th>Department  </th>
                 <th>Patient Name</th>
-                <th>Check In Type__</th>
-                <th>Given Cure__</th>
-                <th>Tools__</th>
+                <th>Check In Type</th>
+                <th>Given Cure</th>
+                <th>Tools</th>
                 {{-- <th>Doctor Name__</th> --}}
                 <th>Total Cost</th>
                 {{-- <th>Status</th> --}}
                 <th>Bill Details</th>
             </tr>
             @foreach ($doctor->APD as $apd)
-    
-           
+            </thead>
+           <tbody>
             <tr>
                 <td>{{$doctor->Dept->title  }}</td>
                 <td>{{$apd->patient_name }}</td>
@@ -53,9 +59,12 @@
 
             </tr>
 
-
+            </tbody>
         </table>
-
-        <a href="{{ route('doctor.index') }}">Back to Doctors</a>    </div>
+        </div>
+        <div class="boton">
+        <a href="{{ route('doctor.index') }}" class="custom-btn btn-2">Go Back</a>
+        </div>
+    </div>
 </body>
 </html>

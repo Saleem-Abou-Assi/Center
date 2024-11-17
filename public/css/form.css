@@ -1,5 +1,5 @@
 .C-container {
-    max-width: 500px;
+    max-width: 600px;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
@@ -25,7 +25,7 @@ label {
 }
 
 input[type="text"] {
-    width: 90%;
+    width: 95%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -36,6 +36,19 @@ input[type="text"]:focus {
     outline: none;
     border-color: #007561;
     box-shadow: 0 0 5px rgba(0, 117, 97, 0.2);
+}
+input[type="number"] {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #007561;
+  box-shadow: 0 0 5px rgba(0, 117, 97, 0.2);
 }
 
 /* From Uiverse.io by alexmaracinaru */ 
@@ -155,7 +168,7 @@ a:hover {
   }
 body{
   margin: 0;
-  background-image: url('../images/back.jpg');
+  background-image: url('../images/back.png');
   background-repeat: no-repeat;
   background-position: right;
   background-size: cover;
@@ -170,7 +183,7 @@ body{
 }
 
 .select-box select {
-  background-color: #0563af;
+  background-color: #0562af9f;
   color: white;
   padding: 12px;
   width: 250px;
@@ -205,4 +218,106 @@ body{
 
 .select-box select option {
   padding: 30px;
+}
+.separator {  
+  border: none; /* Remove default border */  
+  height: 1px; /* Set height of the line */  
+  background-color: #ccc; /* Set line color */  
+  width: 95%; /* Set line width */  
+  margin: 0 auto; /* Center the line */  
+} 
+.sep{
+  display: flex;
+  width: 100%;
+  justify-content:left;
+}
+.form-container1{
+  
+ display: grid;
+ justify-content: baseline;
+}
+/* From Uiverse.io by NorthFishHasNa */ 
+.add-btn  {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #0562af9f;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 17px;
+  padding: 10px;
+  width: 120px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+ }
+ 
+.add-btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+ }
+ 
+ .add-btn span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -15px;
+  transition: 0.5s;
+ }
+ 
+ .add-btn:hover span {
+  padding-right: 15px;
+ }
+ 
+ .add-btn:hover span:after {
+  opacity: 1;
+  right: 0;
+ }
+ .action-btn{
+  padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    
+}
+a.action-btn {
+    background-color: #007561c5;  /* Your theme green */
+    color: white;
+    text-decoration: none;  
+    
+}
+
+a.action-btn:hover {
+    background-color: #006f5a;
+    text-decoration: none;  
+    color: white;
+}
+
+/* Delete button specific */
+button.action-btn {
+    background-color: #dc3545;  /* Red for delete */
+    color: white;
+}
+
+button.action-btn:hover {
+    background-color: #c82333;
+}
+.action-td{
+  display: flex;
+  gap: 10px;  /* Space between buttons */
+  align-items: center;
+  padding-left: 18px;
+  margin: 10px auto;
+}
+.inp{
+  padding-right: 5px;
+}
+.inp1{
+  padding-left: 5px;
 }
