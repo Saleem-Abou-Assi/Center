@@ -38,7 +38,7 @@
         
             <div class="form-group">
                 <label for="department">Department Title</label>
-                <select id="department" required name="department" >
+                <select id="department" required name="department" autofocus >
                     <option value="">Select Department</option>
                     @foreach ($depts as $dept)
                     <option value="{{$dept->id}}">{{$dept->title}}</option>

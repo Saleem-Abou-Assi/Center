@@ -18,7 +18,7 @@
         
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" required value="{{ isset($doctor) ? $doctor->name : '' }}">
+                <input type="text" id="name" name="name" required value="{{ isset($doctor) ? $doctor->name : '' }}" autofocus>
             </div>
         
             <div class="form-group">

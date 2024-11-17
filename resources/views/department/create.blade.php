@@ -16,9 +16,9 @@
                 @method('PUT')
             @endif
         
-            <div class="form-group">
+            <div class="form-group" >
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title" required value="{{ isset($department) ? $department->name : '' }}">
+                <input type="text" id="title" name="title" required value="{{ isset($department) ? $department->name : '' }} " autofocus>
             </div>
         
         

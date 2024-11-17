@@ -58,6 +58,8 @@
                         
                                 <form action="{{ route('patient.destroy', $patient->id) }}" method="POST">
                                     @csrf
+                                   
+                                   
                                     @method('DELETE')
                                     <button type="submit" class="action-btn">Delete</button>
                                 </form>
@@ -66,6 +68,17 @@
                         </td>
                     </tr>
                 @endforeach
+                @if (session()->has('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}
+    </div>
+@endif
+
+@if (session()->has('error'))
+    <div class="alert alert-danger">
+        {{ session()->get('error') }}
+    </div>
+@endif
             </tbody>
         </table>
         </div>
