@@ -1,71 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset(path: 'css/showPatiant.css') }}">
     <title>Patient Management</title>
-    <style>
-        /* Add your CSS styling here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-    </style>
+    @include('layouts.navigation')
+   
     
 </head>
 <body>
     <div class="container">
         <h1>Patient Details</h1>
-
-        <ul>
-            <li>Name: {{ $patient->name }}</li>
-            <li>Phone: {{ $patient->phone }}</li>
-            <li>Address: {{ $patient->address }}</li>
-            <li>Gender: {{ $patient->Gender }}</li>
-            <li>Age: {{ $patient->age }}</li>
-            <li>Relation: {{ $patient->relation }}</li>
-            <li>Children: {{ $patient->childerCount }}</li>
-            <li>Smooking: {{ $patient->smooking }}</li>
-            <li>Old Surgery: {{ $patient->oldSurgery }}</li>
-            <li>Algiry: {{ $patient->alirgy }}</li>
-            <li>Disease: {{ $patient->disease }}</li>
-            <li>Dite: {{ $patient->dite }}</li>
-            <li>Permenant Cures: {{ $patient->permenantCure }}</li>
-            <li>Cosmetic: {{ $patient->Cosmetic }}</li>
-            <li>Current Disease: {{ $patient->CurrentDisease }}</li>
-        </ul>
+        <div class="lists-container">
+            <ul class="ul">
+                <li data-label="Name"><span>{{ $patient->name }}</span></li>
+                <li data-label="Phone"><span>{{ $patient->phone }}</span></li>
+                <li data-label="Address"><span>{{ $patient->address }}</span></li>
+                <li data-label="Gender"><span>{{ $patient->Gender }}</span></li>
+                <li data-label="Age"><span>{{ $patient->age }}</span></li>
+                <li data-label="Relation"><span>{{ $patient->relation }}</span></li>
+                <li data-label="Children"><span>{{ $patient->childerCount }}</span></li>
+            </ul>
+            <ul class="ul">
+                <li data-label="Smooking"><span>{{ $patient->smooking }}</span></li>
+                <li data-label="Old Surgery"><span>{{ $patient->oldSurgery }}</span></li>
+                <li data-label="Alirgy"><span>{{ $patient->alirgy }}</span></li>
+                <li data-label="Disease"><span>{{ $patient->disease }}</span></li>
+                <li data-label="Dite"><span>{{ $patient->dite }}</span></li>
+                <li data-label="Permenant Cures"><span>{{ $patient->permenantCure }}</span></li>
+                <li data-label="Cosmetic"><span>{{ $patient->Cosmetic }}</span></li>
+                <li data-label="Current Disease"><span>{{ $patient->CurrentDisease }}</span></li>
+            </ul>
+        </div>
+        <div class="table-container1">
+            <h3>additional Details</h3>
         <table>
             <tr>
                 <th>Field Name</th>
                 <th>Field Value</th>
             </tr>
+            @if ($patient->Field)
             @foreach ($patient->Field as $field)
             <tr>
                 <td>{{ $field->name }}</td>
                 <td>{{ $field->value }}</td>
             </tr>
             @endforeach
+            @endif
+            
         </table>
-
-        <table>
+        </div>
+        <div class="container2">
+        <table class="table-container">
+            <thead>
             <tr>
-                <th>Department__</th>
-                <th>Illness__</th>
-                <th>Description__</th>
-                <th>Cure__</th>
-                <th>Doctor Name__</th>
+                <th>Department</th>
+                <th>Illness</th>
+                <th>Description </th>
+                <th>Cure</th>
+                <th>Doctor Name</th>
                 <th>Total Cost</th>
                 <th>Status</th> 
                 <th>Bill Details</th>
             </tr>
+            </thead>
             @for ($i = 0; $i < count($patient->Dept); $i++)
             
             <tr>
@@ -89,7 +86,13 @@
 
 
         </table>
-
-        <a href="{{ route('patient.index') }}">Back to Patients</a>    </div>
+        <br>
+        <br>
+        <div class="boton">
+        <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
+        </div>
+        </div>
+        </div>
+        
 </body>
 </html>

@@ -62,13 +62,14 @@ class PatientController extends Controller
     $dynamicFieldValues = $request->input('dynamicFieldValue');
 
     // Process the dynamic fields (e.g., save to the database)
+    if($dynamicFieldNames){
     foreach ($dynamicFieldNames as $key => $fieldName) {
         $fieldValue = $dynamicFieldValues[$key];
         $field = Field::firstOrCreate(['name' => $fieldName, 'value' => $fieldValue]);
 
         // Attach the field to the patient
         $patient->Field()->attach($field);
-    }
+    }}
 
         $account = Accounter::create([
             'patient_id' => $patient->id,   
@@ -105,7 +106,7 @@ class PatientController extends Controller
                 'Gender'=> $request->gender,
                 'age'=> $request->age,
                 'job'=>$request->job,
-                'relation'=>$request->realtion,
+                'relation'=>$request->relation,
                 'childerCount'=>$request->children,
                 'smooking'=>$request->smooking,
                 'oldSurgery'=>$request->oldSurgery,
@@ -116,6 +117,26 @@ class PatientController extends Controller
                 'Cosmetic'=>$request->cosmetic,
                 'CurrentDiseas'=>$request->currentDisease
             ]);
+
+            $dynamicFieldNames = $request->input('dynamicFieldName');
+            $dynamicFieldValues = $request->input('dynamicFieldValue');
+        
+
+            if ($dynamicFieldNames) {
+                foreach ($dynamicFieldNames as $key => $fieldName) {
+                    $fieldValue = $dynamicFieldValues[$key];
+                    
+                    // Update or create the field
+                    $field = Field::updateOrCreate(
+                        ['name' => $fieldName], // Condition to check
+                        ['value' => $fieldValue] // Values to update or create
+                    );
+            
+                    // Attach the field to the patient
+                    $patient->fields()->syncWithoutDetaching([$field->id]);
+                }
+            }
+            
             
              
              return redirect()->route('patient.index'); 
@@ -123,14 +144,22 @@ class PatientController extends Controller
 
      public function destroy($patient_id)
      { 
-
-        $patient = Patient::where('id',$patient_id)->first();
-
-        $patient->delete();
-      
-        return redirect()->route('patient.index');
-     
-     }
+        try {
+            $patient = Patient::where('id', $patient_id)->first();
+    
+            if ($patient) {
+                $patient->delete();
+                session()->flash('success', 'Patient deleted successfully.');
+            } else {
+                session()->flash('error', 'Patient not found.');
+            }
+    
+            return redirect()->route('patient.index');
+        } catch (Exception $e) {
+            session()->flash('error', 'you can\' delete patient because he has stored data.');
+            return redirect()->route('patient.index');
+        }
+}
 
     public function show($patient_id) {
         // $patient1 = Patient::findOrFail($patient_id); // Fetch the product by ID

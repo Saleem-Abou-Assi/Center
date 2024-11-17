@@ -1,0 +1,87 @@
+.table-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    color: #333;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+td:last-child {
+    text-align: center;
+    color: black; /* Your theme color */
+}
+
+th, td {
+    text-align: center; /* Align text to the right for Arabic content */
+    
+}
+th{
+    background-color: #8fa3c55f;
+    text-align: center;
+}
+.cost{
+    background-color: #8fa3c55f;
+    text-align: center;
+}
+.container{
+    padding: 20px;
+    background-color: #f1f1f1;
+    box-shadow: #000;
+    width: 48%;
+    height: fit-content;
+  }
+  body{
+    background-image: url('../images/back.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    
+
+  }
+   .page-title{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size:25px;
+  }
+  .page-title p{
+    text-align: center;
+    font-size: 25px;
+  }
+  .all{
+    display: flex; /* Use flexbox to center the container */
+    flex-direction: column;
+    
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Ensure the body takes full viewport height */ 
+  }

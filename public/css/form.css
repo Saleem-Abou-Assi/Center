@@ -321,3 +321,16 @@ button.action-btn:hover {
 .inp1{
   padding-left: 5px;
 }
+.form-group input[type="datetime-local"] {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-group input[type="datetime-local"]:focus {
+  outline: none;
+  border-color: #007561;
+  box-shadow: 0 0 5px rgba(0, 117, 97, 0.2);
+}
