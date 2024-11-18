@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/patiant.css') }}">
   
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+       
     @include('layouts.navigation')
 
     <title>Patient Management</title>
@@ -12,6 +12,7 @@
 </head> 
 <body>
     <div class="page-title"> <h1>Patients</h1></div>
+    <div class="all">
     <div class="container">
     <a href="{{ route('patient.create') }}" class="cta"><span>Add patient</span>
     <svg width="15px" height="10px" viewBox="0 0 13 10">    
@@ -83,28 +84,59 @@
                         </td>
                     </tr>
                 @endforeach
-                @if ($patients->hasPages())
-                <div class="pagination">
-                    {{ $patients->links() }}
-                </div>
-            @endif
-                @if (session()->has('success'))
-    <div class="alert alert-success">
-        {{ session()->get('success') }}
-    </div>
-@endif
-
-@if (session()->has('error'))
-    <div class="alert alert-danger">
-        {{ session()->get('error') }}
-    </div>
-@endif
+               
             </tbody>
         </table>
+        
         </div>
-       
+        
+        <!-- Custom Pagination Controls -->
+        @if ($patients->hasPages())
+            <div class="custom-pagination">
+                {{-- Previous Page Link --}}
+                @if ($patients->onFirstPage())
+                    <button class="page-btn" disabled>Previous</button>
+                @else
+                    <a href="{{ $patients->previousPageUrl() }}" class="page-btn">Previous</a>
+                @endif
+
+                {{-- Pagination Elements --}}
+                @foreach (range(1, $patients->lastPage()) as $page)
+                    @if ($page == 1 || $page == $patients->lastPage() || ($page >= $patients->currentPage() - 1 && $page <= $patients->currentPage() + 1))
+                        @if ($page == $patients->currentPage())
+                            <button class="page-btn active">{{ $page }}</button>
+                        @else
+                            <a href="{{ $patients->url($page) }}" class="page-btn">{{ $page }}</a>
+                        @endif
+                    @elseif ($page == 2 || $page == $patients->lastPage() - 1)
+                        <span class="page-btn">...</span>
+                    @endif
+                @endforeach
+
+                {{-- Next Page Link --}}
+                @if ($patients->hasMorePages())
+                    <a href="{{ $patients->nextPageUrl() }}" class="page-btn">Next</a>
+                @else
+                    <button class="page-btn" disabled>Next</button>
+                @endif
+            </div>
+        @endif
+
+        @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session()->get('error') }}
+            </div>
+        @endif
     </div>
-{{-- styling th econfirmation messege --}}
+    </div>
+
+   
     <script>
        function confirmCustom() {
     document.getElementById('confirm-modal').style.display = 'block';

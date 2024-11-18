@@ -119,8 +119,7 @@ tbody tr:nth-child(even) {
     display: flex;
     gap: 10px;  /* Space between buttons */
     align-items: center;
-    padding-left: 18px;
-    margin: 10px auto;
+   
     
   }
   
@@ -137,6 +136,14 @@ tbody tr:nth-child(even) {
     padding: 20px;
     background-color: #f1f1f1;
     box-shadow: #000;
+    width: 95%;
+  }
+  .all{
+    display: flex; /* Use flexbox to center the container */
+    flex-direction: column;
+    
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Ensure the body takes full viewport height */ 
   }
 
   .page-title{

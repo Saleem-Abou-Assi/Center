@@ -23,9 +23,15 @@
                 <img src="" alt="card image" />
             </div>
             <div class="card-dis">
-                <h2>Card Name</h2>
-                <p>card discription</p>
-                <button>Explore</button>
+                <h2>Patiants Page</h2>
+                <p>here you find you patiants details</p>
+                <div class="boton">
+                <a href="{{ route('patient.index') }}" class="cta"> <span>Go</span> 
+                <svg width="15px" height="10px" viewBox="0 0 13 10">    
+        <path d="M1,5 L11,5"></path>
+        <polyline points="8 1 12 5 8 9"></polyline>
+     </svg> </a>
+                </div>
             </div>
         </div>
        </div>

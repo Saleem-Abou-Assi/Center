@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="page-title"><h1>Booking</h1></div>
+    <div class="all">
     <div class="container">
     <a href="{{ route('book.create') }}" class="cta"><span>Add book</span>
     <svg width="15px" height="10px" viewBox="0 0 13 10">    
@@ -29,7 +30,7 @@
                     <th>Doctor</th>
                     <th>Date & Time</th>
                     <th>Created At</th>
-                    <th>Updated At</th>
+                    <!-- <th>Updated At</th> -->
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -62,6 +63,7 @@
         </table>
 
         
+    </div>
     </div>
 </body>
 </html>
