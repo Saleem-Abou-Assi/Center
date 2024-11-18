@@ -62,7 +62,11 @@
     .card-holder {  
       flex-direction: column; /* Stack cards vertically */  
       align-items: center; /* Center cards horizontally */  
-    }  
+      
+    } 
+    .nav{
+      width: 100%;
+    } 
   
     .card-container {  
       width: 80%; /* Adjust the width of cards on small screens */  
@@ -70,7 +74,7 @@
     }  
   }
  .heading{
-  height: 300px;
+  height: 200px;
   text-align: center;
  }
  .card-holder{
