@@ -6,6 +6,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientDeptController;
+use App\Http\Controllers\LazerController;
 use App\Models\Accounter;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,10 @@ Route::get('/departments/{department_id}', [DepartmentController::class, 'show']
 
 Route::get('/patientDept',[PatientDeptController::class,'index'])->name('patientDept.index');
 Route::post('/patientDept', [PatientDeptController::class, 'store'])->name('patientDept.store');
+
+Route::get('/lazer',[LazerController::class,'index'])->name('lazer.index');
+Route::post('/lazer', [LazerController::class, 'store'])->name('lazer.store');
+
 
 Route::get('/accounter/{apd_id}',[AccounterController::class,'index'])->name('accounter.index');
 

@@ -53,6 +53,7 @@
         <table class="table-container">
             <thead>
             <tr>
+                <th>Num</th>
                 <th>Department</th>
                 <th>Illness</th>
                 <th>Description </th>
@@ -66,6 +67,7 @@
             @for ($i = 0; $i < count($patient->Dept); $i++)
             
             <tr>
+                <td>{{$i+1}}</td>
                 <td>{{$patient->Dept[$i]->title  }}</td>
                 <td>{{$patient->Dept[$i]->pivot->illness }}</td> 
                 <td>{{$patient->Dept[$i]->pivot->description }}</td>
@@ -88,6 +90,45 @@
         </table>
         <br>
         <br>
+       <h3>Lazer Information</h3>
+        <table class="table-container">
+            <thead>
+            <tr>
+                <th>الرقم</th>
+                <th>اسم الدكتور</th>
+                <th>الجهاز</th>
+                <th>المنطقة</th>
+                <th>عدد الأشعة </th>
+                <th>الطاقة</th>
+                <th>السرعة</th>
+                <th>عرض النبضة</th>
+            </tr>
+            </thead>
+            @for ($i = 0; $i < count($patient->Lazer); $i++)
+            
+            <tr>
+                <td>{{$i+1}} </td>
+                <td>{{$patient->Lazer[$i]->doctor->name  }}</td>
+                <td>{{$patient->Lazer[$i]->device }}</td> 
+                <td>{{$patient->Lazer[$i]->point }}</td>
+                <td>{{$patient->Lazer[$i]->raysCount }}</td>
+                <td>{{$patient->Lazer[$i]->power }}</td>
+                <td>{{$patient->Lazer[$i]->speed }}</td>
+                <td>{{$patient->Lazer[$i]->pulse }}</td>
+                
+            </tr>
+            @endfor
+    
+
+          
+            <tr>
+
+            </tr>
+
+
+        </table>
+       
+       
         <div class="boton">
         <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
         </div>

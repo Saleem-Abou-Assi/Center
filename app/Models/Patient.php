@@ -43,4 +43,10 @@ class Patient extends Model
     {
         return $this->belongsToMany(Field::class,'patient_fields','patient_id','field_id');
     }
+
+    public function Lazer():HasMany
+    {
+        return $this->hasMany(Lazer::class);
+    }
 }
+
