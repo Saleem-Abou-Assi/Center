@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Lazer extends Model
@@ -13,14 +14,14 @@ class Lazer extends Model
     ];
 
 
-    public function Patient():HasMany
+    public function Patient():BelongsTo
     {
-    return $this->hasMany(Patient::class);
+    return $this->belongsTo(Patient::class);
     }
 
-    public function Doctor():HasMany
+    public function Doctor():BelongsTo
     {
-    return $this->hasMany(Doctor::class);
+    return $this->belongsTo(Doctor::class,'doctor_id');
     }
 
 }

@@ -36,4 +36,8 @@ class Doctor extends Model
         return $this->hasMany(APD::class);
     }
 
+    public function Lazer():HasMany
+    {
+        return $this->hasMany(Lazer::class);
+    }
 }

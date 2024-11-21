@@ -164,11 +164,11 @@ class PatientController extends Controller
     public function show($patient_id) {
         // $patient1 = Patient::findOrFail($patient_id); // Fetch the product by ID
         // $depts = $patient->Dept()->get();
-        $patient = Patient::with('Dept','Field')->where('id', $patient_id)->first();
+        $patient = Patient::with('Dept','Field','Lazer.doctor')->find($patient_id);
         
         $account = Accounter::where('patient_id',$patient_id)->first();
         $apds = APD::where('A_id',$account->id)->get();
-
+// dd($patient->Lazer[1]->doctor);
         return view('patient.show', ['patient'=>$patient,'apds'=>$apds]); // Pass the product to the view
     }
 }

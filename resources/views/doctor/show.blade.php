@@ -61,6 +61,38 @@
 
             </tbody>
         </table>
+
+        <h3>Lazer Information</h3>
+        <table class="table-container">
+            <thead>
+            <tr>
+                <th>الرقم</th>
+                <th>اسم المريض</th>
+                <th>الجهاز</th>
+                <th>المنطقة</th>
+                <th>عدد الأشعة </th>
+                <th>الطاقة</th>
+                <th>السرعة</th>
+                <th>عرض النبضة</th>
+            </tr>
+            </thead>
+            @for ($i = 0; $i < count($doctor->Lazer); $i++)
+            
+            <tr>
+                <td>{{$i+1}} </td>
+                <td>{{$doctor->Lazer[$i]->patient->name  }}</td>
+                <td>{{$doctor->Lazer[$i]->device }}</td> 
+                <td>{{$doctor->Lazer[$i]->point }}</td>
+                <td>{{$doctor->Lazer[$i]->raysCount }}</td>
+                <td>{{$doctor->Lazer[$i]->power }}</td>
+                <td>{{$doctor->Lazer[$i]->speed }}</td>
+                <td>{{$doctor->Lazer[$i]->pulse }}</td>
+                
+            </tr>
+            @endfor
+
+        </table>
+       
         </div>
         <div class="boton">
         <a href="{{ route('doctor.index') }}" class="custom-btn btn-2">Go Back</a>
