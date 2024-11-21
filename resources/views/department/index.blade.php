@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ asset('css/department.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Department Management</title>
     @include('layouts.navigation')
@@ -45,11 +45,11 @@
     
                         <td class="action-td">
                             <a href="{{ route('department.edit', $department->id) }}" class="action-btn">Edit</a>                        
-                                <form action="{{ route('department.destroy', $department->id) }}" method="POST">
+                                <!-- <form action="{{ route('department.destroy', $department->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="action-btn">Delete</button>
-                                </form>
+                                </form> -->
                         </td>
                     </tr>
                 @endforeach

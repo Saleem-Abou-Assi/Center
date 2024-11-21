@@ -2,7 +2,7 @@
 <html>
 <head>
 @include('layouts.navigation')
-<link rel="stylesheet" href="{{ asset('css/doctor.css') }}">
+<link rel="stylesheet" href="{{ asset('css/merged.css') }}">
     <title>Book Management</title>
     
 </head>

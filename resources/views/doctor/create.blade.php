@@ -3,7 +3,7 @@
 <head>
     
     <title>Doctor Management</title>
-    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
     @include('layouts.navigation')
 </head>
 <body>

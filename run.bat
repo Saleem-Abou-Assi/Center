@@ -2,8 +2,10 @@
 setlocal
 
 REM Get the IPv4 address
-for /f "tokens=14" %%a in ('ipconfig ^| findstr /i "IPv4 Address"') do (
-    set IP=%%a
+for /f "tokens=2 delims=:" %%a in ('ipconfig ^| findstr /i "IPv4"') do (
+    for /f "tokens=1 delims= " %%b in ("%%a") do (
+        set IP=%%b
+    )
 )
 
 REM Remove any leading/trailing spaces

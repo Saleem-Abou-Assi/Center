@@ -2,7 +2,7 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="{{ asset('css/patiant.css') }}">
+<link rel="stylesheet" href="{{ asset('css/merged.css') }}">
   
        
     @include('layouts.navigation')

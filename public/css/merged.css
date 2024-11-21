@@ -1,0 +1,498 @@
+/* Global Styles */
+body {
+    background-image: url('../images/back.jpg');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Container Styles */
+.container, .container2{
+    padding: 20px;
+    background-color: #f1f1f1;
+    box-shadow: #000;
+    margin: 10px auto;
+    align-items: center;
+    justify-content: center;
+    width: 95%;
+}
+.container1{
+    width: 40%;
+    padding: 20px;
+    background-color: #f1f1f1;
+    box-shadow: #000;
+    margin: 10px auto;
+    align-items: center;
+    justify-content: center;
+}
+.cost{
+    background-color: #8fa3c55f;
+    text-align: center;
+}
+
+.ul ul {
+    list-style: none;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+    width: 300px;
+}
+
+.ul li {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    align-items: center;
+}
+
+.ul li:last-child {
+    border-bottom: none;
+}
+
+/* Label styling */
+.ul li::before {
+    content: attr(data-label);
+    font-weight: bold;
+    min-width: 140px;
+    color: black;
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+/* Value styling */
+.ul li span {
+    text-align: right;
+    flex-grow: 1;
+}
+
+.ul {
+    display: flex;
+    justify-content: center;
+}
+.C-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h1, .container2 h1{
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+.C-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Table Styles */
+.table-container, .table-container1, .table-container-acc {
+    max-height: 500px; /* Adjust as needed */
+    overflow-y: auto;
+    border: 1px solid #e0e0e0; /* Optional border styling */
+    border-radius: 5px; /* Optional rounded corners */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #8FA3C5; /* Header background color */
+    color: white; /* Header text color */
+    position: sticky;
+    top: 0; /* Stick to the top */
+    z-index: 1; /* Ensure it is above other content */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Row border */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Zebra striping effect */
+}
+
+/* Button Styles */
+.action-btn, .add-btn, .custom-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+.action-td{
+    display: flex;
+    gap: 10px;  /* Space between buttons */
+    align-items: center;
+  }
+
+a.action-btn, .add-btn {
+    background-color: #007561; /* Your theme green */
+    color: white;
+    text-decoration: none;
+}
+
+a.cta{
+    text-decoration: none;
+}
+a.action-btn:hover, .add-btn:hover {
+    background-color: #006f5a;
+}
+
+button.action-btn {
+    background-color: #dc3545; /* Red for delete */
+    color: white;
+}
+
+button.action-btn:hover {
+    background-color: #c82333;
+}
+
+/* CTA Styles */
+.cta {
+    position: relative;
+    margin: auto;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.cta:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 50px;
+    background: #b1dae7;
+    width: 45px;
+    height: 45px;
+    transition: all 0.3s ease;
+}
+
+.cta span {
+    position: relative;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #234567;
+}
+
+.cta:hover:before {
+    width: 100%;
+    background: #b1dae7;
+    text-decoration: none;
+}
+
+/* Flexbox Styles */
+.all {
+    display: flex; /* Use flexbox to center the container */
+    flex-direction: column;
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Ensure the body takes full viewport height */
+}
+
+.boton {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Navigation Styles */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-items {
+    list-style: none;
+    display: flex;
+    padding-left: 10px;
+    align-items: center;
+}
+
+.nav-items > li {
+    padding: 10px;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #007561c5;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: fit-content;
+    background-color: #f1f1f1;
+}
+
+/* Miscellaneous Styles */
+.page-title {
+    width: 100%;
+    height: 100px;
+    padding: 25px;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+}
+
+.page-title1 h1 {
+    color: white;
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Lato', sans-serif;
+}
+.select-box {
+    position: relative;
+    
+      padding-bottom: 15px;
+  }
+  
+  .select-box select {
+    background-color: #0562af9f;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  
+  .select-box::before {
+    content: "\f13a";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+  
+  .select-box:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .select-box select option {
+    padding: 30px;
+  }
+
+.separator {
+    border: none; /* Remove default border */
+    height: 1px; /* Set height of the line */
+    background-color: #ccc; /* Set line color */
+    width: 95%; /* Set line width */
+    margin: 0 auto; /* Center the line */
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+}
+
+input[type="text"], input[type="number"], input[type="datetime-local"] {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local"]:focus {
+    outline: none;
+    border-color: #007561;
+    box-shadow: 0 0 5px rgba(0, 117, 97, 0.2);
+}
+
+/* Custom Button Styles */
+.custom-btn {
+    width: 60px;
+    height: 20px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+                7px 7px 20px 0px rgba(0, 0, 0, .1),
+                4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+    font-size: 15px;
+}
+
+.btn-2 {
+    background: #007561c5;
+    background: linear-gradient(0deg, #004dff 0%, #004dff 100%);
+    border: none;
+}
+
+.btn-2:hover {
+    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
+                -4px -4px 6px 0 rgba(116, 125, 136, .5),
+                inset -4px -4px 6px 0 rgba(255, 255, 255, .2),
+                inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+/* Pagination Styles */
+.pagination {
+    margin-top: 20px; /* Add some space above the pagination */
+    text-align: center; /* Center the pagination links */
+}
+
+.pagination .page-link, .page-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 4px;
+    border: 1px solid #ddd;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.pagination .page-link:hover, .page-btn:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination .active .page-link, .page-btn.active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.page-btn[disabled] {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Additional Styles */
+.icon {
+    height: auto;
+    background-color: transparent; /* Light gray background */
+    display: flex; /* Uses flexbox to center the icon */
+    align-items: center; /* Centers icon vertically */
+    justify-content: center; /* Centers icon horizontally */
+    margin: auto; /* Aligns the icon background to center of card */
+    margin-bottom: 20px; /* Distance between icon and text */
+}
+.card {
+    justify-items: center;
+    display: inline-block;
+    background-color: #fff; /* White background */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds shadow to the card */
+    width: 80%; 
+    height: auto;/* Width of the card */
+    padding: 20px; /* Padding inside the card */
+    text-align: center; /* Aligns text to the center */
+    border-radius: 8px; /* Rounded corners */
+    transition: transform 0.3s; /* Animation for hover effect */
+  }
+.card-container {
+    display: inline-block;
+    justify-content: center;
+    margin-right: 10px;
+    background-color: #00ffd565; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow to the card */
+    width: 25vw; /* Width of the card */
+    padding: 20px; /* Padding inside the card */
+    text-align: center; /* Aligns text to the center */
+    border-radius: 8px; /* Rounded corners */
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Moves card up slightly on hover */
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+    flex-wrap: wrap;
+}
+
+.icon img {
+    width: 100%;
+}
+
+.heading {
+    height: 200px;
+    text-align: center;
+}
+.heading h1{
+    color: white;
+    font-size: xx-large;
+    font-family: 'Lato', sans-serif;
+    padding-top:10vh ;
+   }
+.card-holder {
+    display: flex;
+    justify-content: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 800px) { /* Change the max-width to your desired breakpoint */
+    .card-holder {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center; /* Center cards horizontally */
+    }
+    .card-container {
+        width: 80%; /* Adjust the width of cards on small screens */
+        margin: 10px 0; /* Add vertical margin */
+    }
+} 

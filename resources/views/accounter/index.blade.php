@@ -5,7 +5,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
   <title>Table with Labels</title>
-  <link rel="stylesheet" href="{{ asset('css/accountant.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
   @include('layouts.navigation')
   </head>
 <body>
@@ -18,7 +18,7 @@
   </div>  
     <br>
     <br>
- <div class="container">
+ <div class="container1">
  
   <div class="table-container">
   <table id='myTable'>

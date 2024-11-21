@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ asset('css/doctor.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Doctor Management</title>
     @include('layouts.navigation')

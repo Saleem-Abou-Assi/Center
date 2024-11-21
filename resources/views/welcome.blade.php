@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-        <link rel="stylesheet" href="css/welcome.css">
-        <link rel="preload" as="image" href="images/Back.png">
+        <link rel="stylesheet" href="css/merged.css">
+        <link rel="preload" as="image" href="images/Back.jpg">
         </head>
        
        
