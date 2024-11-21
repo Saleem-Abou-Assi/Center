@@ -19,22 +19,22 @@ class LazerController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->point);
         $request->validate([
-            'rayscount' => ['required', 'integer'],
+            'raysCount' => ['required', 'integer'],
             'point' => ['required', 'string'],
             'power' => ['required', 'integer'],
-            'speed' => ['required','integer'],
+            'speed' => ['required', 'integer'],
             'pulse' => ['required', 'string'],
-            'device' => ['required','string']
-            
+            'device' => ['required', 'string']
         ]);
-
 
         // إنشاء 
         $lazer = Lazer::create([
             'patient_id'=>$request->patient_id,
             'doctor_id'=>$request->doctor_id,
-            'rayscount' => $request->rayscount,
+            'raysCount' => $request->raysCount,
             'point'=> $request->point,
             'power'=> $request->power,
             'speed'=> $request->speed,
@@ -42,6 +42,8 @@ class LazerController extends Controller
             'device'=>$request->device,
 
         ]);
+        
+        return redirect()->route('lazer.index')->with('success', 'Lazer created successfully.');
 
     }
 }

@@ -7,6 +7,9 @@
 </head>
 <body>
 
+    {{-- 
+    custmize this page styling and change the orientation of the elements
+    --}}
     <div class="C-container">
     <h1>قسم الليزر</h1>
         <form action="{{ route('lazer.store') }}" method="POST">
@@ -58,7 +61,7 @@
             <div class="form-group , select-box">
                 <label for="point">المنطقة</label>
                 <select id="point" required name="point" autofocus >
-                    <option value="">اختر الجهاز</option>
+                    <option value="">اختر المنطقة</option>
                     <option value="وجه">وجه</option>
                     <option value="ابطين">ابطين</option>
                     <option value="بكيني">بكيني</option>
@@ -84,10 +87,10 @@
                 <input type="number" required id="speed" name="speed" >
             </div>
 
-            <div class="form-group">
+            <div class="form-group , select-box">
                 <label for="pulse">عرض النبضة</label>
                 <div class="input-group ">
-                    <div class="select-box">
+                    
                     <select id="pulse" name="pulse" required>
                         <option value="">اختر عرض النبضة</option>
                         <option value="low">Low</option>
@@ -96,10 +99,10 @@
 
                         <!-- Add more options as needed -->
                     </select>
+                                </div>
+            
+                                <button type="button" class="toggle-button">تحويل إلى حقل نص</button>
                 </div>
-                    <button type="button" class="toggle-button">تحويل إلى حقل نص</button>
-                </div>
-            </div>
 
             <button type="submit" class="cta"><span>{{ 'Input' }}</span>
                 <svg width="15px" height="10px" viewBox="0 0 13 10">
@@ -110,8 +113,7 @@
             </form>   
 
 
-    </div>
-    <script>
+    </div><script>
         document.addEventListener("DOMContentLoaded", function() {
             const select = document.getElementById("pulse");
             const input = document.createElement("input");
@@ -122,7 +124,9 @@
             input.name = "pulse";
             input.required = true;
     
-            toggleButton.addEventListener("click", function() {
+            toggleButton.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent form submission
+    
                 if (select.style.display === "none") {
                     select.style.display = "block";
                     input.style.display = "none";

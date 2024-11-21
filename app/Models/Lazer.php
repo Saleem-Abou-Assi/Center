@@ -9,7 +9,7 @@ class Lazer extends Model
 {
     protected $fillable = [
         'patient_id','doctor_id','raysCount','power',
-        'speed','pulse','device'
+        'speed','pulse','device','point'
     ];
 
 
