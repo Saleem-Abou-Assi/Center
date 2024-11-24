@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AccounterController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientDeptController;
 use App\Http\Controllers\LazerController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StorageController;
 use App\Models\Accounter;
 use Illuminate\Support\Facades\Route;
@@ -62,3 +64,11 @@ Route::post('/books', [BookController::class, 'store'])->name('book.store');
 Route::get('/books/{book_id}/edit', [BookController::class, 'edit'])->name('book.edit');
 Route::put('/books/{book_id}', [BookController::class, 'update'])->name('book.update');
 Route::delete('/books/{book_id}', [BookController::class, 'destroy'])->name('book.destroy');
+
+//profile
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+require __DIR__ . '/auth.php';
