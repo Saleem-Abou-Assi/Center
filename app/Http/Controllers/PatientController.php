@@ -36,7 +36,6 @@ class PatientController extends Controller
             
         ]);
 
-
         // إنشاء 
         $patient = Patient::create([
             'name' => $request->name,
@@ -49,10 +48,10 @@ class PatientController extends Controller
             'childerCount'=>$request->children,
             'smooking'=>$request->smooking,
             'oldSurgery'=>$request->oldSurgery,
-            'alirgy'=>$request->aligry,
+            'alirgy'=>$request->alirgy,
             'disease'=>$request->disease,
             'dite'=>$request->dite,
-            'permenantCure'=>$request->parmenantCure,
+            'permenantCure'=>$request->permenantCure,
             'Cosmetic'=>$request->cosmetic,
             'CurrentDiseas'=>$request->currentDisease
         ]);
@@ -76,7 +75,7 @@ class PatientController extends Controller
         ]);
 
 
-
+    
         return redirect()->route('patient.index'); // إعادة التوجيه بعد التخزين
     }
     public function edit($id)
@@ -164,11 +163,11 @@ class PatientController extends Controller
     public function show($patient_id) {
         // $patient1 = Patient::findOrFail($patient_id); // Fetch the product by ID
         // $depts = $patient->Dept()->get();
-        $patient = Patient::with('Dept','Field','Lazer.doctor')->find($patient_id);
+        $patient = Patient::with('Dept','Field','Lazer.doctor','accounter')->find($patient_id);
         
         $account = Accounter::where('patient_id',$patient_id)->first();
         $apds = APD::where('A_id',$account->id)->get();
-// dd($patient->Lazer[1]->doctor);
+// dd($patient->accounter->id);
         return view('patient.show', ['patient'=>$patient,'apds'=>$apds]); // Pass the product to the view
     }
 }

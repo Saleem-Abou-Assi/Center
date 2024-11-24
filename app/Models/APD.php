@@ -10,6 +10,10 @@ class APD extends Model
         'PD_id','A_id','doctor_id','patient_name','check_in_type','given_cure','tools','full_cost','status'
     ];
 
+    // public function PatientDept()
+    // {
 
+    // } 
     
+
 }

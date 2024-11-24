@@ -47,7 +47,7 @@ class PatientDeptController extends Controller
             'check_in_type' => $request->check_in_type,
             'given_cure' => $request->given_cure,
             'tools'=> $request->tools,
-            'full_cost'=> $request->full_cost,
+            'full_cost'=> 000,
             'status' => 'unpaid',
         ]);
 

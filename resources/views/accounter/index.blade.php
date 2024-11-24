@@ -24,26 +24,35 @@
   <table id='myTable'>
 
     <tbody>
+  
       <tr>
-        <th>القسم المعني</th><td>{{$PD->title}}</td><td class="cost"></td>
+        <th>القسم المعني</th><td>{{$account->PatientDept[0]->Department->title}}</td>
       </tr>
-        <tr><th>الطبيب المعالج</th><td>{{$doctor->name}} </td><td class="cost"></td>
+        <tr><th>الطبيب المعالج</th><td>{{$account->PatientDept[0]->doctor_name}} </td>
         </tr>
         <tr>
-        <th>نوع المعاينة</th><td>{{$apd->check_in_type}}</td><td class="cost"></td>
+        <th>نوع المعاينة</th><td>{{$account->PatientDept[0]->pivot->check_in_type}}</td>
       </tr>
       <tr>
-        <th>الدواء الداخلي</th><td>{{$apd->given_cure}} </td><td class="cost">200</td>
+        <th>المرض</th><td>{{$account->PatientDept[0]->illness}} </td>
+      </tr>
+      <tr>
+        <th>الوصف</th><td>{{$account->PatientDept[0]->description}} </td>
+      </tr>
+      <tr>
+        <th>العلاج</th><td>{{$account->PatientDept[0]->cure}} </td>
+      </tr>
+      <tr>
+      <tr>
+        <th>الدواء الداخلي</th><td>{{$account->PatientDept[0]->pivot->given_cure}} </td>
+      </tr>
+      <tr>
+        <th>الأدوات</th><td>{{$account->PatientDept[0]->pivot->tools}} </td>
       </tr>
       <tr>  
-      <th>أدوات</th><td>{{$apd->tools}} </td><td class="cost">0</td>
+      <th>أدوات</th><td>{{$account->PatientDept[0]->pivot->tools}} </td>
     </tr>
-    <tr>  
-      <th>التكلفة الاجمالية</th><td>{{$apd->full_cost}} </td><td class="cost">{{$apd->full_cost}}</td>
-    </tr>
-    <tr>  
-      <th>حالة الفاتورة</th><td>{{$apd->status}} </td><td class="cost"></td>
-      </tr>
+
     
     
     </tbody>

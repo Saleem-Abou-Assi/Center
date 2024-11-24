@@ -11,7 +11,7 @@ class Accounter extends Model
     protected $fillable = [
         'patient_id'
     ];
-
+  
     public function patient():BelongsTo
     {
         return $this->belongsTo(Patient::class);
@@ -21,9 +21,10 @@ class Accounter extends Model
         return $this->belongsTo(Doctor::class);
     }
 
-    public function Accounter():BelongsToMany
+    public function PatientDept():BelongsToMany
     {
-        return $this->belongsToMany(PatientDept::class,'a_p_d_s')->withPivot('doctor_id','check_in_type','given_cure','tools','full_cost','status');
+        return $this->belongsToMany(PatientDept::class,'a_p_d_s','PD_id','A_id')->withPivot('doctor_id','check_in_type','given_cure','tools','status');
         
     }
+    
 }
