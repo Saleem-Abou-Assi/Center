@@ -88,11 +88,11 @@
                 <label for="tools">Tools</label>
                 <input type="text" required id="tools" name="tools" >
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="full_cost">Total Cost</label>
                 <input type="text" required id="full_cost" name="full_cost" >
             </div>
-           
+            --}}
 
             <button type="submit" class="cta"><span>{{ 'Input' }}</span>
             <svg width="15px" height="10px" viewBox="0 0 13 10">

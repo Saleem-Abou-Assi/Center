@@ -28,7 +28,7 @@
                 <li data-label="Dite"><span>{{ $patient->dite }}</span></li>
                 <li data-label="Permenant Cures"><span>{{ $patient->permenantCure }}</span></li>
                 <li data-label="Cosmetic"><span>{{ $patient->Cosmetic }}</span></li>
-                <li data-label="Current Disease"><span>{{ $patient->CurrentDisease }}</span></li>
+                <li data-label="Current Disease"><span>{{ $patient->CurrentDiseas }}</span></li>
             </ul>
         </div>
         <div class="table-container1">
@@ -53,15 +53,14 @@
         <table class="table-container">
             <thead>
             <tr>
-                <th>Num</th>
-                <th>Department</th>
-                <th>Illness</th>
-                <th>Description </th>
-                <th>Cure</th>
-                <th>Doctor Name</th>
-                <th>Total Cost</th>
-      
-                <th>Bill Details</th>
+                <th>الرقم</th>
+                <th>القسم</th>
+                <th>المعالج</th>
+                <th>الشكوى </th>
+                <th>الوصف</th>
+                <th>التاريخ</th>
+                <th>تفاصيل</th>
+
             </tr>
             </thead>
             @for ($i = 0; $i < count($patient->Dept); $i++)
@@ -69,12 +68,12 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{$patient->Dept[$i]->title  }}</td>
+                <td>{{$patient->Dept[$i]->pivot->doctor_name }}</td>
                 <td>{{$patient->Dept[$i]->pivot->illness }}</td> 
                 <td>{{$patient->Dept[$i]->pivot->description }}</td>
-                <td>{{$patient->Dept[$i]->pivot->cure }}</td>
-                <td>{{$patient->Dept[$i]->pivot->doctor_name }}</td>
-                <td>{{$apds[$i]->full_cost}}</td>    
-                <td><a href="{{ route('accounter.index', $apds[$i]->id) }}" class="action-btn">Show</a>   </td>
+                <td>{{$patient->Dept[$i]->created_at}} </td>
+                
+                <td><a href="{{ route('accounter.index', $patient->accounter->id) }}" class="action-btn">Show</a>   </td>
                                      
 
             </tr>

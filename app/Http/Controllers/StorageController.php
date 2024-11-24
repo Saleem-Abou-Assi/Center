@@ -76,9 +76,9 @@ class StorageController extends Controller
 
      }
 
-    public function show($storage) {
-        $storage = Storage::findOrFail($storage); // Fetch the product by ID
-        return view('storage.show', compact('storage')); // Pass the product to the view
-    }
+    // public function show($storage) {
+    //     $storage = Storage::findOrFail($storage); // Fetch the product by ID
+    //     return view('storage.show', compact('storage')); // Pass the product to the view
+    // }
 
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientDeptController;
 use App\Http\Controllers\LazerController;
+use App\Http\Controllers\StorageController;
 use App\Models\Accounter;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,12 @@ Route::post('/lazer', [LazerController::class, 'store'])->name('lazer.store');
 
 Route::get('/accounter/{apd_id}',[AccounterController::class,'index'])->name('accounter.index');
 
+Route::get('/storage', [StorageController::class, 'index'])->name('department.index');
+Route::get('/storage/create', [StorageController::class, 'create'])->name('department.create');
+Route::post('/storage', [StorageController::class, 'store'])->name('department.store');
+Route::get('/storage/{department_id}/edit', [StorageController::class, 'edit'])->name('department.edit');
+Route::put('/storage/{department_id}', [StorageController::class, 'update'])->name('department.update');
+Route::delete('/storage/{department_id}', [StorageController::class, 'destroy'])->name('department.destroy');
 
 
 Route::get('/books', [BookController::class, 'index'])->name('book.index');

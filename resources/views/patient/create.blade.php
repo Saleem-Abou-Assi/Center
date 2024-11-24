@@ -64,13 +64,19 @@
                 <div class="form-group">
                 <label for="children">Children</label>
                 <input type="number" id="children" name="children"  value="{{ isset($patient) ? $patient->children : '' }}">
-            </div> <div class="form-group">
+            </div>
+
+             <div class="form-group">
                 <label for="smooking">Smooking</label>
                 <input type="checkbox" id="smooking" name="smooking"  value="{{ isset($patient) ? $patient->smooking : '' }}">
-            </div> <div class="form-group">
+            </div>
+
+             <div class="form-group">
                 <label for="oldSurgery">Old Surgey</label>
-                <input type="text" id="oldSergury" name="oldSergury"  value="{{ isset($patient) ? $patient->oldSergury : '' }}">
-            </div> <div class="form-group">
+                <input type="text" id="oldSurgery" name="oldSurgery"  value="{{ isset($patient) ? $patient->oldSergury : '' }}">
+            </div> 
+            
+            <div class="form-group">
                 <label for="alirgy">alirgy</label>
                 <input type="text" id="alirgy" name="alirgy"  value="{{ isset($patient) ? $patient->alirgy : '' }}">
             </div> <div class="form-group">

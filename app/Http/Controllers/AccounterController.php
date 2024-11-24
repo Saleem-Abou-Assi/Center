@@ -12,17 +12,12 @@ use Illuminate\Http\Request;
 
 class AccounterController extends Controller
 {
-    public function index($apd_id)
+    public function index($Dept_id)
     {
-        // $patient = Patient::findOrFail($patient_id);
-        
-        $apd = APD::where('id',$apd_id)->first();
-        $PD = PatientDept::where('id',$apd->PD_id)->first();
-        $patient = Patient::where('id',$PD->patient_id)->first();
-        $doctor = Doctor::where('id',$apd->doctor_id)->first();
-        $dept = Department::where('id',$PD->dept_id)->first();
+        $account = Accounter::with('PatientDept.Department')->find($Dept_id);
+         $patient = Patient::findOrFail($account->patient_id);
 
-        return view('accounter.index',['apd'=>$apd,'patient'=>$patient,'PD'=>$dept ,'doctor'=>$doctor]);
-
+        return view('accounter.index',['account'=>$account,'patient'=>$patient]);
     }
 }
+ 
