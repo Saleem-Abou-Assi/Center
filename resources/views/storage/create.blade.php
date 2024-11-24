@@ -8,22 +8,22 @@
 <body>
 
     <div class="C-container">
-        <h1>{{ isset($department) ? 'عدل قسماّ' : 'أضف قسماّ' }}</h1>
+        <h1>{{ isset($storage) ? 'عدل مادة' : 'أضف مادة' }}</h1>
 
-        <form action="{{ isset($department) ? route('department.update', $department->id) : route('department.store') }}" method="POST">
+        <form action="{{ isset($storage) ? route('storage.update', $storage->id) : route('storage.store') }}" method="POST">
             @csrf
-            @if (isset($department))
+            @if (isset($storage))
                 @method('PUT')
             @endif
         
             <div class="form-group" >
                 <label for="title">عنوان القسم</label>
-                <input type="text" id="title" name="title" required value="{{ isset($department) ? $department->name : '' }} " autofocus>
+                <input type="text" id="title" name="title" required value="{{ isset($storage) ? $storage->name : '' }} " autofocus>
             </div>
         
         
             <button type="submit" class="cta">
-                <span>{{ isset($department) ? 'عدّل' : 'أنشئ' }}</span>
+                <span>{{ isset($storage) ? 'عدّل' : 'أنشئ' }}</span>
                 <svg width="15px" height="10px" viewBox="0 0 13 10">
                 <path d="M1,5 L11,5"></path>
                 <polyline points="8 1 12 5 8 9"></polyline>

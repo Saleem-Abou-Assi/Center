@@ -6,7 +6,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     margin: 0;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Cairo', sans-serif;
 }
 
 /* Container Styles */
@@ -137,7 +137,55 @@ tbody tr:nth-child(even) {
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease;
+    font-family: 'Cairo', sans-serif;
 }
+.input-group {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+}
+
+.input-group select,
+.input-group input {
+    flex: 1; /* Allow both elements to grow equally */
+    padding: 10px; /* Padding for better appearance */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.input-group input {
+    margin-left: 10px; /* Space between select and input */
+    width: auto; /* Allow the input to size based on content */
+}
+.t-boton{
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+.toggle-button {
+    padding: 10px 15px; /* Padding for the button */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #007561; /* Button color */
+    color: white; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition effect */
+    margin-top: 10px; /* Space above the button */
+    display: inline-block; /* Inline block for proper spacing */
+}
+
+.toggle-button:hover {
+    background-color: #006f5a; /* Darker color on hover */
+}
+
+.toggle-button:focus {
+    outline: none; /* Remove outline on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow on focus */
+}
+
 .action-td{
     display: flex;
     gap: 10px;  /* Space between buttons */
@@ -192,7 +240,7 @@ button.action-btn:hover {
 
 .cta span {
     position: relative;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Cairo', sans-serif;
     font-size: 18px;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -272,7 +320,7 @@ ul {
     color: white;
     text-align: center;
     font-size: 3rem;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Cairo', sans-serif;
 }
 .select-box {
     position: relative;
@@ -295,7 +343,7 @@ ul {
   
   .select-box::before {
     content: "\f13a";
-    font-family: FontAwesome;
+    font-family: 'Cairo', sans-serif;
     position: absolute;
     top: 0;
     right: 0;
@@ -359,7 +407,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     color: #fff;
     border-radius: 5px;
     padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Cairo', sans-serif;
     font-weight: 500;
     background: transparent;
     cursor: pointer;
@@ -477,7 +525,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
 .heading h1{
     color: white;
     font-size: xx-large;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Cairo', sans-serif;
     padding-top:10vh ;
    }
 .card-holder {

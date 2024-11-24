@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
-    <title>Patient Management</title>
+    <title>إدارة المرضى</title>
     @include('layouts.navigation')
 </head>
 <body>
@@ -16,45 +16,45 @@
             @endif
         
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">الاسم</label>
                 <input type="text" id="name" name="name" required value="{{ isset($patient) ? $patient->name : '' }}" autofocus>
             </div>
         
             <div class="form-group">
-                <label for="phone">Phone</label>
+                <label for="phone">الرقم</label>
                 <input type="text" id="phone" name="phone" required value="{{ isset($patient) ? $patient->phone : '' }}">
             </div>
         
             <div class="form-group">
-                <label for="address">Address</label>
+                <label for="address">العوان</label>
                 <input type="text" id="address" name="address" required value="{{ isset($patient) ? $patient->address : '' }}">
             </div>
         
             <div class="form-group">
                 <div  class="select-box">
-                <label for="gender">Gender</label>
+                <label for="gender">الجنس</label>
                 <select id="gender" required name="gender">
-                    <option value="">Select Gender</option>
-                    <option value="male" {{ isset($patient) && $patient->gender == 'Male' ? 'selected' : '' }}>Male</option>
-                    <option value="female" {{ isset($patient) && $patient->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                    <option value="">حدد الجنس</option>
+                    <option value="male" {{ isset($patient) && $patient->gender == 'Male' ? 'selected' : '' }}>ذكر</option>
+                    <option value="female" {{ isset($patient) && $patient->gender == 'Female' ? 'selected' : '' }}>أنثى</option>
                 </select>
                 </div>
             </div>
         
             <div class="form-group">
-                <label for="age">Age</label>
+                <label for="age">العمر</label>
                 <input type="number" required id="age" name="age" value="{{ isset($patient) ? $patient->age : '' }}">
             </div>
         
             <div class="form-group">
-                <label for="job">Job</label>
+                <label for="job">الوظيفة</label>
                 <input type="text" id="job" name="job" required value="{{ isset($patient) ? $patient->job : '' }}">
             </div>
                 <div class="form-group">
                     <div class="select-box">
-                    <label for="relation">Relation</label>
+                    <label for="relation">الحالة الاجتماعية</label>
                     <select id="relation" required name="relation">
-                        <option value="">Select Relation</option>
+                        <option value="">اختر حالة</option>
                         <option value="married" {{ isset($patient) && $patient->relation == 'married' ? 'selected' : '' }}>متزوج\ة</option>
                         <option value="single" {{ isset($patient) && $patient->relation == 'single' ? 'selected' : '' }}>عازب\ة</option>
                         <option value="divorced" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
@@ -62,31 +62,31 @@
                     </select>
                 </div> 
                 <div class="form-group">
-                <label for="children">Children</label>
+                <label for="children">عدد الأطفال</label>
                 <input type="number" id="children" name="children"  value="{{ isset($patient) ? $patient->children : '' }}">
             </div> <div class="form-group">
-                <label for="smooking">Smooking</label>
+                <label for="smooking">مدخن</label>
                 <input type="checkbox" id="smooking" name="smooking"  value="{{ isset($patient) ? $patient->smooking : '' }}">
             </div> <div class="form-group">
-                <label for="oldSurgery">Old Surgey</label>
+                <label for="oldSurgery">عمليات سابقة</label>
                 <input type="text" id="oldSergury" name="oldSergury"  value="{{ isset($patient) ? $patient->oldSergury : '' }}">
             </div> <div class="form-group">
-                <label for="alirgy">alirgy</label>
+                <label for="alirgy">حساسية</label>
                 <input type="text" id="alirgy" name="alirgy"  value="{{ isset($patient) ? $patient->alirgy : '' }}">
             </div> <div class="form-group">
-                <label for="disease">Disease</label>
+                <label for="disease">مرض مزمن</label>
                 <input type="text" id="disease" name="disease"  value="{{ isset($patient) ? $patient->disease : '' }}">
             </div> <div class="form-group">
-                <label for="dite">Dite</label>
+                <label for="dite">حمية غذائية</label>
                 <input type="text" id="dite" name="dite"  value="{{ isset($patient) ? $patient->dite : '' }}">
             </div> <div class="form-group">
-                <label for="permenantCure">Permenant Cure</label>
+                <label for="permenantCure">العلاج</label>
                 <input type="text" id="permenantCure" name="permenantCure"  value="{{ isset($patient) ? $patient->permenantCure : '' }}">
             </div> <div class="form-group">
-                <label for="cosmetic">Cosmetic</label>
+                <label for="cosmetic">عمليات تجميل سابقة</label>
                 <input type="text" id="cosmetic" name="cosmetic"  value="{{ isset($patient) ? $patient->cosmetic : '' }}">
             </div> <div class="form-group">
-                <label for="currentDisease">Current Disease</label>
+                <label for="currentDisease">مرض حالي</label>
                 <input type="text" id="currentDisease" name="currentDisease"  value="{{ isset($patient) ? $patient->currentDisease : '' }}">
             </div>
             <div class="sep">
@@ -94,7 +94,7 @@
             </div>
             <br>
             
-            <button type="button" id="addRowBtn" class="add-btn"><span>Add Row</span></button>
+            <button type="button" id="addRowBtn" class="add-btn"><span>أضف تفاصيلاّ</span></button>
             <br>
             <br>
             <table id="dynamicTable">
@@ -106,7 +106,7 @@
                 </tbody>
             </table>
             <br>
-            <button type="submit" class="cta"><span>{{ isset($patient) ? 'Update' : 'Create' }}</span>
+            <button type="submit" class="cta"><span>{{ isset($patient) ? 'عدّل' : 'أنشئ' }}</span>
                 
             <svg width="15px" height="10px" viewBox="0 0 13 10">
                 <path d="M1,5 L11,5"></path>
@@ -139,12 +139,12 @@
         var fieldNameInput = document.createElement('input');  
         fieldNameInput.setAttribute('type', 'text');  
         fieldNameInput.setAttribute('name', 'dynamicFieldName[]');  
-        fieldNameInput.setAttribute('placeholder', 'Field Name'); // Add placeholder text 
+        fieldNameInput.setAttribute('placeholder', 'عنوان الحقل'); // Add placeholder text 
 
         var fieldValueInput = document.createElement('input');  
         fieldValueInput.setAttribute('type', 'text');  
         fieldValueInput.setAttribute('name', 'dynamicFieldValue[]');  
-        fieldValueInput.setAttribute('placeholder', 'Field value'); // Add placeholder text 
+        fieldValueInput.setAttribute('placeholder', 'محتوى الحقل'); // Add placeholder text 
         // Append input fields to their respective cells  
         fieldNameCell.appendChild(fieldNameInput);  
         fieldValueCell.appendChild(fieldValueInput);  

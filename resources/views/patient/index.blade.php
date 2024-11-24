@@ -7,14 +7,14 @@
        
     @include('layouts.navigation')
 
-    <title>Patient Management</title>
+    <title>ادارة المرضى</title>
     
 </head> 
 <body>
-    <div class="page-title"> <h1>Patients</h1></div>
+    <div class="page-title"> <h1>المرضى</h1></div>
     <div class="all">
     <div class="container">
-    <a href="{{ route('patient.create') }}" class="cta"><span>Add patient</span>
+    <a href="{{ route('patient.create') }}" class="cta"><span>أضف مريضاّ</span>
     <svg width="15px" height="10px" viewBox="0 0 13 10">    
         <path d="M1,5 L11,5"></path>
         <polyline points="8 1 12 5 8 9"></polyline>
@@ -27,17 +27,17 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Address</th>
+                    <th>الاسم</th>
+                    <th>الرقم</th>
+                    <th>العنوان</th>
                     
-                    <th>Gender</th>
-                    <th>Age</th>
-                    <th>Job</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
+                    <th>الجنس</th>
+                    <th>العمر</th>
+                    <th>الوظيفة</th>
+                    <th>تاريخ الإضافة</th>
+                    <th> آخر تعديل</th>
                     
-                    <th>Actions</th>
+                    <th>تفاصيل</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,13 +59,13 @@
                         <td>{{ $patient->updated_at }}</td>
                       
                         <td class="action-td">
-                            <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">Edit</a>
+                            <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">تعديل</a>
                         
                                 <form id="deleteForm" action="{{ route('patient.destroy', $patient->id) }}" method="POST" onsubmit="return confirmCustom()">
                                     @csrf
 
                                     @method('DELETE')
-                                    <button type="submit" class="action-btn">Delete</button>
+                                    <button type="submit" class="action-btn">إزالة</button>
                                 </form>
 
                                 <div id="confirm-modal" class="modal" style="display: none;">
@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
 
-                                <a href="{{ route('patient.show', $patient->id) }}" class="action-btn">Show</a>                        
+                                <a href="{{ route('patient.show', $patient->id) }}" class="action-btn">التفاصيل</a>                        
 
                         </td>
                     </tr>
@@ -95,9 +95,9 @@
             <div class="custom-pagination">
                 {{-- Previous Page Link --}}
                 @if ($patients->onFirstPage())
-                    <button class="page-btn" disabled>Previous</button>
+                    <button class="page-btn" disabled><<</button>
                 @else
-                    <a href="{{ $patients->previousPageUrl() }}" class="page-btn">Previous</a>
+                    <a href="{{ $patients->previousPageUrl() }}" class="page-btn"><<</a>
                 @endif
 
                 {{-- Pagination Elements --}}
@@ -115,9 +115,9 @@
 
                 {{-- Next Page Link --}}
                 @if ($patients->hasMorePages())
-                    <a href="{{ $patients->nextPageUrl() }}" class="page-btn">Next</a>
+                    <a href="{{ $patients->nextPageUrl() }}" class="page-btn">>></a>
                 @else
-                    <button class="page-btn" disabled>Next</button>
+                    <button class="page-btn" disabled>>></button>
                 @endif
             </div>
         @endif

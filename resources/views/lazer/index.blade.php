@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="{{ asset('css/form.css') }}">
+<link rel="stylesheet" href="{{ asset('css/merged.css') }}">
     <title>Lazer Management</title>
     @include('layouts.navigation')
 </head>
@@ -87,22 +87,21 @@
                 <input type="number" required id="speed" name="speed" >
             </div>
 
-            <div class="form-group , select-box">
-                <label for="pulse">عرض النبضة</label>
-                <div class="input-group ">
-                    
-                    <select id="pulse" name="pulse" required>
-                        <option value="">اختر عرض النبضة</option>
-                        <option value="low">Low</option>
-                        <option value="mid">Mid</option>
-                        <option value="high">High</option>
+            <form id="myForm">  
+    <div class="form-group">  
+        <label for="pulse">عرض النبضة</label>  
+        <div class="input-group">  
+            <select id="pulse" name="pulse" required>  
+                <option value="">اختر عرض النبضة</option>  
+                <option value="low">Low</option>  
+                <option value="mid">Mid</option>  
+                <option value="high">High</option>  
+            </select>  
+            <input type="text" id="pulse-input" name="pulse-input" placeholder="أدخل عرض النبضة" style="margin-left: 10px;">  
+        </div>  
+    </div>  
+     
 
-                        <!-- Add more options as needed -->
-                    </select>
-                                </div>
-            
-                                <button type="button" class="toggle-button">تحويل إلى حقل نص</button>
-                </div>
 
             <button type="submit" class="cta"><span>{{ 'Input' }}</span>
                 <svg width="15px" height="10px" viewBox="0 0 13 10">
@@ -114,35 +113,49 @@
 
 
     </div><script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const select = document.getElementById("pulse");
-            const input = document.createElement("input");
-            const toggleButton = document.querySelector(".toggle-button");
-    
-            input.type = "text";
-            input.id = "pulse";
-            input.name = "pulse";
-            input.required = true;
-    
-            toggleButton.addEventListener("click", function(event) {
-                event.preventDefault(); // Prevent form submission
-    
-                if (select.style.display === "none") {
-                    select.style.display = "block";
-                    input.style.display = "none";
-                } else {
-                    select.style.display = "none";
-                    input.style.display = "block";
-                    input.value = select.value;
-                }
-            });
-    
-            // Add this line to move the input element before the select element
-            select.parentNode.insertBefore(input, select);
-    
-            // Add this line to initially hide the input element
-            input.style.display = "none";
+    document.addEventListener("DOMContentLoaded", function() {
+        const select = document.getElementById("pulse");
+        const input = document.getElementById("pulse-input");
+        const form = document.querySelector("form"); // Select the form
+
+        // Function to toggle input states
+        function toggleInputs() {
+            if (select.value) {
+                input.value = ""; // Clear input if select has a value
+                input.disabled = true; // Disable input
+            } else {
+                input.disabled = false; // Enable input if select is empty
+            }
+
+            if (input.value) {
+                select.value = ""; // Clear select if input has a value
+                select.disabled = true; // Disable select
+            } else {
+                select.disabled = false; // Enable select if input is empty
+            }
+        }
+
+        // Event listeners for select and input
+        select.addEventListener('change', toggleInputs);
+        input.addEventListener('input', toggleInputs);
+
+        // Handle form submission
+        form.addEventListener('submit', function(event) {
+            // Check if the select has a value
+            if (select.value) {
+                input.value = ""; // Clear input value if select is used
+            } else if (input.value) {
+                select.value = input.value; // Set select's value to input's value if input is used
+            } else {
+                // Prevent submission if both are empty
+                event.preventDefault();
+                alert("Please select a value or enter a value in the textbox.");
+            }
         });
-    </script>
+
+        // Initial state setup
+        toggleInputs(); // Call to set initial states
+    });
+</script>
 </body>
 </html>
