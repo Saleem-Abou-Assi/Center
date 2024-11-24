@@ -17,8 +17,12 @@
             @endif
         
             <div class="form-group" >
-                <label for="title">عنوان القسم</label>
-                <input type="text" id="title" name="title" required value="{{ isset($storage) ? $storage->name : '' }} " autofocus>
+                <label for="title">اسم المادة</label>
+                <input type="text" id="title" name="title" required value="{{ isset($storage) ? $storage->item : '' }} " autofocus>
+            </div>
+            <div class="form-group" >
+                <label for="title"> الكمية</label>
+                <input type="text" id="title" name="title" required value="{{ isset($storage) ? $storage->quantity : '' }} ">
             </div>
         
         
@@ -32,7 +36,7 @@
   
         </form>
         <div class="boton">
-        <a href="{{ route('department.index') }}" class="custom-btn btn-2">Go Back</a>
+        <a href="{{ route('storage.index') }}" class="custom-btn btn-2">Go Back</a>
         </div>
     </div>
 </body>

@@ -425,6 +425,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     background: #007561c5;
     background: linear-gradient(0deg, #004dff 0%, #004dff 100%);
     border: none;
+    margin: 5px 
 }
 
 .btn-2:hover {
