@@ -26,16 +26,16 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>الاسم</th>
-                    <th>الرقم</th>
-                    <th>العنوان</th>
+                    <th onclick="sortTable(0)">ID <span id="arrow0" class="inactive"></span></th>
+                    <th onclick="sortTable(1)">الاسم<span id="arrow1" class="inactive"></span></th>
+                    <th onclick="sortTable(2)">الرقم<span id="arrow2" class="inactive"></span></th>
+                    <th onclick="sortTable(3)">العنوان<span id="arrow3" class="inactive"></span></th>
                     
-                    <th>الجنس</th>
-                    <th>العمر</th>
-                    <th>الوظيفة</th>
-                    <th>تاريخ الإضافة</th>
-                    <th> آخر تعديل</th>
+                    <th onclick="sortTable(4)">الجنس<span id="arrow4" class="inactive"></span></th>
+                    <th onclick="sortTable(5)">العمر<span id="arrow5" class="inactive"></span></th>
+                    <th onclick="sortTable(6)">الوظيفة <span id="arrow6" class="inactive"></span></th>
+                    <th onclick="sortTable(7)">تاريخ الإضافة <span id="arrow7" class="inactive"></span></th>
+                    <th onclick="sortTable(8)"> آخر تعديل <span id="arrow8" class="inactive"></span></th>
                     
                     <th>تفاصيل</th>
                 </tr>
@@ -138,19 +138,64 @@
 
    
     <script>
-       function confirmCustom() {
-    document.getElementById('confirm-modal').style.display = 'block';
-    return false;
-}
+        // Sort functionality
+        let sortOrder = [];
 
-function closeModal() {
-    document.getElementById('confirm-modal').style.display = 'none';
-}
+        function sortTable(columnIndex) {
+            const table = document.querySelector('table'); // Select the table
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr')); // Get all rows
 
-function deletePatient() {
-    document.getElementById('confirm-modal').style.display = 'none';
-    document.getElementById('deleteForm').submit();
-}
-        </script>
+            // Toggle sort order
+            sortOrder[columnIndex] = (sortOrder[columnIndex] === 'asc') ? 'desc' : 'asc';
+
+            // Update arrow
+            for (let i = 0; i < table.rows[0].cells.length; i++) {
+                const arrow = document.getElementById('arrow' + i);
+                arrow.className = (i === columnIndex) ? sortOrder[columnIndex] : 'inactive';
+            }
+
+            // Sort rows
+            rows.sort((a, b) => {
+                const aValue = a.children[columnIndex].textContent.trim();
+                const bValue = b.children[columnIndex].textContent.trim();
+
+                // Debugging: Log the values being compared
+                console.log(`Comparing: ${aValue} vs ${bValue}`);
+
+                // Determine if the column is numeric or string
+                if (!isNaN(aValue) && !isNaN(bValue)) {
+                    // If both values are numbers, convert them to numbers for comparison
+                    return sortOrder[columnIndex] === 'asc' 
+                        ? Number(aValue) - Number(bValue) 
+                        : Number(bValue) - Number(aValue);
+                } else {
+                    // If values are strings, use localeCompare
+                    return sortOrder[columnIndex] === 'asc' 
+                        ? aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: 'base' })
+                        : bValue.localeCompare(aValue, undefined, { numeric: true, sensitivity: 'base' });
+                }
+            });
+
+            // Clear the tbody and append sorted rows
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        // Confirmation modal functions
+        function confirmCustom() {
+            document.getElementById('confirm-modal').style.display = 'block';
+            return false;
+        }
+
+        function closeModal() {
+            document.getElementById('confirm-modal').style.display = 'none';
+        }
+
+        function deletePatient() {
+            document.getElementById('confirm-modal').style.display = 'none';
+            document.getElementById('deleteForm').submit();
+        }
+    </script>
 </body>
 </html>

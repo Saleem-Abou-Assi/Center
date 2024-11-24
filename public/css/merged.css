@@ -378,7 +378,17 @@ ul {
 .form-group {
     margin-bottom: 20px;
 }
-
+.desc:after{
+    content:'\2193';
+}
+.asc:after{
+    content: '\2191';
+}
+.inactive:after{
+    content:'\2191';
+    color: #000;
+    opacity: 0.5;
+}
 label {
     display: block;
     margin-bottom: 8px;
