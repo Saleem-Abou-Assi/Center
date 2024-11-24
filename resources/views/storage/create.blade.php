@@ -17,12 +17,12 @@
             @endif
         
             <div class="form-group" >
-                <label for="title">اسم المادة</label>
-                <input type="text" id="title" name="title" required value="{{ isset($storage) ? $storage->item : '' }} " autofocus>
+                <label for="item">اسم المادة</label>
+                <input type="text" id="item" name="item" required value="{{ isset($storage) ? $storage->item : '' }} " autofocus>
             </div>
             <div class="form-group" >
-                <label for="title"> الكمية</label>
-                <input type="text" id="title" name="title" required value="{{ isset($storage) ? $storage->quantity : '' }} ">
+                <label for="quantity"> الكمية</label>
+                <input type="number" id="quantity" name="quantity" required value="{{ isset($storage) ? $storage->quantity : '' }} ">
             </div>
         
         

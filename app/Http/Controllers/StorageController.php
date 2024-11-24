@@ -23,12 +23,12 @@ class StorageController extends Controller
     public function store(Request $request)
     {
         
-        // تحقق من صحة الطلب
-        $request->validate([
-            'item' => ['required', 'string'],
-            'quantity' => ['required','integer']
+        // // تحقق من صحة الطلب
+        // $request->validate([
+        //     'item' => ['required', 'string'],
+        //     'quantity' => ['required','integer']
             
-        ]);
+        // ]);
 
 
         // إنشاء 
