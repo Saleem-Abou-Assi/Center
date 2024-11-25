@@ -18,8 +18,20 @@
         
             <div class="form-group">
                 <label for="name">الاسم</label>
-                <input type="text" id="name" name="name" required value="{{ isset($doctor) ? $doctor->name : '' }}" autofocus>
+                <input type="text" id="name" name="name" required value="{{ isset($doctor) ? $doctor->user->name : '' }}" autofocus>
             </div>
+            
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" name="email" required value="{{ isset($doctor) ? $doctor->user->email : '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" name="password" {{ isset($doctor) ? '' : 'required' }}>
+            </div>
+            
+            <!-- Rest of the form fields remain the same -->
         
             <div class="form-group">
                 <label for="phone">الرقم</label>

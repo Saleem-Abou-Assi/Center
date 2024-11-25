@@ -27,6 +27,7 @@
             <tr>  
                 <th>ID</th>  
                 <th>الاسم</th>  
+                <th>الايميل</th>
                 <th>الرقم</th>  
                 <th>العوان</th>  
                 <th>التخصص</th>  
@@ -39,7 +40,8 @@
             @foreach ($doctors as $doctor)  
                 <tr>  
                     <td>{{ $doctor->id }}</td>  
-                    <td>{{ $doctor->name }}</td>  
+                    <td>{{ $doctor->user->name }}</td>
+                    <td>{{ $doctor->user->email }}</td>
                     <td>{{ $doctor->phone }}</td>  
                     <td>{{ $doctor->address }}</td>  
                     <td>{{ $doctor->specialization }}</td>  

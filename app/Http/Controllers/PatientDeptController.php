@@ -30,7 +30,7 @@ class PatientDeptController extends Controller
         $patientDept = PatientDept::create([
             'dept_id' => $request->department,
             'patient_id' => $patient->id    ,
-            'doctor_name' => $doctor->name,
+            'doctor_name' => $doctor->user->name,
             'illness' => $request->illness,
             'description' => $request->description,
             'cure' => $request->cure,
