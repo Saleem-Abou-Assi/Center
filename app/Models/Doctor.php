@@ -12,7 +12,7 @@ use PHPUnit\Framework\Attributes\Depends;
 class Doctor extends Model
 {
     protected $fillable = [
-        'name','phone','address','specialization','dept_id'
+        'user_id','phone','address','specialization','dept_id'
     ];
  
     
