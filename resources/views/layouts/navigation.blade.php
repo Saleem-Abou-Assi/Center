@@ -37,12 +37,34 @@
                 <li>
                   <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
                 </li>  
+                <li>
+                    <div class="log flex items-center relative" x-data="{ openModal: false }">
+                        <a href="#" class="flex items-center" @click.prevent="openModal = true">
+                            <img src="images/login.png" alt="log-con" class="log-con mr-2">
+                            <div>{{ Auth::user()->name }}</div>
+                        </a>
+                        
+                        <div x-show="openModal" class="modal fixed inset-0 flex items-center justify-center z-50" @click.away="openModal = false" style="display: none;">
+                            <div class="modal-content bg-white border border-gray-300 rounded-md shadow-lg p-4">
+                                <h3 class="text-lg font-semibold">Options</h3>
+                                <a href="{{ route('profile.edit') }}" class="dropdown-link block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-link block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</button>
+                                </form>
+                                <button @click="openModal = false" class="mt-2 text-gray-500 hover:text-gray-700">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 </ul>
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
+
+               
+                <!-- <div class="hidden sm:flex sm:items-center sm:ms-6">
                   <x-dropdown align-items="right" width="48">
                       <x-slot name="trigger">
                           <button class="dropdown-button">
-                              <div>{{ Auth::user()->name }}</div>
+                             
                               <div class="ms-1">
                                   <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                       <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -56,7 +78,7 @@
                               {{ __('Profile') }}
                           </x-dropdown-link>
   
-                          <!-- Authentication -->
+                           Authentication 
                           <form method="POST" action="{{ route('logout') }}">
                               @csrf
   
@@ -67,24 +89,38 @@
                           </form>
                       </x-slot>
                   </x-dropdown>
-              </div>
+              </div> -->
                
   
-              <!-- Hamburger -->
-              <div class="-me-2 flex items-center sm:hidden">
-                  <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                      <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                          <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                          <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                  </button>
-              </div>
+             
           </div>
       </div>
   
              
 </nav>
 <style>
+    .log{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding-top: 10px;
+    }
+    .log-con{
+        width: 35px;
+        height: 35px;
+        margin-right: 8px;
+    }
+    .log a {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+    }
+    .log a:hover {
+        color: white;
+    }
    .dropdown-button {
         display: inline-flex;
         align-items: center;
@@ -132,7 +168,7 @@
         color: #2d3748; /* Darker text color on hover */
     }
     .nav{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Cairo', sans-serif;
     justify-content: space-between;
     align-items: center;
     display: fixed;
