@@ -26,16 +26,16 @@
         <table>
             <thead>
                 <tr>
-                    <th onclick="sortTable(0)">ID <span id="arrow0" class="inactive"></span></th>
-                    <th onclick="sortTable(1)">الاسم<span id="arrow1" class="inactive"></span></th>
-                    <th onclick="sortTable(2)">الرقم<span id="arrow2" class="inactive"></span></th>
-                    <th onclick="sortTable(3)">العنوان<span id="arrow3" class="inactive"></span></th>
+                    <th onclick="sortTable('id')">ID <span id="arrow-id" class="circle inactive"></span></th>
+                    <th onclick="sortTable('name')">الاسم <span id="arrow-name" class="circle inactive"></span></th>
+                    <th>الرقم</th>
+                    <th>العنوان</th>
                     
-                    <th onclick="sortTable(4)">الجنس<span id="arrow4" class="inactive"></span></th>
-                    <th onclick="sortTable(5)">العمر<span id="arrow5" class="inactive"></span></th>
-                    <th onclick="sortTable(6)">الوظيفة <span id="arrow6" class="inactive"></span></th>
-                    <th onclick="sortTable(7)">تاريخ الإضافة <span id="arrow7" class="inactive"></span></th>
-                    <th onclick="sortTable(8)"> آخر تعديل <span id="arrow8" class="inactive"></span></th>
+                    <th>الجنس</th>
+                    <th>العمر</th>
+                    <th>الوظيفة</th>
+                    <th onclick="sortTable('createdAt')">تاريخ الإضافة <span id="arrow-created-at" class="circle inactive"></span></th>
+                    <th> آخر تعديل</th>
                     
                     <th>تفاصيل</th>
                 </tr>
@@ -138,64 +138,94 @@
 
    
     <script>
-        // Sort functionality
-        let sortOrder = [];
+       function confirmCustom() {
+    document.getElementById('confirm-modal').style.display = 'block';
+    return false;
+}
 
-        function sortTable(columnIndex) {
-            const table = document.querySelector('table'); // Select the table
-            const tbody = table.querySelector('tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr')); // Get all rows
+function closeModal() {
+    document.getElementById('confirm-modal').style.display = 'none';
+}
 
-            // Toggle sort order
-            sortOrder[columnIndex] = (sortOrder[columnIndex] === 'asc') ? 'desc' : 'asc';
+function deletePatient() {
+    document.getElementById('confirm-modal').style.display = 'none';
+    document.getElementById('deleteForm').submit();
+}
+//======================================
+let sortOrder = {
+        id: 'desc', // Default sort order for ID
+        name: 'desc', // Default sort order for name
+        createdAt: 'desc' // Default sort order for created at
+    }; 
 
-            // Update arrow
-            for (let i = 0; i < table.rows[0].cells.length; i++) {
-                const arrow = document.getElementById('arrow' + i);
-                arrow.className = (i === columnIndex) ? sortOrder[columnIndex] : 'inactive';
+    let originalRows = []; // Array to store original rows
+
+    function initializeTable() {
+        const table = document.querySelector('table'); // Select the table
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr')); // Get all rows
+
+        // Store original rows in the array
+        originalRows = rows.map(row => row.cloneNode(true)); // Clone rows to keep original data
+    }
+
+    function sortTable(column) {
+        const table = document.querySelector('table'); // Select the table
+        const tbody = table.querySelector('tbody');
+
+        // Clear the tbody to refresh the table
+        tbody.innerHTML = '';
+
+        // Reset the sort order for all columns to default
+        sortOrder.id = 'desc'; // Reset ID sort order to descending
+        sortOrder.name = 'desc'; // Reset name sort order to descending
+        sortOrder.createdAt = 'desc'; // Reset created at sort order to descending
+
+        // Set the sort order for the selected column
+        sortOrder[column] = (sortOrder[column] === 'asc') ? 'desc' : 'asc';
+
+        // Sort rows based on the selected column
+        const sortedRows = originalRows.slice().sort((a, b) => {
+            let aValue, bValue;
+
+            if (column === 'id') {
+                aValue = parseInt(a.children[0].textContent.trim()); // Get ID from the first column
+                bValue = parseInt(b.children[0].textContent.trim()); // Get ID from the first column
+            } else if (column === 'name') {
+                aValue = a.children[1].textContent.trim(); // Get name from the second column
+                bValue = b.children[1].textContent.trim(); // Get name from the second column
+            } else if (column === 'createdAt') {
+                aValue = new Date(a.children[7].textContent.trim()); // Get created at from the eighth column
+                bValue = new Date(b.children[7].textContent.trim()); // Get created at from the eighth column
             }
 
-            // Sort rows
-            rows.sort((a, b) => {
-                const aValue = a.children[columnIndex].textContent.trim();
-                const bValue = b.children[columnIndex].textContent.trim();
+            // Use localeCompare for string comparison or numeric comparison for IDs
+            return sortOrder[column] === 'asc' 
+                ? (column === 'id' ? aValue - bValue : (column === 'createdAt' ? aValue - bValue : aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: 'base' })))
+                : (column === 'id' ? bValue - aValue : (column === 'createdAt' ? bValue - aValue : bValue.localeCompare(aValue, undefined, { numeric: true, sensitivity: 'base' })));
+        });
 
-                // Debugging: Log the values being compared
-                console.log(`Comparing: ${aValue} vs ${bValue}`);
+        // Append sorted rows back to the tbody
+        sortedRows.forEach(row => tbody.appendChild(row));
 
-                // Determine if the column is numeric or string
-                if (!isNaN(aValue) && !isNaN(bValue)) {
-                    // If both values are numbers, convert them to numbers for comparison
-                    return sortOrder[columnIndex] === 'asc' 
-                        ? Number(aValue) - Number(bValue) 
-                        : Number(bValue) - Number(aValue);
-                } else {
-                    // If values are strings, use localeCompare
-                    return sortOrder[columnIndex] === 'asc' 
-                        ? aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: 'base' })
-                        : bValue.localeCompare(aValue, undefined, { numeric: true, sensitivity: 'base' });
-                }
-            });
+        // Update circle direction
+        const arrowId = document.getElementById('arrow-id');
+        const arrowName = document.getElementById('arrow-name');
+        const arrowCreatedAt = document.getElementById('arrow-created-at');
+        
+        // Set the circle color based on the sort order
+        arrowId.className = 'circle active ' + sortOrder.id;
+        arrowName.className = 'circle active ' + sortOrder.name;
+        arrowCreatedAt.className = 'circle active ' + sortOrder.createdAt;
 
-            // Clear the tbody and append sorted rows
-            tbody.innerHTML = '';
-            rows.forEach(row => tbody.appendChild(row));
-        }
+        // Set inactive circles for other columns
+        if (column !== 'id') arrowId.classList.add('inactive');
+        if (column !== 'name') arrowName.classList.add('inactive');
+        if (column !== 'createdAt') arrowCreatedAt.classList.add('inactive');
+    }
 
-        // Confirmation modal functions
-        function confirmCustom() {
-            document.getElementById('confirm-modal').style.display = 'block';
-            return false;
-        }
-
-        function closeModal() {
-            document.getElementById('confirm-modal').style.display = 'none';
-        }
-
-        function deletePatient() {
-            document.getElementById('confirm-modal').style.display = 'none';
-            document.getElementById('deleteForm').submit();
-        }
-    </script>
+    // Call initializeTable when the page loads to store the original rows
+    document.addEventListener("DOMContentLoaded", initializeTable);
+        </script>
 </body>
 </html>

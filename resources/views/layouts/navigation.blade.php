@@ -38,13 +38,11 @@
                   <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
                 </li>  
                 </ul>
-
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                  <x-dropdown align="right" width="48">
+                  <x-dropdown align-items="right" width="48">
                       <x-slot name="trigger">
-                          <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                          <button class="dropdown-button">
                               <div>{{ Auth::user()->name }}</div>
-  
                               <div class="ms-1">
                                   <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                       <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -53,8 +51,8 @@
                           </button>
                       </x-slot>
   
-                      <x-slot name="content">
-                          <x-dropdown-link :href="route('profile.edit')">
+                      <x-slot name="content" class="dropdown-content">
+                          <x-dropdown-link :href="route('profile.edit')" class="dropdown-link">
                               {{ __('Profile') }}
                           </x-dropdown-link>
   
@@ -63,13 +61,14 @@
                               @csrf
   
                               <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                  this.closest('form').submit();">
+                                                  this.closest('form').submit();" class="dropdown-link">
                                   {{ __('Log Out') }}
                               </x-dropdown-link>
                           </form>
                       </x-slot>
                   </x-dropdown>
               </div>
+               
   
               <!-- Hamburger -->
               <div class="-me-2 flex items-center sm:hidden">
@@ -86,7 +85,52 @@
              
 </nav>
 <style>
+   .dropdown-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.375rem;
+        background-color: #ffffff; /* Light background */
+        color: #4a5568; /* Text color */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    }
 
+    .dropdown-button:hover {
+        background-color: #edf2f7; /* Light gray on hover */
+        color: #2d3748; /* Darker text color on hover */
+    }
+
+    /* Dropdown content styles */
+    .dropdown-content {
+        display: none; /* Hidden by default */
+        position: absolute;
+        background-color: #ffffff; /* White background */
+        border: 1px solid #e2e8f0; /* Light gray border */
+        border-radius: 0.375rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        z-index: 10; /* Ensure it appears above other elements */
+        margin-top: 0.5rem; /* Space between button and dropdown */
+    }
+
+    /* Show dropdown on hover */
+    .dropdown:hover .dropdown-content {
+        display: block; /* Show dropdown */
+    }
+
+    /* Dropdown link styles */
+    .dropdown-link {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: #4a5568; /* Text color */
+        text-decoration: none; /* Remove underline */
+        transition: background-color 0.3s; /* Smooth transition */
+    }
+
+    .dropdown-link:hover {
+        background-color: #edf2f7; /* Light gray on hover */
+        color: #2d3748; /* Darker text color on hover */
+    }
     .nav{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     justify-content: space-between;

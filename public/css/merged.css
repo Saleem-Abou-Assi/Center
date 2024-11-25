@@ -378,16 +378,26 @@ ul {
 .form-group {
     margin-bottom: 20px;
 }
-.desc:after{
-    content:'\2193';
+.circle {
+    display: inline-block;
+    width: 10px; /* Circle width */
+    height: 10px; /* Circle height */
+    border-radius: 50%; /* Make it a circle */
+    background-color: transparent; /* Default color */
+    margin-left: 5px;
+    transition: background-color 0.3s; /* Smooth transition for color change */
 }
-.asc:after{
-    content: '\2191';
+
+.inactive {
+    background-color: transparent; /* No color when inactive */
 }
-.inactive:after{
-    content:'\2191';
-    color: #000;
-    opacity: 0.5;
+
+.active.asc {
+    background-color: green; /* Color for ascending order */
+}
+
+.active.desc {
+    background-color: red; /* Color for descending order */
 }
 label {
     display: block;
