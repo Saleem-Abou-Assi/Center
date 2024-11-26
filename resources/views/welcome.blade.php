@@ -12,8 +12,9 @@
        
         @include('layouts.navigation')
         <body>
+    
         <section class="heading">
-            <h1>Landing Page</h1>
+            <h1>الصفحة الرئيسية</h1>
 
         </section>
         <div class="card-holder">
@@ -23,8 +24,8 @@
                 <img src="images/pat.jpeg" alt="card image" />
             </div>
             <div class="card-dis">
-                <h2>Patiants Page</h2>
-                <p>here you find you patiants details</p>
+                <h2>المرضى</h2>
+                <p>ستجد هنا بيانات المرضى</p>
                 <div class="boton">
                 <a href="{{ route('patient.index') }}" class="cta"> <span>Go</span> 
                 <svg width="15px" height="10px" viewBox="0 0 13 10">    
@@ -41,8 +42,8 @@
                 <img src="images/doc.jpeg" alt="card image" />
             </div>
             <div class="card-dis">
-                <h2>Doctors Page</h2>
-                <p>here yo can fund the doctors details</p>
+                <h2>الأطباء</h2>
+                <p>ستجد هنا بيانات الأطباء</p>
                 <div class="boton">
                 <a href="{{ route('doctor.index')}}" class="cta"> <span>Go</span> 
                 <svg width="15px" height="10px" viewBox="0 0 13 10">    
@@ -59,8 +60,8 @@
                 <img src="images/bok.jpeg" alt="card image" />
             </div>
             <div class="card-dis">
-                <h2>Booking Page</h2>
-                <p>here you can find the Booking section</p>
+                <h2>الحجوزات</h2>
+                <p>ستجد هنا بيانات الحجوزات</p>
                 <div class="boton">
                 <a href="{{ route('book.index')}}" class="cta"> <span>Go</span> 
                 <svg width="15px" height="10px" viewBox="0 0 13 10">    
@@ -77,8 +78,8 @@
                 <img src="images/dep.jpeg" alt="card image" />
             </div>
             <div class="card-dis">
-                <h2>Department Page</h2>
-                <p>here you can dind the department details</p>
+                <h2>العيادات</h2>
+                <p>ستجد هنا بيانات العيادات</p>
                 <div class="boton">
                 <a href="{{ route('department.index')}}" class="cta"> <span>Go</span> 
                 <svg width="15px" height="10px" viewBox="0 0 13 10">    

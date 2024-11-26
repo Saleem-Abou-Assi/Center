@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
-    <title>إدارة الأقسام</title>
+    <title>إدارة العيادات</title>
     @include('layouts.navigation')
 </head>
 <body>

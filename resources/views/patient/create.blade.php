@@ -80,7 +80,7 @@
                 <label for="dite">حمية غذائية</label>
                 <input type="text" id="dite" name="dite"  value="{{ isset($patient) ? $patient->dite : '' }}">
             </div> <div class="form-group">
-                <label for="permenantCure">العلاج</label>
+                <label for="permenantCure">العلاج متبع</label>
                 <input type="text" id="permenantCure" name="permenantCure"  value="{{ isset($patient) ? $patient->permenantCure : '' }}">
             </div> <div class="form-group">
                 <label for="cosmetic">عمليات تجميل سابقة</label>

@@ -24,7 +24,7 @@
                         </a>
                 </li>
                 <li>
-                        <a href="{{ route(name: 'department.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('departments.*') ? 'border-b-2 border-blue-500' : '' }}">الأقسام</a>
+                        <a href="{{ route(name: 'department.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('departments.*') ? 'border-b-2 border-blue-500' : '' }}">العيادات</a>
                 </li>
                 <li>
                 <a href="{{ route(name: 'book.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('book') ? 'border-b-2 border-blue-500' : '' }}">الحجوزات</a>
@@ -37,61 +37,26 @@
                 <li>
                   <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
                 </li>  
-                <li>
-                    <div class="log flex items-center relative" x-data="{ openModal: false }">
-                        <a href="#" class="flex items-center" @click.prevent="openModal = true">
-                            <img src="images/login.png" alt="log-con" class="log-con mr-2">
-                            <div>{{ Auth::user()->name }}</div>
-                        </a>
-                        
-                        <div x-show="openModal" class="modal fixed inset-0 flex items-center justify-center z-50" @click.away="openModal = false" style="display: none;">
-                            <div class="modal-content bg-white border border-gray-300 rounded-md shadow-lg p-4">
-                                <h3 class="text-lg font-semibold">Options</h3>
-                                <a href="{{ route('profile.edit') }}" class="dropdown-link block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="dropdown-link block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</button>
-                                </form>
-                                <button @click="openModal = false" class="mt-2 text-gray-500 hover:text-gray-700">Close</button>
-                            </div>
-                        </div>
-                    </div>
+                <li class="loglog">
+                <div class="dropdown">  
+                    <a class="dropbtn" onclick="toggleDropdown()">
+                
+                    </a>  
+                    <div class="inside">
+                    <img src="images/login.png" alt="log-con" class="log-con mr-2">
+                    <div>{{ Auth::user()->name }}</div>
+                    </div> 
+                    <div class="dropdown-content" id="dropdownContent">  
+                        <a href="{{ route('profile.edit') }}">الحساب الشخصي</a>
+                        <a href="{{ route('logout') }}" style="color:red">تسجيل خروج</a>  
+                    </div>  
+                </div>  
+
                 </li>
                 </ul>
 
                
-                <!-- <div class="hidden sm:flex sm:items-center sm:ms-6">
-                  <x-dropdown align-items="right" width="48">
-                      <x-slot name="trigger">
-                          <button class="dropdown-button">
-                             
-                              <div class="ms-1">
-                                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                  </svg>
-                              </div>
-                          </button>
-                      </x-slot>
-  
-                      <x-slot name="content" class="dropdown-content">
-                          <x-dropdown-link :href="route('profile.edit')" class="dropdown-link">
-                              {{ __('Profile') }}
-                          </x-dropdown-link>
-  
-                           Authentication 
-                          <form method="POST" action="{{ route('logout') }}">
-                              @csrf
-  
-                              <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                  this.closest('form').submit();" class="dropdown-link">
-                                  {{ __('Log Out') }}
-                              </x-dropdown-link>
-                          </form>
-                      </x-slot>
-                  </x-dropdown>
-              </div> -->
-               
-  
+            
              
           </div>
       </div>
@@ -99,74 +64,74 @@
              
 </nav>
 <style>
-    .log{
-        display: flex;
-        align-items: center;
+    .loglog{
         position: absolute;
-        right: 0;
-        top: 0;
-        padding-top: 10px;
+        left: 90%;
     }
-    .log-con{
+    .inside{
+        display: flex;  
+        position: relative;
+        align-content:center ;
+        justify-content: center;
+        font-size: 20px;
+        grid-column: 1;
+        z-index: 1;
+        grid-row: 1;
+        width: 80px;
+        height: auto;
+        flex-wrap:wrap;
+
+    }
+     .dropdown {  
+       display: grid;
+       grid-template-columns: repeat(1,80px); 
+      grid-template-rows: repeat(1,50px);
+      
+    }  
+    
+    .inside img {
         width: 35px;
-        height: 35px;
-        margin-right: 8px;
-    }
-    .log a {
-        text-decoration: none;
-        color: inherit;
-        display: flex;
-        align-items: center;
-    }
-    .log a:hover {
-        color: white;
-    }
-   .dropdown-button {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.5rem 1rem;
-        border: 1px solid transparent;
-        border-radius: 0.375rem;
-        background-color: #ffffff; /* Light background */
-        color: #4a5568; /* Text color */
-        transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        z-index: 0; /* Ensure the image is below the dropdown */
     }
 
-    .dropdown-button:hover {
-        background-color: #edf2f7; /* Light gray on hover */
-        color: #2d3748; /* Darker text color on hover */
-    }
+    .dropbtn {  
+        background-color: transparent; /* Make background transparent */
+        color: inherit;  
+        position: inherit;  
+       width: 70px;;
+       height: auto;
+        border: none;  
+        cursor: pointer;  
+       z-index: 10;
+       grid-column: 1;
+       grid-row: 1;
+        
+    }  
 
-    /* Dropdown content styles */
-    .dropdown-content {
-        display: none; /* Hidden by default */
-        position: absolute;
-        background-color: #ffffff; /* White background */
-        border: 1px solid #e2e8f0; /* Light gray border */
-        border-radius: 0.375rem;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-        z-index: 10; /* Ensure it appears above other elements */
-        margin-top: 0.5rem; /* Space between button and dropdown */
-    }
+    .dropdown-content {  
+        display: none; /* Keep this as 'none' initially */  
+        position: absolute;  
+        top: 80px;
+        font-weight: 20px;
+        background-color: #f9f9f9;  
+        min-width: 160px;  
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);  
+        z-index: 20; /* Ensure dropdown is above other elements */
+    }  
 
-    /* Show dropdown on hover */
-    .dropdown:hover .dropdown-content {
-        display: block; /* Show dropdown */
-    }
+    .dropdown-content a {  
+        color: black;  
+        padding: 12px 16px;  
+        text-decoration: none;  
+        display: block;  
+    }  
 
-    /* Dropdown link styles */
-    .dropdown-link {
-        display: block;
-        padding: 0.5rem 1rem;
-        color: #4a5568; /* Text color */
-        text-decoration: none; /* Remove underline */
-        transition: background-color 0.3s; /* Smooth transition */
+    .dropdown-content a:hover {  
+        background-color: #007561c5; 
+        color: white; /* Change text color on hover */
     }
-
-    .dropdown-link:hover {
-        background-color: #edf2f7; /* Light gray on hover */
-        color: #2d3748; /* Darker text color on hover */
-    }
+   
+  
     .nav{
     font-family: 'Cairo', sans-serif;
     justify-content: space-between;
@@ -206,3 +171,31 @@
     background-color: #f1f1f1;
   }
 </style>
+<script>
+     function toggleDropdown() {  
+    const dropdownContent = document.getElementById("dropdownContent");  
+    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block"; // Toggle display  
+}  
+
+// Optional: Close the dropdown if the user clicks outside of it  
+window.onclick = function(event) {  
+    if (!event.target.matches('.dropbtn')) {  
+        const dropdowns = document.getElementsByClassName("dropdown-content");  
+        for (let i = 0; i < dropdowns.length; i++) {  
+            if (dropdowns[i].style.display === "block") {  
+                dropdowns[i].style.display = "none";  
+            }  
+        }  
+    }  
+}  
+
+function logout() {  
+    // Logic for logout action  
+    alert('Logging out...');  
+}  
+
+function viewProfile() {  
+    // Logic for viewing the profile  
+    alert('Viewing profile...');  
+}
+</script>

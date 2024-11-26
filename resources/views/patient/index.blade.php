@@ -23,24 +23,25 @@
     <br>
     <br>
         <div class="table-container">
+            <input type="text" id="searchInput" placeholder="Search...">
         <table>
             <thead>
                 <tr>
-                    <th onclick="sortTable('id')">ID <span id="arrow-id" class="circle inactive"></span></th>
-                    <th onclick="sortTable('name')">الاسم <span id="arrow-name" class="circle inactive"></span></th>
+                    <th onclick="sortTable('id')" style="cursor: pointer">ID <span id="arrow-id" class="circle inactive"></span></th>
+                    <th onclick="sortTable('name')" style="cursor: pointer">الاسم <span id="arrow-name" class="circle inactive"></span></th>
                     <th>الرقم</th>
                     <th>العنوان</th>
                     
                     <th>الجنس</th>
                     <th>العمر</th>
                     <th>الوظيفة</th>
-                    <th onclick="sortTable('createdAt')">تاريخ الإضافة <span id="arrow-created-at" class="circle inactive"></span></th>
+                    <th onclick="sortTable('createdAt')" style="cursor: pointer">تاريخ الإضافة <span id="arrow-created-at" class="circle inactive"></span></th>
                     <th> آخر تعديل</th>
                     
                     <th>تفاصيل</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="dataTable">
                 <!-- Add your patient data rows here -->
                 @foreach ($patients as $patient)
                 @php
@@ -226,6 +227,19 @@ let sortOrder = {
 
     // Call initializeTable when the page loads to store the original rows
     document.addEventListener("DOMContentLoaded", initializeTable);
+    //====================================================================
+    //search script and stuff.
+    document.getElementById('searchInput').addEventListener('keyup', function() {  
+            let filter = this.value.toLowerCase();  
+            let rows = document.querySelectorAll('#dataTable tr');  // Use the id for tbody
+
+            rows.forEach(row => {  
+                let cells = row.getElementsByTagName('td');  
+                let found = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(filter));  
+                row.style.display = found ? '' : 'none';  
+            });  
+        });
+    
         </script>
 </body>
 </html>

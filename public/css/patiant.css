@@ -11,6 +11,7 @@
   flex-direction: column;
   width: 100%;
   align-items: center; /* Center vertically */
+  flex-wrap:;
   min-height: 100vh; /* Ensure the body takes full viewport height */ 
 }
 

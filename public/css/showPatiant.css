@@ -16,7 +16,7 @@
     background-size: cover;
     background-attachment: fixed;
     margin: 0;
-    font-family: 'lato',sans-serif  ;
+    font-family: 'Cairo',sans-serif  ;
   }
   .lists-container {
     display: flex;
@@ -134,6 +134,9 @@ tbody tr:nth-child(even) {
     box-shadow: #000;
     margin: 10px auto;
   }
+  .container2 h3{
+    text-align: center;
+  }
   .custom-btn {
     width: 65px;
     height: 20px;
@@ -212,3 +215,4 @@ tbody tr:nth-child(even) {
   button.action-btn:hover {
       background-color: #c82333;
   }
+  
