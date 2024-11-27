@@ -1,1 +1,6 @@
-composer , laravel, nodejs
+composer , laravel, nodejs,npm run dev,build
+composer require spatie/laravel-permission
+
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+php artisan db:seed --class=RolesPermsSeeder

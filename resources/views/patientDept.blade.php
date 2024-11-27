@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
-    <title>Department Management</title>
+    <title>ادارة المرضى</title>
     @include('layouts.navigation')
 </head>
 <body>
@@ -15,9 +15,9 @@
         
             <div class="form-group">
                 <div class="select-box">
-                <label for="department">Department Title</label>
+                <label for="department">عنوان العيادة</label>
                 <select id="department" required name="department" autofocus >
-                    <option value="">Select Department</option>
+                    <option value="">اختر عيادة</option>
                     @foreach ($depts as $dept)
                     <option value="{{$dept->id}}">{{$dept->title}}</option>
 
@@ -28,9 +28,9 @@
 
             <div class="form-group">
             <div class="select-box">
-                <label for="patient">Patient Name</label>
+                <label for="patient">اسم المريض</label>
                 <select id="patient" required name="patient" >
-                    <option value="">Select patient</option>
+                    <option value="">اختر مريضاّ</option>
                     @foreach ($patients as $patient)
                     <option value="{{$patient->id}}">{{$patient->name}}</option>
 
@@ -41,9 +41,9 @@
         
             <div class="form-group">
             <div class="select-box">
-                <label for="doctor">Doctor Name</label>
+                <label for="doctor">اسم الطبيب</label>
                 <select id="doctor" required name="doctor" >
-                    <option value="">Select doctor</option>
+                    <option value="">اختر طبيباّ</option>
                     @foreach ($doctors as $doctor)
                     <option value="{{$doctor->id}}">{{$doctor->user->name}}</option>
 
@@ -53,39 +53,40 @@
             </div>
         
             <div class="form-group">
-                <label for="illness">Illness</label>
+                <label for="illness">المرض الحالي</label>
                 <input type="text" required id="illness" name="illness" >
             </div>
             
             <div class="form-group">
-                <label for="description">Description</label>
+                <label for="description">الوصفة الدوائيةالحالية</label>
                 <input type="text" required id="description" name="description" >
             </div>
 
             <div class="form-group">
-                <label for="cure">Cure</label>
+                <label for="cure">العلاج المتبع</label>
                 <input type="text" required id="cure" name="cure" >
             </div>
             
             {{-- patient account details --}}
             <div class="form-group">
             <div class="select-box">
-                <label for="check_in_type">Check In Type</label>
+            
+                <label for="check_in_type">مكان المعاينة</label>
                 <select type="text" required id="check_in_type" name="check_in_type" >
-                    <option value="">Select Type</option>
-                    <option value="eye">Eye</option>
-                    <option value="body">Body</option>
-                    <option value="bones">Bones</option>
+                    <option value="">حدد</option>
+                    <option value="eye">عين</option>
+                    <option value="body">جسم</option>
+                    <option value="bones">عضام</option>
                 </select>
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="given_cure">Given Cure</label>
+                <label for="given_cure">العلاج المعطى</label>
                 <input type="text" required id="given_cure" name="given_cure" >
             </div>
             <div class="form-group">
-                <label for="tools">Tools</label>
+                <label for="tools">الأدوات المستخدمة</label>
                 <input type="text" required id="tools" name="tools" >
             </div>
       

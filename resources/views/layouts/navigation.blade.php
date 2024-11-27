@@ -24,7 +24,7 @@
                         </a>
                 </li>
                 <li>
-                        <a href="{{ route(name: 'department.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('departments.*') ? 'border-b-2 border-blue-500' : '' }}">الأقسام</a>
+                        <a href="{{ route(name: 'department.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('departments.*') ? 'border-b-2 border-blue-500' : '' }}">العيادات</a>
                 </li>
                 <li>
                 <a href="{{ route(name: 'book.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('book') ? 'border-b-2 border-blue-500' : '' }}">الحجوزات</a>
@@ -37,58 +37,111 @@
                 <li>
                   <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
                 </li>  
+                <li class="loglog">
+                <div class="dropdown">  
+                    <a class="dropbtn" onclick="toggleDropdown()">
+                
+                    </a>  
+                    <div class="inside">
+                    <img src="images/login.png" alt="log-con" class="log-con mr-2">
+                    <div>{{ Auth::user()->name }}</div>
+                    </div> 
+                    <div class="dropdown-content" id="dropdownContent">  
+                        <a href="{{ route('profile.edit') }}">الحساب الشخصي</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a :href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();" style="color:red" >
+                                {{ __('تسجيل الخروج') }}
+                            </a>
+                        </form>
+                        {{-- <a href="{{ route('logout') }}" style="color:red">تسجيل خروج</a>   --}}
+                    </div>  
+                </div>  
+
+                </li>
                 </ul>
 
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
-                  <x-dropdown align="right" width="48">
-                      <x-slot name="trigger">
-                          <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                              <div>{{ Auth::user()->name }}</div>
-  
-                              <div class="ms-1">
-                                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                  </svg>
-                              </div>
-                          </button>
-                      </x-slot>
-  
-                      <x-slot name="content">
-                          <x-dropdown-link :href="route('profile.edit')">
-                              {{ __('Profile') }}
-                          </x-dropdown-link>
-  
-                          <!-- Authentication -->
-                          <form method="POST" action="{{ route('logout') }}">
-                              @csrf
-  
-                              <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                  this.closest('form').submit();">
-                                  {{ __('Log Out') }}
-                              </x-dropdown-link>
-                          </form>
-                      </x-slot>
-                  </x-dropdown>
-              </div>
-  
-              <!-- Hamburger -->
-              <div class="-me-2 flex items-center sm:hidden">
-                  <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                      <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                          <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                          <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                  </button>
-              </div>
+               
+            
+             
           </div>
       </div>
   
              
 </nav>
 <style>
+    .loglog{
+        position: absolute;
+        left: 90%;
+    }
+    .inside{
+        display: flex;  
+        position: relative;
+        align-content:center ;
+        justify-content: center;
+        font-size: 20px;
+        grid-column: 1;
+        z-index: 1;
+        grid-row: 1;
+        width: 80px;
+        height: auto;
+        flex-wrap:wrap;
 
+    }
+     .dropdown {  
+       display: grid;
+       grid-template-columns: repeat(1,80px); 
+      grid-template-rows: repeat(1,50px);
+      
+    }  
+    
+    .inside img {
+        width: 35px;
+        z-index: 0; /* Ensure the image is below the dropdown */
+    }
+
+    .dropbtn {  
+        background-color: transparent; /* Make background transparent */
+        color: inherit;  
+        position: inherit;  
+       width: 70px;;
+       height: auto;
+        border: none;  
+        cursor: pointer;  
+       z-index: 10;
+       grid-column: 1;
+       grid-row: 1;
+        
+    }  
+
+    .dropdown-content {  
+        display: none; /* Keep this as 'none' initially */  
+        position: absolute;  
+        top: 80px;
+        font-weight: 20px;
+        background-color: #f9f9f9;  
+        min-width: 160px;  
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);  
+        z-index: 20; /* Ensure dropdown is above other elements */
+    }  
+
+    .dropdown-content a {  
+        color: black;  
+        padding: 12px 16px;  
+        text-decoration: none;  
+        display: block;  
+    }  
+
+    .dropdown-content a:hover {  
+        background-color: #007561c5; 
+        color: white; /* Change text color on hover */
+    }
+   
+  
     .nav{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Cairo', sans-serif;
     justify-content: space-between;
     align-items: center;
     display: fixed;
@@ -126,3 +179,31 @@
     background-color: #f1f1f1;
   }
 </style>
+<script>
+     function toggleDropdown() {  
+    const dropdownContent = document.getElementById("dropdownContent");  
+    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block"; // Toggle display  
+}  
+
+// Optional: Close the dropdown if the user clicks outside of it  
+window.onclick = function(event) {  
+    if (!event.target.matches('.dropbtn')) {  
+        const dropdowns = document.getElementsByClassName("dropdown-content");  
+        for (let i = 0; i < dropdowns.length; i++) {  
+            if (dropdowns[i].style.display === "block") {  
+                dropdowns[i].style.display = "none";  
+            }  
+        }  
+    }  
+}  
+
+function logout() {  
+    // Logic for logout action  
+    alert('Logging out...');  
+}  
+
+function viewProfile() {  
+    // Logic for viewing the profile  
+    alert('Viewing profile...');  
+}
+</script>

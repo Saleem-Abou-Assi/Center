@@ -23,24 +23,25 @@
     <br>
     <br>
         <div class="table-container">
+            <input type="text" id="searchInput" placeholder="Search...">
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>الاسم</th>
+                    <th onclick="sortTable('id')" style="cursor: pointer">ID <span id="arrow-id" class="circle inactive"></span></th>
+                    <th onclick="sortTable('name')" style="cursor: pointer">الاسم <span id="arrow-name" class="circle inactive"></span></th>
                     <th>الرقم</th>
                     <th>العنوان</th>
                     
                     <th>الجنس</th>
                     <th>العمر</th>
                     <th>الوظيفة</th>
-                    <th>تاريخ الإضافة</th>
+                    <th onclick="sortTable('createdAt')" style="cursor: pointer">تاريخ الإضافة <span id="arrow-created-at" class="circle inactive"></span></th>
                     <th> آخر تعديل</th>
                     
                     <th>تفاصيل</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="dataTable">
                 <!-- Add your patient data rows here -->
                 @foreach ($patients as $patient)
                 @php
@@ -151,6 +152,94 @@ function deletePatient() {
     document.getElementById('confirm-modal').style.display = 'none';
     document.getElementById('deleteForm').submit();
 }
+//======================================
+let sortOrder = {
+        id: 'desc', // Default sort order for ID
+        name: 'desc', // Default sort order for name
+        createdAt: 'desc' // Default sort order for created at
+    }; 
+
+    let originalRows = []; // Array to store original rows
+
+    function initializeTable() {
+        const table = document.querySelector('table'); // Select the table
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr')); // Get all rows
+
+        // Store original rows in the array
+        originalRows = rows.map(row => row.cloneNode(true)); // Clone rows to keep original data
+    }
+
+    function sortTable(column) {
+        const table = document.querySelector('table'); // Select the table
+        const tbody = table.querySelector('tbody');
+
+        // Clear the tbody to refresh the table
+        tbody.innerHTML = '';
+
+        // Reset the sort order for all columns to default
+        sortOrder.id = 'desc'; // Reset ID sort order to descending
+        sortOrder.name = 'desc'; // Reset name sort order to descending
+        sortOrder.createdAt = 'desc'; // Reset created at sort order to descending
+
+        // Set the sort order for the selected column
+        sortOrder[column] = (sortOrder[column] === 'asc') ? 'desc' : 'asc';
+
+        // Sort rows based on the selected column
+        const sortedRows = originalRows.slice().sort((a, b) => {
+            let aValue, bValue;
+
+            if (column === 'id') {
+                aValue = parseInt(a.children[0].textContent.trim()); // Get ID from the first column
+                bValue = parseInt(b.children[0].textContent.trim()); // Get ID from the first column
+            } else if (column === 'name') {
+                aValue = a.children[1].textContent.trim(); // Get name from the second column
+                bValue = b.children[1].textContent.trim(); // Get name from the second column
+            } else if (column === 'createdAt') {
+                aValue = new Date(a.children[7].textContent.trim()); // Get created at from the eighth column
+                bValue = new Date(b.children[7].textContent.trim()); // Get created at from the eighth column
+            }
+
+            // Use localeCompare for string comparison or numeric comparison for IDs
+            return sortOrder[column] === 'asc' 
+                ? (column === 'id' ? aValue - bValue : (column === 'createdAt' ? aValue - bValue : aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: 'base' })))
+                : (column === 'id' ? bValue - aValue : (column === 'createdAt' ? bValue - aValue : bValue.localeCompare(aValue, undefined, { numeric: true, sensitivity: 'base' })));
+        });
+
+        // Append sorted rows back to the tbody
+        sortedRows.forEach(row => tbody.appendChild(row));
+
+        // Update circle direction
+        const arrowId = document.getElementById('arrow-id');
+        const arrowName = document.getElementById('arrow-name');
+        const arrowCreatedAt = document.getElementById('arrow-created-at');
+        
+        // Set the circle color based on the sort order
+        arrowId.className = 'circle active ' + sortOrder.id;
+        arrowName.className = 'circle active ' + sortOrder.name;
+        arrowCreatedAt.className = 'circle active ' + sortOrder.createdAt;
+
+        // Set inactive circles for other columns
+        if (column !== 'id') arrowId.classList.add('inactive');
+        if (column !== 'name') arrowName.classList.add('inactive');
+        if (column !== 'createdAt') arrowCreatedAt.classList.add('inactive');
+    }
+
+    // Call initializeTable when the page loads to store the original rows
+    document.addEventListener("DOMContentLoaded", initializeTable);
+    //====================================================================
+    //search script and stuff.
+    document.getElementById('searchInput').addEventListener('keyup', function() {  
+            let filter = this.value.toLowerCase();  
+            let rows = document.querySelectorAll('#dataTable tr');  // Use the id for tbody
+
+            rows.forEach(row => {  
+                let cells = row.getElementsByTagName('td');  
+                let found = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(filter));  
+                row.style.display = found ? '' : 'none';  
+            });  
+        });
+    
         </script>
 </body>
 </html>

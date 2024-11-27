@@ -2,41 +2,41 @@
 <html>
 <head>
 <link rel="stylesheet" href="{{ asset(path: 'css/showPatiant.css') }}">
-    <title>Patient Management</title>
+    <title>إدارة المرضى</title>
     @include('layouts.navigation')
    
     
 </head>
 <body>
     <div class="container">
-        <h1>Patient Details</h1>
+        <h1>تفاصيل المريض</h1>
         <div class="lists-container">
             <ul class="ul">
-                <li data-label="Name"><span>{{ $patient->name }}</span></li>
-                <li data-label="Phone"><span>{{ $patient->phone }}</span></li>
-                <li data-label="Address"><span>{{ $patient->address }}</span></li>
-                <li data-label="Gender"><span>{{ $patient->Gender }}</span></li>
-                <li data-label="Age"><span>{{ $patient->age }}</span></li>
-                <li data-label="Relation"><span>{{ $patient->relation }}</span></li>
-                <li data-label="Children"><span>{{ $patient->childerCount }}</span></li>
+                <li data-label="الاسم"><span>{{ $patient->name }}</span></li>
+                <li data-label="الرقم"><span>{{ $patient->phone }}</span></li>
+                <li data-label="العنوان"><span>{{ $patient->address }}</span></li>
+                <li data-label="الجنس"><span>{{ $patient->Gender }}</span></li>
+                <li data-label="الرقم"><span>{{ $patient->age }}</span></li>
+                <li data-label="الحالة الاجتماعية"><span>{{ $patient->relation }}</span></li>
+                <li data-label="عدد الأطفال"><span>{{ $patient->childerCount }}</span></li>
             </ul>
             <ul class="ul">
-                <li data-label="Smooking"><span>{{ $patient->smooking }}</span></li>
-                <li data-label="Old Surgery"><span>{{ $patient->oldSurgery }}</span></li>
-                <li data-label="Alirgy"><span>{{ $patient->alirgy }}</span></li>
-                <li data-label="Disease"><span>{{ $patient->disease }}</span></li>
-                <li data-label="Dite"><span>{{ $patient->dite }}</span></li>
-                <li data-label="Permenant Cures"><span>{{ $patient->permenantCure }}</span></li>
-                <li data-label="Cosmetic"><span>{{ $patient->Cosmetic }}</span></li>
-                <li data-label="Current Disease"><span>{{ $patient->CurrentDiseas }}</span></li>
+                <li data-label="مدخن"><span>{{ $patient->smooking }}</span></li>
+                <li data-label="عمليات سابقة"><span>{{ $patient->oldSurgery }}</span></li>
+                <li data-label="حساسية"><span>{{ $patient->alirgy }}</span></li>
+                <li data-label="مرض مزمن"><span>{{ $patient->disease }}</span></li>
+                <li data-label="الحمية الغذائية"><span>{{ $patient->dite }}</span></li>
+                <li data-label="علاج متبع"><span>{{ $patient->permenantCure }}</span></li>
+                <li data-label="عمليات تجميل سابقة"><span>{{ $patient->Cosmetic }}</span></li>
+                <!-- <li data-label="المرض الحالي"><span>{{ $patient->CurrentDiseas }}</span></li> -->
             </ul>
         </div>
         <div class="table-container1">
-            <h3>additional Details</h3>
+            <h3>تفاصيل إضافية</h3>
         <table>
             <tr>
-                <th>Field Name</th>
-                <th>Field Value</th>
+                <th>اسم الحقل</th>
+                <th>محتوى الحقل</th>
             </tr>
             @if ($patient->Field)
             @foreach ($patient->Field as $field)
