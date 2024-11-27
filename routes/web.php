@@ -8,6 +8,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientDeptController;
 use App\Http\Controllers\LazerController;
+use App\Http\Controllers\PController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StorageController;
 use App\Models\Accounter;
@@ -73,5 +74,7 @@ Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+//stuff
+Route::get('/show/all', [PController::class, 'getAllPatients'])->name('show.all');
 });
 require __DIR__ . '/auth.php';
