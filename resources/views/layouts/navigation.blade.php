@@ -43,12 +43,20 @@
                 
                     </a>  
                     <div class="inside">
-                    <img src="images/login.png" alt="log-con" class="log-con mr-2">
+                    <img src="{{asset ('images/login.png')}}" alt="log-con" class="log-con mr-2">
                     <div>{{ Auth::user()->name }}</div>
                     </div> 
                     <div class="dropdown-content" id="dropdownContent">  
                         <a href="{{ route('profile.edit') }}">الحساب الشخصي</a>
-                        <a href="{{ route('logout') }}" style="color:red">تسجيل خروج</a>  
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a :href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();" style="color:red; cursor:pointer;" >
+                                {{ __('تسجيل الخروج') }}
+                            </a>
+                        </form>
+                        {{-- <a href="{{ route('logout') }}" style="color:red">تسجيل خروج</a>   --}}
                     </div>  
                 </div>  
 

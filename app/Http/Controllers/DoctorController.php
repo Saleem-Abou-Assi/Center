@@ -6,7 +6,9 @@ use App\Models\Accounter;
 use App\Models\APD;
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -26,28 +28,36 @@ class DoctorController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    // Validate request
+    $request->validate([
+        'name' => ['required', 'string'],
+        'email' => ['required', 'email', 'unique:users'],
+        'password' => ['required', 'min:6'],
+        'phone' => ['required', 'string'],
+        'address' => ['required', 'string'],
+        'specialization' => ['required'],
+    ]);
 
-        // تحقق من صحة الطلب
-        $request->validate([
-            'name' => ['required', 'string'],
-            'phone' => ['required', 'string'],
-            'address' => ['required', 'string'],
-            'specialization' => ['required',],
-            
-        ]);
+    // Create user first
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => 'doctor'
+    ]);
 
-        // إنشاء 
-        $doctor = Doctor::create([
-            'name' => $request->name,
-             'phone'=> $request->phone,
-             'address'=> $request->address,
-             'specialization'=> $request->specialization,
-             'dept_id'=> $request->department,
-        ]);
+    // Create associated doctor record
+    $doctor = Doctor::create([
+        'user_id' => $user->id,
+        'phone' => $request->phone,
+        'address' => $request->address,
+        'specialization' => $request->specialization,
+        'dept_id' => $request->department,
+    ]);
 
-        return redirect()->route('doctor.index'); // إعادة التوجيه بعد التخزين
-    }
+    return redirect()->route('doctor.index');
+}
     public function edit($id)
     {
         $doctor = Doctor::find($id);
@@ -55,31 +65,41 @@ class DoctorController extends Controller
         return view('doctor.create', ['doctor' => $doctor,'depts'=>$depts]);
     }
 
-    public function update(Request $request,$doctor_id)
-         {
-            
-            $doctor = Doctor::where('id',$doctor_id)->first();
-            
-            $request->validate([
-                'name' => ['required', 'string'],
-                'phone' => ['required', 'string'],
-                'address' => ['required', 'string'],
-                'specialization' => ['required',],
+    public function update(Request $request, $doctor_id)
+{
+    $doctor = Doctor::where('id', $doctor_id)->first();
+    
+    $request->validate([
+        'name' => ['required', 'string'],
+        'email' => ['required', 'email', 'unique:users,email,' . $doctor->user_id],
+        'phone' => ['required', 'string'],
+        'address' => ['required', 'string'],
+        'specialization' => ['required'],
+    ]);
 
-            ]);
- 
-            $doctor->update([
-                'name' => $request->name,
-                 'phone'=> $request->phone,
-                 'address'=> $request->address,
-                 'specialization'=> $request->specialization,
-                 'department'=> $request->dept_id,
-            ]);
-            
-             
-             return redirect()->route('doctor.index'); 
-            }
+    // Update user information
+    $doctor->user->update([
+        'name' => $request->name,
+        'email' => $request->email,
+    ]);
 
+    // Update password if provided
+    if ($request->filled('password')) {
+        $doctor->user->update([
+            'password' => Hash::make($request->password)
+        ]);
+    }
+
+    // Update doctor information
+    $doctor->update([
+        'phone' => $request->phone,
+        'address' => $request->address,
+        'specialization' => $request->specialization,
+        'dept_id' => $request->department,
+    ]);
+    
+    return redirect()->route('doctor.index');
+}
      public function destroy($doctor_id)
      { 
         

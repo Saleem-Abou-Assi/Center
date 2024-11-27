@@ -23,7 +23,7 @@
     </a>
     <br>
     <br>
-     <input type="text" id="searchInput" placeholder="Search..." >
+     <input type="text" id="searchInput" placeholder="Search..." style="width:15vw">
            
         <div class="table-container">
            
@@ -40,7 +40,6 @@
                     <th>الوظيفة</th>
                     <th onclick="sortTable('createdAt')" style="cursor: pointer">تاريخ الإضافة <span id="arrow-created-at" class="circle inactive"></span></th>
                     <th> آخر تعديل</th>
-                    
                     <th>تفاصيل</th>
                 </tr>
             </thead>

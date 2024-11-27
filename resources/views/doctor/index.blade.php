@@ -27,6 +27,7 @@
             <tr>  
                 <th>ID</th>  
                 <th>الاسم</th>  
+                <th>الايميل</th>
                 <th>الرقم</th>  
                 <th>العوان</th>  
                 <th>التخصص</th>  
@@ -38,13 +39,18 @@
         <tbody>  
             @foreach ($doctors as $doctor)  
                 <tr>  
+                @if ($doctor->user)
                     <td>{{ $doctor->id }}</td>  
-                    <td>{{ $doctor->name }}</td>  
+                   
+                    <td>{{ $doctor->user->name }}</td>
+                   
+                    <td>{{ $doctor->user->email }}</td>
                     <td>{{ $doctor->phone }}</td>  
                     <td>{{ $doctor->address }}</td>  
                     <td>{{ $doctor->specialization }}</td>  
                     <td>{{ $doctor->created_at }}</td>  
                     <td>{{ $doctor->updated_at }}</td>  
+                    
                     <td class="action-td">  
                         <a href="{{ route('doctor.edit', $doctor->id) }}" class="action-btn">تعديل</a>  
                         <form action="{{ route('doctor.destroy', $doctor->id) }}" method="POST" style="display:inline;">  
@@ -54,6 +60,7 @@
                         </form>  
                         <a href="{{ route('doctor.show', $doctor->id) }}" class="action-btn">عرض</a>  
                     </td>  
+                    @endif
                 </tr>  
             @endforeach  
         </tbody>  

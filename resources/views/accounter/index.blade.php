@@ -62,8 +62,8 @@
     <button onclick="exportTableToExcel('myTable', )"  class="add-btn"><span>Export to Excel</span></button>
     </div>
     <div class="boton">
-        <a href="{{ route('doctor.show',['doctor_id'=> $doctor->id]) }}" class="custom-btn btn-2">Go Back</a>
-        </div>
+        <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2">Go Back</a>
+    </div>
   </div>
   </div>
  

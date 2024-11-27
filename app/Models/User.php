@@ -4,13 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, HasRoles,Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'status'
     ];
 
     /**
@@ -45,4 +48,38 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function Doctor():HasOne
+    {
+        return $this->hasOne(Doctor::class);
+    }
+    public static function createWithRoles(array $userData, array $roles = []): self
+    {
+        $user = static::create([
+            'name' => $userData['name'],
+            'email' => $userData['email'],
+            'password' => bcrypt($userData['password']),
+            'status' => $userData['status'] ?? 'active',
+        ]);
+
+        if (!empty($roles)) {
+            $user->assignRole($roles);
+        }
+
+        return $user;
+    }
+
+    public function updateRoles(array $roles): void
+    {
+        $this->syncRoles($roles);
+    }
+
+    // Helper scope for filtering
+    public function scopeWithRole($query, $role)
+    {
+        return $query->whereHas('roles', function ($q) use ($role) {
+            $q->where('name', $role);
+        });
+    }
+
 }

@@ -45,8 +45,11 @@
                 <select id="doctor" required name="doctor" >
                     <option value="">اختر طبيباّ</option>
                     @foreach ($doctors as $doctor)
-                    <option value="{{$doctor->id}}">{{$doctor->name}}</option>
+                    @if ($doctor->user)
 
+                    <option value="{{$doctor->id}}">{{$doctor->user->name}}</option>
+                        
+                    @endif
                     @endforeach
                 </select>
                 </div>
@@ -89,11 +92,7 @@
                 <label for="tools">الأدوات المستخدمة</label>
                 <input type="text" required id="tools" name="tools" >
             </div>
-            {{-- <div class="form-group">
-                <label for="full_cost">Total Cost</label>
-                <input type="text" required id="full_cost" name="full_cost" >
-            </div>
-            --}}
+      
 
             <button type="submit" class="cta"><span>{{ 'Input' }}</span>
             <svg width="15px" height="10px" viewBox="0 0 13 10">

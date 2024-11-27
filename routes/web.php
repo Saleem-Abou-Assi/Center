@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccounterController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DepartmentController;
@@ -20,6 +21,11 @@ Route::middleware(['auth'])->group(function (){
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('users', UserController::class);
+});
 
 Route::get('/patients', [PatientController::class, 'index'])->name('patient.index');
 Route::get('/patients/create', [PatientController::class, 'create'])->name('patient.create');
