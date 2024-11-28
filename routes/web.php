@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
 
 //must be roll admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
     Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
