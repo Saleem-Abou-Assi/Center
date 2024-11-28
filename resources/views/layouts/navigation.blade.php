@@ -43,7 +43,7 @@
                 
                     </a>  
                     <div class="inside">
-                    <img src="images/login.png" alt="log-con" class="log-con mr-2">
+                    <img src="{{asset ('images/login.png')}}" alt="log-con" class="log-con mr-2">
                     <div>{{ Auth::user()->name }}</div>
                     </div> 
                     <div class="dropdown-content" id="dropdownContent">  
@@ -52,7 +52,7 @@
                             @csrf
 
                             <a :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();" style="color:red" >
+                                                this.closest('form').submit();" style="color:red; cursor:pointer;" >
                                 {{ __('تسجيل الخروج') }}
                             </a>
                         </form>

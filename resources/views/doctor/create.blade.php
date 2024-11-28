@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="C-container">
-        <h1>{{ isset($doctor) ? 'عدل على بيانات طبيب' : 'أضف طبيباّ' }}</h1>
+        <h1>{{ isset($doctor) ? 'عدل على بيانات طبيب' : 'أضف طبيباً' }}</h1>
 
         <form action="{{ isset($doctor) ? route('doctor.update', $doctor->id) : route('doctor.store') }}" method="POST">
             @csrf
@@ -26,6 +26,7 @@
                 <input type="email" id="email" name="email" required value="{{ isset($doctor) ? $doctor->user->email : '' }}">
             </div>
             
+            {{-- min 8 char ehaaaaaab --}}
             <div class="form-group">
                 <label for="password">كلمة المرور</label>
                 <input type="password" id="password" name="password" {{ isset($doctor) ? '' : 'required' }}>

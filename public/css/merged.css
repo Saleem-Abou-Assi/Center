@@ -1,9 +1,10 @@
 /* Global Styles */
 body {
-    background-image: url('../images/back.jpg');
+    /* background-image: url('../images/back.jpg');
     background-repeat: no-repeat;
     background-position: right;
-    background-size: cover;
+    background-size: cover; */
+    background: linear-gradient(to bottom, #003366, #00253d); 
     background-attachment: fixed;
     margin: 0;
     font-family: 'Cairo', sans-serif;
@@ -121,7 +122,7 @@ thead {
 th, td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd; /* Row border */
+   
 }
 
 tbody tr:nth-child(even) {
@@ -130,6 +131,26 @@ tbody tr:nth-child(even) {
 
 /* Button Styles */
 .action-btn, .add-btn, .custom-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+}
+.but{
+    display: flex;
+    justify-content: end;
+}
+.underline{
+    font-weight: 25px;
+    text-decoration: underline;
+    color: rgb(146, 1, 1);
+    padding-right: 25px;
+}
+.add-btn1{
     padding: 8px 16px;
     border-radius: 4px;
     text-decoration: none;
@@ -189,6 +210,9 @@ tbody tr:nth-child(even) {
 .action-td{
     display: flex;
     gap: 10px;  /* Space between buttons */
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
     align-items: center;
   }
 
@@ -410,7 +434,7 @@ label {
     font-weight: 500;
 }
 
-input[type="text"], input[type="number"], input[type="datetime-local"] {
+input[type="text"], input[type="number"], input[type="datetime-local"],[type="email"],[type="password"] {
     width: 95%;
     padding: 10px;
     border: 1px solid #ddd;

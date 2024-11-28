@@ -45,8 +45,11 @@
                 <select id="doctor" required name="doctor" >
                     <option value="">اختر طبيباّ</option>
                     @foreach ($doctors as $doctor)
-                    <option value="{{$doctor->id}}">{{$doctor->user->name}}</option>
+                    @if ($doctor->user)
 
+                    <option value="{{$doctor->id}}">{{$doctor->user->name}}</option>
+                        
+                    @endif
                     @endforeach
                 </select>
                 </div>

@@ -11,6 +11,7 @@
     
 </head> 
 <body>
+   
     <div class="page-title"> <h1>المرضى</h1></div>
     <div class="all">
     <div class="container">
@@ -22,9 +23,11 @@
     </a>
     <br>
     <br>
+     <input type="text" id="searchInput" placeholder="Search..." style="width:15vw">
+           
         <div class="table-container">
-            <input type="text" id="searchInput" placeholder="Search...">
-        <table>
+           
+        <table id="patientTable">
             <thead>
                 <tr>
                     <th onclick="sortTable('id')" style="cursor: pointer">ID <span id="arrow-id" class="circle inactive"></span></th>
@@ -37,7 +40,6 @@
                     <th>الوظيفة</th>
                     <th onclick="sortTable('createdAt')" style="cursor: pointer">تاريخ الإضافة <span id="arrow-created-at" class="circle inactive"></span></th>
                     <th> آخر تعديل</th>
-                    
                     <th>تفاصيل</th>
                 </tr>
             </thead>
@@ -239,7 +241,6 @@ let sortOrder = {
                 row.style.display = found ? '' : 'none';  
             });  
         });
-    
         </script>
 </body>
 </html>

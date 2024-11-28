@@ -11,9 +11,10 @@ use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
+
     public function index()
     {
-        $patients = Patient::paginate(20);
+        $patients = Patient::paginate(200);
         
         return view('patient.index',['patients'=>$patients]);
     }

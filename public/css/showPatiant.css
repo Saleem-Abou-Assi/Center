@@ -10,10 +10,11 @@
 
   }
   body{
-    background-image: url('../images/back.png');
+    /* background-image: url('../images/back.png');
     background-repeat: no-repeat;
     background-position: right;
-    background-size: cover;
+    background-size: cover; */
+    background: linear-gradient(to bottom, #003366, #00253d); 
     background-attachment: fixed;
     margin: 0;
     font-family: 'Cairo',sans-serif  ;

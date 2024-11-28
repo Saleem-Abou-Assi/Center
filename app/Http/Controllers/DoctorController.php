@@ -44,8 +44,10 @@ class DoctorController extends Controller
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
-        'role' => 'doctor'
     ]);
+
+    // Assign doctor role
+    $user->assignRole('doctor');
 
     // Create associated doctor record
     $doctor = Doctor::create([
