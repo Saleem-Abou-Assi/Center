@@ -12,7 +12,9 @@
 <div class="all">
 <div class="page-title">
     <h1>حسابات</h1>
-    <p>فاتورة المريض {{$patient->name}}</p>
+</div>
+    
+    <h3 style="color: white">فاتورة المريض {{$patient->name}}</h3>
  
 
   </div>  

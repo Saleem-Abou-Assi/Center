@@ -3,11 +3,9 @@ composer require spatie/laravel-permission
 
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
-php artisan db:seed --class=RolesPermsSeeder
-<<<<<<< HEAD
-php artisan db:seed --class=RolesSeeder
-migrate
-=======
+1-migrate
+2-php artisan db:seed --class=RolesPermsSeeder
+3-php artisan db:seed --class=RolesSeeder
+
 
 Cairo Font install ...
->>>>>>> b40bb3bd9e8d33a9418dcd272e21308cb7b4ccf3

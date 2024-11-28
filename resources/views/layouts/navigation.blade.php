@@ -35,8 +35,15 @@
                 </li>
                 
                 <li>
-                  <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
-                </li>  
+                    <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
+                  </li>  
+
+                  <li>
+                    <a href="{{ route(name: 'storage.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('store') ? 'border-b-2 border-blue-500' : '' }}">المستودع </a>
+                  </li>  
+    
+
+
                 <li class="loglog">
                 <div class="dropdown">  
                     <a class="dropbtn" onclick="toggleDropdown()">

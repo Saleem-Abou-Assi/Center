@@ -12,7 +12,7 @@
 <div class="page-title1"><h1>تفاصيل الطبيب</h1></div>
 <div class="ul">
 <ul>
-    <li data-label="الاسم:">{{ $doctor->name }}</li>
+    <li data-label="الاسم:">{{ $doctor->user->name }}</li>
     <li data-label="الرقم:">{{ $doctor->phone }}</li>
     <li data-label="العوان:">{{ $doctor->address }}</li>
     <li data-label="التخصص:">{{ $doctor->specialization }}</li>
@@ -31,9 +31,6 @@
                 <th>نوع المعاينة</th>
                 <th>العلاج المعطى</th>
                 <th>الأدوات المستخدمة</th>
-                {{-- <th>Doctor Name__</th> --}}
-                <th>التكلفة الكليّة</th>
-                {{-- <th>Status</th> --}}
                 <th>الفاتورة</th>
             </tr>
             @foreach ($doctor->APD as $apd)
@@ -46,7 +43,6 @@
                 <td>{{$apd->given_cure }}</td>
                 <td>{{$apd->tools }}</td>
             
-                <td>{{$apd->full_cost}}</td>
                 <td><a href="{{ route('accounter.index', $apd->id) }}" class="action-btn">عرض</a></td>
                                      
 
