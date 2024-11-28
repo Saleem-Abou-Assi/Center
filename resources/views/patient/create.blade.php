@@ -26,7 +26,7 @@
             </div>
         
             <div class="form-group">
-                <label for="address">العوان</label>
+                <label for="address">العنوان</label>
                 <input type="text" id="address" name="address" required value="{{ isset($patient) ? $patient->address : '' }}">
             </div>
         
@@ -35,8 +35,8 @@
                 <label for="gender">الجنس</label>
                 <select id="gender" required name="gender">
                     <option value="">حدد الجنس</option>
-                    <option value="male" {{ isset($patient) && $patient->gender == 'Male' ? 'selected' : '' }}>ذكر</option>
-                    <option value="female" {{ isset($patient) && $patient->gender == 'Female' ? 'selected' : '' }}>أنثى</option>
+                    <option value="male" {{ isset($patient) && $patient->gender == 'male' ? 'selected' : '' }}>ذكر</option>
+                    <option value="female" {{ isset($patient) && $patient->gender == 'female' ? 'selected' : '' }}>أنثى</option>
                 </select>
                 </div>
             </div>
@@ -80,13 +80,13 @@
                 <label for="dite">حمية غذائية</label>
                 <input type="text" id="dite" name="dite"  value="{{ isset($patient) ? $patient->dite : '' }}">
             </div> <div class="form-group">
-                <label for="permenantCure">العلاج متبع</label>
+                <label for="permenantCure">العلاج المتبع</label>
                 <input type="text" id="permenantCure" name="permenantCure"  value="{{ isset($patient) ? $patient->permenantCure : '' }}">
             </div> <div class="form-group">
                 <label for="cosmetic">عمليات تجميل سابقة</label>
                 <input type="text" id="cosmetic" name="cosmetic"  value="{{ isset($patient) ? $patient->cosmetic : '' }}">
             </div> <div class="form-group">
-                <label for="currentDisease">مرض حالي</label>
+                <label for="currentDisease">الشكوى حالي</label>
                 <input type="text" id="currentDisease" name="currentDisease"  value="{{ isset($patient) ? $patient->currentDisease : '' }}">
             </div>
             <div class="sep">

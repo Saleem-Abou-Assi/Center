@@ -28,7 +28,7 @@
                             Create User
                         </a>
                     </div>
-<br>
+                    <br>
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>

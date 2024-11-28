@@ -107,7 +107,7 @@
             
             <tr>
                 <td>{{$i+1}} </td>
-                <td>{{$patient->Lazer[$i]->doctor->name  }}</td>
+                <td>{{$patient->Lazer[$i]->doctor->user->name  }}</td>
                 <td>{{$patient->Lazer[$i]->device }}</td> 
                 <td>{{$patient->Lazer[$i]->point }}</td>
                 <td>{{$patient->Lazer[$i]->raysCount }}</td>

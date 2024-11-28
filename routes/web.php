@@ -4,6 +4,7 @@ use App\Http\Controllers\AccounterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
@@ -26,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
 
 //must be roll admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
+<<<<<<< HEAD
     
     Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
@@ -33,7 +35,21 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+=======
+    // admin dashboard group
+    Route::prefix('admin')->name('admin.')->group(function (){
+        
+    Route::get('/',[DashboardController::class,'index'])->name('');
+>>>>>>> 6b72647db5f6561a53269ed903523e805a252da5
 
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    });
 
     Route::delete('/patients/{patient_id}', [PatientController::class, 'destroy'])->name('patient.destroy');
 
@@ -92,7 +108,7 @@ Route::middleware(['auth','role:admin|reciption'])->group(function (){
 
 // ------reciption-------
 
-    Route::get('/patients/create', [PatientController::class, 'create'])->name('patient.create');
+    Route::get('/patient/create', [PatientController::class, 'create'])->name('patient.create');
     Route::post('/patients', [PatientController::class, 'store'])->name('patient.store');
     Route::get('/patients/{patient_id}/edit', [PatientController::class, 'edit'])->name('patient.edit');
     Route::put('/patients/{patient_id}', [PatientController::class, 'update'])->name('patient.update');
