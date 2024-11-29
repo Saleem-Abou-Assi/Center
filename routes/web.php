@@ -10,7 +10,6 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientDeptController;
 use App\Http\Controllers\LazerController;
-use App\Http\Controllers\PController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StorageController;
 use App\Models\Accounter;
@@ -27,20 +26,12 @@ Route::middleware(['auth'])->group(function () {
 
 //must be roll admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
-<<<<<<< HEAD
-    
-    Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
-    Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
-    Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
-    Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
-    Route::put('admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
-    Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
-=======
+
     // admin dashboard group
     Route::prefix('admin')->name('admin.')->group(function (){
         
     Route::get('/',[DashboardController::class,'index'])->name('');
->>>>>>> 6b72647db5f6561a53269ed903523e805a252da5
+
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
