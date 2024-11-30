@@ -18,10 +18,10 @@
                 </div>
             @endif
 
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+            <div class="">
                 
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="flex justify-between mb-4">
+                <div class="">
+                    <div class="">
                     
                         <a href="{{ route('admin.users.create') }}" 
                            class="add-btn">
@@ -29,8 +29,8 @@
                         </a>
                     </div>
                     <br>
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                    <table>
+                        <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -38,12 +38,12 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
-                                    <td class="px-6 py-4">
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>
                                         @foreach($user->roles as $role)
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                                 {{ $role->name }}
@@ -56,7 +56,7 @@
                                        @if (!$user->hasRole('admin'))
                                            <form action="{{ route('admin.users.destroy', $user) }}" 
                                               method="POST" 
-                                              class="inline"
+                                                style="margin:0"
                                               onsubmit="return confirm('Are you sure you want to delete this user?');">
                                             @csrf
                                             @method('DELETE')

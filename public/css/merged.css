@@ -648,3 +648,62 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
   .switch input[type="checkbox"] {
     display: none;
   }
+  .con-container{
+    width: 85%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    height: 500px;
+    box-shadow: #000;
+    background-color: #e3e3e3;
+    padding-top: 25px;
+    padding: 15px;
+  }
+  .con{
+    justify-items: center;
+    display: inline-block;
+    background-color: #fff; /* White background */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds shadow to the card */
+    width: 80%; 
+    height: auto;/* Width of the card */
+    padding: 20px; /* Padding inside the card */
+    text-align: center; /* Aligns text to the center */
+    border-radius: 8px; 
+    height: 300px;
+    
+  }
+  .count{
+    display: flex;
+    width: 50px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: transparent 2px 2px 2px 2px, rgba(0, 0, 0, 0.3) 0px 6px 6px;
+    padding: 25px;
+  }
+  .bot{
+    display: flex;
+    width: inherit;
+    justify-content: space-between;
+    gap: 60%;
+    height: 45px;
+  }
+  .add-btn2{
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+  }
+  a.add-btn2{
+    background-color: #750000; 
+    color: white;
+    text-decoration: none;
+  }
+  a.add-btn2 :hover{
+    background-color: #7a0000;
+  }

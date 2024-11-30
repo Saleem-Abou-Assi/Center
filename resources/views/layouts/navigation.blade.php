@@ -57,10 +57,18 @@
                                 {{ __('تسجيل الخروج') }}
                             </a>
                         </form>
-                        {{-- <a href="{{ route('logout') }}" style="color:red">تسجيل خروج</a>   --}}
+                        
                     </div>  
                 </div>  
 
+                </li>
+                <li>
+                 
+
+                <a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users.*') ? 'border-b-2 border-blue-500' : '' }}">
+                لوحة التحكم
+                  </a>
+             
                 </li>
                 </ul>
 
@@ -107,7 +115,7 @@
         background-color: transparent; /* Make background transparent */
         color: inherit;  
         position: inherit;  
-       width: 70px;;
+       width: 50px;
        height: auto;
         border: none;  
         cursor: pointer;  

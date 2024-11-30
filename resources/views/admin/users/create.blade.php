@@ -63,15 +63,17 @@
                         
                             <br>
                             
-                        
+                            <div class="bot">
                             <button type="submit" 
-                                    class="px-4 py-2 text-black bg-blue-500 rounded hover:bg-blue-600">
-                                Create User
+                                    class="cta"><span>
+                                أضف مستخدماّ</span>  
                             </button>
+
                             <a href="{{ route('admin.users.index') }}" 
-                               class="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300">
+                               class="add-btn2">
                                 Cancel
                             </a>
+                            </div>
                         
                     </form>
                 

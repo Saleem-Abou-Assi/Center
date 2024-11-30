@@ -1,17 +1,49 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+<head>
+<link rel="stylesheet" href="{{ asset('css/merged.css') }}">
+    <title>Dashboard</title>
+    @include('layouts.navigation')
+</head>
+<body>
+<div class="all">
+    <br>
+    <br>
+    <div class="C-container">
+       
+            <div class="con">
+                <h2>إدارة المستخدمين</h2>
+<!--add counter if you want -->
+<h3>عدد المسجلين</h3>
+                <div class="count">
+                   
+                    <p><strong>{{ $userCount }}</strong></p>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <a href="{{ route('admin.users.index') }}" 
+                           class="add-btn">
+                           Go
+                        </a>
                 </div>
             </div>
-        </div>
+            <!-- <div class="con">
+                <h2>إدارة المستخدمين</h2>
+
+                <h3>عدد المسجلين</h3>
+                <div class="count">
+                   
+                    <p><strong>{{ $userCount }}</strong></p>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <a href="{{ route('admin.users.index') }}" 
+                           class="add-btn">
+                           Go
+                        </a>
+                </div>
+            </div> -->
+        
     </div>
-</x-app-layout>
+</div>
+</body>
