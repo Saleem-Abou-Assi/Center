@@ -36,7 +36,16 @@
                 
                 <li>
                     <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
-                  </li>  
+                  </li> 
+                @if (Auth::user()->hasRole('admin')) 
+                <li>
+                
+                    <div class="dashboard">
+                        <a href="{{ route('admin.users.index')}}">لوحة التحكم</a>
+                    </div>
+                    
+                </li>
+                @endif  
 
                   <li>
                     <a href="{{ route(name: 'storage.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('store') ? 'border-b-2 border-blue-500' : '' }}">المستودع </a>
@@ -45,6 +54,7 @@
 
 
                 <li class="loglog">
+                  
                 <div class="dropdown">  
                     <a class="dropbtn" onclick="toggleDropdown()">
                 
