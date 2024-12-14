@@ -65,7 +65,7 @@
             </thead>
             @for ($i = 0; $i < count($patient->Dept); $i++)
             
-            <tr>
+            <tr data-dept-operation-id="{{ $patient->Dept[$i]->id }}" class="dept-operation-row">
                 <td>{{$i+1}}</td>
                 <td>{{$patient->Dept[$i]->title  }}</td>
                 <td>{{$patient->Dept[$i]->pivot->doctor_name }}</td>
@@ -105,7 +105,7 @@
             </thead>
             @for ($i = 0; $i < count($patient->Lazer); $i++)
             
-            <tr>
+            <tr data-laser-operation-id="{{ $patient->Lazer[$i]->id }}" class="laser-operation-row">
                 <td>{{$i+1}} </td>
                 <td>{{$patient->Lazer[$i]->doctor->user->name  }}</td>
                 <td>{{$patient->Lazer[$i]->device }}</td> 
@@ -134,5 +134,45 @@
         </div>
         </div>
         
+        <style>
+        .highlighted-operation {
+            animation: glow 2s ease-in-out infinite;
+            background-color: #fff3cd !important;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+            }
+        }
+        </style>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const highlightOperationId = urlParams.get('highlight_operation');
+            const operationType = urlParams.get('operation_type'); // 'dept' or 'laser'
+            
+            if (highlightOperationId && operationType) {
+                let operationRow;
+                if (operationType === 'dept') {
+                    operationRow = document.querySelector(`tr[data-dept-operation-id="${highlightOperationId}"]`);
+                } else if (operationType === 'laser') {
+                    operationRow = document.querySelector(`tr[data-laser-operation-id="${highlightOperationId}"]`);
+                }
+                
+                if (operationRow) {
+                    operationRow.classList.add('highlighted-operation');
+                    operationRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+        </script>
 </body>
 </html>

@@ -54,6 +54,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Doctor::class);
     }
+    
     public static function createWithRoles(array $userData, array $roles = []): self
     {
         $user = static::create([

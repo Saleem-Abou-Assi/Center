@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StorageController;
 use App\Models\Accounter;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 
 //home page with no auth
 
@@ -54,7 +55,6 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/doctors/{doctor_id}/edit', [DoctorController::class, 'edit'])->name('doctor.edit');
     Route::put('/doctors/{doctor_id}', [DoctorController::class, 'update'])->name('doctor.update');
     Route::delete('/doctors/{doctor_id}', [DoctorController::class, 'destroy'])->name('doctor.destroy');
-    Route::get('/doctors/{doctor_id}', [DoctorController::class, 'show'])->name('doctor.show');
 
     Route::get('/departments', [DepartmentController::class, 'index'])->name('department.index');
     Route::get('/departments/create', [DepartmentController::class, 'create'])->name('department.create');
@@ -91,6 +91,9 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
     Route::post('/lazer', [LazerController::class, 'store'])->name('lazer.store');
 
 
+    Route::get('/doctors/{doctor_id}', [DoctorController::class, 'show'])->name('doctor.show');
+
+
 });
 
 
@@ -104,6 +107,9 @@ Route::middleware(['role:admin|reciption'])->group(function (){
     Route::put('/patients/{patient_id}', [PatientController::class, 'update'])->name('patient.update');
 
     Route::get('/accounter/{apd_id}',[AccounterController::class,'index'])->name('accounter.index');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
 });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\APD;
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\Notification;
 use App\Models\Patient;
 use App\Models\PatientDept;
 use Illuminate\Http\Request;
@@ -51,7 +52,13 @@ class PatientDeptController extends Controller
             'status' => 'unpaid',
         ]);
 
-        
+        Notification::create([
+            'type' => 'patient_dept',
+            'doctor_id' => $request->doctor,
+            'patient_id' => $patient->id,
+            'message' => "تمت إضافة معاينة جديدة للمريض {$patient->name} مع الدكتور {$doctor->user->name}",
+            'operation_id' => $patientDept->id,
+        ]);
 
         return redirect()->route('patientDept.index')->with('success', 'Patient has been assigned to department.');
     }

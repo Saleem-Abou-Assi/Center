@@ -13,11 +13,21 @@
                         الصفحة الرئيسية
                     </a>
                 </li>
+                  
+                    @if (Auth::user()->hasRole('doctor'))
                     <li>
-                         <a href="{{ route('patient.index') }}" class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('patients.*') ? 'border-b-2 border-blue-500' : '' }}">
-                             المرضى
-                         </a>
-                    </li>
+                        <a href="{{ route('doctor.show',[ 'doctor_id'=>Auth::user()->Doctor->id]) }}" class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('doctor.*') ? 'border-b-2 border-blue-500' : '' }}">
+                            المرضى
+                        </a>
+                   </li>
+                   @else
+                   <li>
+                    <a href="{{ route('patient.index') }}" class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('patients.*') ? 'border-b-2 border-blue-500' : '' }}">
+                        المرضى
+                    </a>
+               </li>
+                    @endif
+                    
                     <li>
                          <a href="{{ route('doctor.index') }}" class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('doctors.*') ? 'border-b-2 border-blue-500' : '' }}">
                         الأطباء

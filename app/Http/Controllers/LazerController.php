@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 
 use App\Models\Lazer;
+use App\Models\Notification;
 
 class LazerController extends Controller
 {
@@ -41,6 +42,16 @@ class LazerController extends Controller
             'pulse'=> $request->pulse,
             'device'=>$request->device,
 
+        ]);
+
+        $patient = Patient::findOrFail($request->patient_id);
+
+        Notification::create([
+            'type' => 'lazer',
+            'doctor_id' => $request->doctor_id,
+            'patient_id' => $request->patient_id,
+            'message' => "تمت إضافة معاينة ليزر جديدة للمريض {$patient->name}",
+            'patientDept' => $lazer->id
         ]);
         
         return redirect()->route('lazer.index')->with('success', 'Lazer created successfully.');
