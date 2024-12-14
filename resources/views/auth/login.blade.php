@@ -52,6 +52,10 @@
             </button>
             </div>
         </div>
+        {{-- <div class="bo">
+            <p>don't have an account?</p>
+        <a href="{{route('register')}}" class="add-btn">register</a>
+        </div> --}}
     </form>
 
 </div>

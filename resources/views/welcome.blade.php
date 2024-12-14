@@ -93,5 +93,8 @@
        </div>
        <br>
        <br>
+       {{-- @php
+           dd(auth()->user()->hasRole('reciption'));
+       @endphp --}}
     </body>
 </html>

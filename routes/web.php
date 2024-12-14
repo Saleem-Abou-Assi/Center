@@ -10,7 +10,6 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientDeptController;
 use App\Http\Controllers\LazerController;
-use App\Http\Controllers\PController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StorageController;
 use App\Models\Accounter;
@@ -23,10 +22,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function() {
         return view('welcome');
     })->name('home');
-});
 
+
+    
 //must be roll admin
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['role:admin'])->group(function () {
     // admin dashboard group
     Route::prefix('admin')->name('admin.')->group(function (){
         
@@ -71,7 +71,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 // ------doctor $ reciption-------
-Route::middleware(['auth','role:admin|doctor|reciption'])->group(function (){
+Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
 
     
     Route::get('/patients', [PatientController::class, 'index'])->name('patient.index');
@@ -94,7 +94,7 @@ Route::middleware(['auth','role:admin|doctor|reciption'])->group(function (){
 });
 
 
-Route::middleware(['auth','role:admin|reciption'])->group(function (){
+Route::middleware(['role:admin|reciption'])->group(function (){
 
 // ------reciption-------
 
@@ -109,7 +109,7 @@ Route::middleware(['auth','role:admin|reciption'])->group(function (){
 
 
 
-Route::middleware(['auth','role:admin|store'])->group(function (){
+Route::middleware(['role:admin|store'])->group(function (){
 
 //-----store--------
 
@@ -119,6 +119,10 @@ Route::post('/storage', [StorageController::class, 'store'])->name('storage.stor
 Route::get('/storage/{storage_id}/edit', [StorageController::class, 'edit'])->name('storage.edit');
 Route::put('/storage/{storage_id}', [StorageController::class, 'update'])->name('storage.update');
 Route::delete('/storage/{storage_id}', [StorageController::class, 'destroy'])->name('storage.destroy');
+
+
+
+});
 
 
 

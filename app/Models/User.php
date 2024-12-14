@@ -93,4 +93,11 @@ class User extends Authenticatable
         return $this->roles()->where('name', $roleName)->exists();
     }
 
+    public function hasAnyRole($roles)
+    {
+        return collect($roles)->contains(function($role) {
+            return $this->hasRole($role);
+        });
+    }
+
 }
