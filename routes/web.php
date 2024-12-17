@@ -15,6 +15,7 @@ use App\Http\Controllers\StorageController;
 use App\Models\Accounter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReportController;
 
 //home page with no auth
 
@@ -39,6 +40,11 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    Route::post('/reports/daily', [ReportController::class, 'generateDailyReport'])
+    ->name('reports.daily');
+Route::post('/reports/custom', [ReportController::class, 'generateCustomReport'])
+    ->name('reports.custom');
 
     });
 
@@ -133,6 +139,7 @@ Route::delete('/storage/{storage_id}', [StorageController::class, 'destroy'])->n
 
 
 });
+
 
 
 require __DIR__ . '/auth.php';

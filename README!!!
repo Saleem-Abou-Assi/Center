@@ -9,3 +9,6 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 
 
 Cairo Font install ...
+
+   composer require barryvdh/laravel-dompdf
+   composer require maatwebsite/excel

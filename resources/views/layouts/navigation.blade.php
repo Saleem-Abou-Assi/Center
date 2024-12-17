@@ -57,7 +57,7 @@
                   <li>
                   
                       <div class="dashboard">
-                          <a href="{{ route('admin.users.index')}}">لوحة التحكم</a>
+                          <a href="{{ route('admin.')}}">لوحة التحكم</a>
                       </div>
                       
                   </li>
