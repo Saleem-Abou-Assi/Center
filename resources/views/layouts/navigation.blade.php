@@ -164,7 +164,7 @@
     }  
 
     .dropdown-content a:hover {  
-        background-color: #007561c5; 
+        background-color: #68f6de65; 
         color: white; /* Change text color on hover */
     }
    

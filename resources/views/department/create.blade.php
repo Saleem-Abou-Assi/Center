@@ -8,7 +8,7 @@
 <body>
 
     <div class="C-container">
-        <h1>{{ isset($department) ? 'عدل قسماّ' : 'أضف قسماّ' }}</h1>
+        <h1>{{ isset($department) ? 'عدل عيادةّ' : 'أضف عيادةّ' }}</h1>
 
         <form action="{{ isset($department) ? route('department.update', $department->id) : route('department.store') }}" method="POST">
             @csrf
@@ -17,7 +17,7 @@
             @endif
         
             <div class="form-group" >
-                <label for="title">عنوان القسم</label>
+                <label for="title">عنوان العيادة</label>
                 <input type="text" id="title" name="title" required value="{{ isset($department) ? $department->name : '' }} " autofocus>
             </div>
         

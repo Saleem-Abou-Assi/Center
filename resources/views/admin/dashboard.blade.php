@@ -4,8 +4,10 @@
     @include('layouts.navigation')
 </head>
 <body>
-    <div class="all">
-        <div class="C-container">
+    <br>
+    <br>
+    <div class="r-all">
+        
             <!-- User Management Section -->
             <div class="con">
                 <h2>إدارة المستخدمين</h2>
@@ -13,13 +15,15 @@
                 <div class="count">
                     <p><strong>{{ $userCount }}</strong></p>
                 </div>
+                <br>
                 <div>
                     <a href="{{ route('admin.users.index') }}" class="add-btn">Go</a>
                 </div>
             </div>
-
+            
+        
             <!-- Reports Section -->
-            <div class="con">
+            <div class="report">
                 <h2>التقارير</h2>
                 
                 <!-- Daily Operations Report -->
@@ -33,18 +37,21 @@
                         </div>
                     </form>
                 </div>
-
+                <div class="line"></div>
                 <!-- Custom Department Report -->
+                 <h3>تقرير مخصص</h3>
                 <div class="report-section">
-                    <h3>تقرير مخصص</h3>
+                  
                     <form action="{{ route('admin.reports.custom') }}" method="POST" id="customReportForm">
                         @csrf
                         <div class="form-group">
-                            <select name="report_type" id="report_type" class="form-control" required>
+                            <div class="select-box-1">
+                            <select name="report_type" id="report_type"required>
                                 <option value="">اختر نوع التقرير</option>
                                 <option value="patientDept">المعاينات</option>
                                 <option value="lazer">الليزر</option>
                             </select>
+                            </div>
                         </div>
                         
                         <div class="form-group">
@@ -64,8 +71,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
+         </div>
+    
 
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/report-generator.js') }}"></script>
