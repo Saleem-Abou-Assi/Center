@@ -8,6 +8,7 @@ use App\Models\Doctor;
 use App\Models\Notification;
 use App\Models\Patient;
 use App\Models\PatientDept;
+use App\Models\Storage;
 use Illuminate\Http\Request;
 
 class PatientDeptController extends Controller
@@ -17,8 +18,9 @@ class PatientDeptController extends Controller
         $depts = Department::all();
         $patients = Patient::all();
         $doctors = Doctor::all();
+        $storages = Storage::all();
 
-        return view('patientDept' , ['depts' => $depts,'patients'=>$patients,'doctors'=>$doctors]);
+        return view('patientDept' , ['depts' => $depts,'patients'=>$patients,'doctors'=>$doctors ,'storages'=>$storages]);
     }
 
     public function store(Request $request)
@@ -47,11 +49,25 @@ class PatientDeptController extends Controller
             'patient_name' => $patient->name,
             'check_in_type' => $request->check_in_type,
             'given_cure' => $request->given_cure,
-            'tools'=> $request->tools,
             'full_cost'=> 000,
             'status' => 'unpaid',
         ]);
 
+        if($request->has('selected_tools')) {
+            dd($request->selected_tools);
+            $selectedTools = $request->input('selected_tools');
+            foreach($selectedTools as $toolId) {
+                $quantity = $request->input("tool_quantity.$toolId", 1);
+                $storage = Storage::find($toolId);
+                
+                if($storage && $storage->quantity >= $quantity) {
+                    $storage->decrement('quantity', $quantity);
+                    
+                    $apd->storage()->attach($storage->id, ['quantity' => $quantity]);
+                }
+            }
+        }
+ 
         Notification::create([
             'type' => 'patient_dept',
             'doctor_id' => $request->doctor,

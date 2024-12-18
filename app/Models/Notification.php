@@ -11,7 +11,8 @@ class Notification extends Model
         'doctor_id',
         'patient_id',
         'message',
-        'is_read'
+        'is_read',
+        'operation_id'
     ];
 
     public function doctor()

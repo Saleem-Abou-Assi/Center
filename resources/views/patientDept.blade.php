@@ -75,11 +75,7 @@
             <div class="select-box">
             
                 <label for="check_in_type">مكان المعاينة</label>
-                <select type="text" required id="check_in_type" name="check_in_type" >
-                    <option value="">حدد</option>
-                    <option value="eye">عين</option>
-                    <option value="body">جسم</option>
-                    <option value="bones">عضام</option>
+                <input type="text" required id="check_in_type" name="check_in_type" >
                 </select>
                 </div>
             </div>
@@ -89,8 +85,32 @@
                 <input type="text" required id="given_cure" name="given_cure" >
             </div>
             <div class="form-group">
-                <label for="tools">الأدوات المستخدمة</label>
-                <input type="text" required id="tools" name="tools" >
+                <div class="select-box">
+
+                    
+                    {{-- <label for="tools">الأدوات المستخدمة</label>
+                    <div id="tools-container" class="tools-container">
+                        @foreach ($storages as $storage)
+                            <div class="tool-item {{ $storage->quantity <= 0 ? 'disabled' : '' }}">
+                                <input type="checkbox" 
+                                       id="tool_{{$storage->id}}" 
+                                       name="selected_tools[]" 
+                                       value="{{$storage->id}}"
+                                       {{ $storage->quantity <= 0 ? 'disabled' : '' }}>
+                                <label for="tool_{{$storage->id}}" class="tool-label">
+                                    {{$storage->name}} (المتبقي: {{$storage->quantity}})
+                                </label>
+                                <input type="number" 
+                                       name="tool_quantity[{{$storage->id}}]" 
+                                       min="1" 
+                                       max="{{$storage->quantity}}" 
+                                       value="1" 
+                                       class="tool-quantity"
+                                       {{ $storage->quantity <= 0 ? 'disabled' : '' }}>
+                            </div>
+                        @endforeach
+                    </div> --}}
+                </div>
             </div>
       
 
@@ -104,5 +124,74 @@
         
          
     </div>
+
+    <style>
+    .tools-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px; /* Space between items */
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    .tool-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        width: calc(33% - 10px); /* Adjust width for three items per row */
+    }
+
+    .tool-item.disabled {
+        opacity: 0.5;
+        background-color: #f5f5f5;
+    }
+
+    .tool-quantity {
+        width: 60px;
+        padding: 2px 5px;
+    }
+
+    .tool-label {
+        flex-grow: 1; /* Allow label to take available space */
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toolItems = document.querySelectorAll('.tool-item:not(.disabled)');
+        
+        toolItems.forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const quantityInput = item.querySelector('input[type="number"]');
+            
+            // Initially disable quantity input
+            quantityInput.disabled = true;
+            
+            checkbox.addEventListener('change', function() {
+                quantityInput.disabled = !this.checked;
+                if (!this.checked) {
+                    quantityInput.value = 1;
+                }
+            });
+            
+            quantityInput.addEventListener('change', function() {
+                const max = parseInt(this.max);
+                const value = parseInt(this.value);
+                
+                if (value > max) {
+                    this.value = max;
+                } else if (value < 1) {
+                    this.value = 1;
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>

@@ -22,9 +22,8 @@ return new class extends Migration
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->enum('check_in_type',['body','eye','bones']);
+            $table->string('check_in_type')->nullable();
             $table->string('given_cure');
-            $table->string('tools');
             $table->integer('full_cost');
             $table->enum('status',['paid','unpaid']);      
             $table->string('patient_name'); 

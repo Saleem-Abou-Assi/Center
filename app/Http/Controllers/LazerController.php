@@ -51,7 +51,8 @@ class LazerController extends Controller
             'doctor_id' => $request->doctor_id,
             'patient_id' => $request->patient_id,
             'message' => "تمت إضافة معاينة ليزر جديدة للمريض {$patient->name}",
-            'patientDept' => $lazer->id
+            'operation_id' => $lazer->id
+            
         ]);
         
         return redirect()->route('lazer.index')->with('success', 'Lazer created successfully.');
