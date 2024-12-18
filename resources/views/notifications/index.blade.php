@@ -39,8 +39,8 @@
                                         <button type="submit" class="action-btn">تحديد كمقروء</button>
                                     </form>
                                 @endif
-                                <a href="{{ route('patient.show', ['patient_id' => $notification->patient->id, 'highlight_operation' => $notification->operation_id]) }}" class="action-btn">تفاصيل</a>
-                            </td>
+                                <a href="{{ route('patient.show', ['patient_id' => $notification->patient->id, 'highlight_operation' => $notification->operation_id, 'operation_type' => $notification->type]) }}" class="action-btn">تفاصيل</a>
+                              </td>
                         </tr>
                     @endforeach
                 </tbody>

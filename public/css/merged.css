@@ -105,6 +105,9 @@ body {
     border: 1px solid #e0e0e0; /* Optional border styling */
     border-radius: 5px; /* Optional rounded corners */
 }
+.table-container h4{
+    text-align: center;
+}
 
 table {
     width: 100%;

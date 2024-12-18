@@ -48,12 +48,12 @@
       <tr>
         <th>الدواء الداخلي</th><td>{{$account->PatientDept[0]->pivot->given_cure}} </td>
       </tr>
-      <tr>
+      {{-- <tr>
         <th>الأدوات</th><td>{{$account->PatientDept[0]->pivot->tools}} </td>
       </tr>
       <tr>  
       <th>أدوات</th><td>{{$account->PatientDept[0]->pivot->tools}} </td>
-    </tr>
+    </tr> --}}
 
     
     
