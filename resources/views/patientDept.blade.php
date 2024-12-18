@@ -84,35 +84,64 @@
                 <label for="given_cure">العلاج المعطى</label>
                 <input type="text" required id="given_cure" name="given_cure" >
             </div>
-            <div class="form-group">
-                <div class="select-box">
+          <div class="form-group">
+    <div class="select-box">
+        <label for="tools">الأدوات المستخدمة</label>
+        <div id="tools-container">
+            <select id="tool-select" name="tool_select" >
+                <option value="">اختر أداة</option>
+                @foreach ($storages as $storage)
+                    @if ($storage->quantity > 0)
+                        <option value="{{ $storage->id }}">{{ $storage->name }} (المتبقي: {{ $storage->quantity }})</option>
+                    @endif
+                @endforeach
+            </select>
+            <input type="number" id="tool-quantity" name="tool_quantity" min="1" value="1" required>
+            <button type="button" id="add-tool-button">أضف أداة</button>
+        </div>
+        <div id="added-tools-container"></div>
+    </div>
+</div>
 
-                    
-                    {{-- <label for="tools">الأدوات المستخدمة</label>
-                    <div id="tools-container" class="tools-container">
-                        @foreach ($storages as $storage)
-                            <div class="tool-item {{ $storage->quantity <= 0 ? 'disabled' : '' }}">
-                                <input type="checkbox" 
-                                       id="tool_{{$storage->id}}" 
-                                       name="selected_tools[]" 
-                                       value="{{$storage->id}}"
-                                       {{ $storage->quantity <= 0 ? 'disabled' : '' }}>
-                                <label for="tool_{{$storage->id}}" class="tool-label">
-                                    {{$storage->name}} (المتبقي: {{$storage->quantity}})
-                                </label>
-                                <input type="number" 
-                                       name="tool_quantity[{{$storage->id}}]" 
-                                       min="1" 
-                                       max="{{$storage->quantity}}" 
-                                       value="1" 
-                                       class="tool-quantity"
-                                       {{ $storage->quantity <= 0 ? 'disabled' : '' }}>
-                            </div>
-                        @endforeach
-                    </div> --}}
-                </div>
-            </div>
-      
+<script>
+document.getElementById('add-tool-button').addEventListener('click', function() {
+    const toolSelect = document.getElementById('tool-select');
+    const toolQuantity = document.getElementById('tool-quantity');
+    const addedToolsContainer = document.getElementById('added-tools-container');
+
+    if (toolSelect.value && toolQuantity.value > 0) {
+        const toolName = toolSelect.options[toolSelect.selectedIndex].text;
+        const quantity = toolQuantity.value;
+
+        // Create a new entry for the added tool
+        const toolEntry = document.createElement('div');
+        toolEntry.textContent = `${toolName} - كمية: ${quantity}`;
+        
+        // Create hidden inputs to store the selected tool ID and quantity
+        const toolIdInput = document.createElement('input');
+        toolIdInput.type = 'hidden';
+        toolIdInput.name = 'selected_tools[]';
+        toolIdInput.value = toolSelect.value;
+
+        const toolQuantityInput = document.createElement('input');
+        toolQuantityInput.type = 'hidden';
+        toolQuantityInput.name = 'quantities[]';
+        toolQuantityInput.value = quantity;
+
+        // Append the hidden inputs to the form
+        addedToolsContainer.appendChild(toolEntry);
+        addedToolsContainer.appendChild(toolIdInput);
+        addedToolsContainer.appendChild(toolQuantityInput);
+
+        // Optionally, clear the selection after adding
+        toolSelect.value = '';
+        toolQuantity.value = 1;
+    } else {
+        alert('يرجى اختيار أداة وكمية صحيحة.');
+    }
+});
+</script>
+  
 
             <button type="submit" class="cta"><span>{{ 'Input' }}</span>
             <svg width="15px" height="10px" viewBox="0 0 13 10">
@@ -162,36 +191,6 @@
     }
     </style>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const toolItems = document.querySelectorAll('.tool-item:not(.disabled)');
-        
-        toolItems.forEach(item => {
-            const checkbox = item.querySelector('input[type="checkbox"]');
-            const quantityInput = item.querySelector('input[type="number"]');
-            
-            // Initially disable quantity input
-            quantityInput.disabled = true;
-            
-            checkbox.addEventListener('change', function() {
-                quantityInput.disabled = !this.checked;
-                if (!this.checked) {
-                    quantityInput.value = 1;
-                }
-            });
-            
-            quantityInput.addEventListener('change', function() {
-                const max = parseInt(this.max);
-                const value = parseInt(this.value);
-                
-                if (value > max) {
-                    this.value = max;
-                } else if (value < 1) {
-                    this.value = 1;
-                }
-            });
-        });
-    });
-    </script>
+  
 </body>
 </html>

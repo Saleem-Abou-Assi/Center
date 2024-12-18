@@ -28,33 +28,45 @@
     <tbody>
   
       <tr>
-        <th>القسم المعني</th><td>{{$account->PatientDept[0]->Department->title}}</td>
+        <th>القسم المعني</th><td>{{$patientDept->Department->title}}</td>
       </tr>
-        <tr><th>الطبيب المعالج</th><td>{{$account->PatientDept[0]->doctor_name}} </td>
+        <tr><th>الطبيب المعالج</th><td>{{$patientDept->doctor_name}} </td>
         </tr>
         <tr>
-        <th>نوع المعاينة</th><td>{{$account->PatientDept[0]->pivot->check_in_type}}</td>
+        <th>نوع المعاينة</th><td>{{$patientDept->Accounter[0]->pivot->check_in_type}}</td>
       </tr>
       <tr>
-        <th>المرض</th><td>{{$account->PatientDept[0]->illness}} </td>
+        <th>المرض</th><td>{{$patientDept->illness}} </td>
       </tr>
       <tr>
-        <th>الوصف</th><td>{{$account->PatientDept[0]->description}} </td>
+        <th>الوصف</th><td>{{$patientDept->description}} </td>
       </tr>
       <tr>
-        <th>العلاج</th><td>{{$account->PatientDept[0]->cure}} </td>
+        <th>العلاج</th><td>{{$patientDept->cure}} </td>
       </tr>
       <tr>
       <tr>
-        <th>الدواء الداخلي</th><td>{{$account->PatientDept[0]->pivot->given_cure}} </td>
+        <th>الدواء الداخلي</th><td>{{$patientDept->Accounter[0]->pivot->given_cure}} </td>
       </tr>
-      {{-- <tr>
-        <th>الأدوات</th><td>{{$account->PatientDept[0]->pivot->tools}} </td>
-      </tr>
-      <tr>  
-      <th>أدوات</th><td>{{$account->PatientDept[0]->pivot->tools}} </td>
-    </tr> --}}
-
+      <div class="storage-container">
+        <h3>الأدوات المستخدمة</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>اسم الأداة</th>
+                    <th>الكمية المستخدمة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($apd[0]->storage as $storage)
+                    <tr>
+                        <td>{{ $storage->item }}</td>
+                        <td>{{ $storage->pivot->quantity }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+      </div>
     
     
     </tbody>
@@ -100,5 +112,7 @@
     }
     </script>
     
+  
+  
 </body>
 </html>

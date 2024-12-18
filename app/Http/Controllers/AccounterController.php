@@ -14,13 +14,13 @@ class AccounterController extends Controller
 {
     public function index($Dept_id)
     {
-        $account = Accounter::with(['PatientDept.Department'])->find($Dept_id);
-         $patient = Patient::findOrFail($account->patient_id);
-// dd($account->PatientDept[0]->id);
-         $apd = APD::where('PD_id',$account->PatientDept[0]->id)->with('storage')->get();
-         dd($apd);
+    $patientDept = PatientDept::with('Accounter')->find($Dept_id);
+    
+        $patient = Patient::findOrFail($patientDept->patient_id);
+         $apd = APD::with('storage')->where('PD_id',$patientDept->id)->get();
 
-        return view('accounter.index',['account'=>$account,'patient'=>$patient]);
+        
+        return view('accounter.index',['patientDept'=>$patientDept,'patient'=>$patient,'apd'=>$apd]);
     }
 }
  
