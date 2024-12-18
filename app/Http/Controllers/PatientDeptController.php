@@ -53,18 +53,20 @@ class PatientDeptController extends Controller
             'status' => 'unpaid',
         ]);
 
-        if($request->has('selected_tools')) {
-            dd($request->selected_tools);
-            $selectedTools = $request->input('selected_tools');
-            foreach($selectedTools as $toolId) {
-                $quantity = $request->input("tool_quantity.$toolId", 1);
-                $storage = Storage::find($toolId);
+        // Capture selected tools and their quantities
+        $selectedTools = $request->input('selected_tools', []);
+        $toolQuantities = $request->input('quantities', []);
+        // Loop through selected tools
+       
+        foreach ($selectedTools as $toolId) {
+            $quantity = $toolQuantities[$toolId] ?? 1; // Default to 1 if not set
+            $storage = Storage::find($toolId);
+            
+            if ($storage && $storage->quantity >= $quantity) {
+                $storage->decrement('quantity', $quantity);
                 
-                if($storage && $storage->quantity >= $quantity) {
-                    $storage->decrement('quantity', $quantity);
-                    
-                    $apd->storage()->attach($storage->id, ['quantity' => $quantity]);
-                }
+                // Attach the tool to the APD or any relevant model
+                $apd->storage()->attach($storage->id, ['quantity' => $quantity]);
             }
         }
  

@@ -69,7 +69,7 @@
                     <td>{{ $patient->Dept[$i]->pivot->illness }}</td>  
                     <td>{{ $patient->Dept[$i]->pivot->description }}</td>  
                     <td>{{ $patient->Dept[$i]->created_at }}</td>  
-                    <td><a href="{{ route('accounter.index', $patient->accounter->id) }}" class="action-btn">Show</a></td>  
+                    <td><a href="{{ route('accounter.index', $i+1) }}" class="action-btn">Show</a></td>  
                 </tr>  
                 @endfor  
             </table>  

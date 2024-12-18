@@ -17,9 +17,9 @@
     <h3 style="color: white">فاتورة المريض {{$patient->name}}</h3>
  
 
-  </div>  
-    <br>
-    <br>
+   
+ 
+   
  <div class="container1">
  
   <div class="table-container">
@@ -28,46 +28,63 @@
     <tbody>
   
       <tr>
-        <th>القسم المعني</th><td>{{$account->PatientDept[0]->Department->title}}</td>
+        <th>القسم المعني</th><td>{{$patientDept->Department->title}}</td>
       </tr>
-        <tr><th>الطبيب المعالج</th><td>{{$account->PatientDept[0]->doctor_name}} </td>
+        <tr><th>الطبيب المعالج</th><td>{{$patientDept->doctor_name}} </td>
         </tr>
         <tr>
-        <th>نوع المعاينة</th><td>{{$account->PatientDept[0]->pivot->check_in_type}}</td>
+        <th>نوع المعاينة</th><td>{{$patientDept->Accounter[0]->pivot->check_in_type}}</td>
       </tr>
       <tr>
-        <th>المرض</th><td>{{$account->PatientDept[0]->illness}} </td>
+        <th>المرض</th><td>{{$patientDept->illness}} </td>
       </tr>
       <tr>
-        <th>الوصف</th><td>{{$account->PatientDept[0]->description}} </td>
+        <th>الوصف</th><td>{{$patientDept->description}} </td>
       </tr>
       <tr>
-        <th>العلاج</th><td>{{$account->PatientDept[0]->cure}} </td>
+        <th>العلاج</th><td>{{$patientDept->cure}} </td>
       </tr>
       <tr>
       <tr>
-        <th>الدواء الداخلي</th><td>{{$account->PatientDept[0]->pivot->given_cure}} </td>
+        <th>الدواء الداخلي</th><td>{{$patientDept->Accounter[0]->pivot->given_cure}} </td>
       </tr>
-      {{-- <tr>
-        <th>الأدوات</th><td>{{$account->PatientDept[0]->pivot->tools}} </td>
-      </tr>
-      <tr>  
-      <th>أدوات</th><td>{{$account->PatientDept[0]->pivot->tools}} </td>
-    </tr> --}}
-
+      <div class="storage-container">
+        <h3>الأدوات المستخدمة</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>اسم الأداة</th>
+                    <th>الكمية المستخدمة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($apd[0]->storage as $storage)
+                    <tr>
+                        <td>{{ $storage->item }}</td>
+                        <td>{{ $storage->pivot->quantity }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+      </div>
     
     
-    </tbody>
-  </table>
-  </div>
-  <div class="boton">
+         </tbody>
+       </table>
+       <br>
+     <div class="botons">
+         <div class="boton">
     <button onclick="exportTableToExcel('myTable', )"  class="add-btn"><span>Export to Excel</span></button>
-    </div>
-    <div class="boton">
+         </div>
+         <div class="boton">
         <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2">Go Back</a>
-    </div>
+         </div>
+     </div>
+  </div>
+ 
   </div>
   </div>
+  
  
   <script>
     function exportTableToExcel(tableID, filename = 'فاتورة المريض {{ $patient->name }}.xlsx') {
@@ -100,5 +117,7 @@
     }
     </script>
     
+  
+  
 </body>
 </html>
