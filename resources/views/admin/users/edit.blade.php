@@ -45,7 +45,7 @@
                                         <input type="checkbox" name="roles[]" 
                                                id="role_{{ $role->id }}"
                                                value="{{ $role->id }}" 
-                                               @checked(old('roles', $user->roles->pluck('id')->toArray()))><span class="slider"></span>
+                                               @checked(in_array($role->id, old('roles', $user->roles->pluck('id')->toArray())))><span class="slider"></span>
                                                </label>
                                     </div>
                                 @endforeach

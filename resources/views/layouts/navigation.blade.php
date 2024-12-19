@@ -61,9 +61,20 @@
                       </div>
                       
                   </li>
+                  <div class="noti">
+                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                                <div class="notification-button">
+                        <a href="{{ route('notifications.index') }}" class="btn btn-notification">
+                            <i class="fas fa-bell"></i> <!-- Font Awesome bell icon -->
+                        </a>
+                        <span class="notification-count" style="display: none;"></span> <!-- Initially hidden -->
+                    </div>
+                 </div>
 
                   @endif 
-
+                  
+                
+                  
                 <li class="loglog">
                   
                 <div class="dropdown">  
@@ -164,7 +175,7 @@
     }  
 
     .dropdown-content a:hover {  
-        background-color: #007561c5; 
+        background-color: #68f6de65; 
         color: white; /* Change text color on hover */
     }
    
@@ -207,6 +218,52 @@
     height: fit-content;
     background-color: #f1f1f1;
   }
+
+  .noti {
+    display: flex;
+    width: 55px;
+    height: auto;
+    justify-content: center;
+    
+}
+
+.notification-button {
+    width: 50px;
+    height: 50px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Make this relative for absolute positioning of the count */
+}
+
+.btn-notification {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333; /* Change color as needed */
+    transition: transform 0.3s ease; /* Add transition for smooth rotation */
+}
+
+.btn-notification:hover {
+    transform: rotate(15deg); /* Rotate the icon on hover */
+}
+
+.notification-count {
+    background-color: red; /* Change color as needed */
+    color: white;
+    border-radius: 50%;
+    padding: 0 5px;
+    position: absolute; /* Change to absolute positioning */
+    top: 0; /* Align to the top */
+    right: -10px; /* Adjust position to be half inside and half outside */
+    font-size: 15px; /* Adjust size */
+    transform: translateY(-25%); /* Center vertically */
+    display: inline-block; /* Ensure it behaves like a block */
+}
 </style>
 <script>
      function toggleDropdown() {  
@@ -235,4 +292,18 @@ function viewProfile() {
     // Logic for viewing the profile  
     alert('Viewing profile...');  
 }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.get('/notifications/count', function(data) {
+            if (data.count > 0) {
+                $('.notification-count').text(data.count).show(); // Update the count and show it
+            } else {
+                $('.notification-count').hide(); // Hide if there are no notifications
+            }
+        }).fail(function() {
+            console.error("Error fetching notification count");
+        });
+    });
 </script>

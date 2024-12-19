@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function () {
         return view('welcome');
     })->name('home');
 
-
+    Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount']);
     
 //must be roll admin
 Route::middleware(['role:admin'])->group(function () {
@@ -33,6 +33,9 @@ Route::middleware(['role:admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function (){
         
     Route::get('/',[DashboardController::class,'index'])->name('');
+
+    // In routes/web.php or routes/api.php
+    
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');

@@ -58,7 +58,7 @@
             </tbody>
         </table>
 
-        <h5 style="padding-left:7px">معاينة الليزر</h5>
+        <h4 >معاينة الليزر</h4>
         <table class="table-container">
             <thead>
             <tr>

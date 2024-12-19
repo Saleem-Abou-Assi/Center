@@ -95,8 +95,7 @@
             <br>
             
             <button type="button" id="addRowBtn" class="add-btn"><span>أضف تفاصيلاّ</span></button>
-            <br>
-            <br>
+            
             <table id="dynamicTable">
                 <thead>
                   

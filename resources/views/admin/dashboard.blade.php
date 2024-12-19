@@ -1,25 +1,31 @@
 <head>
 <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">   
     <title>Dashboard</title>
     @include('layouts.navigation')
 </head>
 <body>
-    <div class="all">
-        <div class="C-container">
+    <br>
+    
+
+    <div class="r-all">
+       
             <!-- User Management Section -->
             <div class="con">
-                <h2>إدارة المستخدمين</h2>
+                <h2>إدارة لمستخدمين</h2>
                 <h3>عدد المسجلين</h3>
                 <div class="count">
                     <p><strong>{{ $userCount }}</strong></p>
                 </div>
+                <br>
                 <div>
                     <a href="{{ route('admin.users.index') }}" class="add-btn">Go</a>
                 </div>
             </div>
-
+            
+        
             <!-- Reports Section -->
-            <div class="con">
+            <div class="report">
                 <h2>التقارير</h2>
                 
                 <!-- Daily Operations Report -->
@@ -33,18 +39,21 @@
                         </div>
                     </form>
                 </div>
-
+                <div class="line"></div>
                 <!-- Custom Department Report -->
+                 <h3>تقرير مخصص</h3>
                 <div class="report-section">
-                    <h3>تقرير مخصص</h3>
+                  
                     <form action="{{ route('admin.reports.custom') }}" method="POST" id="customReportForm">
                         @csrf
                         <div class="form-group">
-                            <select name="report_type" id="report_type" class="form-control" required>
+                            <div class="select-box-1">
+                            <select name="report_type" id="report_type"required>
                                 <option value="">اختر نوع التقرير</option>
                                 <option value="patientDept">المعاينات</option>
                                 <option value="lazer">الليزر</option>
                             </select>
+                            </div>
                         </div>
                         
                         <div class="form-group">
@@ -64,8 +73,9 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
+         </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/report-generator.js') }}"></script>

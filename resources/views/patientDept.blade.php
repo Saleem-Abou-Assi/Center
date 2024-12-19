@@ -72,12 +72,12 @@
             
             {{-- patient account details --}}
             <div class="form-group">
-            <div class="select-box">
             
+
                 <label for="check_in_type">مكان المعاينة</label>
                 <input type="text" required id="check_in_type" name="check_in_type" >
                 </select>
-                </div>
+                
             </div>
             
             <div class="form-group">
@@ -88,6 +88,7 @@
     <div class="select-box">
         <label for="tools">الأدوات المستخدمة</label>
         <div id="tools-container">
+            
             <select id="tool-select" name="tool_select" >
                 <option value="">اختر أداة</option>
                 @foreach ($storages as $storage)
@@ -96,11 +97,14 @@
                     @endif
                 @endforeach
             </select>
-            <input type="number" id="tool-quantity" name="tool_quantity" min="1" value="1" required>
-            <button type="button" id="add-tool-button">أضف أداة</button>
+            </div>
+            <div class="br" ></div>
+            <input type="number" id="tool-quantity" name="tool_quantity" min="1"  required placeholder="الكمية">
+            <button type="button" id="add-tool-button" class="add-btn-2">أضف اداة</button>
         </div>
-        <div id="added-tools-container"></div>
-    </div>
+        <br>
+        <div id="added-tools-container" class="added-stuf"></div>
+   
 </div>
 
 <script>

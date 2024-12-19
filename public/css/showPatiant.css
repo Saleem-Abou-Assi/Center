@@ -8,7 +8,26 @@
     color: white;
     font-size: 35px;
 
+    
   }
+  .highlighted-operation {  
+    animation: glow 2s ease-in-out infinite;  
+    background-color: #00de4377 !important;  
+}  
+
+@keyframes glow {  
+    0% {  
+        box-shadow: 0 0 5px rgba(36, 255, 7, 0.5);  
+    }  
+
+    50% {  
+        box-shadow: 0 0 20px rgba(0, 166, 58, 0.5);  
+    }  
+
+    100% {  
+        box-shadow: 0 0 5px rgba(36, 255, 7, 0.5);  ;  
+    }  
+}  
   body{
     /* background-image: url('../images/back.png');
     background-repeat: no-repeat;

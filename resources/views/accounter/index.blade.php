@@ -17,9 +17,9 @@
     <h3 style="color: white">فاتورة المريض {{$patient->name}}</h3>
  
 
-  </div>  
-    <br>
-    <br>
+   
+ 
+   
  <div class="container1">
  
   <div class="table-container">
@@ -69,17 +69,22 @@
       </div>
     
     
-    </tbody>
-  </table>
-  </div>
-  <div class="boton">
+         </tbody>
+       </table>
+       <br>
+     <div class="botons">
+         <div class="boton">
     <button onclick="exportTableToExcel('myTable', )"  class="add-btn"><span>Export to Excel</span></button>
-    </div>
-    <div class="boton">
+         </div>
+         <div class="boton">
         <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2">Go Back</a>
-    </div>
+         </div>
+     </div>
+  </div>
+ 
   </div>
   </div>
+  
  
   <script>
     function exportTableToExcel(tableID, filename = 'فاتورة المريض {{ $patient->name }}.xlsx') {

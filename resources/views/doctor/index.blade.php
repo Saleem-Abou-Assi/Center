@@ -29,7 +29,7 @@
                 <th>الاسم</th>  
                 <th>الايميل</th>
                 <th>الرقم</th>  
-                <th>العوان</th>  
+                <th>العنوان</th>  
                 <th>التخصص</th>  
                 <th>تاريخ الإضافة</th>  
                 <th>آخر تعديل</th>  
@@ -55,8 +55,7 @@
                         <a href="{{ route('doctor.edit', $doctor->id) }}" class="action-btn">تعديل</a>  
                         <form action="{{ route('doctor.destroy', $doctor->id) }}" method="POST" style="display:inline;">  
                             @csrf  
-                            @method('DELETE')  
-                            <button type="submit" class="action-btn">إزالة</button>  
+                           
                         </form>  
                         <a href="{{ route('doctor.show', $doctor->id) }}" class="action-btn">عرض</a>  
                     </td>  
