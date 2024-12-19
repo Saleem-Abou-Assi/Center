@@ -119,6 +119,7 @@ class ReportController extends Controller
 
         if ($request->export_type === 'pdf') {
             $pdf = PDF::loadView('reports.custom', ['data' => $data]);
+            $pdf->setOptions(['defaultFont' => 'Cairo']);
             return $pdf->download('custom-report.pdf');
         }
 

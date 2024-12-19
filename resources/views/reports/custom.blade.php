@@ -5,7 +5,7 @@
     <title>Custom Report</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Cairo", sans-serif;
             padding: 20px;
             direction: rtl;
         }

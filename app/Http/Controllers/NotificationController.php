@@ -23,4 +23,11 @@ class NotificationController extends Controller
         
         return redirect()->back();
     }
+    public function getNotificationCount()
+{
+    // Count only unread notifications
+    $notificationCount = Notification::where('is_read', false)->count();
+
+    return response()->json(['count' => $notificationCount]);
+}
 }

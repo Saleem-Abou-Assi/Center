@@ -1,16 +1,18 @@
 <head>
 <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">   
     <title>Dashboard</title>
     @include('layouts.navigation')
 </head>
 <body>
     <br>
-    <br>
+    
+
     <div class="r-all">
-        
+       
             <!-- User Management Section -->
             <div class="con">
-                <h2>إدارة المستخدمين</h2>
+                <h2>إدارة لمستخدمين</h2>
                 <h3>عدد المسجلين</h3>
                 <div class="count">
                     <p><strong>{{ $userCount }}</strong></p>
@@ -72,7 +74,8 @@
                 </div>
             </div>
          </div>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/report-generator.js') }}"></script>

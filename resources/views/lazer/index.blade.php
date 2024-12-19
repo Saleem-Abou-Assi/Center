@@ -97,7 +97,7 @@
                 <option value="mid">Mid</option>  
                 <option value="high">High</option>  
             </select>  
-            <input type="text" id="pulse-input" name="pulse-input" placeholder="أدخل عرض النبضة" style="margin-left: 10px;">  
+            <input type="text" id="pulse-input" name="pulse" placeholder="أدخل عرض النبضة" style="margin-left: 10px;">  
         </div>  
     </div>  
      
