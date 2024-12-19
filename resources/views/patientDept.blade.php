@@ -92,7 +92,7 @@
                 <option value="">اختر أداة</option>
                 @foreach ($storages as $storage)
                     @if ($storage->quantity > 0)
-                        <option value="{{ $storage->id }}">{{ $storage->name }} (المتبقي: {{ $storage->quantity }})</option>
+                        <option value="{{ $storage->id }}">{{ $storage->item }} </option>
                     @endif
                 @endforeach
             </select>
