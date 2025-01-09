@@ -21,7 +21,12 @@
                 <li data-label="عدد الأطفال"><span>{{ $patient->childerCount }}</span></li>  
             </ul>  
             <ul class="ul">  
-                <li data-label="مدخن"><span>{{ $patient->smooking }}</span></li>  
+                <li data-label="مدخن"><span>@if ($patient->smooking == 1)
+                    نعم
+                    @else{
+                        لا
+                    }
+                @endif</span></li>  
                 <li data-label="عمليات سابقة"><span>{{ $patient->oldSurgery }}</span></li>  
                 <li data-label="حساسية"><span>{{ $patient->alirgy }}</span></li>  
                 <li data-label="مرض مزمن"><span>{{ $patient->disease }}</span></li>  

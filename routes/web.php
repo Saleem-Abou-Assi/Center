@@ -19,13 +19,14 @@ use App\Http\Controllers\ReportController;
 
 //home page with no auth
 
+Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount']);
+
 // groub the routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function() {
         return view('welcome');
     })->name('home');
 
-    Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount']);
     
 //must be roll admin
 Route::middleware(['role:admin'])->group(function () {
@@ -131,7 +132,7 @@ Route::middleware(['role:admin|store'])->group(function (){
 Route::get('/storage', [StorageController::class, 'index'])->name('storage.index');
 Route::get('/storage/create', [StorageController::class, 'create'])->name('storage.create');
 Route::post('/storage', [StorageController::class, 'store'])->name('storage.store');
-Route::get('/storage/{storage_id}/edit', [StorageController::class, 'edit'])->name('storage.edit');
+Route::get('/storage/{storage_id}', [StorageController::class, 'edit'])->name('storage.edit');
 Route::put('/storage/{storage_id}', [StorageController::class, 'update'])->name('storage.update');
 Route::delete('/storage/{storage_id}', [StorageController::class, 'destroy'])->name('storage.destroy');
 

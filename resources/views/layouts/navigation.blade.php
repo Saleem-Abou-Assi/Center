@@ -294,9 +294,12 @@ function viewProfile() {
 }
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
+        console.log(data);
         $.get('/notifications/count', function(data) {
+        
             if (data.count > 0) {
                 $('.notification-count').text(data.count).show(); // Update the count and show it
             } else {
