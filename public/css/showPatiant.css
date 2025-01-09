@@ -14,6 +14,18 @@
     animation: glow 2s ease-in-out infinite;  
     background-color: #00de4377 !important;  
 }  
+.add-btn{
+  background-color: #006f5a;
+  color:white ;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+  font-family: 'Cairo', sans-serif;
+}
 
 @keyframes glow {  
     0% {  

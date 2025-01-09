@@ -31,7 +31,7 @@
             </ul>  
            
         </div>  
-        <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
+
         <div class="table-container1">  
             <h3>تفاصيل إضافية</h3>  
             <table>  
@@ -50,6 +50,7 @@
             </table>  
         </div>  
         <div class="container2">  
+        <h3>معايانات مرضية</h3>  
             <table class="table-container">  
                 <thead>  
                     <tr>  
@@ -77,7 +78,7 @@
             </table>  
             <br>  
             <br>  
-            <h3>Lazer Information</h3>  
+            <h3>معايانات الليزر</h3>  
             <table class="table-container">  
                 <thead>  
                     <tr>  
@@ -104,21 +105,25 @@
                 </tr>  
                 @endfor  
             </table>  
-
+            <br>
+            <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
             <div class="boton">  
                 <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>  
             </div>  
         </div>  
+        
         <div>
-        <div class="export-options">
-                            <button type="submit" name="export_type" value="pdf" class="add-btn">PDF تصدير</button>
-                            <button type="submit" name="export_type" value="excel" class="add-btn">Excel تصدير</button>
-                        </div>
-        </div>
+
     </div>  
 
    
     <script>  
+        
+        
+
+
+
+
         document.addEventListener('DOMContentLoaded', function () {  
             const urlParams = new URLSearchParams(window.location.search);  
             let highlightOperationId = urlParams.get('highlight_operation');  
