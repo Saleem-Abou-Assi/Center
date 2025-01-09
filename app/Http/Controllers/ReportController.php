@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Exports\DailyReportExport;
 use App\Exports\CustomReportExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Mpdf\Mpdf;
 
 class ReportController extends Controller
 {
@@ -24,8 +24,10 @@ class ReportController extends Controller
         ];
 
         if ($request->export_type === 'pdf') {
-            $pdf = PDF::loadView('reports.daily', ['data' => $data]);
-            return $pdf->download('daily-report.pdf');
+            $mpdf = new Mpdf();
+            $html = view('reports.daily', ['data' => $data])->render();
+            $mpdf->WriteHTML($html);
+            return $mpdf->Output('daily-report.pdf', 'D'); // 'D' for download
         }
 
         return Excel::download(new DailyReportExport($data), 'daily-report.xlsx');
@@ -118,11 +120,33 @@ class ReportController extends Controller
         ];
 
         if ($request->export_type === 'pdf') {
-            $pdf = PDF::loadView('reports.custom', ['data' => $data]);
-            $pdf->setOptions(['defaultFont' => 'Cairo']);
-            return $pdf->download('custom-report.pdf');
+            $mpdf = new Mpdf();
+            $html = view('reports.custom', ['data' => $data])->render();
+            $mpdf->WriteHTML($html);
+            return $mpdf->Output('custom-report.pdf', 'D'); // 'D' for download
         }
 
         return Excel::download(new CustomReportExport($data), 'custom-report.xlsx');
+    }
+
+    public function generatePatientReport(Request $request, $patientId)
+    {
+        $patientDeptData = PatientDept::with(['Department', 'Accounter'])
+            ->where('patient_id', $patientId)
+            ->get();
+
+        $lazerData = Lazer::with(['Patient', 'Doctor.user'])
+            ->where('patient_id', $patientId)
+            ->get();
+
+        $data = [
+            'patientDept' => $patientDeptData,
+            'lazer' => $lazerData,
+        ];
+
+        $mpdf = new Mpdf();
+        $html = view('reports.patient', ['data' => $data])->render();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('patient-report.pdf', 'D'); // 'D' for download
     }
 }

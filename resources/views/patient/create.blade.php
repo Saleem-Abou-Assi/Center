@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="C-container">
-        <h1>{{ isset($patient) ? 'Edit Patient' : 'Add Patient' }}</h1>
+        <h1>{{ isset($patient) ? 'عدل على مريض' : 'أضف مريضاً' }}</h1>
         <div class="form-container1">
         <form action="{{ isset($patient) ? route('patient.update', $patient->id) : route('patient.store') }}" method="POST" >
             @csrf

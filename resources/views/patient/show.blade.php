@@ -34,7 +34,9 @@
                 <li data-label="علاج متبع"><span>{{ $patient->permenantCure }}</span></li>  
                 <li data-label="عمليات تجميل سابقة"><span>{{ $patient->Cosmetic }}</span></li>  
             </ul>  
+           
         </div>  
+        <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
         <div class="table-container1">  
             <h3>تفاصيل إضافية</h3>  
             <table>  
@@ -112,6 +114,12 @@
                 <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>  
             </div>  
         </div>  
+        <div>
+        <div class="export-options">
+                            <button type="submit" name="export_type" value="pdf" class="add-btn">PDF تصدير</button>
+                            <button type="submit" name="export_type" value="excel" class="add-btn">Excel تصدير</button>
+                        </div>
+        </div>
     </div>  
 
    
@@ -153,6 +161,7 @@
             }  
         });  
     </script>  
+    <script src="{{ asset('js/report-generator.js') }}"></script>   
 </body>  
 
 </html>

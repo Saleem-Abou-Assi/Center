@@ -19,3 +19,4 @@ Cairo Font install ...
 
    composer require barryvdh/laravel-dompdf
    composer require maatwebsite/excel
+   composer require carlos-meneses/laravel-mpdf

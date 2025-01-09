@@ -1,5 +1,7 @@
-
-    
+<head>
+    <link rel="stylesheet" href="{{ asset('fonts/fontawesome/css/all.min.css') }}">
+</head>
+<body>
       
 <nav class="nav">
     
@@ -224,7 +226,7 @@
     width: 55px;
     height: auto;
     justify-content: center;
-    
+    z-index: 10;
 }
 
 .notification-button {
@@ -297,16 +299,25 @@ function viewProfile() {
 
 <script>
     $(document).ready(function() {
-        console.log(data);
+        // Check local storage for the last known notification count
+        const lastKnownCount = localStorage.getItem('notificationCount');
+        if (lastKnownCount) {
+            $('.notification-count').text(lastKnownCount).show(); // Show last known count
+        }
+
+        // Fetch the current notification count from the server
         $.get('/notifications/count', function(data) {
         
             if (data.count > 0) {
                 $('.notification-count').text(data.count).show(); // Update the count and show it
+                localStorage.setItem('notificationCount', data.count); // Store the count in local storage
             } else {
                 $('.notification-count').hide(); // Hide if there are no notifications
+                localStorage.removeItem('notificationCount'); // Clear local storage if no notifications
             }
         }).fail(function() {
             console.error("Error fetching notification count");
         });
     });
 </script>
+</body>

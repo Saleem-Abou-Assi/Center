@@ -44,7 +44,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>Daily Report</h1>
+        <h1>تقارير يومية</h1>
         <div class="date">Date: {{ now()->format('Y-m-d') }}</div>
     </div>
 
