@@ -143,6 +143,6 @@ Route::delete('/storage/{storage_id}', [StorageController::class, 'destroy'])->n
 
 });
 
-
+Route::get('/reports/patient/{patientId}', [ReportController::class, 'generatePatientReport'])->name('reports.patient');
 
 require __DIR__ . '/auth.php';
