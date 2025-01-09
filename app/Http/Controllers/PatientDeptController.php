@@ -57,18 +57,19 @@ class PatientDeptController extends Controller
         $selectedTools = $request->input('selected_tools', []);
         $toolQuantities = $request->input('quantities', []);
         // Loop through selected tools
-       
-        foreach ($selectedTools as $toolId) {
-            $quantity = $toolQuantities[$toolId] ?? 1; // Default to 1 if not set
-            $storage = Storage::find($toolId);
-            
+        for($i = 0; $i < count($selectedTools); $i++) 
+        {
+            $quantity = $toolQuantities[$i] ?? 1; // Default to 1 if not set
+            $storage = Storage::find($selectedTools[$i]);        
             if ($storage && $storage->quantity >= $quantity) {
                 $storage->decrement('quantity', $quantity);
                 
                 // Attach the tool to the APD or any relevant model
                 $apd->storage()->attach($storage->id, ['quantity' => $quantity]);
             }
-        }
+        }        
+            
+        
  
         Notification::create([
             'type' => 'patient_dept',
