@@ -48,5 +48,10 @@ class Patient extends Model
     {
         return $this->hasMany(Lazer::class);
     }
+
+    public function waitLists(): BelongsToMany
+    {
+        return $this->belongsToMany(WaitingList::class);
+    }
 }
 

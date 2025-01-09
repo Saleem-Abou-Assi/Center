@@ -45,7 +45,9 @@
                 <li>
                          <a href="{{ route(name: 'patientDept.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('patientDept') ? 'border-b-2 border-blue-500' : '' }}">معاينات المريض</a>
                 </li>
-                
+                  <li>
+                         <a href="{{ route(name: 'waitingList.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('waitingList') ? 'border-b-2 border-blue-500' : '' }}">لائحة الانتظار</a>
+                </li>
                 <li>
                     <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
                   </li> 

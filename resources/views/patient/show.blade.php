@@ -43,7 +43,7 @@
                 <tr>  
                     <th>اسم الحقل</th>  
                     <th>محتوى الحقل</th>  
-                </tr>  
+                </tr>   
                 @if ($patient->Field)  
                 @foreach ($patient->Field as $field)  
                 <tr>  

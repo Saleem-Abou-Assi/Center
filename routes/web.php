@@ -16,6 +16,7 @@ use App\Models\Accounter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\WaitingListController;
 
 //home page with no auth
 
@@ -103,7 +104,9 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
 
     Route::get('/doctors/{doctor_id}', [DoctorController::class, 'show'])->name('doctor.show');
 
-
+    Route::get('/waiting-list',[WaitingListController::class,'index'])->name('waitingList.index');
+    Route::post('/waiting-list', [WaitingListController::class, 'store'])->name('waitingList.store');
+    
 });
 
 
@@ -145,5 +148,4 @@ Route::delete('/storage/{storage_id}', [StorageController::class, 'destroy'])->n
 });
 
 Route::get('/reports/patient/{patientId}', [ReportController::class, 'generatePatientReport'])->name('reports.patient');
-
 require __DIR__ . '/auth.php';
