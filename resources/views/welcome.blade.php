@@ -93,9 +93,13 @@
        </div>
        <br>
        <br>
-       <button></button>
-       {{-- @php
-           dd(auth()->user()->hasRole('reciption'));
+       @if (Auth::user()->hasRole('admin'))
+           
+       
+       <a href="{{ route('backup')}}"> <button>النسخ الاحتياطي للبيانات</button></a>       
+       @endif
+       {{--  
+       dd(auth()->user()->hasRole('reciption'));
        @endphp --}}
     </body>
 </html>

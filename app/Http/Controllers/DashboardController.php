@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function runBatchFile()
     {
         // Define the path to your batch file
-        $batchFilePath = base_path('../../../backup.bat');
+        $batchFilePath = base_path('backup.bat');
 
         // Execute the batch file
         $output = shell_exec("start /b $batchFilePath");
