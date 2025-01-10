@@ -158,8 +158,8 @@ class PatientController extends Controller
     {
         try {
             $patient = Patient::where('id', $patient_id)->first();
-            if ($patient->image_path) {
-                Storage::delete('public/' . $patient->image_path);
+            if ($patient->profileImagePath) {
+                Storage::delete('public/' . $patient->profileImagePath);
             }
             if ($patient) {
                 $patient->delete();

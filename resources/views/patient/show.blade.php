@@ -12,7 +12,7 @@
         <h1>تفاصيل المريض</h1>
         <div class="lists-container">
             <div class="patient-image">
-                @if ($patient->imagePath)
+                @if ($patient->profileImagePath)
                 <img src="{{ asset('storage/'.$patient->profileImagePath) }}" alt="صورة المريض" class="patient-img">
                 @else
                 <p>لا توجد صورة متوفرة</p>

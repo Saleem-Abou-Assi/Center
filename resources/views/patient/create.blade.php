@@ -102,7 +102,7 @@
                 </div>
                 <div class="form-group">
                     <label for="image">تحميل صورة شخصية</label>
-                    <input type="file" id="image" name="profile-image" class="form-control" accept="image/*">
+                    <input type="file" id="image" name="image" class="form-control" accept="image/*">
                 </div>
                 <div class="sep">
                     <hr class="separator">
