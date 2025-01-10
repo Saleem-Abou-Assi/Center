@@ -13,6 +13,7 @@ php artisan db:seed --class=RolesSeeder
 composer require barryvdh/laravel-dompdf:^3.0
 composer require phpoffice/phpspreadsheet:^1.29.4
 composer require maatwebsite/excel:^3.1.61
+composer require carlos-meneses/laravel-mpdf
 =======
 
 Cairo Font install ...

@@ -99,7 +99,7 @@
             </select>
             </div>
             <div class="br" ></div>
-            <input type="number" id="tool-quantity" name="tool_quantity" min="1"  required placeholder="الكمية">
+            <input type="number" id="tool-quantity" name="tool_quantity" min="1"   placeholder="الكمية">
             <button type="button" id="add-tool-button" class="add-btn-2">أضف اداة</button>
         </div>
         <br>

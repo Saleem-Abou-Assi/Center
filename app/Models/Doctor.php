@@ -45,8 +45,10 @@ class Doctor extends Model
         return $this->hasMany(Lazer::class);
     }
 
-    public function waitList():HasOne
+    public function waitingList()
     {
-        return $this->hasOne(WaitingList::class);
+        return $this->belongsToMany(Patient::class, 'waiting_lists')
+        ->withPivot('id','expires_at')
+        ->withTimestamps();
     }
 }

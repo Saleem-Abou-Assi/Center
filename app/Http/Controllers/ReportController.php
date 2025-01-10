@@ -9,6 +9,7 @@ use App\Exports\DailyReportExport;
 use App\Exports\CustomReportExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Mpdf\Mpdf;
+use App\Models\Patient;
 
 class ReportController extends Controller
 {
@@ -146,7 +147,12 @@ class ReportController extends Controller
 
         $mpdf = new Mpdf();
         $html = view('reports.patient', ['data' => $data])->render();
+        
+        // Get the patient's name for the filename
+        $patient = Patient::findOrFail($patientId);
+        $filename = "{$patient->name}-report.pdf"; // Create the filename
+
         $mpdf->WriteHTML($html);
-        return $mpdf->Output('patient-report.pdf', 'D'); // 'D' for download
+        return $mpdf->Output($filename, 'D'); // Use the new filename
     }
 }
