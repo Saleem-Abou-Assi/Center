@@ -49,7 +49,7 @@
         <th>الدواء الداخلي</th><td>{{$patientDept->Accounter[0]->pivot->given_cure}} </td>
       </tr>
       <div class="storage-container">
-        <h3>الأدوات المستخدمة</h3>
+     
         <table>
             <thead>
                 <tr>

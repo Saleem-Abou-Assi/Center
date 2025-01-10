@@ -45,7 +45,9 @@
                 <li>
                          <a href="{{ route(name: 'patientDept.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('patientDept') ? 'border-b-2 border-blue-500' : '' }}">معاينات المريض</a>
                 </li>
-                
+                  <li>
+                         <a href="{{ route(name: 'waitingList.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('waitingList') ? 'border-b-2 border-blue-500' : '' }}">لائحة الانتظار</a>
+                </li>
                 <li>
                     <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
                   </li> 
@@ -296,6 +298,7 @@ function viewProfile() {
 }
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
         // Check local storage for the last known notification count
@@ -306,6 +309,7 @@ function viewProfile() {
 
         // Fetch the current notification count from the server
         $.get('/notifications/count', function(data) {
+        
             if (data.count > 0) {
                 $('.notification-count').text(data.count).show(); // Update the count and show it
                 localStorage.setItem('notificationCount', data.count); // Store the count in local storage

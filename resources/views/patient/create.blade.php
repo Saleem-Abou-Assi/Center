@@ -60,16 +60,16 @@
                         <option value="divorced" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
                         
                     </select>
-                </div> 
+                </div>  
                 <div class="form-group">
                 <label for="children">عدد الأطفال</label>
                 <input type="number" id="children" name="children"  value="{{ isset($patient) ? $patient->children : '' }}">
             </div> <div class="form-group">
                 <label for="smooking">مدخن</label>
-                <input type="checkbox" id="smooking" name="smooking"  value="{{ isset($patient) ? $patient->smooking : '' }}">
+                <input type="checkbox" id="smooking" name="smooking" value="1" {{ isset($patient) && $patient->smooking ? 'checked' : '' }}>
             </div> <div class="form-group">
                 <label for="oldSurgery">عمليات سابقة</label>
-                <input type="text" id="oldSergury" name="oldSergury"  value="{{ isset($patient) ? $patient->oldSergury : '' }}">
+                <input type="text" id="oldSurgery" name="oldSurgery"  value="{{ isset($patient) ? $patient->oldSurgery : '' }}">
             </div> <div class="form-group">
                 <label for="alirgy">حساسية</label>
                 <input type="text" id="alirgy" name="alirgy"  value="{{ isset($patient) ? $patient->alirgy : '' }}">

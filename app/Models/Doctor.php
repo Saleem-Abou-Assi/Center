@@ -44,4 +44,9 @@ class Doctor extends Model
     {
         return $this->hasMany(Lazer::class);
     }
+
+    public function waitList():HasOne
+    {
+        return $this->hasOne(WaitingList::class);
+    }
 }

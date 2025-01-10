@@ -56,10 +56,14 @@ class StorageController extends Controller
                 
             ]);
  
-            $storage = Storage::create([
-                'item' => $request->item,
-                'quantity' => $request->quantity,
-            ]);
+            $storage->update(
+                [
+                        'item' => $request->item,
+                        'quantity' => $request->quantity,
+                    ]);
+            
+            
+            
             
              
              return redirect()->route('storage.index'); 

@@ -16,8 +16,11 @@ use App\Models\Accounter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\WaitingListController;
 
 //home page with no auth
+
+Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount']);
 
 // groub the routes
 Route::middleware(['auth'])->group(function () {
@@ -25,7 +28,6 @@ Route::middleware(['auth'])->group(function () {
         return view('welcome');
     })->name('home');
 
-    Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount']);
     
 //must be roll admin
 Route::middleware(['role:admin'])->group(function () {
@@ -102,7 +104,9 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
 
     Route::get('/doctors/{doctor_id}', [DoctorController::class, 'show'])->name('doctor.show');
 
-
+    Route::get('/waiting-list',[WaitingListController::class,'index'])->name('waitingList.index');
+    Route::post('/waiting-list', [WaitingListController::class, 'store'])->name('waitingList.store');
+    
 });
 
 
@@ -131,7 +135,7 @@ Route::middleware(['role:admin|store'])->group(function (){
 Route::get('/storage', [StorageController::class, 'index'])->name('storage.index');
 Route::get('/storage/create', [StorageController::class, 'create'])->name('storage.create');
 Route::post('/storage', [StorageController::class, 'store'])->name('storage.store');
-Route::get('/storage/{storage_id}/edit', [StorageController::class, 'edit'])->name('storage.edit');
+Route::get('/storage/{storage_id}', [StorageController::class, 'edit'])->name('storage.edit');
 Route::put('/storage/{storage_id}', [StorageController::class, 'update'])->name('storage.update');
 Route::delete('/storage/{storage_id}', [StorageController::class, 'destroy'])->name('storage.destroy');
 
@@ -144,5 +148,4 @@ Route::delete('/storage/{storage_id}', [StorageController::class, 'destroy'])->n
 });
 
 Route::get('/reports/patient/{patientId}', [ReportController::class, 'generatePatientReport'])->name('reports.patient');
-
 require __DIR__ . '/auth.php';

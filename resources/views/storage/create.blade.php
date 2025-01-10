@@ -5,7 +5,7 @@
     <title>إدارة الأقسام</title>
     @include('layouts.navigation')
 </head>
-<body>
+<body> 
 
     <div class="C-container">
         <h1>{{ isset($storage) ? 'عدل مادة' : 'أضف مادة' }}</h1>
