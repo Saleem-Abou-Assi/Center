@@ -79,8 +79,6 @@ Route::post('/reports/custom', [ReportController::class, 'generateCustomReport']
 
 });
 
-
-
 // ------doctor $ reciption-------
 Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
 
@@ -106,6 +104,7 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
 
     Route::get('/waiting-list',[WaitingListController::class,'index'])->name('waitingList.index');
     Route::post('/waiting-list', [WaitingListController::class, 'store'])->name('waitingList.store');
+    Route::delete('/waitlist/{id}', [WaitingListController::class, 'destroy'])->name('waitingList.destroy');
     
 });
 

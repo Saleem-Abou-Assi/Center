@@ -11,10 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('waiting_list', function (Blueprint $table) {
+        Schema::create('waiting_lists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor')->constrained('doctors')->onDelete('cascade');
-            $table->foreignId('patient')->constrained('patients')->onDelete('cascade');
+
+            $table->unsignedBigInteger('doctor_id');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->unsignedBigInteger('patient_id');
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->timestamp('expires_at');
             $table->timestamps();
         });
     }
@@ -24,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('waiting_list');
+        Schema::dropIfExists('waiting_lists');
     }
 };

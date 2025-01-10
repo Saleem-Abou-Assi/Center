@@ -45,9 +45,9 @@
                 <li>
                          <a href="{{ route(name: 'patientDept.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('patientDept') ? 'border-b-2 border-blue-500' : '' }}">معاينات المريض</a>
                 </li>
-                  <li>
-                         <a href="{{ route(name: 'waitingList.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('waitingList') ? 'border-b-2 border-blue-500' : '' }}">لائحة الانتظار</a>
-                </li>
+                  <div class="side">
+                        <a href="{{ route(name: 'waitingList.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('waitingList') ? 'border-b-2 border-blue-500' : '' }}">لائحة الانتظار</a>
+                  </div>
                 <li>
                     <a href="{{ route(name: 'lazer.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('lazer') ? 'border-b-2 border-blue-500' : '' }}">الليزر </a>
                   </li> 
@@ -116,6 +116,25 @@
              
 </nav>
 <style>
+    .side{
+        position: fixed;
+        right: 0;
+        top:100px;
+        display: flex;
+        background-color: white;
+        
+        width: 150px;
+        height: 70px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+    .side a{
+        text-decoration: none;
+        color: black;
+         
+    }
     .loglog{
         position: absolute;
         left: 90%;

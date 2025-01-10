@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('permenantCure')->nullable();
             $table->string('Cosmetic')->nullable();
             $table->string('CurrentDiseas')->nullable();
+            $table->string('profileImagePath')->nullable();
 
             $table->timestamps();
         });

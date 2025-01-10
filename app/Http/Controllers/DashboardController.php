@@ -12,4 +12,16 @@ class DashboardController extends Controller
         $userCount = User::count();
         return view('admin.dashboard', compact('userCount'));
     }
+
+    public function runBatchFile()
+    {
+        // Define the path to your batch file
+        $batchFilePath = base_path('../../../backup.bat');
+
+        // Execute the batch file
+        $output = shell_exec("start /b $batchFilePath");
+
+        // Optionally, return the output or a response
+        return response()->json(['message' => 'Batch file executed', 'output' => $output]);
+    }
 }
