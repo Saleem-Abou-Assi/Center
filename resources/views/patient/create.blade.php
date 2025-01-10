@@ -111,7 +111,7 @@
 
                 <button type="button" id="addRowBtn" class="add-btn"><span>أضف تفاصيلاّ</span></button>
 
-                <table id="dynamicTable">
+                <table id="dynamicTable"> 
                     <thead>
 
                     </thead>

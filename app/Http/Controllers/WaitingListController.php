@@ -14,26 +14,33 @@ class WaitingListController extends Controller
     {
         $doctors = Doctor::all();
         $patients = Patient::all();
-        $selectedDoctor = null;
-        if ($request->has('doctor_id')) {
-            $selectedDoctor = Doctor::find($request->doctor_id);
-        }
+        // $selectedDoctor = null;
+        // if ($request->has('doctor_id')) {
+        //     $selectedDoctor = Doctor::find($request->doctor_id);
+        // }
+        $waitinglist = WaitingList::all();
 
-        return view('waitingList.index', ['doctors' => $doctors, 'patients' => $patients, 'selectedDoctor' => $selectedDoctor]);
+        return view('waitingList.index', ['doctors' => $doctors, 'patients' => $patients,'waitingList'=>$waitinglist]);
     }
 
 
     public function store(Request $request)
     {
-       
         $doctor = Doctor::find($request->doctor_id);
         $patient = Patient::find($request->patient_id);
 
-        $doctor->waitinglist()->attach($patient->id, [
-            'expires_at' => now()->addDays(1),
-        ]);
+        // Check if the patient is already in the waiting list
+        $exists = $doctor->waitinglist()->where('patient_id', $patient->id)->exists();
 
-        return redirect()->back()->with('success', 'Patient added to the waiting list.');
+        if (!$exists) {
+            $doctor->waitinglist()->attach($patient->id, [
+                'expires_at' => now()->addDays(1),
+            ]);
+
+            return redirect()->back()->with('success', 'Patient added to the waiting list.');
+        }
+
+        return redirect()->back()->with('info', 'Patient is already in the waiting list.');
     }
 
     public function destroy($entryId)
