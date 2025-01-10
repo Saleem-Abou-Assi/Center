@@ -247,4 +247,33 @@ tbody tr:nth-child(even) {
   button.action-btn:hover {
       background-color: #c82333;
   }
-  
+  .pi-con{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    
+}
+.patient-image{
+    display: flex;
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+}
+.pi-fr{
+  display: flex;
+  width: 290px;
+  height: 290px;
+  background-color: #00253d;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.pi-fr img{
+  object-fit: cover;
+  width: 100%;
+}

@@ -10,14 +10,19 @@
 <body>
     <div class="container">
         <h1>تفاصيل المريض</h1>
-        <div class="lists-container">
+        <br>
+        <div class="pi-con">
             <div class="patient-image">
                 @if ($patient->profileImagePath)
                 <img src="{{ asset('storage/'.$patient->profileImagePath) }}" alt="صورة المريض" class="patient-img">
                 @else
                 <p>لا توجد صورة متوفرة</p>
                 @endif
+                </div>
             </div>
+        </div>
+        <div class="lists-container">
+          
             <ul class="ul">
                 <li data-label="الاسم"><span>{{ $patient->name }}</span></li>
                 <li data-label="الرقم"><span>{{ $patient->phone }}</span></li>

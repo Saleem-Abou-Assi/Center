@@ -93,6 +93,7 @@
        </div>
        <br>
        <br>
+       <button></button>
        {{-- @php
            dd(auth()->user()->hasRole('reciption'));
        @endphp --}}

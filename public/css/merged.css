@@ -863,3 +863,47 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     transform: translateY(-50%); /* Center vertically */
     display: inline-block; /* Ensure it behaves like a block */
 }
+.grid{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,75px);
+    row-gap: 30px;
+}
+.grid .cta{
+   grid-row: 2;
+   grid-column: span 2;
+}
+.file-input {
+    display: none; /* Hide the original file input */
+}
+
+/* Custom file upload button */
+.custom-file-upload {
+    width: 70px;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #007561; /* Your theme color */
+    color: white;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+}
+
+.custom-file-upload:hover {
+    background-color: #006f5a; /* Darker shade on hover */
+}
+.file-name {
+    margin-left: 10px; /* Space between the button and the file name */
+    font-size: 14px; /* Font size for the file name */
+    color: #555; /* Color for the file name */
+}
+.kok{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.kok span{
+    position: relative;
+    top: 50%;
+}
