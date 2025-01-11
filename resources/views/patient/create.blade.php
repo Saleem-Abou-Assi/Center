@@ -103,8 +103,8 @@
                 <div class="form-group">
                     <div class="kok">
                         <div class="bok">
-                    <label for="image">تحميل صورة شخصية</label>
-                    <input type="file" id="image" name="profile-image" class="file-input" accept="image/*" onchange="updateFileName()">
+                    <label for="profile-image">تحميل صورة شخصية</label>
+                    <input type="file" id="profile-image" name="profile-image" class="file-input" accept="image/*" onchange="updateFileName()">
                     <label for="image" class="custom-file-upload">
                         <span class="fa fa-upload" style="font-size:24px"></span>
                     </label>
@@ -144,7 +144,7 @@
     </div>
     <script>
     function updateFileName() {
-        const input = document.getElementById('image');
+        const input = document.getElementById('profile-image');
         const fileNameDisplay = document.getElementById('file-name');
         
         if (input.files.length > 0) {
