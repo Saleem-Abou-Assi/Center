@@ -22,6 +22,7 @@ class DashboardController extends Controller
         $output = shell_exec("start /b $batchFilePath");
 
         // Optionally, return the output or a response
-        return response()->json(['message' => 'Batch file executed', 'output' => $output]);
+        // return response()->json(['message' => 'Batch file executed', 'output' => $output]);
+        return redirect()->back();
     }
 }
