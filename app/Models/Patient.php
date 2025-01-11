@@ -28,7 +28,7 @@ class Patient extends Model
         'permenantCure',
         'Cosmetic',
         'CurrentDiseas',
-        'imagePath'
+        'profileImagePath'
     ];
 
     public function Dept(): BelongsToMany

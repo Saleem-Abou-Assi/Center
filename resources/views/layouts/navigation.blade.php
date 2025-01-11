@@ -18,7 +18,7 @@
                   
                     @if (Auth::user()->hasRole('doctor'))
                     <li>
-                        <a href="{{ route('doctor.show',[ 'doctor_id'=>Auth::user()->id]) }}" class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('doctor.*') ? 'border-b-2 border-blue-500' : '' }}">
+                        <a href="{{ route('doctor.show',[ 'doctor_id'=>Auth::user()->Doctor->id]) }}" class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('doctor.*') ? 'border-b-2 border-blue-500' : '' }}">
                             المرضى
                         </a>
                    </li>
@@ -225,6 +225,7 @@
     background-color:#007561c5 ;
     color: white;
     text-decoration: none;  
+    border-radius:10px ;
   }
   li a {
     display: block;

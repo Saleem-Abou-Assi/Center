@@ -32,6 +32,9 @@ Route::middleware(['auth'])->group(function () {
 //must be roll admin
 Route::middleware(['role:admin'])->group(function () {
     // admin dashboard group
+
+    Route::get('/backup',[DashboardController::class,'runBatchFile'])->name('backup');
+
     Route::prefix('admin')->name('admin.')->group(function (){
         
     Route::get('/',[DashboardController::class,'index'])->name('');

@@ -13,9 +13,7 @@
         <br>
         <div class="pi-con">
             <div class="patient-image">
-                <div class="pi-fr">
-                   
-                @if ($patient->imagePath)
+                @if ($patient->profileImagePath)
                 <img src="{{ asset('storage/'.$patient->profileImagePath) }}" alt="صورة المريض" class="patient-img">
                 @else
                 <p>لا توجد صورة متوفرة</p>

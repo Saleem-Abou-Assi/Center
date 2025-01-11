@@ -28,6 +28,8 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         // تحقق من صحة الطلب
+        dd($request);
+
         $request->validate([
             'name' => ['required', 'string'],
             'phone' => ['required', 'string'],
@@ -95,7 +97,6 @@ class PatientController extends Controller
     {
 
         $patient = Patient::where('id', $patient_id)->first();
-
         $request->validate([
             'name' => ['required', 'string'],
             'phone' => ['required', 'string'],
@@ -105,7 +106,7 @@ class PatientController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
-        $profileImagePath = null;
+        $profileImagePath = null; 
 
         if ($request->hasFile('image')) {
             // Store the image in the 'public/patient_images' directory
@@ -158,8 +159,8 @@ class PatientController extends Controller
     {
         try {
             $patient = Patient::where('id', $patient_id)->first();
-            if ($patient->image_path) {
-                Storage::delete('public/' . $patient->image_path);
+            if ($patient->profileImagePath) {
+                Storage::delete('public/' . $patient->profileImagePath);
             }
             if ($patient) {
                 $patient->delete();
