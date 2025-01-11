@@ -101,8 +101,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="kok">
+                        <div class="bok">
                     <label for="image">تحميل صورة شخصية</label>
-                    <input type="file" id="image" name="profile-image" class="form-control" accept="image/*">
+                    <input type="file" id="image" name="profile-image" class="file-input" accept="image/*" onchange="updateFileName()">
+                    <label for="image" class="custom-file-upload">
+                        <span class="fa fa-upload" style="font-size:24px"></span>
+                    </label>
+                         </div>
+                    <span id="file-name" class="file-name"></span>
+                    </div>
                 </div>
                 <div class="sep">
                     <hr class="separator">
@@ -134,7 +142,18 @@
             <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
         </div>
     </div>
-
+    <script>
+    function updateFileName() {
+        const input = document.getElementById('image');
+        const fileNameDisplay = document.getElementById('file-name');
+        
+        if (input.files.length > 0) {
+            fileNameDisplay.textContent = input.files[0].name; // Display the name of the selected file
+        } else {
+            fileNameDisplay.textContent = ''; // Default message if no file is selected
+        }
+    }
+</script>
 
     <script>
         document.getElementById('addRowBtn').addEventListener('click', function() {

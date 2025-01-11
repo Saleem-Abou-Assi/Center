@@ -17,6 +17,7 @@
                 <h1>إضافة إلى قائمة الانتظار</h1>
                 <form action="{{ route('waitingList.store') }}" method="POST">
                     @csrf
+                    <div class="grid">
                     <div class="form-group">
                         <div class="select-box">
                             <label for="doctor_id">اسم طبيب</label>
@@ -40,8 +41,10 @@
                             </select>
                         </div>
                     </div>
+                      <button type="submit" class="cta cta1"><span>إضافة إلى القائمة</span></button>
+                    </div>
 
-                    <button type="submit" class="cta"><span>إضافة إلى القائمة</span></button>
+                  
                 </form>
             </div>
             @endif
@@ -71,7 +74,7 @@
                             <td>    <form action="{{ route('waitingList.destroy', $patient->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="remove-btn">إزالة</button>
+                                <button type="submit" class="action-btn">إزالة</button>
                             </form>
                         </td>
                     </tr>
