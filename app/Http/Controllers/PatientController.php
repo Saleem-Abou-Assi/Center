@@ -28,7 +28,6 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         // تحقق من صحة الطلب
-        dd($request);
 
         $request->validate([
             'name' => ['required', 'string'],
