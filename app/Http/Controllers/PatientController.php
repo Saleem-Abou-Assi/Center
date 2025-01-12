@@ -35,13 +35,13 @@ class PatientController extends Controller
             'address' => ['required', 'string'],
             'gender' => ['required',],
             'age' => ['required', 'integer'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'profile-image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
         $profileImagePath = null;
 
-        if ($request->hasFile('image')) {
-            $profileImagePath = $request->file('image')->store('patient_images', 'public');
+        if ($request->hasFile('profile-image')) {
+            $profileImagePath = $request->file('profile-image')->store('patient_images', 'public');
         }
 
         // إنشاء 
@@ -102,14 +102,14 @@ class PatientController extends Controller
             'address' => ['required', 'string'],
             'gender' => ['required',],
             'age' => ['required', 'integer'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'profile-image' => ['nullable', 'profile-image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
         $profileImagePath = null; 
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('profile-image')) {
             // Store the image in the 'public/patient_images' directory
-            $profileImagePath = $request->file('image')->store('patient_images', 'public');
+            $profileImagePath = $request->file('profile-image')->store('patient_images', 'public');
         }
 
         $patient->update([

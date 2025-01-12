@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\WaitingListController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 //home page with no auth
 
@@ -52,6 +53,10 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+//lazer Price
+    Route::post('/lazerPrice', [DashboardController::class, 'LazerPrice'])->name('lazerPrice.store');
+
 
     Route::post('/reports/daily', [ReportController::class, 'generateDailyReport'])
     ->name('reports.daily');
@@ -104,7 +109,11 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
     Route::post('/patientDept', [PatientDeptController::class, 'store'])->name('patientDept.store');
 
     Route::get('/lazer',[LazerController::class,'index'])->name('lazer.index');
+    Route::get('/lazer/show/{lazer_id}',[LazerController::class,'show'])->name('lazer.show');
+    Route::get('/lazer/edit/{lazer_id}',[LazerController::class,'edit'])->name('lazer.edit');
+
     Route::post('/lazer', [LazerController::class, 'store'])->name('lazer.store');
+    Route::post('/lazer/update/{lazer_id}', [LazerController::class, 'update'])->name('lazer.update');
 
 
     Route::get('/doctors/{doctor_id}', [DoctorController::class, 'show'])->name('doctor.show');

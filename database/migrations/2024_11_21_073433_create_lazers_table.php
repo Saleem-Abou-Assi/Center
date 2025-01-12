@@ -27,6 +27,9 @@ return new class extends Migration
             $table->string('speed');
             $table->string('pulse');
             $table->enum('device',['again','ax','ay']);
+            $table->double('real_price')->nullable();
+            $table->double('lazer_price');
+            $table->text('notes');
 
             $table->timestamps();
         });

@@ -12,15 +12,17 @@
     --}}
     <div class="C-container">
     <h1>قسم الليزر</h1>
-        <form action="{{ route('lazer.store') }}" method="POST">
+        <form action="{{ isset($lazer) ? route('lazer.update',$lazer->id) : route('lazer.store') }}" method="POST" enctype="multipart/form-data"> 
             @csrf
-          
+            @if (isset($lazer))
+            @method('PUT')
+            @endif
         
             <div class="form-group">
                 <div class="select-box">
                 <label for="doctor_id">اسم المعالج</label>
                 <select id="doctor_id" required name="doctor_id" autofocus >
-                    <option value="">اختر معالج</option>
+                    <option value="{{isset($lazer) ? $lazer->doctor_id : ""}}">{{isset($lazer) ? $lazer->Doctor->name}}</option>
                     @foreach ($doctors as $doctor)
                     <option value="{{$doctor->id}}">{{$doctor->user->name}}</option>
 
@@ -32,7 +34,7 @@
             <div class="form-group">
                 <div class="select-box">
                 <label for="patient_id">اسم المريض</label>
-                <select id="patient_id" required name="patient_id" autofocus >
+                <select id="patient_id" required name="patient_id" autofocus value="{{isset($lazer) ? $lazer->patient_id : ''}}">
                     <option value="">اختر مريض</option>
                     @foreach ($patients as $patient)
                     <option value="{{$patient->id}}">{{$patient->name}}</option>
@@ -45,7 +47,7 @@
             <div class="form-group , select-box">
                 
                 <label for="device">نوع الجهاز</label>
-                <select id="device" required name="device" autofocus >
+                <select id="device" required name="device" autofocus value="{{isset($lazer) ? $lazer->device : ''}}">
                     <option value="">اختر الجهاز</option>
                     <option value="ax">AX</option>
                     <option value="ax">AY</option>
@@ -53,14 +55,10 @@
                 </select>
             </div>
             
-            <div class="form-group">
-                <label for="raysCount">عدد الأشعة</label>
-                <input type="number" required id="raysCount" name="raysCount" >
-            </div>
             
             <div class="form-group , select-box">
                 <label for="point">المنطقة</label>
-                <select id="point" required name="point" autofocus >
+                <select id="point" required name="point" autofocus value="{{isset($lazer) ? $lazer->point : ''}}" >
                     <option value="">اختر المنطقة</option>
                     <option value="وجه">وجه</option>
                     <option value="ابطين">ابطين</option>
@@ -79,19 +77,19 @@
             
             <div class="form-group">
                 <label for="power">الطاقة</label>
-                <input type="number" required id="power" name="power" >
+                <input type="number" required id="power" name="power" value="{{isset($lazer) ? $lazer->power : ''}}">
             </div>
          
             <div class="form-group">
                 <label for="speed">السرعة</label>
-                <input type="number" required id="speed" name="speed" >
+                <input type="number" required id="speed" name="speed" value="{{isset($lazer) ? $lazer->speed : ''}}">
             </div>
 
             <form id="myForm">  
     <div class="form-group">  
         <label for="pulse">عرض النبضة</label>  
         <div class="input-group">  
-            <select id="pulse" name="pulse" required>  
+            <select id="pulse" name="pulse" required value="{{isset($lazer) ? $lazer->pulse : ''}}">  
                 <option value="">اختر عرض النبضة</option>  
                 <option value="low">Low</option>  
                 <option value="mid">Mid</option>  
@@ -100,10 +98,39 @@
             <input type="text" id="pulse-input" name="pulse" placeholder="أدخل عرض النبضة" style="margin-left: 10px;">  
         </div>  
     </div>  
+
+    <div class="form-group">
+        <label for="raysCount">عدد الأشعة</label>
+        <input type="number" required id="raysCount" name="raysCount" value="{{isset($lazer) ? $lazer->raysCount : ''}}" >
+    </div>
+@isset($lazer)
+    
+
+<div class="form-group">
+    <label for="raysCount">سعر الشعاع</label>
+    {{$ray_price->price}} 
+</div>
+{{-- 
+<div class="form-group">
+    <label for="raysCount">التكلفة الكلية</label>
+    {{$ray_price*}}
+</div> --}}
+
+<div class="form-group">
+    <label for="real_price">التكلفة الفعلية</label>
+    <input type="number" required id="real_price" name="real_price" value="{{isset($lazer) ? $lazer->real_price : ''}}">
+</div>
+
+@endisset
+  
+    <div class="form-group">
+        <label for="notes">ملاحظات</label>
+        <input type="text" required id="notes" name="notes" value="{{isset($lazer) ? $lazer->notes : ''}}">
+    </div>
      
 
 
-            <button type="submit" class="cta"><span>{{ 'Input' }}</span>
+            <button type="submit" class="cta"><span>{{  isset($lazer) ? 'تعديل' : 'ادخال' }}</span>
                 <svg width="15px" height="10px" viewBox="0 0 13 10">
                     <path d="M1,5 L11,5"></path>
                     <polyline points="8 1 12 5 8 9"></polyline>

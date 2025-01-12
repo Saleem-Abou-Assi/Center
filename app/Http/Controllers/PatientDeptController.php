@@ -49,7 +49,7 @@ class PatientDeptController extends Controller
             'patient_name' => $patient->name,
             'check_in_type' => $request->check_in_type,
             'given_cure' => $request->given_cure,
-            'full_cost'=> 000,
+            'full_cost'=> $request->full_cost,
             'status' => 'unpaid',
         ]);
 
@@ -70,7 +70,7 @@ class PatientDeptController extends Controller
         }        
             
         
- 
+  
         Notification::create([
             'type' => 'patient_dept',
             'doctor_id' => $request->doctor,

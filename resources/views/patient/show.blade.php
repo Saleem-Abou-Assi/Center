@@ -12,9 +12,9 @@
         <h1>تفاصيل المريض</h1>
         <br>
         <div class="pi-con">
-            <div class="patient-image">
+            <div class="patient-imagew">
                 @if ($patient->profileImagePath)
-                <img src="{{ asset('storage/'.$patient->profileImagePath) }}" alt="صورة المريض" class="patient-img">
+                <img src="{{ asset('storage/'.$patient->profileImagePath) }}" alt="صورة المريض" style="width:100% ;hight:100%">
                 @else
                 <p>لا توجد صورة متوفرة</p>
                 @endif
@@ -107,6 +107,9 @@
                         <th>الطاقة</th>
                         <th>السرعة</th>
                         <th>عرض النبضة</th>
+                        <th>سعر الشعاع</th>
+                        <th>التكلفة الفعلية</th>
+                        <th>تفاصيل</th>
                     </tr>
                 </thead>
                 @for ($i = 0; $i < count($patient->Lazer); $i++)
@@ -119,6 +122,15 @@
                         <td>{{$patient->Lazer[$i]->power}}</td>
                         <td>{{$patient->Lazer[$i]->speed}}</td>
                         <td>{{$patient->Lazer[$i]->pulse}}</td>
+                        @if($patient->Lazer[$i]->lazer_price)
+                        <td>{{$patient->Lazer[$i]->lazer_price}} </td>
+                        @else 
+                        <td></td>
+                        @endif
+                        <td>{{$patient->Lazer[$i]->real_price}} </td>
+                        <td><a href="{{ route('lazer.show', $patient->lazer[$i]->id) }}" class="action-btn">تفاصيل</a>
+                        <a href="{{ route('lazer.edit', $patient->lazer[$i]->id) }}" class="action-btn">تعديل</a></td>
+
                     </tr>
                     @endfor
             </table>

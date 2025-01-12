@@ -48,6 +48,10 @@
       <tr>
         <th>الدواء الداخلي</th><td>{{$patientDept->Accounter[0]->pivot->given_cure}} </td>
       </tr>
+      <tr>
+        <th>اجرة الطبيب</th><td>{{$patientDept->Accounter[0]->pivot->full_cost}} </td>
+      </tr>
+      
       <div class="storage-container">
      
         <table>
