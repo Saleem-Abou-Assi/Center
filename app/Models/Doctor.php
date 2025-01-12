@@ -51,4 +51,9 @@ class Doctor extends Model
         ->withPivot('id','expires_at')
         ->withTimestamps();
     }
+
+    public function apd_storage():HasMany
+    {
+        return $this->hasMany(ApdStorage::class);
+    }
 }
