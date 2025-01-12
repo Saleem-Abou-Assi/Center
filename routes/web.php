@@ -113,7 +113,7 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
     Route::get('/lazer/edit/{lazer_id}',[LazerController::class,'edit'])->name('lazer.edit');
 
     Route::post('/lazer', [LazerController::class, 'store'])->name('lazer.store');
-    Route::post('/lazer/update/{lazer_id}', [LazerController::class, 'update'])->name('lazer.update');
+    Route::put('/lazer/update/{lazer_id}', [LazerController::class, 'update'])->name('lazer.update');
 
 
     Route::get('/doctors/{doctor_id}', [DoctorController::class, 'show'])->name('doctor.show');

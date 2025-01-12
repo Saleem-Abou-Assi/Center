@@ -80,40 +80,53 @@ class LazerController extends Controller
         $doctors = Doctor::all();
         $patients = Patient::all();
         $ray_price = LazerPrice::first();
-        $lazer = Lazer::find($lazer_id)->with('Doctor');
+        $lazer = Lazer::where('id',$lazer_id)->with('Doctor','Patient')->first();
+        
         return view('lazer.index',['doctors'=>$doctors,'patients'=>$patients,'ray_price'=>$ray_price,'lazer'=>$lazer]);
     }
-    public function update(Request $request,$lazer_id)
+    public function update(Request $request, $lazer_id)
     {
+        $request->validate([
+            'patient_id' => ['required', 'integer'],
+            'doctor_id' => ['required', 'integer'],
+            'raysCount' => ['required', 'integer'],
+            'point' => ['required', 'string'],
+            'power' => ['required', 'integer'],
+            'speed' => ['required', 'integer'],
+            'pulse' => ['required', 'string'],
+            'device' => ['required', 'string'],
+            'notes' => ['nullable', 'string'],
+        ]);
 
-
-        
         $ray_price = LazerPrice::first();
         $lazer = Lazer::find($lazer_id);
-        // إنشاء 
-        $lazer->update([
-            'patient_id'=>$request->patient_id,
-            'doctor_id'=>$request->doctor_id,
-            'raysCount' => $request->raysCount,
-            'point'=> $request->point,
-            'power'=> $request->power,
-            'speed'=> $request->speed,
-            'pulse'=> $request->pulse,
-            'device'=>$request->device,
-            'real_price'=>$request->real_price,
-            'lazer_price'=> $ray_price->price,
-            'notes'=>$request->notes,
 
+        $lazer->update([
+            'patient_id' => $request->patient_id,
+            'doctor_id' => $request->doctor_id,
+            'raysCount' => $request->raysCount,
+            'point' => $request->point,
+            'power' => $request->power,
+            'speed' => $request->speed,
+            'pulse' => $request->pulse,
+            'device' => $request->device,
+            'real_price' => $request->real_price,
+            'lazer_price' => $ray_price->price,
+            'notes' => $request->notes,
         ]);
 
         $patient = Patient::findOrFail($request->patient_id);
 
-        return redirect()->back();
-
+        return redirect()->back()->with('success', 'Lazer updated successfully.');
     }
 
-    public function show()
+    public function show($lazer_id)
     {
+        $lazer = Lazer::where('id',$lazer_id)->with('Doctor','Patient')->first();
+        $ray_price = LazerPrice::first();
+
+
+        return view('lazer.show',['ray_price'=>$ray_price,'lazer'=>$lazer]);
 
     }
 
