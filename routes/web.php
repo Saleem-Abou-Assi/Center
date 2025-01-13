@@ -17,16 +17,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\WaitingListController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 //home page with no auth
-
+Route::get('/report/patient/print/{patientId}', [ReportController::class, 'printPatientReport'])->name('report.patient.print');
 Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount']);
 
 // groub the routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', function() {
-        return view('welcome');
-    })->name('home');
+Route::middleware(['checkBeta'])->group(function (){
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/', function() {
+            return view('welcome');
+        })->name('home');
+    
+});
 
     
 //must be roll admin
@@ -48,6 +53,10 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+//lazer Price
+    Route::post('/lazerPrice', [DashboardController::class, 'LazerPrice'])->name('lazerPrice.store');
+
 
     Route::post('/reports/daily', [ReportController::class, 'generateDailyReport'])
     ->name('reports.daily');
@@ -100,7 +109,11 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
     Route::post('/patientDept', [PatientDeptController::class, 'store'])->name('patientDept.store');
 
     Route::get('/lazer',[LazerController::class,'index'])->name('lazer.index');
+    Route::get('/lazer/show/{lazer_id}',[LazerController::class,'show'])->name('lazer.show');
+    Route::get('/lazer/edit/{lazer_id}',[LazerController::class,'edit'])->name('lazer.edit');
+
     Route::post('/lazer', [LazerController::class, 'store'])->name('lazer.store');
+    Route::put('/lazer/update/{lazer_id}', [LazerController::class, 'update'])->name('lazer.update');
 
 
     Route::get('/doctors/{doctor_id}', [DoctorController::class, 'show'])->name('doctor.show');
@@ -134,12 +147,12 @@ Route::middleware(['role:admin|store'])->group(function (){
 
 //-----store--------
 
-Route::get('/storage', [StorageController::class, 'index'])->name('storage.index');
-Route::get('/storage/create', [StorageController::class, 'create'])->name('storage.create');
-Route::post('/storage', [StorageController::class, 'store'])->name('storage.store');
-Route::get('/storage/{storage_id}', [StorageController::class, 'edit'])->name('storage.edit');
-Route::put('/storage/{storage_id}', [StorageController::class, 'update'])->name('storage.update');
-Route::delete('/storage/{storage_id}', [StorageController::class, 'destroy'])->name('storage.destroy');
+Route::get('/item', [StorageController::class, 'index'])->name('item.index');
+Route::get('/item/create', [StorageController::class, 'create'])->name('item.create');
+Route::post('/item', [StorageController::class, 'store'])->name('item.store');
+Route::get('/item/{item_id}', [StorageController::class, 'edit'])->name('item.edit');
+Route::put('/item/{item_id}', [StorageController::class, 'update'])->name('item.update');
+Route::delete('/item/{item_id}', [StorageController::class, 'destroy'])->name('item.destroy');
 
 
 

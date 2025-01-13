@@ -55,7 +55,7 @@
              
 
                   <li>
-                    <a href="{{ route(name: 'storage.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('store') ? 'border-b-2 border-blue-500' : '' }}">المستودع </a>
+                    <a href="{{ route(name: 'item.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('store') ? 'border-b-2 border-blue-500' : '' }}">المستودع </a>
                   </li>  
                   @if (Auth::user()->hasRole('admin')) 
                   <li>
@@ -321,8 +321,7 @@ function viewProfile() {
 
 <script>
     $(document).ready(function() {
-        localStorage.removeItem('notificationCount'); // Clear local storage on page load
-        // Check local storage for the last known notification count
+        // Check local item for the last known notification count
         const lastKnownCount = localStorage.getItem('notificationCount');
         if (lastKnownCount) {
             $('.notification-count').text(lastKnownCount).show(); // Show last known count
@@ -333,10 +332,10 @@ function viewProfile() {
             console.log(data)
             if (data.count > 0) {
                 $('.notification-count').text(data.count).show(); // Update the count and show it
-                localStorage.setItem('notificationCount', data.count); // Store the count in local storage
+                localStorage.setItem('notificationCount', data.count); // Store the count in local item
             } else {
                 $('.notification-count').hide(); // Hide if there are no notifications
-                localStorage.removeItem('notificationCount'); // Clear local storage if no notifications
+                localStorage.removeItem('notificationCount'); // Clear local item if no notifications
             }
         }).fail(function() {
             console.error("Error fetching notification count");

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LazerPrice;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,21 @@ class DashboardController extends Controller
 
         // Optionally, return the output or a response
         // return response()->json(['message' => 'Batch file executed', 'output' => $output]);
+        return redirect()->back();
+    }
+
+    public function lazerPrice(Request $request)
+    {
+        // dd($request->lazer_price);
+
+            $lazer_price = LazerPrice::first();
+            
+            $lazer_price->update([
+            'price'=> $request->lazer_price,
+        
+        ]);
+        
+
         return redirect()->back();
     }
 }

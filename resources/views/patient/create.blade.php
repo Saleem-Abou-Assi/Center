@@ -107,7 +107,7 @@
                     <input type="file" id="profile-image" name="profile-image" class="file-input" accept="image/*" onchange="updateFileName()">
                     <label for="profile-image" class="custom-file-upload">
                         <span class="fa fa-upload" style="font-size:24px"></span>
-                    </label>
+                    </label> --}}
                          </div>
                     <span id="file-name" class="file-name"></span>
                     </div>

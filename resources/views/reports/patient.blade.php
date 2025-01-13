@@ -102,5 +102,10 @@
         </table>
     </div>
     @endif
+    <script>
+        window.onload = function() {
+            window.print(); // Automatically open the print dialog when the page loads
+        };
+    </script>   
 </body>
 </html>

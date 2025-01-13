@@ -84,6 +84,12 @@
                 <label for="given_cure">العلاج المعطى</label>
                 <input type="text" required id="given_cure" name="given_cure" >
             </div>
+
+            <div class="form-group">
+                <label for="full_cost">أجرة الطبيب</label>
+                <input type="number" required id="full_cost" name="full_cost" >
+            </div>
+
           <div class="form-group">
     <div class="select-box">
         <label for="tools">الأدوات المستخدمة</label>

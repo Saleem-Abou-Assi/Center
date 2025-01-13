@@ -73,6 +73,17 @@
                     </form>
                 </div>
             </div>
+            <form action="{{ route('admin.lazerPrice.store') }}" method="POST">
+                @csrf
+                
+                <div class="form-group">
+                    <label for="lazer_price">سعر شعاع الليزر</label>
+                    <input type="number" required id="lazer_price" name="lazer_price" >
+                </div>    
+                
+                <button type="submit">أدخل</button>
+            </form>
+            </div>
          </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

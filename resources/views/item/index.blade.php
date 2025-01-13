@@ -12,7 +12,7 @@
     </div>
     <div class="container">
         
-        <a href="{{ route('storage.create') }}" class="cta"> <span>إضافة مادة</span>
+        <a href="{{ route('item.create') }}" class="cta"> <span>إضافة مادة</span>
         <svg width="15px" height="10px" viewBox="0 0 13 10">    
         <path d="M1,5 L11,5"></path>
         <polyline points="8 1 12 5 8 9"></polyline>
@@ -46,7 +46,7 @@
                         <td>{{ $storage->updated_at }}</td>
     
                         <td class="action-td">
-                            <a href="{{ route('storage.edit', $storage->id) }}" class="action-btn">عدّل</a>                        
+                            <a href="{{ route('item.edit', $storage->id) }}" class="action-btn">عدّل</a>                        
                               
                         </td>
                     </tr>

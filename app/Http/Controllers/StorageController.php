@@ -12,12 +12,12 @@ class StorageController extends Controller
     {
         $storages = Storage::all();
         
-        return view('storage.index',['storages'=>$storages]);
+        return view('item.index',['storages'=>$storages]);
     }
 
     public function create()
     {
-        return view('storage.create');
+        return view('item.create');
     }
 
     public function store(Request $request)
@@ -37,12 +37,12 @@ class StorageController extends Controller
             'quantity' => $request->quantity,
         ]);
 
-        return redirect()->route('storage.index'); // إعادة التوجيه بعد التخزين
+        return redirect()->route('item.index'); // إعادة التوجيه بعد التخزين
     }
     public function edit($id)
     {
         $storage = Storage::find($id);
-        return view('storage.create', ['storage' => $storage]);
+        return view('item.create', ['storage' => $storage]);
     }
 
     public function update(Request $request,$storage_id)
@@ -66,7 +66,7 @@ class StorageController extends Controller
             
             
              
-             return redirect()->route('storage.index'); 
+             return redirect()->route('item.index'); 
             }
 
      public function destroy($storage_id)
@@ -76,7 +76,7 @@ class StorageController extends Controller
 
          $storage->delete();
        
-         return redirect()->route('storage.index');
+         return redirect()->route('item.index');
 
      }
 

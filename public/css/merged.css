@@ -907,3 +907,21 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     position: relative;
     top: 50%;
 }
+.patient-image{
+    display: flex;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    
+}
+.floating-message {
+    position: fixed;
+    top: 20px; /* Adjust position */
+    right: 20px; /* Adjust position */
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000; /* Ensure it appears above other content */
+    transition: opacity 0.5s ease; /* Fade out effect */
+}

@@ -10,7 +10,7 @@
     <div class="C-container">
         <h1>{{ isset($storage) ? 'عدل مادة' : 'أضف مادة' }}</h1>
 
-        <form action="{{ isset($storage) ? route('storage.update', $storage->id) : route('storage.store') }}" method="POST">
+        <form action="{{ isset($storage) ? route('item.update', $storage->id) : route('item.store') }}" method="POST">
             @csrf
             @if (isset($storage))
                 @method('PUT')
@@ -36,7 +36,7 @@
   
         </form>
         <div class="boton">
-        <a href="{{ route('storage.index') }}" class="custom-btn btn-2">Go Back</a>
+        <a href="{{ route('item.index') }}" class="custom-btn btn-2">Go Back</a>
         </div>
     </div>
 </body>
