@@ -13,7 +13,6 @@ class Storage extends Model
 
     public function apds():BelongsToMany
     {
-        return $this->belongsToMany(APD::class,'apd_storage','apd_id','storage_id')->withPivot('quantity');
+        return $this->belongsToMany(APD::class,'apd_storage','storage_id','apd_id')->withPivot('quantity');
     }
-
 }

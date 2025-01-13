@@ -55,7 +55,7 @@
              
 
                   <li>
-                    <a href="{{ route(name: 'storage.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('store') ? 'border-b-2 border-blue-500' : '' }}">المستودع </a>
+                    <a href="{{ route(name: 'item.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('store') ? 'border-b-2 border-blue-500' : '' }}">المستودع </a>
                   </li>  
                   @if (Auth::user()->hasRole('admin')) 
                   <li>
