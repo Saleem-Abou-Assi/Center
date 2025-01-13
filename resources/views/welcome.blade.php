@@ -96,7 +96,7 @@
        @if (Auth::user()->hasRole('admin'))
            
        
-       <a href="{{ route('backup')}}"> <button>النسخ الاحتياطي للبيانات</button></a>       
+       <a href="{{ route('backup')}}"> <button class="add-btn">النسخ الاحتياطي للبيانات  <span class="fa fa-download"></span></button></a>       
        @endif
        {{--  
        dd(auth()->user()->hasRole('reciption'));

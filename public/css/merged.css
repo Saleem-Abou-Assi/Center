@@ -879,7 +879,6 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
 
 /* Custom file upload button */
 .custom-file-upload {
-    width: 70px;
     display: inline-block;
     padding: 10px 20px;
     cursor: pointer;
@@ -894,6 +893,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
 .custom-file-upload:hover {
     background-color: #006f5a; /* Darker shade on hover */
 }
+
 .file-name {
     margin-left: 10px; /* Space between the button and the file name */
     font-size: 14px; /* Font size for the file name */

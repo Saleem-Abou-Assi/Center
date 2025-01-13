@@ -105,7 +105,7 @@
                         <div class="bok">
                     <label for="profile-image">تحميل صورة شخصية</label>
                     <input type="file" id="profile-image" name="profile-image" class="file-input" accept="image/*" onchange="updateFileName()">
-                    <label for="image" class="custom-file-upload">
+                    <label for="profile-image" class="custom-file-upload">
                         <span class="fa fa-upload" style="font-size:24px"></span>
                     </label>
                          </div>
