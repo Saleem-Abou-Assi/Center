@@ -69,7 +69,9 @@
 
                 @foreach($data['patientDept'] as $patient)
                 @php
-                    $p = App\Models\Patient::findOrFail($patient->patient_id)
+                    $p = App\Models\Patient::findOrFail($patient->patient_id);
+                    $apd_id=$patient->accounter->first()->pivot->id;
+                    $apd = App\Models\APD::findOrFail($apd_id);
                 @endphp
                 <tr>
                     <td>{{ $p->name }}</td>
@@ -80,7 +82,7 @@
                     <td>{{ $patient->cure }}</td>
                     <td>{{ $patient->accounter->first()->pivot->check_in_type ?? 'N/A' }}</td>
                     <td>{{ $patient->accounter->first()->pivot->given_cure ?? 'N/A' }}</td>
-                    <td>{{ $patient->accounter->first()->pivot->tools ?? 'N/A' }}</td>
+                    <td>{{ $apd->storage->first()->item  }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -88,7 +90,7 @@
     </div>
     @endif
 
-    @if(count($data['lazer']) > 0)
+    @if(count(value: $data['lazer']) > 0)
     <div class="section">
         <div class="section-title">Lazer</div>
         <table>
