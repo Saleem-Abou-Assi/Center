@@ -7,12 +7,31 @@ use Illuminate\Http\Request;
 
 class StorageController extends Controller
 {
-    
+
     public function index()
     {
         $storages = Storage::all();
-        
-        return view('item.index',['storages'=>$storages]);
+
+        return view('item.index', ['storages' => $storages]);
+    }
+
+
+    public function show($item_id)
+    {
+        $storageItem = Storage::find($item_id);
+
+        $apds = $storageItem->apds;
+
+
+        $records = $apds->map(function ($apd) {
+            return [
+                'name' => $apd->doctor->user->name,
+                'quantity' => $apd->pivot->quantity,
+                'date' => $apd->created_at,
+            ];
+        });
+
+        return view('item.show', ['storageItem' => $storageItem, 'records' => $records]);
     }
 
     public function create()
@@ -22,12 +41,12 @@ class StorageController extends Controller
 
     public function store(Request $request)
     {
-        
+
         // // تحقق من صحة الطلب
         // $request->validate([
         //     'item' => ['required', 'string'],
         //     'quantity' => ['required','integer']
-            
+
         // ]);
 
 
@@ -45,44 +64,44 @@ class StorageController extends Controller
         return view('item.create', ['storage' => $storage]);
     }
 
-    public function update(Request $request,$storage_id)
-         {
-            
-            $storage = Storage::where('id',$storage_id)->first();
-            
-            $request->validate([
-                'item' => ['required', 'string'],
-                'quantity' => ['required','integer']
-                
-            ]);
- 
-            $storage->update(
-                [
-                        'item' => $request->item,
-                        'quantity' => $request->quantity,
-                    ]);
-            
-            
-            
-            
-             
-             return redirect()->route('item.index'); 
-            }
+    public function update(Request $request, $storage_id)
+    {
 
-     public function destroy($storage_id)
-     { 
-        
+        $storage = Storage::where('id', $storage_id)->first();
+
+        $request->validate([
+            'item' => ['required', 'string'],
+            'quantity' => ['required', 'integer']
+
+        ]);
+
+        $storage->update(
+            [
+                'item' => $request->item,
+                'quantity' => $request->quantity,
+            ]
+        );
+
+
+
+
+
+        return redirect()->route('item.index');
+    }
+
+    public function destroy($storage_id)
+    {
+
         $storage = Storage::find($storage_id);
 
-         $storage->delete();
-       
-         return redirect()->route('item.index');
+        $storage->delete();
 
-     }
+        return redirect()->route('item.index');
+    }
 
     // public function show($storage) {
     //     $storage = Storage::findOrFail($storage); // Fetch the product by ID
-    //     return view('storage.show', compact('storage')); // Pass the product to the view
+    //     return view('item.show', compact('storage')); // Pass the product to the view
     // }
 
 }
