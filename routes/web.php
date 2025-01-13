@@ -155,12 +155,6 @@ Route::get('/item/{item_id}/edit', [StorageController::class, 'edit'])->name('it
 Route::put('/item/{item_id}', [StorageController::class, 'update'])->name('item.update');
 Route::delete('/item/{item_id}', [StorageController::class, 'destroy'])->name('item.destroy');
 
-Route::get('/item', [StorageController::class, 'index'])->name('item.index');
-Route::get('/item/create', [StorageController::class, 'create'])->name('item.create');
-Route::post('/item', [StorageController::class, 'store'])->name('item.store');
-Route::get('/item/{item_id}', [StorageController::class, 'edit'])->name('item.edit');
-Route::put('/item/{item_id}', [StorageController::class, 'update'])->name('item.update');
-Route::delete('/item/{item_id}', [StorageController::class, 'destroy'])->name('item.destroy');
 
 
 
