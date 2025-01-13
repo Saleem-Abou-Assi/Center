@@ -90,7 +90,7 @@
     <div class="form-group">  
         <label for="pulse">عرض النبضة</label>  
         <div class="input-group">  
-            <select id="pulse" name="pulse" required value="{{isset($lazer) ? $lazer->pulse : ''}}">  
+            <select id="pulse" name="pulse"  value="{{isset($lazer) ? $lazer->pulse : ''}}">  
                 <option value="{{isset($lazer) ? $lazer->pulse : ''}}">{{isset($lazer)? $lazer->pulse : "اختر عرض النبضة"}}</option>
                 <option value="low">Low</option>  
                 <option value="mid">Mid</option>  
@@ -126,7 +126,7 @@
   
     <div class="form-group">
         <label for="notes">ملاحظات</label>
-        <input type="text"  id="notes" name="notes" value="{{isset($lazer) ? $lazer->notes : ''}}">
+        <textarea id="notes" name="notes" rows="4" cols="50">{{isset($lazer) ? $lazer->notes : ''}}</textarea>
     </div>
      
 

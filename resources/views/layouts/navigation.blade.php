@@ -66,7 +66,7 @@
                       
                   </li>
                   <div class="noti">
-                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                  
                                 <div class="notification-button">
                         <a href="{{ route('notifications.index') }}" class="btn btn-notification">
                             <i class="fas fa-bell"></i> <!-- Font Awesome bell icon -->
@@ -225,6 +225,7 @@
     background-color:#007561c5 ;
     color: white;
     text-decoration: none;  
+    border-radius:10px ;
   }
   li a {
     display: block;
@@ -328,7 +329,7 @@ function viewProfile() {
 
         // Fetch the current notification count from the server
         $.get('/notifications/count', function(data) {
-        
+            console.log(data)
             if (data.count > 0) {
                 $('.notification-count').text(data.count).show(); // Update the count and show it
                 localStorage.setItem('notificationCount', data.count); // Store the count in local item

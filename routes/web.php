@@ -20,7 +20,7 @@ use App\Http\Controllers\WaitingListController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 //home page with no auth
-
+Route::get('/report/patient/print/{patientId}', [ReportController::class, 'printPatientReport'])->name('report.patient.print');
 Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount']);
 
 // groub the routes

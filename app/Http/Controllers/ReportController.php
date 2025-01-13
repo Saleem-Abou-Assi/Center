@@ -140,6 +140,11 @@ class ReportController extends Controller
             ->where('patient_id', $patientId)
             ->get();
 
+        // Check if there are no records in both tables
+        if ($patientDeptData->isEmpty() && $lazerData->isEmpty()) {
+            return redirect()->back()->with('error', 'لا توجد بيانات لتصدير التقرير.'); // Redirect back with an error message
+        }
+
         $data = [
             'patientDept' => $patientDeptData,
             'lazer' => $lazerData,
@@ -154,5 +159,23 @@ class ReportController extends Controller
 
         $mpdf->WriteHTML($html);
         return $mpdf->Output($filename, 'D'); // Use the new filename
+    }
+
+    public function printPatientReport($patientId)
+    {
+        $patientDeptData = PatientDept::with(['Department', 'Accounter','patient'])
+            ->where('patient_id', $patientId)
+            ->get();
+
+        $lazerData = Lazer::with(['Patient', 'Doctor.user'])
+            ->where('patient_id', $patientId)
+            ->get();
+
+        $data = [
+            'patientDept' => $patientDeptData,
+            'lazer' => $lazerData,
+        ];
+
+        return view('reports.patient', ['data' => $data]); // Use the same view for printing
     }
 }

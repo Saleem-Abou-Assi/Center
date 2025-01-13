@@ -257,23 +257,16 @@ tbody tr:nth-child(even) {
 .patient-image{
     display: flex;
     width: 300px;
-    height: 100px;
+    height: 300px;
     justify-content: center;
     align-items: center;
     background-color: #f1f1f1;
-    
+    object-fit: cover;
+    overflow: hidden;
+    background-color: #f1f1f1;
 }
-.pi-fr{
-  display: flex;
-  width: 290px;
-  height: 290px;
-  background-color: #00253d;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-.pi-fr img{
+.patient-image img{
+  width: 99%;
+  height: 99%;
   object-fit: cover;
-  width: 100%;
 }

@@ -11,10 +11,12 @@
     <div class="container">
         <h1>تفاصيل المريض</h1>
         <br>
+       
+        
         <div class="pi-con">
-            <div class="patient-imagew">
+            <div class="patient-image">
                 @if ($patient->profileImagePath)
-                <img src="{{ asset('storage/'.$patient->profileImagePath) }}" alt="صورة المريض" style="width:100% ;hight:100%">
+                <img src="{{ asset('storage/'.$patient->profileImagePath) }}" alt="صورة المريض" >
                 @else
                 <p>لا توجد صورة متوفرة</p>
                 @endif
@@ -136,6 +138,7 @@
             </table>
             <br>
             <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
+            <button id="printReportBtn" class="add-btn" onclick="printReport()">طباعة التقرير</button>          
             <div class="boton">
                 <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
             </div>
@@ -145,49 +148,65 @@
 
         </div>
 
+        <!-- Hidden iframe for printing -->
+        <iframe id="printFrame" style="display: none;"></iframe>
+    </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const urlParams = new URLSearchParams(window.location.search);
-                let highlightOperationId = urlParams.get('highlight_operation');
-                const operationType = urlParams.get('operation_type');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let highlightOperationId = urlParams.get('highlight_operation');
+            const operationType = urlParams.get('operation_type');
 
-                // Log the highlight operation ID and type  
-                console.log('Highlight Operation ID:', highlightOperationId);
-                console.log('Operation Type:', operationType);
+            // Log the highlight operation ID and type  
+            console.log('Highlight Operation ID:', highlightOperationId);
+            console.log('Operation Type:', operationType);
 
-                // Ensure highlightOperationId is treated as a string  
-                highlightOperationId = String(highlightOperationId).trim();
+            // Ensure highlightOperationId is treated as a string  
+            highlightOperationId = String(highlightOperationId).trim();
 
-                // Log all department operation IDs  
-                document.querySelectorAll('tr[data-dept-operation-id]').forEach(row => {
-                    console.log('Department Operation ID:', row.getAttribute('data-dept-operation-id'));
-                });
-
-                if (highlightOperationId && operationType) {
-                    let operationRow;
-
-                    if (operationType === 'patient_dept') {
-                        operationRow = document.querySelector(`tr[data-dept-operation-id="${highlightOperationId}"]`);
-                    } else if (operationType === 'lazer') {
-                        operationRow = document.querySelector(`tr[data-laser-operation-id="${highlightOperationId}"]`);
-                    }
-
-                    // Log output to help with debugging  
-                    console.log('Operation Row:', operationRow);
-                    if (operationRow) {
-                        operationRow.classList.add('highlighted-operation');
-                        operationRow.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
-                    } else {
-                        console.log('No corresponding row found for ID:', highlightOperationId);
-                    }
-                }
+            // Log all department operation IDs  
+            document.querySelectorAll('tr[data-dept-operation-id]').forEach(row => {
+                console.log('Department Operation ID:', row.getAttribute('data-dept-operation-id'));
             });
-        </script>
-        <script src="{{ asset('js/report-generator.js') }}"></script>
+
+            if (highlightOperationId && operationType) {
+                let operationRow;
+
+                if (operationType === 'patient_dept') {
+                    operationRow = document.querySelector(`tr[data-dept-operation-id="${highlightOperationId}"]`);
+                } else if (operationType === 'lazer') {
+                    operationRow = document.querySelector(`tr[data-laser-operation-id="${highlightOperationId}"]`);
+                }
+
+                // Log output to help with debugging  
+                console.log('Operation Row:', operationRow);
+                if (operationRow) {
+                    operationRow.classList.add('highlighted-operation');
+                    operationRow.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                } else {
+                    console.log('No corresponding row found for ID:', highlightOperationId);
+                }
+            }
+        });
+
+        function printReport() {
+            const patientId = {{ $patient->id }}; // Get the patient ID
+            const printFrame = document.getElementById('printFrame');
+
+            // Set the source of the iframe to the print route
+            printFrame.src = `/report/patient/print/${patientId}`;
+
+            // Wait for the iframe to load, then trigger the print dialog
+            printFrame.onload = function() {
+                printFrame.contentWindow.print(); // Trigger the print dialog
+            };
+        }
+    </script>
+    <script src="{{ asset('js/report-generator.js') }}"></script>
 </body>
 
 </html>

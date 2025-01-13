@@ -27,4 +27,9 @@ class PatientDept extends Model
         return $this->belongsTo(Department::class,'dept_id');
     }
 
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
 }
