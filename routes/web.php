@@ -32,7 +32,7 @@ Route::middleware(['checkBeta'])->group(function (){
         })->name('home');
     
 });
-
+});
     
 //must be roll admin
 Route::middleware(['role:admin'])->group(function () {
@@ -161,9 +161,6 @@ Route::get('/item/{item_id}', [StorageController::class, 'show'])->name('item.sh
 
 });
 
-
-
-});
 
 Route::get('/reports/patient/{patientId}', [ReportController::class, 'generatePatientReport'])->name('reports.patient');
 require __DIR__ . '/auth.php';
