@@ -163,7 +163,7 @@ class ReportController extends Controller
 
     public function printPatientReport($patientId)
     {
-        $patientDeptData = PatientDept::with(['Department', 'Accounter'])
+        $patientDeptData = PatientDept::with(['Department', 'Accounter','patient'])
             ->where('patient_id', $patientId)
             ->get();
 

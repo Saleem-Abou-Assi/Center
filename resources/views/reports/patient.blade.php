@@ -30,14 +30,14 @@
 </head>
 <body>
     <div class="header">
-       
-        @php
-        $patient_id = $data['patientDept']->first()->patient_id;
-        $patient = App\Models\Patient::find($patient_id);
+        
+    
+    
+        
         
 
-        @endphp
-         <h1>تقرير المريض: {{ $patient->name }}</h1>
+        
+        
 
     </div>
 
@@ -58,7 +58,7 @@
             <tbody>
                 @foreach($data['patientDept'] as $patient)
                 <tr>
-                   
+                   <td>{{$patient->patient->name}}</td>
                     <td>{{ $patient->department->title }}</td>
                     <td>{{ $patient->doctor_name }}</td>
                     <td>{{ $patient->illness }}</td>
@@ -70,6 +70,8 @@
         </table>
     </div>
     @endif
+
+    
 
     @if(count($data['lazer']) > 0)
     <div class="section">
@@ -102,10 +104,12 @@
         </table>
     </div>
     @endif
+    
     <script>
         window.onload = function() {
             window.print(); // Automatically open the print dialog when the page loads
         };
     </script>   
+
 </body>
 </html>
