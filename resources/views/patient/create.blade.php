@@ -36,7 +36,7 @@
                     <div class="select-box">
                         <label for="gender">الجنس</label>
                         <select id="gender" required name="gender">
-                            <option value="">حدد الجنس</option>
+                            <option value="{{isset($patient) ? $patient->Gender : ""}}">{{isset($patient) ? $patient->Gender : "حدد الجنس"}}</option>
                             <option value="male" {{ isset($patient) && $patient->gender == 'male' ? 'selected' : '' }}>ذكر</option>
                             <option value="female" {{ isset($patient) && $patient->gender == 'female' ? 'selected' : '' }}>أنثى</option>
                         </select>
@@ -56,7 +56,7 @@
                     <div class="select-box">
                         <label for="relation">الحالة الاجتماعية</label>
                         <select id="relation" required name="relation">
-                            <option value="">اختر حالة</option>
+                            <option value="{{isset($patient) ? $patient->relation : ""}}">اختر حالة</option>
                             <option value="married" {{ isset($patient) && $patient->relation == 'married' ? 'selected' : '' }}>متزوج\ة</option>
                             <option value="single" {{ isset($patient) && $patient->relation == 'single' ? 'selected' : '' }}>عازب\ة</option>
                             <option value="divorced" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
