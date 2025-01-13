@@ -12,23 +12,17 @@
     <div class="page-title">
         <h1>{{$storageItem->item}}</h1>
     </div>
-    <div class="container">
 
+
+   
+    <div class="container">
         <a href="{{ route('item.index') }}" class="cta"> <span>رجوع</span>
             <svg width="15px" height="10px" viewBox="0 0 13 10">
                 <path d="M1,5 L11,5"></path>
                 <polyline points="8 1 12 5 8 9"></polyline>
             </svg>
         </a>
-        <br />
-        <br />
-    </div>
-
-    <div class="page-title">
-        <h1>ِسجل</h1>
-    </div>
-    <div class="container">
-
+    <p></p>
         <div class="table-container">
             <table>
                 <thead>
