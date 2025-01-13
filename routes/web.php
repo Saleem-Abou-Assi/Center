@@ -155,6 +155,7 @@ Route::get('/item/{item_id}/edit', [StorageController::class, 'edit'])->name('it
 Route::put('/item/{item_id}', [StorageController::class, 'update'])->name('item.update');
 Route::delete('/item/{item_id}', [StorageController::class, 'destroy'])->name('item.destroy');
 
+Route::get('/item/{item_id}', [StorageController::class, 'show'])->name('item.show');
 
 
 
