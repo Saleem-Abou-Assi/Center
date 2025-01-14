@@ -57,6 +57,7 @@ class LazerController extends Controller
             'real_price'=>$request->real_price,
             'lazer_price'=> $ray_price->price,
             'notes'=>$request->notes,
+            'price'=> $request->price,
 
         ]);
 
@@ -113,6 +114,7 @@ class LazerController extends Controller
             'real_price' => $request->real_price,
             'lazer_price' => $ray_price->price,
             'notes' => $request->notes,
+            'price'=> $request->price,
         ]);
 
         $patient = Patient::findOrFail($request->patient_id);

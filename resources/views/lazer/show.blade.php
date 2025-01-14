@@ -44,6 +44,10 @@
         <th>Point</th><td>{{$lazer->point}}</td>
       </tr>
       <tr>
+        <th>Price</th><td>{{$lazer->price}}</td>
+
+      </tr>
+      <tr>
         <th>Real Price</th><td>{{$lazer->real_price}}</td>
       </tr>
       <tr>

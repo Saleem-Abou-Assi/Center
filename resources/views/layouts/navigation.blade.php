@@ -57,7 +57,7 @@
                   <li>
                     <a href="{{ route(name: 'item.index')}}"class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('store') ? 'border-b-2 border-blue-500' : '' }}">المستودع </a>
                   </li>  
-                  @if (Auth::user()->hasRole('admin')) 
+                  @if (Auth::user()->hasRole('admin') ) 
                   <li>
                   
                       <div class="dashboard">
@@ -65,6 +65,10 @@
                       </div>
                       
                   </li>
+                  @endif
+                  @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('reciption')) 
+                      
+                  
                   <div class="noti">
                   
                                 <div class="notification-button">

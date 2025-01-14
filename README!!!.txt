@@ -8,7 +8,8 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 php artisan db:seed --class=RolesPermsSeeder
 3-
 php artisan db:seed --class=RolesSeeder
-
+4-
+php artisan db:seed --class=DatabaseSeeder
 =======
 composer require barryvdh/laravel-dompdf:^3.0
 composer require phpoffice/phpspreadsheet:^1.29.4
