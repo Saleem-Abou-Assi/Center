@@ -126,7 +126,7 @@
   
     <div class="form-group">
         <label for="notes">ملاحظات</label>
-        <textarea id="notes" name="notes" rows="4" cols="50">{{isset($lazer) ? $lazer->notes : ''}}</textarea>
+        <textarea id="notes" name="notes" rows="4" cols="50" required>{{isset($lazer) ? $lazer->notes : ''}}</textarea>
     </div>
      
 

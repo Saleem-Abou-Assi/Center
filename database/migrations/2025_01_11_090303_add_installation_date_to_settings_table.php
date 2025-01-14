@@ -13,7 +13,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->dateTime('installation_date')->default(Carbon::now());
+            $table->dateTime('installation_date')->nullable();
         });
     }
     
