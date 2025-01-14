@@ -19,7 +19,7 @@ class PatientDept extends Model
 
     public function Accounter():BelongsToMany
     {
-        return $this->belongsToMany(Accounter::class,'a_p_d_s','PD_id','A_id')->withPivot('doctor_id','check_in_type','given_cure','full_cost','status');
+        return $this->belongsToMany(Accounter::class,'a_p_d_s','PD_id','A_id')->withPivot('id','doctor_id','check_in_type','given_cure','full_cost','status');
     }
 
     public function Department():BelongsTo

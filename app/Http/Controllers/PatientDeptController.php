@@ -40,8 +40,6 @@ class PatientDeptController extends Controller
             
         ]);
 
-        
-
         $apd = APD::create([
             'PD_id' => $patientDept->id,
             'A_id' => $accounter_id,

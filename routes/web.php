@@ -32,7 +32,7 @@ Route::middleware(['checkBeta'])->group(function (){
         })->name('home');
     
 });
-
+});
     
 //must be roll admin
 Route::middleware(['role:admin'])->group(function () {
@@ -155,14 +155,12 @@ Route::get('/item/{item_id}/edit', [StorageController::class, 'edit'])->name('it
 Route::put('/item/{item_id}', [StorageController::class, 'update'])->name('item.update');
 Route::delete('/item/{item_id}', [StorageController::class, 'destroy'])->name('item.destroy');
 
+Route::get('/item/{item_id}', [StorageController::class, 'show'])->name('item.show');
 
 
 
 });
 
-
-
-});
 
 Route::get('/reports/patient/{patientId}', [ReportController::class, 'generatePatientReport'])->name('reports.patient');
 require __DIR__ . '/auth.php';

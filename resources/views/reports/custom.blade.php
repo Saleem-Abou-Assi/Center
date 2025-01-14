@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Custom Report</title>
@@ -9,36 +10,45 @@
             padding: 20px;
             direction: rtl;
         }
+
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .section {
             margin-bottom: 30px;
         }
+
         .section-title {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 15px;
             color: #333;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: right;
         }
+
         th {
             background-color: #f5f5f5;
         }
+
         .date-section {
             margin-bottom: 40px;
             page-break-inside: avoid;
         }
+
         .date-header {
             background-color: #f5f5f5;
             padding: 10px;
@@ -47,6 +57,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>Custom Report</h1>
@@ -79,16 +90,21 @@
                 </thead>
                 <tbody>
                     @foreach($dayData['patientDept'] as $item)
+                    @php
+                    $p = App\Models\Patient::findOrFail($item->patient_id);
+                    $apd_id=$item->accounter->first()->pivot->id;
+                    $apd = App\Models\APD::findOrFail($apd_id);
+                    @endphp
                     <tr>
-                        <td>{{ $item->patient_name }}</td>
+                        <td>{{ $p->name }}</td>
                         <td>{{ $item->department->title }}</td>
                         <td>{{ $item->doctor_name }}</td>
                         <td>{{ $item->illness }}</td>
                         <td>{{ $item->description }}</td>
                         <td>{{ $item->cure }}</td>
-                        <td>{{ $item->check_in_type ?? 'N/A' }}</td>
-                        <td>{{ $item->given_cure ?? 'N/A' }}</td>
-                        <td>{{ $item->tools ?? 'N/A' }}</td>
+                        <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'N/A' }}</td>
+                        <td>{{ $item->accounter->first()->pivot->given_cure ?? 'N/A' }}</td>
+                        <td>{{ $apd->storage->first()->item ?? 'N/A' }}</td>
                         <td>{{ $item->created_at->format('H:i') }}</td>
                     </tr>
                     @endforeach
@@ -144,4 +160,5 @@
         <p>Total Patients: {{ $data['summary']['total_patients'] }}</p>
     </div>
 </body>
+
 </html>
