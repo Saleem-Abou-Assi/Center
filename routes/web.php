@@ -163,4 +163,11 @@ Route::get('/item/{item_id}', [StorageController::class, 'show'])->name('item.sh
 
 
 Route::get('/reports/patient/{patientId}', [ReportController::class, 'generatePatientReport'])->name('reports.patient');
+
+// Route for printing patient department report
+Route::get('/report/patientDept/print/{patientId}', [ReportController::class, 'printPatientDeptReport'])->name('report.patientDept.print');
+
+// Route for printing lazer report
+Route::get('/report/lazer/print/{patientId}', [ReportController::class, 'printLazerReport'])->name('report.lazer.print');
+
 require __DIR__ . '/auth.php';

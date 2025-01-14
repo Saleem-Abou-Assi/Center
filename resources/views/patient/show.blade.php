@@ -138,7 +138,8 @@
             </table>
             <br>
             <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
-            <button id="printReportBtn" class="add-btn" onclick="printReport()">طباعة التقرير</button>          
+            <button id="printPatientDeptBtn" class="add-btn" onclick="printPatientDeptReport()">طباعة تقرير المعاينات</button>
+            <button id="printLazerBtn" class="add-btn" onclick="printLazerReport()">طباعة تقرير الليزر</button>          
             <div class="boton">
                 <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
             </div>
@@ -193,16 +194,21 @@
             }
         });
 
-        function printReport() {
-            const patientId = {{ $patient->id }}; // Get the patient ID
+        function printPatientDeptReport() {
+            const patientId = {{ $patient->id }};
             const printFrame = document.getElementById('printFrame');
-
-            // Set the source of the iframe to the print route
-            printFrame.src = `/report/patient/print/${patientId}`;
-
-            // Wait for the iframe to load, then trigger the print dialog
+            printFrame.src = `/report/patientDept/print/${patientId}`; // Adjust the route as necessary
             printFrame.onload = function() {
-                printFrame.contentWindow.print(); // Trigger the print dialog
+                printFrame.contentWindow.print();
+            };
+        }
+
+        function printLazerReport() {
+            const patientId = {{ $patient->id }};
+            const printFrame = document.getElementById('printFrame');
+            printFrame.src = `/report/lazer/print/${patientId}`; // Adjust the route as necessary
+            printFrame.onload = function() {
+                printFrame.contentWindow.print();
             };
         }
     </script>
