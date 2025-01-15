@@ -78,7 +78,8 @@
        <br>
      <div class="botons">
          <div class="boton">
-    <button onclick="exportTableToExcel('myTable', )"  class="add-btn"><span>Export to Excel</span></button>
+         <button class="print-btn" onclick="printPage()">طباعة التفاصيل</button>
+
          </div>
          <div class="boton">
         <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2">Go Back</a>
@@ -88,7 +89,24 @@
  
   </div>
   </div>
-  
+  <style>@media print {
+            body * {
+                visibility: hidden; /* Hide everything */
+            }
+            table, table * {
+                visibility: visible; /* Show the table and its contents */
+            }
+            table {
+                position: absolute; /* Position the table for printing */
+                left: 0;
+                top: 0;
+            }
+        }</style>
+  <script>
+        function printPage() {
+            window.print(); // Trigger the print dialog
+        }
+    </script>
  
   <script>
     function exportTableToExcel(tableID, filename = 'فاتورة المريض {{ $patient->name }}.xlsx') {

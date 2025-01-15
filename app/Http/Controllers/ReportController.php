@@ -178,4 +178,29 @@ class ReportController extends Controller
 
         return view('reports.patient', ['data' => $data]); // Use the same view for printing
     }
+    public function printPatientDeptReport($patientId)
+{
+    $patientDeptData = PatientDept::with(['Department', 'Accounter'])
+        ->where('patient_id', $patientId)
+        ->get();
+
+    $data = [
+        'patientDept' => $patientDeptData,
+    ];
+
+    return view('reports.patientDept', ['data' => $data]); // Create a view for printing patient department report
+}
+
+public function printLazerReport($patientId)
+{
+    $lazerData = Lazer::with(['Patient', 'Doctor.user'])
+        ->where('patient_id', $patientId)
+        ->get();
+
+    $data = [
+        'lazer' => $lazerData,
+    ];
+
+    return view('reports.lazer', ['data' => $data]); // Create a view for printing lazer report
+}
 }

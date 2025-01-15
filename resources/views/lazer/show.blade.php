@@ -9,12 +9,25 @@
   @include('layouts.navigation')
 </head>
 <body>
+  <style>@media print {
+            body * {
+                visibility: hidden; /* Hide everything */
+            }
+            table, table * {
+                visibility: visible; /* Show the table and its contents */
+            }
+            table {
+                position: absolute; /* Position the table for printing */
+                left: 0;
+                top: 0;
+            }
+        }</style>
 <div class="all">
 <div class="page-title">
-    <h1>Lazer Details</h1>
+    <h1>تفاصيل الليزر</h1>
 </div>
     
-    <h3 style="color: white">Lazer Treatment for Patient {{$lazer->Patient->name}}</h3>
+    <h3 style="color: white">علاج الليزر للمريض  {{$lazer->Patient->name}}</h3>
  
  <div class="container1">
  
@@ -23,38 +36,38 @@
 
     <tbody>
       <tr>
-        <th>Doctor</th><td>{{$lazer->Doctor->user->name}}</td>
+        <th>الطبيب</th><td>{{$lazer->Doctor->user->name}}</td>
       </tr>
       <tr>
-        <th>Rays Count</th><td>{{$lazer->raysCount}}</td>
+        <th> عدد الأشعة</th><td>{{$lazer->raysCount}}</td>
       </tr>
       <tr>
-        <th>Power</th><td>{{$lazer->power}}</td>
+        <th>الطاقة</th><td>{{$lazer->power}}</td>
       </tr>
       <tr>
-        <th>Speed</th><td>{{$lazer->speed}}</td>
+        <th>السرعة</th><td>{{$lazer->speed}}</td>
       </tr>
       <tr>
-        <th>Pulse</th><td>{{$lazer->pulse}}</td>
+        <th>عرض النبضة</th><td>{{$lazer->pulse}}</td>
       </tr>
       <tr>
-        <th>Device</th><td>{{$lazer->device}}</td>
+        <th>الجهاز</th><td>{{$lazer->device}}</td>
       </tr>
       <tr>
-        <th>Point</th><td>{{$lazer->point}}</td>
+        <th>المنطقة</th><td>{{$lazer->point}}</td>
       </tr>
       <tr>
-        <th>Price</th><td>{{$lazer->price}}</td>
+        <th>التكلفة الأساسية</th><td>{{$lazer->price}}</td>
 
       </tr>
       <tr>
-        <th>Real Price</th><td>{{$lazer->real_price}}</td>
+        <th> التكلفة الفعلية</th><td>{{$lazer->real_price}}</td>
       </tr>
       <tr>
-        <th>Lazer Price</th><td>{{$lazer->lazer_price}}</td>
+        <th>سعر الشعاع</th><td>{{$lazer->lazer_price}}</td>
       </tr>
       <tr>
-        <th>Notes</th><td>{{$lazer->notes}}</td>
+        <th>ملاحظات</th><td>{{$lazer->notes}}</td>
       </tr>
     </tbody>
   </table>
@@ -62,7 +75,8 @@
   </div>
   <div class="botons">
     <div class="boton">
-  <button onclick="exportTableToExcel('lazerTable', )"  class="add-btn"><span>Export to Excel</span></button>
+    <button class="print-btn" onclick="printPage()">طباعة التفاصيل</button>
+
     </div>
     <div class="boton">
       <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2">Go Back</a>
@@ -71,7 +85,11 @@
 
   </div>
   </div>
-  
+  <script>
+    function printPage(){
+      window.print();
+    }
+  </script>
  
   <script>
     function exportTableToExcel(tableID, filename = 'Lazer_Details_{{ $lazer->Patient->name }}.xlsx') {

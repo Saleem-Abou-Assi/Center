@@ -124,10 +124,6 @@
     {{$ray_price->price}} 
 </div>
 
-<div class="form-group">
-    <label for="price">التكلفة لأساسية</label>
-    {{$ray_price}}
-</div> 
 
 <div class="form-group">
     <label for="real_price">التكلفة الفعلية</label>

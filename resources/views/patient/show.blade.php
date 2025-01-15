@@ -104,12 +104,8 @@
                         <th>الرقم</th>
                         <th>اسم الدكتور</th>
                         <th>الجهاز</th>
-                        <th>المنطقة</th>
-                        <th>عدد الأشعة </th>
-                        <th>الطاقة</th>
-                        <th>السرعة</th>
-                        <th>عرض النبضة</th>
                         <th>سعر الشعاع</th>
+                        <th>التكلفة الأساسية</th>
                         <th>التكلفة الفعلية</th>
                         <th>تفاصيل</th>
                     </tr>
@@ -119,11 +115,7 @@
                         <td>{{$i + 1}}</td>
                         <td>{{$patient->Lazer[$i]->doctor->user->name}}</td>
                         <td>{{$patient->Lazer[$i]->device}}</td>
-                        <td>{{$patient->Lazer[$i]->point}}</td>
-                        <td>{{$patient->Lazer[$i]->raysCount}}</td>
-                        <td>{{$patient->Lazer[$i]->power}}</td>
-                        <td>{{$patient->Lazer[$i]->speed}}</td>
-                        <td>{{$patient->Lazer[$i]->pulse}}</td>
+                        <td>{{$patient->Lazer[$i]->price}} </td>
                         @if($patient->Lazer[$i]->lazer_price)
                         <td>{{$patient->Lazer[$i]->lazer_price}} </td>
                         @else 
@@ -138,7 +130,6 @@
             </table>
             <br>
             <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
-            <button id="printReportBtn" class="add-btn" onclick="printReport()">طباعة التقرير</button>          
             <div class="boton">
                 <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
             </div>
@@ -193,16 +184,21 @@
             }
         });
 
-        function printReport() {
-            const patientId = {{ $patient->id }}; // Get the patient ID
+        function printPatientDeptReport() {
+            const patientId = {{ $patient->id }};
             const printFrame = document.getElementById('printFrame');
-
-            // Set the source of the iframe to the print route
-            printFrame.src = `/report/patient/print/${patientId}`;
-
-            // Wait for the iframe to load, then trigger the print dialog
+            printFrame.src = `/report/patientDept/print/${patientId}`; // Adjust the route as necessary
             printFrame.onload = function() {
-                printFrame.contentWindow.print(); // Trigger the print dialog
+                printFrame.contentWindow.print();
+            };
+        }
+
+        function printLazerReport() {
+            const patientId = {{ $patient->id }};
+            const printFrame = document.getElementById('printFrame');
+            printFrame.src = `/report/lazer/print/${patientId}`; // Adjust the route as necessary
+            printFrame.onload = function() {
+                printFrame.contentWindow.print();
             };
         }
     </script>
