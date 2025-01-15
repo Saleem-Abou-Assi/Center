@@ -82,7 +82,7 @@
                     <td>{{ $patient->cure }}</td>
                     <td>{{ $patient->accounter->first()->pivot->check_in_type ?? 'N/A' }}</td>
                     <td>{{ $patient->accounter->first()->pivot->given_cure ?? 'N/A' }}</td>
-                    <td>{{ $apd->storage->first()->item  }}</td>
+                    <td>{{ $apd->storage->first()->item ?? 'N/a' }}</td>
                 </tr>
                 @endforeach
             </tbody>
