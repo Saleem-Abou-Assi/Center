@@ -39,26 +39,7 @@
         <th>الطبيب</th><td>{{$lazer->Doctor->user->name}}</td>
       </tr>
       <tr>
-        <th> عدد الأشعة</th><td>{{$lazer->raysCount}}</td>
-      </tr>
-      <tr>
-        <th>الطاقة</th><td>{{$lazer->power}}</td>
-      </tr>
-      <tr>
-        <th>السرعة</th><td>{{$lazer->speed}}</td>
-      </tr>
-      <tr>
-        <th>عرض النبضة</th><td>{{$lazer->pulse}}</td>
-      </tr>
-      <tr>
-        <th>الجهاز</th><td>{{$lazer->device}}</td>
-      </tr>
-      <tr>
-        <th>المنطقة</th><td>{{$lazer->point}}</td>
-      </tr>
-      <tr>
         <th>التكلفة الأساسية</th><td>{{$lazer->price}}</td>
-
       </tr>
       <tr>
         <th> التكلفة الفعلية</th><td>{{$lazer->real_price}}</td>
@@ -69,6 +50,30 @@
       <tr>
         <th>ملاحظات</th><td>{{$lazer->notes}}</td>
       </tr>
+      <table>
+        <thead>
+          <tr>
+            <th>عدد الأشعة (تفاصيل)</th>
+            <th>المنطقة (تفاصيل)</th>
+            <th>الطاقة (تفاصيل)</th>
+            <th>السرعة (تفاصيل)</th>
+            <th>عرض النبضة (تفاصيل)</th>
+            <th>الجهاز (تفاصيل)</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($lazer->Details as $detail)
+          <tr>
+            <td>{{$detail->raysCount}}</td>
+            <td>{{$detail->point}}</td>
+            <td>{{$detail->power}}</td>
+            <td>{{$detail->speed}}</td>
+            <td>{{$detail->pulse}}</td>
+            <td>{{$detail->device}}</td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
     </tbody>
   </table>
   <br>

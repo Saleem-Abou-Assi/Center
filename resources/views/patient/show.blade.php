@@ -103,10 +103,7 @@
                     <tr>
                         <th>الرقم</th>
                         <th>اسم الدكتور</th>
-                        <th>الجهاز</th>
-                        <th>سعر الشعاع</th>
-                        <th>التكلفة الأساسية</th>
-                        <th>التكلفة الفعلية</th>
+                    
                         <th>تفاصيل</th>
                     </tr>
                 </thead>
@@ -114,14 +111,12 @@
                     <tr data-laser-operation-id="{{ $patient->Lazer[$i]->id }}" class="laser-operation-row">
                         <td>{{$i + 1}}</td>
                         <td>{{$patient->Lazer[$i]->doctor->user->name}}</td>
-                        <td>{{$patient->Lazer[$i]->device}}</td>
-                        <td>{{$patient->Lazer[$i]->price}} </td>
-                        @if($patient->Lazer[$i]->lazer_price)
+                        {{-- @if($patient->Lazer[$i]->lazer_price)
                         <td>{{$patient->Lazer[$i]->lazer_price}} </td>
                         @else 
                         <td></td>
                         @endif
-                        <td>{{$patient->Lazer[$i]->real_price}} </td>
+                        <td>{{$patient->Lazer[$i]->real_price}} </td> --}}
                         <td><a href="{{ route('lazer.show', $patient->lazer[$i]->id) }}" class="action-btn">تفاصيل</a>
                         <a href="{{ route('lazer.edit', $patient->lazer[$i]->id) }}" class="action-btn">تعديل</a></td>
 

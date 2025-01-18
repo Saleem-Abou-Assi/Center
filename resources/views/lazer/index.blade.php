@@ -122,11 +122,11 @@
         <span id="ray_price_display">{{$ray_price->price}}</span>
     </div>
 
-    <div class="form-group">
+    {{-- <div class="form-group">
         <label for="price">التكلفة لأساسية</label>
         <span id="price_dispaly"></span>
         <input type="hidden" id="price" name="price" >
-    </div> 
+    </div>  --}}
 
 @isset($lazer)
     
