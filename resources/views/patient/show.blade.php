@@ -70,7 +70,7 @@
         </div>
         <div class="container2">
             <h3>معايانات مرضية</h3>
-            <table class="table-container">
+            <table class="table-container" >
                 <thead>
                     <tr>
                         <th>الرقم</th>
@@ -137,6 +137,7 @@
         <!-- Hidden iframe for printing -->
         <iframe id="printFrame" style="display: none;"></iframe>
     </div>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

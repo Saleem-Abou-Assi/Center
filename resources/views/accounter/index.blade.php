@@ -4,23 +4,62 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
-  <title>Table with Labels</title>
+  <title>قسم المحاسبة</title>
   <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
   @include('layouts.navigation')
+  <style>
+    @media print {
+      body * {
+        visibility: hidden; /* Hide everything by default */
+      }
+      .printable, .printable * {
+        visibility: visible; /* Show only the printable elements */
+      }
+      .printable {
+        width: 21cm; /* Set width to A5 landscape */
+        margin: 0 auto; /* Center the content */
+      }
+      table {
+        width: 100%; /* Full width for tables */
+        border-collapse: collapse; /* Collapse borders */
+        margin: 0 auto; /* Center the table */
+      }
+      th, td {
+        border: 1px solid #000; /* Solid border for cells */
+        padding: 8px; /* Padding for cells */
+        text-align: right; /* Right align text for Arabic */
+      }
+      th {
+        background-color: #f2f2f2; /* Light background for headers */
+      }
+     h3 {
+        text-align: center; /* Center headings */
+      }
+      .botons {
+        display: none; /* Hide buttons during print */
+      }
+      .storage-container{
+        position: absolute;
+        top: 0;
+        padding-top:69px;
+        
+      }
+    }
+  </style>
   </head>
 <body>
 <div class="all">
-<div class="page-title">
+<div class="page-title printable">
     <h1>حسابات</h1>
 </div>
     
-    <h3 style="color: white">فاتورة المريض {{$patient->name}}</h3>
+    <h3 style="color: white" class="printable">فاتورة المريض {{$patient->name}}</h3>
  
 
    
  
    
- <div class="container1">
+ <div class="container1 printable">
  
   <div class="table-container">
   <table id='myTable' class="tab">
@@ -51,7 +90,7 @@
       <tr>
         <th>اجرة الطبيب</th><td>{{$patientDept->Accounter[0]->pivot->full_cost}} </td>
       </tr>
-      
+      </div>
       <div class="storage-container">
      
         <table>
@@ -85,7 +124,7 @@
         <a href="{{ url()->previous() }}" class="custom-btn btn-2">Go Back</a>
          </div>
      </div>
-  </div>
+  
  
   </div>
   </div>
