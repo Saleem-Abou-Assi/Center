@@ -104,6 +104,18 @@
         <label for="raysCount">عدد الأشعة</label>
         <input type="number" required id="raysCount" name="raysCount" value="{{isset($lazer) ? $lazer->raysCount : ''}}" >
     </div>
+
+    <div class="form-group">
+        <label for="ray_price">سعر الشعاع</label>
+        <span id="ray_price_display">{{$ray_price->price}}</span>
+    </div>
+
+    <div class="form-group">
+        <label for="price">التكلفة لأساسية</label>
+        <span id="price_dispaly"></span>
+        <input type="hidden" id="price" name="price" >
+    </div> 
+
 @isset($lazer)
     
 
@@ -111,11 +123,11 @@
     <label for="raysCount">سعر الشعاع</label>
     {{$ray_price->price}} 
 </div>
-{{-- 
+
 <div class="form-group">
-    <label for="raysCount">التكلفة الكلية</label>
-    {{$ray_price*}}
-</div> --}}
+    <label for="price">التكلفة لأساسية</label>
+    {{$ray_price}}
+</div> 
 
 <div class="form-group">
     <label for="real_price">التكلفة الفعلية</label>
@@ -183,6 +195,25 @@
 
         // Initial state setup
         toggleInputs(); // Call to set initial states
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const raysCountInput = document.getElementById("raysCount");
+        const rayPrice = parseFloat(document.getElementById("ray_price_display").innerText);
+        const totalPriceDisplay = document.getElementById("price_dispaly");
+        const totalPriceInput = document.getElementById("price");
+
+        function calculateTotalPrice() {
+            const raysCount = parseInt(raysCountInput.value) || 0;
+            const totalPrice = rayPrice * raysCount;
+            totalPriceDisplay.innerText = totalPrice.toFixed(2);
+            totalPriceInput.value = totalPrice;
+        }
+
+        raysCountInput.addEventListener('input', calculateTotalPrice);
+
+        // Initial calculation
+        calculateTotalPrice();
     });
 </script>
 </body>

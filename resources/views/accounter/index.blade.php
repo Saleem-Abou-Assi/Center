@@ -23,7 +23,7 @@
  <div class="container1">
  
   <div class="table-container">
-  <table id='myTable'>
+  <table id='myTable' class="tab">
 
     <tbody>
   
@@ -78,11 +78,11 @@
        <br>
      <div class="botons">
          <div class="boton">
-         <button class="print-btn" onclick="printPage()">طباعة التفاصيل</button>
+         <button class="add-btn" onclick="printPage()">طباعة التفاصيل</button>
 
          </div>
          <div class="boton">
-        <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2">Go Back</a>
+        <a href="{{ url()->previous() }}" class="custom-btn btn-2">Go Back</a>
          </div>
      </div>
   </div>
@@ -95,12 +95,21 @@
             }
             table, table * {
                 visibility: visible; /* Show the table and its contents */
+               
             }
-            table {
+            .tab {
+                
                 position: absolute; /* Position the table for printing */
                 left: 0;
                 top: 0;
+              
             }
+            .storage-container{
+              position: relative;
+              
+            }
+          
+            
         }</style>
   <script>
         function printPage() {

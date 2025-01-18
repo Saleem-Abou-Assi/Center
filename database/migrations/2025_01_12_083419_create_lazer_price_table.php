@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('lazer_price', function (Blueprint $table) {
             $table->id();
-            $table->double('price');
+            $table->double('price')->default(0);
             $table->timestamps();
         });
+
+        
     }
 
     /**

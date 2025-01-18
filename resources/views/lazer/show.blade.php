@@ -54,7 +54,11 @@
         <th>الجهاز</th><td>{{$lazer->device}}</td>
       </tr>
       <tr>
-        <th>المنطقة</th><td>{{$lazer->point}}</td>
+        <th>Point</th><td>{{$lazer->point}}</td>
+      </tr>
+      <tr>
+        <th>Price</th><td>{{$lazer->price}}</td>
+
       </tr>
       <tr>
         <th>السعر الحقيقي</th><td>{{$lazer->real_price}}</td>
@@ -71,7 +75,7 @@
   </div>
   <div class="botons">
     <div class="boton">
-    <button class="print-btn" onclick="printPage()">طباعة التفاصيل</button>
+    <button class="add-btn" onclick="printPage()">طباعة التفاصيل</button>
 
     </div>
     <div class="boton">

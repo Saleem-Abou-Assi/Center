@@ -817,6 +817,10 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
 }
 .storage-container{
     padding: 2px 10px;
+    text-align: center;
+}
+.storage-container td{
+    top: center;
 }
 .noti {
     display: flex;

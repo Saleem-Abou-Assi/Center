@@ -2,7 +2,7 @@
 setlocal
 
 REM Set the static IP address of the machine running the Laravel application
-set IP=192.168.1.1  REM Replace with your actual static IP address
+set IP=192.168.1.1  
 
 REM Set the URL of your localhost site
 set URL=http://%IP%:8000/
