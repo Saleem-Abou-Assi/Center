@@ -21,12 +21,6 @@ return new class extends Migration
             $table->unsignedBigInteger("doctor_id");
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade')->onUpdate('cascade');
             
-            $table->integer('raysCount');
-            $table->string('point');
-            $table->integer('power');
-            $table->string('speed');
-            $table->string('pulse');
-            $table->enum('device',['again','ax','ay']);
             $table->double('price');
             $table->double('real_price')->nullable();
             $table->double('lazer_price');

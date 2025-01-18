@@ -103,14 +103,7 @@
                     <tr>
                         <th>الرقم</th>
                         <th>اسم الدكتور</th>
-                        <th>الجهاز</th>
-                        <th>المنطقة</th>
-                        <th>عدد الأشعة </th>
-                        <th>الطاقة</th>
-                        <th>السرعة</th>
-                        <th>عرض النبضة</th>
-                        <th>سعر الشعاع</th>
-                        <th>التكلفة الفعلية</th>
+                    
                         <th>تفاصيل</th>
                     </tr>
                 </thead>
@@ -118,18 +111,12 @@
                     <tr data-laser-operation-id="{{ $patient->Lazer[$i]->id }}" class="laser-operation-row">
                         <td>{{$i + 1}}</td>
                         <td>{{$patient->Lazer[$i]->doctor->user->name}}</td>
-                        <td>{{$patient->Lazer[$i]->device}}</td>
-                        <td>{{$patient->Lazer[$i]->point}}</td>
-                        <td>{{$patient->Lazer[$i]->raysCount}}</td>
-                        <td>{{$patient->Lazer[$i]->power}}</td>
-                        <td>{{$patient->Lazer[$i]->speed}}</td>
-                        <td>{{$patient->Lazer[$i]->pulse}}</td>
-                        @if($patient->Lazer[$i]->lazer_price)
+                        {{-- @if($patient->Lazer[$i]->lazer_price)
                         <td>{{$patient->Lazer[$i]->lazer_price}} </td>
                         @else 
                         <td></td>
                         @endif
-                        <td>{{$patient->Lazer[$i]->real_price}} </td>
+                        <td>{{$patient->Lazer[$i]->real_price}} </td> --}}
                         <td><a href="{{ route('lazer.show', $patient->lazer[$i]->id) }}" class="action-btn">تفاصيل</a>
                         <a href="{{ route('lazer.edit', $patient->lazer[$i]->id) }}" class="action-btn">تعديل</a></td>
 
@@ -138,8 +125,6 @@
             </table>
             <br>
             <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
-            <button id="printPatientDeptBtn" class="add-btn" onclick="printPatientDeptReport()">طباعة تقرير المعاينات</button>
-            <button id="printLazerBtn" class="add-btn" onclick="printLazerReport()">طباعة تقرير الليزر</button>          
             <div class="boton">
                 <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
             </div>

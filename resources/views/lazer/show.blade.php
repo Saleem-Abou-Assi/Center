@@ -9,19 +9,21 @@
   @include('layouts.navigation')
 </head>
 <body>
-  <style>@media print {
-            body * {
-                visibility: hidden; /* Hide everything */
-            }
-            table, table * {
-                visibility: visible; /* Show the table and its contents */
-            }
-            table {
-                position: absolute; /* Position the table for printing */
-                left: 0;
-                top: 0;
-            }
-        }</style>
+  <style>
+    @media print {
+      body * {
+        visibility: hidden; /* Hide everything by default */
+      }
+      .all, .all * {
+        visibility: visible; /* Show the content you want to print */
+      }
+      .all {
+        position: absolute; /* Position the content for printing */
+        left: 0;
+        top: 0;
+      }
+    }
+  </style>
 <div class="all">
 <div class="page-title">
     <h1>تفاصيل الليزر</h1>
@@ -39,29 +41,10 @@
         <th>الطبيب</th><td>{{$lazer->Doctor->user->name}}</td>
       </tr>
       <tr>
-        <th>عدد الاشعة</th><td>{{$lazer->raysCount}}</td>
+        <th>التكلفة الأساسية</th><td>{{$lazer->price}}</td>
       </tr>
       <tr>
-        <th>الطاقة</th><td>{{$lazer->power}}</td>
-      </tr>
-      <tr>
-        <th>السرعة</th><td>{{$lazer->speed}}</td>
-      </tr>
-      <tr>
-        <th>عرض النبضة</th><td>{{$lazer->pulse}}</td>
-      </tr>
-      <tr>
-        <th>الجهاز</th><td>{{$lazer->device}}</td>
-      </tr>
-      <tr>
-        <th>Point</th><td>{{$lazer->point}}</td>
-      </tr>
-      <tr>
-        <th>Price</th><td>{{$lazer->price}}</td>
-
-      </tr>
-      <tr>
-        <th>السعر الحقيقي</th><td>{{$lazer->real_price}}</td>
+        <th> التكلفة الفعلية</th><td>{{$lazer->real_price}}</td>
       </tr>
       <tr>
         <th>سعر الشعاع</th><td>{{$lazer->lazer_price}}</td>
@@ -69,6 +52,30 @@
       <tr>
         <th>ملاحظات</th><td>{{$lazer->notes}}</td>
       </tr>
+      <table>
+        <thead>
+          <tr>
+            <th>عدد الأشعة </th>
+            <th>المنطقة </th>
+            <th>الطاقة </th>
+            <th>السرعة </th>
+            <th>عرض النبضة </th>
+            <th>الجهاز </th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($lazer->Details as $detail)
+          <tr>
+            <td>{{$detail->raysCount}}</td>
+            <td>{{$detail->point}}</td>
+            <td>{{$detail->power}}</td>
+            <td>{{$detail->speed}}</td>
+            <td>{{$detail->pulse}}</td>
+            <td>{{$detail->device}}</td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
     </tbody>
   </table>
   <br>

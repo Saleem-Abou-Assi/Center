@@ -48,8 +48,10 @@
     
                         <td class="action-td">
                             <a href="{{ route('item.edit', $storage->id) }}" class="action-btn">عدّل</a>                        
-                              
+                            <a href="{{ route('item.show', $storage->id) }}" class="action-btn">حركة</a>                        
+
                         </td>
+                       
                     </tr>
                 @endforeach
             </tbody>

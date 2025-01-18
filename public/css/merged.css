@@ -929,3 +929,50 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     z-index: 1000; /* Ensure it appears above other content */
     transition: opacity 0.5s ease; /* Fade out effect */
 }
+.dynamic{
+    width: 98%;
+    background-color: #f1f1f1;
+       
+    
+}
+.dyn{
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    
+}
+.nr{
+    display: grid;
+    grid-template-rows: repeat(5,50px);
+    row-gap: 10px;
+    
+    
+
+}
+.sel select{
+    background-color: #0562af9f; /* Original background color */
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+.inp5 {
+    background-color: #0562af9f; /* Original background color */
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+    transition: background-color 0.3s ease;
+    grid-row: 1;
+}

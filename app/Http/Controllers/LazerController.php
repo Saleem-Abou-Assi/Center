@@ -25,41 +25,40 @@ class LazerController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->point);
+        // dd($request);
+     
         $request->validate([
-            'raysCount' => ['required', 'integer'],
-            'point' => ['required', 'string'],
-            'power' => ['required', 'integer'],
-            'speed' => ['required', 'integer'],
-            'pulse' => ['required', 'string'],
-            'device' => ['required', 'string']
+            'patient_id' => ['required', 'integer'],
+            'doctor_id' => ['required', 'integer'],
+            'notes' => ['nullable', 'string'],
+
         ]);
 
         $ray_price = LazerPrice::first();
-        $real_price = 0;
+        $real_price = $request->real_price ?? 0;
 
-        if($request->real_price)
-        {
-            $real_price = $request->real_price;
-        }
-        
-
-        // إنشاء 
         $lazer = Lazer::create([
-            'patient_id'=>$request->patient_id,
-            'doctor_id'=>$request->doctor_id,
-            'raysCount' => $request->raysCount,
-            'point'=> $request->point,
-            'power'=> $request->power,
-            'speed'=> $request->speed,
-            'pulse'=> $request->pulse,
-            'device'=>$request->device,
-            'real_price'=>$request->real_price,
-            'lazer_price'=> $ray_price->price,
-            'notes'=>$request->notes,
-            'price'=> $request->price,
-
+            'patient_id' => $request->patient_id,
+            'doctor_id' => $request->doctor_id,
+            'real_price' => $real_price,
+            'lazer_price' => $ray_price->price,
+            'notes' => $request->notes,
+            'price' => 0,
         ]);
+
+        // Handle dynamic details
+        if ($request->has('dynamicPoint')) {
+            foreach ($request->dynamicPoint as $index => $point) {
+                $lazer->Details()->create([
+                    'point' => $point,
+                    'power' => $request->dynamicPower[$index],
+                    'speed' => $request->dynamicSpeed[$index],
+                    'pulse' => $request->dynamicPulse[$index],
+                    'device' => $request->dynamicDevice[$index],
+                    'raysCount' => $request->dynamicCount[$index],
+                ]);
+            }
+        }
 
         $patient = Patient::findOrFail($request->patient_id);
 
@@ -69,11 +68,9 @@ class LazerController extends Controller
             'patient_id' => $request->patient_id,
             'message' => "تمت إضافة معاينة ليزر جديدة للمريض {$patient->name}",
             'operation_id' => $lazer->id
-            
         ]);
-        
-        return redirect()->route('lazer.index')->with('success', 'Lazer created successfully.');
 
+        return redirect()->route('lazer.index')->with('success', 'Lazer created successfully.');
     }
 
     public function edit($lazer_id)
@@ -90,13 +87,8 @@ class LazerController extends Controller
         $request->validate([
             'patient_id' => ['required', 'integer'],
             'doctor_id' => ['required', 'integer'],
-            'raysCount' => ['required', 'integer'],
-            'point' => ['required', 'string'],
-            'power' => ['required', 'integer'],
-            'speed' => ['required', 'integer'],
-            'pulse' => ['required', 'string'],
-            'device' => ['required', 'string'],
             'notes' => ['nullable', 'string'],
+
         ]);
 
         $ray_price = LazerPrice::first();
@@ -105,17 +97,26 @@ class LazerController extends Controller
         $lazer->update([
             'patient_id' => $request->patient_id,
             'doctor_id' => $request->doctor_id,
-            'raysCount' => $request->raysCount,
-            'point' => $request->point,
-            'power' => $request->power,
-            'speed' => $request->speed,
-            'pulse' => $request->pulse,
-            'device' => $request->device,
             'real_price' => $request->real_price,
             'lazer_price' => $ray_price->price,
             'notes' => $request->notes,
-            'price'=> $request->price,
+            'price' => $request->price,
         ]);
+
+        // Update dynamic details
+        $lazer->Details()->delete(); // Remove existing details
+        if ($request->has('dynamicPoint')) {
+            foreach ($request->dynamicPoint as $index => $point) {
+                $lazer->Details()->create([
+                    'point' => $point,
+                    'power' => $request->dynamicPower[$index],
+                    'speed' => $request->dynamicSpeed[$index],
+                    'pulse' => $request->dynamicPulse[$index],
+                    'device' => $request->dynamicDevice[$index],
+                    'raysCount' => $request->dynamicCount[$index],
+                ]);
+            }
+        }
 
         $patient = Patient::findOrFail($request->patient_id);
 
@@ -124,10 +125,10 @@ class LazerController extends Controller
 
     public function show($lazer_id)
     {
-        $lazer = Lazer::where('id',$lazer_id)->with('Doctor','Patient')->first();
+        $lazer = Lazer::where('id',$lazer_id)->with('Doctor','Patient','Details')->first();
         $ray_price = LazerPrice::first();
 
-
+// dd($lazer);
         return view('lazer.show',['ray_price'=>$ray_price,'lazer'=>$lazer]);
 
     }
