@@ -9,19 +9,21 @@
   @include('layouts.navigation')
 </head>
 <body>
-  <style>@media print {
-            body * {
-                visibility: hidden; /* Hide everything */
-            }
-            table, table * {
-                visibility: visible; /* Show the table and its contents */
-            }
-            table {
-                position: absolute; /* Position the table for printing */
-                left: 0;
-                top: 0;
-            }
-        }</style>
+  <style>
+    @media print {
+      body * {
+        visibility: hidden; /* Hide everything by default */
+      }
+      .all, .all * {
+        visibility: visible; /* Show the content you want to print */
+      }
+      .all {
+        position: absolute; /* Position the content for printing */
+        left: 0;
+        top: 0;
+      }
+    }
+  </style>
 <div class="all">
 <div class="page-title">
     <h1>تفاصيل الليزر</h1>
@@ -53,12 +55,12 @@
       <table>
         <thead>
           <tr>
-            <th>عدد الأشعة (تفاصيل)</th>
-            <th>المنطقة (تفاصيل)</th>
-            <th>الطاقة (تفاصيل)</th>
-            <th>السرعة (تفاصيل)</th>
-            <th>عرض النبضة (تفاصيل)</th>
-            <th>الجهاز (تفاصيل)</th>
+            <th>عدد الأشعة </th>
+            <th>المنطقة </th>
+            <th>الطاقة </th>
+            <th>السرعة </th>
+            <th>عرض النبضة </th>
+            <th>الجهاز </th>
           </tr>
         </thead>
         <tbody>
