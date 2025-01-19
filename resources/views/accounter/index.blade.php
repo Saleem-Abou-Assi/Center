@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
   @include('layouts.navigation')
   <style>
-    @media print {
+   @media print{
       body * {
         visibility: hidden; /* Hide everything by default */
       }
@@ -25,9 +25,9 @@
         margin: 0 auto; /* Center the table */
       }
       th, td {
-        border: 1px solid #000; /* Solid border for cells */
+        border: 2px solid #000; /* Solid border for cells */
         padding: 8px; /* Padding for cells */
-        text-align: right; /* Right align text for Arabic */
+        text-align: center; /* Right align text for Arabic */
       }
       th {
         background-color: #f2f2f2; /* Light background for headers */
@@ -39,17 +39,26 @@
         display: none; /* Hide buttons during print */
       }
       .storage-container{
-        position: absolute;
-        top: 0;
+        position: inherit;
+       width: 91.5% ;
         padding-top:69px;
-        
+       
       }
+    .hrh{
+      width: 100%;
+      transform: translateX(-53px);
     }
+    .trtr{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      column-gap: 1px;
+    }
+  }
   </style>
   </head>
 <body>
 <div class="all">
-<div class="page-title printable">
+<div class="page-title">
     <h1>حسابات</h1>
 </div>
     
@@ -90,12 +99,15 @@
       <tr>
         <th>اجرة الطبيب</th><td>{{$patientDept->Accounter[0]->pivot->full_cost}} </td>
       </tr>
+      </tbody>
+      </table>
       </div>
-      <div class="storage-container">
-     
+
+      <div class="storage-container printable" >
+          <div class="hrh">
         <table>
             <thead>
-                <tr>
+                <tr class="trtr">
                     <th>اسم الأداة</th>
                     <th>الكمية المستخدمة</th>
                 </tr>
@@ -109,11 +121,11 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
       </div>
     
     
-         </tbody>
-       </table>
+        
        <br>
      <div class="botons">
          <div class="boton">
