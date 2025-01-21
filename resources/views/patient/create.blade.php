@@ -44,8 +44,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="age">العمر</label>
-                    <input type="number" required id="age" name="age" value="{{ isset($patient) ? $patient->age : '' }}">
+                    <label for="age" >المواليد</label>
+                    <input type="date" required id="age" name="age" value="{{ isset($patient) ? $patient->age : '' }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="AGE">العمر</label>
+                    <span id="AGE" ></span>
                 </div>
 
                 <div class="form-group">
@@ -156,7 +161,25 @@
         }
     }
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ageInput = document.getElementById("age");
+        const ageDisplay = document.getElementById("AGE");
 
+        ageInput.addEventListener("change", function() {
+            const birthDate = new Date(ageInput.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            ageDisplay.textContent = age; // Display the calculated age
+        });
+    });
+</script>
     <script>
         document.getElementById('addRowBtn').addEventListener('click', function() {
             // Get the table body element  

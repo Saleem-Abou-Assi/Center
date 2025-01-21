@@ -14,14 +14,12 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->string('type'); // 'patient_dept' or 'lazer'
-            $table->unsignedBigInteger('doctor_id');
             $table->unsignedBigInteger('patient_id');
             $table->string('message');
             $table->boolean('is_read')->default(false);
             $table->integer('operation_id');
             $table->timestamps();
 
-            $table->foreign('doctor_id')->references('id')->on('doctors');
             $table->foreign('patient_id')->references('id')->on('patients');
      
         });

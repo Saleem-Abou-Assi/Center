@@ -34,7 +34,7 @@ class PatientController extends Controller
             'phone' => ['required', 'string'],
             'address' => ['required', 'string'],
             'gender' => ['required',],
-            'age' => ['required', 'integer'],
+
             'profile-image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
@@ -101,7 +101,7 @@ class PatientController extends Controller
             'phone' => ['required', 'string'],
             'address' => ['required', 'string'],
             'gender' => ['required',],
-            'age' => ['required', 'integer'],
+
             'image' => ['nullable', 'profile-image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 

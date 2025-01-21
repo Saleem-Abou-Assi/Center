@@ -30,7 +30,8 @@
                 <li data-label="الرقم"><span>{{ $patient->phone }}</span></li>
                 <li data-label="العنوان"><span>{{ $patient->address }}</span></li>
                 <li data-label="الجنس"><span>{{ $patient->Gender }}</span></li>
-                <li data-label="العمر"><span>{{ $patient->age }}</span></li>
+                <li data-label="المواليد"><span>{{ $patient->age }}</span></li>
+                <li data-label="العمر"><span id="AGE"></span></li>
                 <li data-label="الحالة الاجتماعية"><span>{{ $patient->relation }}</span></li>
                 <li data-label="عدد الأطفال"><span>{{ $patient->childerCount }}</span></li>
             </ul>
@@ -110,7 +111,7 @@
                 @for ($i = 0; $i < count($patient->Lazer); $i++)
                     <tr data-laser-operation-id="{{ $patient->Lazer[$i]->id }}" class="laser-operation-row">
                         <td>{{$i + 1}}</td>
-                        <td>{{$patient->Lazer[$i]->doctor->user->name}}</td>
+                        {{-- <td>{{$patient->Lazer[$i]->Details->doctor->user->name}}</td> --}}
                         {{-- @if($patient->Lazer[$i]->lazer_price)
                         <td>{{$patient->Lazer[$i]->lazer_price}} </td>
                         @else 
@@ -139,6 +140,34 @@
     </div>
     
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const birthDateString = "{{ $patient->age }}"; // Ensure this is a valid date string like "YYYY-MM-DD"
+            const ageDisplay = document.getElementById("AGE");
+    
+            function calculateAndDisplayAge() {
+                const birthDate = new Date(birthDateString);
+                if (isNaN(birthDate)) {
+                    console.error("Invalid date format:", birthDateString);
+                    ageDisplay.textContent = "Invalid date";
+                    return;
+                }
+
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDifference = today.getMonth() - birthDate.getMonth();
+    
+                if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+    
+                ageDisplay.textContent = age; // Display the calculated age
+            }
+
+            // Call the function on page load
+            calculateAndDisplayAge();
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
