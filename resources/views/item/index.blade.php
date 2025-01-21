@@ -3,7 +3,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
     <title>ادارة المواد</title>
     @include('layouts.navigation')
 </head>
@@ -57,7 +57,9 @@
             </tbody>
         </table>
         </div>
-        
+        <div class="boton">
+    <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
+    </div>
     </div>
     
 </body>

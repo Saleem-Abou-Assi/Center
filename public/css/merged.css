@@ -133,8 +133,18 @@ tbody tr:nth-child(even) {
 }
 
 /* Button Styles */
-.action-btn, .add-btn, .custom-btn {
+.action-btn, .add-btn{
     padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+}
+.custom-btn {
+    padding: 8px 8px;
     border-radius: 4px;
     text-decoration: none;
     font-size: 14px;
@@ -489,7 +499,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
 
 /* Custom Button Styles */
 .custom-btn {
-    width: 60px;
+    width: 30px;
     height: 20px;
     color: #fff;
     border-radius: 5px;
@@ -501,16 +511,16 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     transition: all 0.3s ease;
     position: relative;
     display: flex;
-    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
-                7px 7px 20px 0px rgba(0, 0, 0, .1),
-                4px 4px 5px 0px rgba(0, 0, 0, .1);
+    
     outline: none;
     font-size: 15px;
 }
 
 .btn-2 {
-    background: #007561c5;
-    background: linear-gradient(0deg, #004dff 0%, #004dff 100%);
+    display: flex;
+    background-color: #007561c5;
+    justify-content: center;
+    align-items: center;
     border: none;
     margin: 5px 
 }
@@ -975,4 +985,9 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     outline: none;
     transition: background-color 0.3s ease;
     grid-row: 1;
+}
+.boto{
+    position: relative;
+    bottom:0;
+    left: 0;
 }

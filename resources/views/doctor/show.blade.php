@@ -91,8 +91,8 @@
        
         </div>
         <div class="boton">
-        <a href="{{ route('doctor.index') }}" class="custom-btn btn-2">Go Back</a>
-        </div>
+    <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
+    </div>
     </div>
 </body>
 </html>

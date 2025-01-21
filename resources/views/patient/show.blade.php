@@ -126,8 +126,8 @@
             <br>
             <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
             <div class="boton">
-                <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
-            </div>
+    <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
+    </div>
         </div>
 
         <div>

@@ -170,32 +170,31 @@ tbody tr:nth-child(even) {
     text-align: center;
   }
   .custom-btn {
-    width: 65px;
+    width: 30px;
     height: 20px;
     color: #fff;
     border-radius: 5px;
     padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Cairo', sans-serif;
     font-weight: 500;
     background: transparent;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     display: flex;
-    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
-     7px 7px 20px 0px rgba(0,0,0,.1),
-     4px 4px 5px 0px rgba(0,0,0,.1);
-    outline: none;
-    font-size: 15px;
-    text-decoration: none;  
-  }
-  
-  .btn-2 {
-    background: #007561c5;
-    background: linear-gradient(0deg, #004dff 0%, #004dff 100%);
-    border: none;
     
-  }
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.btn-2 {
+    display: flex;
+    background-color: #007561c5;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 5px 
+}
   
   .btn-2:before {
     height: 0%;
