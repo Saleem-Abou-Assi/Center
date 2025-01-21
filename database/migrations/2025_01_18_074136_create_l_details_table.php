@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('speed');
             $table->string('pulse');
             $table->enum('device',['again','ax','ay']);
+            $table->unsignedBigInteger("doctor_id");
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade')->onUpdate('cascade');
+            
             $table->timestamps();
         });
     }

@@ -68,10 +68,7 @@
         <div class="table-container pron" >
             <table id='lazerTable'>
                 <tbody>
-                    <tr>
-                        <th>الطبيب</th>
-                        <td>{{$lazer->Doctor->user->name}}</td>
-                    </tr>
+                  
                     <tr>
                         <th>التكلفة الأساسية</th>
                         <td>{{$lazer->price}}</td>
@@ -97,6 +94,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th>اسم المريض</th>
                         <th>عدد الأشعة</th>
                         <th>المنطقة</th>
                         <th>الطاقة</th>
@@ -108,6 +106,7 @@
                 <tbody>
                     @foreach($lazer->Details as $detail)
                     <tr>
+                        <td>{{$detail->doctor->user->name}}</td>
                         <td>{{$detail->raysCount}}</td>
                         <td>{{$detail->point}}</td>
                         <td>{{$detail->power}}</td>

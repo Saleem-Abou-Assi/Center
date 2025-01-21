@@ -18,20 +18,7 @@
             @method('PUT')
             @endif
         
-            <div class="form-group">
-                <div class="select-box">
-                <label for="doctor_id">اسم المعالج</label>
-                <select id="doctor_id" required name="doctor_id" autofocus >
-                    <option value="{{isset($lazer) ? $lazer->doctor_id : ""}}">{{isset($lazer) ? $lazer->Doctor->user->name : "اختر طبيب"}}</option>
-
-                    @foreach ($doctors as $doctor)
-                    <option value="{{$doctor->id}}">{{$doctor->user->name}}</option>
-
-                    @endforeach
-                </select>
-                </div>
-            </div>
-
+           
             <div class="form-group">
                 <div class="select-box">
                 <label for="patient_id">اسم المريض</label>
@@ -121,7 +108,7 @@
 
     <div class="form-group">
         <label for="ray_price">سعر الشعاع</label>
-        <span id="ray_price_display">{{$ray_price->price}}</span>
+        <span id="ray_price_display">{{$ray_price->ax_price}}</span>
     </div>
 
     {{-- <div class="form-group">
@@ -209,21 +196,23 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         const raysCountInput = document.getElementById("raysCount");
-        const rayPrice = parseFloat(document.getElementById("ray_price_display").innerText);
-        const totalPriceDisplay = document.getElementById("price_dispaly");
-        const totalPriceInput = document.getElementById("price");
+        if (raysCountInput) { // Check if the element exists
+            const rayPrice = parseFloat(document.getElementById("ray_price_display").innerText);
+            const totalPriceDisplay = document.getElementById("price_dispaly");
+            const totalPriceInput = document.getElementById("price");
 
-        function calculateTotalPrice() {
-            const raysCount = parseInt(raysCountInput.value) || 0;
-            const totalPrice = rayPrice * raysCount;
-            totalPriceDisplay.innerText = totalPrice.toFixed(2);
-            totalPriceInput.value = totalPrice;
+            function calculateTotalPrice() {
+                const raysCount = parseInt(raysCountInput.value) || 0;
+                const totalPrice = rayPrice * raysCount;
+                totalPriceDisplay.innerText = totalPrice.toFixed(2);
+                totalPriceInput.value = totalPrice;
+            }
+
+            raysCountInput.addEventListener('input', calculateTotalPrice);
+
+            // Initial calculation
+            calculateTotalPrice();
         }
-
-        raysCountInput.addEventListener('input', calculateTotalPrice);
-
-        // Initial calculation
-        calculateTotalPrice();
     });
 </script>
 
@@ -233,24 +222,43 @@
         var tableBody = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
 
         // Create new row and cells  
-        var newRow = document.createElement('th');
-        var pointCell = document.createElement('tr');
-        var powerCell = document.createElement('tr');
-        var speedCell = document.createElement('tr');
-        var pulseCell = document.createElement('tr');
-        var countCell = document.createElement('tr');
-        var actionCell = document.createElement('tr'); // Add action cell for delete button
-        
-        newRow.className='nr';
-        pointCell.className='sel';
-        
+        var newRow = document.createElement('tr');
+        var pointCell = document.createElement('td');
+        var powerCell = document.createElement('td');
+        var speedCell = document.createElement('td');
+        var pulseCell = document.createElement('td');
+        var countCell = document.createElement('td');
+        var actionCell = document.createElement('td');
+        var docCell = document.createElement('td'); // Corrected to <td>
+
+        newRow.className = 'nr';
+        pointCell.className = 'sel';
+
+        // Create select element for doctor
+        var docSelect = document.createElement('select');
+        docSelect.setAttribute('name', 'dynamicDoc[]');
+        docSelect.setAttribute('required', true);
+        docSelect.className = 'inp6';
+
+        var options6 = [
+            @foreach ($doctors as $doctor)
+            { value: '{{$doctor->id}}', text: '{{$doctor->user->name}}' },
+            @endforeach
+        ];
+
+        options6.forEach(function(optionData) {
+            var option = document.createElement('option');
+            option.value = optionData.value;
+            option.text = optionData.text;
+            docSelect.appendChild(option);
+        });
+
         // Create select element for point
         var pointSelect = document.createElement('select');
         pointSelect.setAttribute('name', 'dynamicPoint[]');
         pointSelect.setAttribute('required', true);
         pointSelect.className = 'inp';
 
-        // Define options for the select
         var options1 = [
             { value: '', text: 'اختر المنطقة' },
             { value: 'وجه', text: 'وجه' },
@@ -264,7 +272,8 @@
             { value: 'بطن', text: 'بطن' },
             { value: 'ظهر', text: 'ظهر' },
             { value: 'أرداف', text: 'أرداف' },
-            { value: 'شفة', text: 'شفة' }
+            { value: 'شفة', text: 'شفة' },
+            { value: 'غير ذلك', text: 'غير ذلك' }
         ];
 
         options1.forEach(function(optionData) {
@@ -274,13 +283,24 @@
             pointSelect.appendChild(option);
         });
 
-        // Create select element for device
-        var devicetSelect = document.createElement('select');
-        devicetSelect.setAttribute('name', 'dynamicDevice[]');
-        devicetSelect.setAttribute('required', true);
-        devicetSelect.className = 'inp5';
+        pointSelect.addEventListener('change', function() {
+            if (this.value === 'غير ذلك') {
+                this.disabled = true; // Disable the select
+                var customInput = document.createElement('input'); // Create a text box
+                customInput.setAttribute('type', 'text');
+                customInput.setAttribute('name', 'dynamicPoint[]'); // Same name for form submission
+                customInput.setAttribute('placeholder', 'أدخل قيمة أخرى');
+                customInput.className = 'inp-custom'; // Optional: add a class for styling
+                this.parentNode.appendChild(customInput); // Append the input next to the select
+            }
+        });
 
-        // Define options for the select
+        // Create select element for device
+        var deviceSelect = document.createElement('select');
+        deviceSelect.setAttribute('name', 'dynamicDevice[]');
+        deviceSelect.setAttribute('required', true);
+        deviceSelect.className = 'inp5';
+
         var options2 = [
             { value: '', text: 'اختر الجهاز' },
             { value: 'ax', text: 'ax' },
@@ -292,7 +312,7 @@
             var option = document.createElement('option');
             option.value = optionData.value;
             option.text = optionData.text;
-            devicetSelect.appendChild(option);
+            deviceSelect.appendChild(option);
         });
 
         // Create input elements
@@ -300,14 +320,12 @@
         speedInput.setAttribute('type', 'number');
         speedInput.setAttribute('name', 'dynamicSpeed[]');
         speedInput.setAttribute('placeholder', 'السرعة');
-
         speedInput.className = 'inp2';
 
         var powerInput = document.createElement('input');
         powerInput.setAttribute('type', 'number');
         powerInput.setAttribute('name', 'dynamicPower[]');
         powerInput.setAttribute('placeholder', 'الطاقة');
-
         powerInput.className = 'inp1';
 
         var pulseInput = document.createElement('input');
@@ -320,7 +338,6 @@
         countInput.setAttribute('type', 'number');
         countInput.setAttribute('name', 'dynamicCount[]');
         countInput.setAttribute('placeholder', 'عدد الأشعة');
-
         countInput.className = 'inp4';
 
         // Append input fields to their respective cells  
@@ -329,6 +346,7 @@
         speedCell.appendChild(speedInput);
         pulseCell.appendChild(pulseInput);
         countCell.appendChild(countInput);
+        docCell.appendChild(docSelect);
 
         // Create delete button  
         var deleteBtn = document.createElement('button');
@@ -344,8 +362,9 @@
         actionCell.className = 'action-td'; // Set class for the td  
 
         // Append cells to the new row  
+        newRow.appendChild(docCell);
         newRow.appendChild(pointCell);
-        newRow.appendChild(devicetSelect);
+        newRow.appendChild(deviceSelect);
         newRow.appendChild(powerCell);
         newRow.appendChild(speedCell);
         newRow.appendChild(pulseCell);

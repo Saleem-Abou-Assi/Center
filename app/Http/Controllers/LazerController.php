@@ -25,11 +25,10 @@ class LazerController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request);
+        //  dd($request);
      
         $request->validate([
             'patient_id' => ['required', 'integer'],
-            'doctor_id' => ['required', 'integer'],
             'notes' => ['nullable', 'string'],
 
         ]);
@@ -39,9 +38,9 @@ class LazerController extends Controller
 
         $lazer = Lazer::create([
             'patient_id' => $request->patient_id,
-            'doctor_id' => $request->doctor_id,
+     
             'real_price' => $real_price,
-            'lazer_price' => $ray_price->price,
+            'lazer_price' => $ray_price->ax_price,
             'notes' => $request->notes,
             'price' => 0,
         ]);
@@ -56,6 +55,8 @@ class LazerController extends Controller
                     'pulse' => $request->dynamicPulse[$index],
                     'device' => $request->dynamicDevice[$index],
                     'raysCount' => $request->dynamicCount[$index],
+                    'doctor_id' => $request->dynamicDoc[$index],
+
                 ]);
             }
         }
@@ -64,7 +65,7 @@ class LazerController extends Controller
 
         Notification::create([
             'type' => 'lazer',
-            'doctor_id' => $request->doctor_id,
+           
             'patient_id' => $request->patient_id,
             'message' => "تمت إضافة معاينة ليزر جديدة للمريض {$patient->name}",
             'operation_id' => $lazer->id
@@ -86,7 +87,6 @@ class LazerController extends Controller
     {
         $request->validate([
             'patient_id' => ['required', 'integer'],
-            'doctor_id' => ['required', 'integer'],
             'notes' => ['nullable', 'string'],
 
         ]);
@@ -96,9 +96,9 @@ class LazerController extends Controller
 
         $lazer->update([
             'patient_id' => $request->patient_id,
-            'doctor_id' => $request->doctor_id,
+
             'real_price' => $request->real_price,
-            'lazer_price' => $ray_price->price,
+            'lazer_price' => $ray_price->ax_price,
             'notes' => $request->notes,
             'price' => $request->price,
         ]);
@@ -114,6 +114,7 @@ class LazerController extends Controller
                     'pulse' => $request->dynamicPulse[$index],
                     'device' => $request->dynamicDevice[$index],
                     'raysCount' => $request->dynamicCount[$index],
+                    'doctor_id' => $request->dynamicDoc[$index],
                 ]);
             }
         }

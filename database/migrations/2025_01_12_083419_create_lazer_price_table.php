@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('lazer_price', function (Blueprint $table) {
             $table->id();
-            $table->double('price')->default(0);
+            $table->double('ax_price')->default(0);
+            $table->double('ay_price')->default(0);
+            $table->double('again_+price')->default(0);
+            
             $table->timestamps();
         });
 

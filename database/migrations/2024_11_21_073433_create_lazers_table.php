@@ -18,9 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("patient_id");
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->unsignedBigInteger("doctor_id");
-            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade')->onUpdate('cascade');
-            
+           
             $table->double('price');
             $table->double('real_price')->nullable();
             $table->double('lazer_price');
