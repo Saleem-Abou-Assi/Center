@@ -79,4 +79,16 @@ class PatientDeptController extends Controller
 
         return redirect()->route('patientDept.index')->with('success', 'Patient has been assigned to department.');
     }
+
+    public function destroy($dept_id)
+    { 
+       
+       $dept = PatientDept::where('id',$dept_id)->first();
+
+        $dept->delete();
+      
+        return redirect()->back();
+
+    }
+
 }

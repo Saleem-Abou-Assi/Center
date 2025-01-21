@@ -92,7 +92,13 @@
                         <td>{{ $patient->Dept[$i]->pivot->illness }}</td>
                         <td>{{ $patient->Dept[$i]->pivot->description }}</td>
                         <td>{{ $patient->Dept[$i]->created_at }}</td>
-                        <td><a href="{{ route('accounter.index', $i+1) }}" class="action-btn">Show</a></td>
+                        <td><a href="{{ route('accounter.index', $i+1) }}" class="action-btn">Show</a>
+                            <form id="deleteForm" action="{{ route('Dept.destroy', $patient->Dept[$i]->pivot->id) }}" method="POST" onsubmit="return confirmCustom()">
+                                @csrf
+    
+                                @method('DELETE')
+                                <button type="submit" class="action-btn">إزالة</button>
+                            </form></td>
                     </tr>
                     @endfor
             </table>
@@ -103,7 +109,7 @@
                 <thead>
                     <tr>
                         <th>الرقم</th>
-                        <th>اسم الدكتور</th>
+                        <th>التاريخ</th>
                     
                         <th>تفاصيل</th>
                     </tr>
@@ -111,6 +117,7 @@
                 @for ($i = 0; $i < count($patient->Lazer); $i++)
                     <tr data-laser-operation-id="{{ $patient->Lazer[$i]->id }}" class="laser-operation-row">
                         <td>{{$i + 1}}</td>
+                        <td>{{$patient->Lazer[$i]->created_at}}</td>
                         {{-- <td>{{$patient->Lazer[$i]->Details->doctor->user->name}}</td> --}}
                         {{-- @if($patient->Lazer[$i]->lazer_price)
                         <td>{{$patient->Lazer[$i]->lazer_price}} </td>
@@ -119,8 +126,13 @@
                         @endif
                         <td>{{$patient->Lazer[$i]->real_price}} </td> --}}
                         <td><a href="{{ route('lazer.show', $patient->lazer[$i]->id) }}" class="action-btn">تفاصيل</a>
-                        <a href="{{ route('lazer.edit', $patient->lazer[$i]->id) }}" class="action-btn">تعديل</a></td>
+                        <a href="{{ route('lazer.edit', $patient->lazer[$i]->id) }}" class="action-btn">تعديل</a>
+                        <form id="deleteForm" action="{{ route('lazer.destroy', $patient->Lazer[$i]->id) }}" method="POST" onsubmit="return confirmCustom()">
+                            @csrf
 
+                            @method('DELETE')
+                            <button type="submit" class="action-btn">إزالة</button>
+                        </form></td>
                     </tr>
                     @endfor
             </table>

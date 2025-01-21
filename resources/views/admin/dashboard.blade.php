@@ -25,8 +25,14 @@
                 @csrf
                 <br>    
                 <div class="form-group">
+                    <label for="ax_price">AX</label>
+                    <input type="number" required id="ax_price" name="ax_price" class="price" placeholder="سعر شعاع الليزر">
+                   
+                    <label for="ay_price">AY</label>
+                    <input type="number" required id="ay_price" name="ay_price" class="price" placeholder="سعر شعاع الليزر">
                     
-                    <input type="number" required id="lazer_price" name="lazer_price" class="price" placeholder="سعر شعاع الليزر">
+                    <label for="again_price">Again</label>
+                    <input type="number" required id="again_price" name="again_price" class="price" placeholder="سعر شعاع الليزر">
                     
                 </div>    
                 <button type="submit" class="add-btn">أدخل</button>

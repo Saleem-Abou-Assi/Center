@@ -183,3 +183,4 @@ class PatientController extends Controller
         return view('patient.show', ['patient' => $patient, 'apds' => $apds]);
     }
 }
+ 

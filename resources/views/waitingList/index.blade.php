@@ -40,6 +40,17 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="select-box">
+                            <label for="device">الجهاز</label>
+                            <select id="device" required name="device" autofocus>
+                                <option value="">اختر جهاز</option>
+                            
+                                <option value="AX">AX</option>
+                                <option value="AY">AY</option>
+                                <option value="Again">Again</option>
+                             
+                            </select>
+                        </div>
                     </div>
                       <button type="submit" class="cta cta1"><span>إضافة إلى القائمة</span></button>
                     </div>
@@ -58,6 +69,9 @@
                             <tr>
                             <th>اسم المريض</th>
                             <th>اسم الطبيب</th>
+                            <th>الجهاز
+                                
+                            </th>
                             <th>ازالة</th>
                         </tr>
                         @foreach ($waitingList as $patient)
@@ -70,6 +84,9 @@
                             <td>
                                 {{$patient->doctor->user->name}}
                             
+                            </td>
+                            <td>
+                                {{$patient->device}}
                             </td>
                             <td>    <form action="{{ route('waitingList.destroy', $patient->id) }}" method="POST" style="display:inline;">
                                 @csrf

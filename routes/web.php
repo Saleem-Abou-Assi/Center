@@ -107,10 +107,13 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
 
     Route::get('/patientDept',[PatientDeptController::class,'index'])->name('patientDept.index');
     Route::post('/patientDept', [PatientDeptController::class, 'store'])->name('patientDept.store');
+    Route::delete('patientDept/{dept_id}', [PatientDeptController::class,'destroy' ])->name('Dept.destroy');
+
 
     Route::get('/lazer',[LazerController::class,'index'])->name('lazer.index');
     Route::get('/lazer/show/{lazer_id}',[LazerController::class,'show'])->name('lazer.show');
     Route::get('/lazer/edit/{lazer_id}',[LazerController::class,'edit'])->name('lazer.edit');
+    Route::delete('lazer/{lazer_id}',[LazerController::class, 'destroy' ])->name('lazer.destroy');
 
     Route::post('/lazer', [LazerController::class, 'store'])->name('lazer.store');
     Route::put('/lazer/update/{lazer_id}', [LazerController::class, 'update'])->name('lazer.update');
@@ -155,7 +158,7 @@ Route::get('/item/{item_id}/edit', [StorageController::class, 'edit'])->name('it
 Route::put('/item/{item_id}', [StorageController::class, 'update'])->name('item.update');
 Route::delete('/item/{item_id}', [StorageController::class, 'destroy'])->name('item.destroy');
 
-Route::get('/item/{item_id}', [StorageController::class, 'show'])->name('item.show');
+// Route::get('/item/{item_id}', [StorageController::class, 'show'])->name('item.show');
 
 
 
