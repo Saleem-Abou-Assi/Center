@@ -16,6 +16,7 @@ use App\Models\Accounter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SkinController;
 use App\Http\Controllers\WaitingListController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -108,6 +109,11 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
     Route::get('/patientDept',[PatientDeptController::class,'index'])->name('patientDept.index');
     Route::post('/patientDept', [PatientDeptController::class, 'store'])->name('patientDept.store');
     Route::delete('patientDept/{dept_id}', [PatientDeptController::class,'destroy' ])->name('Dept.destroy');
+
+
+    Route::get('/skin',[SkinController::class,'index'])->name('skin.index');
+    Route::post('/skin', [SkinController::class, 'store'])->name('skin.store');
+    Route::delete('skin/{skin_id}', [SkinController::class,'destroy' ])->name('skin.destroy');
 
 
     Route::get('/lazer',[LazerController::class,'index'])->name('lazer.index');

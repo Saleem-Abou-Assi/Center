@@ -136,6 +136,38 @@
                     </tr>
                     @endfor
             </table>
+
+            <h3>معايانات البشرة</h3>
+            <table class="table-container" >
+                <thead>
+                    <tr>
+                        <th>الرقم</th>
+                        <th>المعالج</th>
+                        <th>الحالة </th>
+                        <th>التكلفة</th>
+                        <th>التاريخ</th>
+                        <th>تفاصيل</th>
+                    </tr>
+                </thead>
+                @for ($i = 0; $i < count($patient->skin); $i++)
+
+                    <tr data-dept-operation-id="{{ $patient->skin[$i]->id }}" class="dept-operation-row">
+                        <td>{{ $i + 1 }}</td>
+                        <td>{{ $patient->skin[$i]->doctor->user->name }}</td>
+                        <td>{{ $patient->skin[$i]->options }}</td>
+                        <td>{{ $patient->skin[$i]->cost }}</td>
+                        <td>{{ $patient->skin[$i]->created_at }}</td>
+                        <td>
+                            <form id="deleteForm" action="{{ route('skin.destroy', $patient->skin[$i]->id) }}" method="POST" onsubmit="return confirmCustom()">
+                                @csrf
+    
+                                @method('DELETE')
+                                <button type="submit" class="action-btn">إزالة</button>
+                            </form></td>
+                    </tr>
+                    @endfor
+
+
             <br>
             <button onclick="window.location='{{ route('reports.patient', $patient->id) }}'" class="add-btn">تصدير التقرير PDF</button>
             <div class="boton">
