@@ -52,8 +52,19 @@ class Doctor extends Model
         ->withTimestamps();
     }
 
-    public function apd_storage():HasMany
+    // public function apd_storage():HasMany
+    // {
+    //     return $this->hasMany(ApdStorage::class);
+    
+    // }
+
+    public function skin()
     {
-        return $this->hasMany(ApdStorage::class);
+        return $this->hasMany(Skin::class);
     }
+
+
+
 }
+
+

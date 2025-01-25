@@ -34,6 +34,7 @@ class WaitingListController extends Controller
 
         if (!$exists) {
             $doctor->waitinglist()->attach($patient->id, [
+                'device' => $request->device,
                 'expires_at' => now()->addDays(1),
             ]);
 

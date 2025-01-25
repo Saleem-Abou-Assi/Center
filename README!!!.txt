@@ -7,7 +7,7 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 2-
 php artisan db:seed --class=RolesPermsSeeder
 3-
-php artisan db:seed --class=RolesPermsSeeder
+php artisan db:seed --class=RolesSeeder
 4-
 php artisan db:seed --class=DatabaseSeeder
 =======

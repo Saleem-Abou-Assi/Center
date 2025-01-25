@@ -57,4 +57,10 @@ class Patient extends Model
             ->withPivot('id', 'expires_at')
             ->withTimestamps();
     }
+
+    
+    public function skin()
+    {
+        return $this->hasMany(Skin::class);
+    }
 }

@@ -93,13 +93,15 @@
     </div> --}}
 
     <button type="button" id="addRowBtn" class="add-btn"><span>تفاصيل الليزر +</span></button>
-    <br>      
+    <br> 
+    <br>    
     <div class="dynamic">
                 <table id="dynamicTable" class="dyn"> 
                     <thead>
 
                     </thead>
                     <tbody>
+                       
                         <!-- Rows will be dynamically added here -->
                     </tbody>
                 </table>

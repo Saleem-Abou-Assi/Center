@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LazerPrice;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Symfony\Component\VarDumper\VarDumper;
 
 class DashboardController extends Controller
 {
@@ -29,15 +30,18 @@ class DashboardController extends Controller
 
     public function lazerPrice(Request $request)
     {
-        // dd($request->lazer_price);
+        // 
 
             $lazer_price = LazerPrice::first();
-            
+
             $lazer_price->update([
-            'price'=> $request->lazer_price,
-        
+            'ax_price'=> $request->ax_price,
+            'ay_price'=> $request->ay_price,
+            
+            'again_price'=> $request->again_price,
         ]);
-        
+
+
 
         return redirect()->back();
     }

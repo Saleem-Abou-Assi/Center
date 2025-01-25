@@ -133,7 +133,7 @@
                     </tbody>
                 </table>
                 <br>
-                <button type="submit" class="cta"><span>{{ isset($patient) ? 'عدّل' : 'أنشئ' }}</span>
+                <button type="submit" class="cta"><span>{{ isset($patient) ? 'عدّل' : 'أدخل' }}</span>
 
                     <svg width="15px" height="10px" viewBox="0 0 13 10">
                         <path d="M1,5 L11,5"></path>

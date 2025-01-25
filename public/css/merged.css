@@ -21,7 +21,7 @@ body {
     width: 95%;
 }
 .container1{
-    width: 40%;
+    width: 50%;
     padding: 20px;
     background-color: #f1f1f1;
     box-shadow: #000;
@@ -975,7 +975,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
 .inp5 {
     background-color: #0562af9f; /* Original background color */
     color: white;
-    padding: 12px;
+    padding: 1px;
     width: 250px;
     border: none;
     font-size: 20px;
@@ -985,6 +985,22 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     outline: none;
     transition: background-color 0.3s ease;
     grid-row: 1;
+    margin-left:10px ;
+    
+}
+.inp6{
+    background-color: #0562af9f; /* Original background color */
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+    transition: background-color 0.3s ease;
+    transform: translateY(-4px);
 }
 .boto{
     position: relative;

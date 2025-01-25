@@ -134,4 +134,16 @@ class LazerController extends Controller
 
     }
 
+    public function destroy($lazer_id)
+    { 
+       
+       $lazer = Lazer::where('id',$lazer_id)->first();
+
+        $lazer->delete();
+      
+        return redirect()->back();
+
+    }
+
+
 }
