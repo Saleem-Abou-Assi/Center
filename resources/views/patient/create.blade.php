@@ -133,7 +133,7 @@
                     </tbody>
                 </table>
                 <br>
-                <button type="submit" class="cta"><span>{{ isset($patient) ? 'عدّل' : 'أنشئ' }}</span>
+                <button type="submit" class="cta"><span>{{ isset($patient) ? 'عدّل' : 'أدخل' }}</span>
 
                     <svg width="15px" height="10px" viewBox="0 0 13 10">
                         <path d="M1,5 L11,5"></path>
@@ -144,7 +144,9 @@
             </form>
         </div>
         <div class="boton">
-            <a href="{{ route('patient.index') }}" class="custom-btn btn-2">Go Back</a>
+       
+    <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
+    
         </div>
     </div>
     <script>

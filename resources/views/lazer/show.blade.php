@@ -120,7 +120,7 @@
                 <button class="add-btn" onclick="printPage()">طباعة التفاصيل</button>
             </div>
             <div class="boton">
-                <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2">Go Back</a>
+                <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
             </div>
         </div>
     </div>

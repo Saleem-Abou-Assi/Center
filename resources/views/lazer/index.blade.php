@@ -93,7 +93,8 @@
     </div> --}}
 
     <button type="button" id="addRowBtn" class="add-btn"><span>تفاصيل الليزر +</span></button>
-    <br>      
+    <br> 
+    <br>    
     <div class="dynamic">
         <table id="dynamicTable" class="dyn"> 
             <thead>
@@ -339,13 +340,13 @@
 
         // Create input elements
         var speedInput = document.createElement('input');
-        speedInput.setAttribute('type', 'number');
+        speedInput.setAttribute('type', 'step');
         speedInput.setAttribute('name', 'dynamicSpeed[]');
         speedInput.setAttribute('placeholder', 'السرعة');
         speedInput.className = 'inp2';
 
         var powerInput = document.createElement('input');
-        powerInput.setAttribute('type', 'number');
+        powerInput.setAttribute('type', 'step');
         powerInput.setAttribute('name', 'dynamicPower[]');
         powerInput.setAttribute('placeholder', 'الطاقة');
         powerInput.className = 'inp1';

@@ -68,12 +68,16 @@
                             @endforeach
                         </tbody>
                     </table>
-
+                   
                     <div class="mt-4">
                         {{ $users->links() }}
                     </div>
                 </div>
             </div>
         </div>
+        <div class="boto">
+    <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
     </div>
+    </div>
+    
     </body>

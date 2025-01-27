@@ -52,8 +52,8 @@
                             </select>
                         </div>
                     </div>
-                      <button type="submit" class="cta cta1"><span>إضافة إلى القائمة</span></button>
-                    </div>
+                </div>
+                <button type="submit" class="cta cta1"><span>إضافة إلى القائمة</span></button>
 
                   
                 </form>
