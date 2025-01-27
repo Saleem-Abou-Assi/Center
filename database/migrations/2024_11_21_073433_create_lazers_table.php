@@ -22,7 +22,7 @@ return new class extends Migration
             $table->double('price');
             $table->double('real_price')->nullable();
             $table->double('lazer_price');
-            $table->text('notes');
+            $table->text('notes')->nullable();
 
             $table->timestamps();
         });

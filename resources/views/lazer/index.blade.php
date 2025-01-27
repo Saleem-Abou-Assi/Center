@@ -95,15 +95,71 @@
     <button type="button" id="addRowBtn" class="add-btn"><span>تفاصيل الليزر +</span></button>
     <br>      
     <div class="dynamic">
-                <table id="dynamicTable" class="dyn"> 
-                    <thead>
-
-                    </thead>
-                    <tbody>
-                        <!-- Rows will be dynamically added here -->
-                    </tbody>
-                </table>
-            </div>
+        <table id="dynamicTable" class="dyn"> 
+            <thead>
+                <tr>
+                    <th>الطبيب</th>
+                    <th>المنطقة</th>
+                    <th>الطاقة</th>
+                    <th>السرعة</th>
+                    <th>عرض النبضة</th>
+                    <th>عدد الأشعة</th>
+                    <th>الجهاز</th>
+                    <th>إجراء</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(isset($existingDetails) && count($existingDetails) > 0)
+                    @foreach($existingDetails as $detail)
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="dynamicDoc[]">اسم الطبيب</label>
+                                    <select id="doctor" required name="dynamicDoc[]">
+                                        <option value="{{$detail->doctor->id}}">{{$detail->doctor->user->name}}</option>
+                                        @foreach ($doctors as $doctor)
+                                            <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <select name="dynamicPoint[]">
+                                    <option value="{{ $detail->point }}">{{ $detail->point }}</option>
+                                    <option value="وجه">وجه</option>
+                                    <option value="ابطين">ابطين</option>
+                                    <option value="بكيني">بكيني</option>
+                                    <option value="ايدين">ايدين</option>
+                                    <option value="ساقين">ساقين</option>
+                                    <option value="فخذين">فخذين</option>
+                                    <option value="فل بدي">فل بدي</option>
+                                    <option value="فل بدي كامل">فل بدي كامل</option>
+                                    <option value="بطن">بطن</option>
+                                    <option value="ظهر">ظهر</option>
+                                    <option value="أرداف">أرداف</option>
+                                    <option value="شفة">شفة</option>
+                                </select>
+                            </td>
+                            <td><input type="number" name="dynamicPower[]" value="{{ $detail->power }}"></td>
+                            <td><input type="number" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
+                            <td><input type="text" name="dynamicPulse[]" value="{{ $detail->pulse }}"></td>
+                            <td><input type="number" name="dynamicCount[]" value="{{ $detail->raysCount }}"></td>
+                            <td>
+                                <select name="dynamicDevice[]">
+                                    <option value="{{ $detail->device }}">{{ $detail->device }}</option>
+                                    <option value="ax">AX</option>
+                                    <option value="ay">AY</option>
+                                    <option value="again">Again</option>
+                                </select>
+                            </td>
+                            <td><button type="button" class="remove-btn">حذف</button></td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
+    </div>
+  
                 <br>
          
 <div>
@@ -112,20 +168,23 @@
 </div>
 
 
-    {{-- <div class="form-group">
-        <label for="price">التكلفة لأساسية</label>
-        <span id="price_dispaly"></span>
-        <input type="hidden" id="price" name="price" >
-    </div>  --}}
+    
 
 @isset($lazer)
     
 
 <div class="form-group">
-    <label for="raysCount">سعر الشعاع</label>
-    {{$ray_price->price}} 
+    <label for="axPrice">سعر الشعاع AX</label>
+    {{$ray_price->ax_price}} 
+    <label for="againPrice">سعر الشعاع Again</label>
+    {{$ray_price->again_price}} 
 </div>
 
+<div class="form-group">
+    <label for="price">التكلفة لأساسية</label>
+    <span id="price_dispaly"></span>
+    <input type="hidden" id="price" name="price" >
+</div> 
 
 <div class="form-group">
     <label for="real_price">التكلفة الفعلية</label>
@@ -150,73 +209,8 @@
             </form>   
 
 
-    </div><script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const select = document.getElementById("pulse");
-        const input = document.getElementById("pulse-input");
-        const form = document.querySelector("form"); // Select the form
-
-        // Function to toggle input states
-        function toggleInputs() {
-            if (select.value) {
-                input.value = ""; // Clear input if select has a value
-                input.disabled = true; // Disable input
-            } else {
-                input.disabled = false; // Enable input if select is empty
-            }
-
-            if (input.value) {
-                select.value = ""; // Clear select if input has a value
-                select.disabled = true; // Disable select
-            } else {
-                select.disabled = false; // Enable select if input is empty
-            }
-        }
-
-        // Event listeners for select and input
-        select.addEventListener('change', toggleInputs);
-        input.addEventListener('input', toggleInputs);
-
-        // Handle form submission
-        form.addEventListener('submit', function(event) {
-            // Check if the select has a value
-            if (select.value) {
-                input.value = ""; // Clear input value if select is used
-            } else if (input.value) {
-                select.value = input.value; // Set select's value to input's value if input is used
-            } else {
-                // Prevent submission if both are empty
-                event.preventDefault();
-                alert("Please select a value or enter a value in the textbox.");
-            }
-        });
-
-        // Initial state setup
-        toggleInputs(); // Call to set initial states
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const raysCountInput = document.getElementById("raysCount");
-        if (raysCountInput) { // Check if the element exists
-            const rayPrice = parseFloat(document.getElementById("ray_price_display").innerText);
-            const totalPriceDisplay = document.getElementById("price_dispaly");
-            const totalPriceInput = document.getElementById("price");
-
-            function calculateTotalPrice() {
-                const raysCount = parseInt(raysCountInput.value) || 0;
-                const totalPrice = rayPrice * raysCount;
-                totalPriceDisplay.innerText = totalPrice.toFixed(2);
-                totalPriceInput.value = totalPrice;
-            }
-
-            raysCountInput.addEventListener('input', calculateTotalPrice);
-
-            // Initial calculation
-            calculateTotalPrice();
-        }
-    });
-</script>
-
+    </div>
+    
 <script>
     function updateDeviceCounts() {
         const tableBody = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
@@ -411,6 +405,41 @@
     });
 
 
+    document.addEventListener("DOMContentLoaded", function() {
+        const AXraysCountInput = document.getElementById("denamyCountSpan");
+        const AgainraysCountInput = document.getElementById("dynamicCountSpan");
+
+        if (AXraysCountInput) { // Check if the element exists
+            const axPrice = {{$ray_price->ax_price}};
+            const agianPrice = {{$ray_price->again_price}}
+            
+            const totalPriceDisplay = document.getElementById("price_dispaly");
+            const totalPriceInput = document.getElementById("price");
+
+            function calculateTotalPrice() {
+                const AXraysCount = parseInt(AXraysCountInput.innerText) || 0; // Use innerText to get the displayed value
+                const AgainraysCount = parseInt(AgainraysCountInput.innerText) || 0; // Use innerText to get the displayed value
+                
+                const totalPriceAX = axPrice * AXraysCount;
+                const totalPriceAgain = agianPrice * AgainraysCount; // Corrected to use agianPrice
+                const total = totalPriceAX + totalPriceAgain;
+                totalPriceDisplay.innerText = total.toFixed(2);
+                totalPriceInput.value = total;
+            }
+
+            // Initial calculation
+            updateDeviceCounts();
+            calculateTotalPrice(); // Ensure this is called to calculate the price on load
+
+            // Add event listeners to update counts and recalculate price when inputs change
+            document.querySelectorAll('input[name="dynamicCount[]"]').forEach(input => {
+                input.addEventListener('input', function() {
+                    updateDeviceCounts();
+                    calculateTotalPrice();
+                });
+            });
+        }
+    });
 </script>
 </body>
 </html>

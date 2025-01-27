@@ -79,9 +79,15 @@ class LazerController extends Controller
         $doctors = Doctor::all();
         $patients = Patient::all();
         $ray_price = LazerPrice::first();
-        $lazer = Lazer::where('id',$lazer_id)->with('Doctor','Patient')->first();
+        $lazer = Lazer::where('id', $lazer_id)->with('Doctor', 'Patient', 'Details.doctor')->first();
         
-        return view('lazer.index',['doctors'=>$doctors,'patients'=>$patients,'ray_price'=>$ray_price,'lazer'=>$lazer]);
+        return view('lazer.index', [
+            'doctors' => $doctors,
+            'patients' => $patients,
+            'ray_price' => $ray_price,
+            'lazer' => $lazer,
+            'existingDetails' => $lazer->Details // Pass existing details
+        ]);
     }
     public function update(Request $request, $lazer_id)
     {
