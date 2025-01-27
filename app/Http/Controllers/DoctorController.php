@@ -114,7 +114,8 @@ class DoctorController extends Controller
      }
 
     public function show($doctor_id) {
-        $doctor = Doctor::with('Dept','APD','Lazer.patient')->find($doctor_id); // Fetch the product by ID
+        $doctor = Doctor::with('Dept','APD','Lazer')->find($doctor_id); // Fetch the product by ID
+        // dd($doctor);
         return view('doctor.show', ['doctor'=>$doctor]); // Pass the product to the view
     }
 

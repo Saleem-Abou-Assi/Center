@@ -27,7 +27,7 @@
                     @foreach ($notifications as $notification)
                         <tr @if(!$notification->is_read) style="background-color: #f0f8ff;" @endif>
                             <td>{{ $notification->type === 'patient_dept' ? 'معاينة' : 'ليزر' }}</td>
-                            <td>{{ $notification->doctor->user->name }}</td>
+                            <td>{{ $notification->doctor }}</td>
                             <td>{{ $notification->patient->name }}</td>
                             <td>{{ $notification->message }}</td>
                             <td>{{ $notification->created_at->diffForHumans() }}</td>
