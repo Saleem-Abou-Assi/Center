@@ -40,9 +40,9 @@ class Doctor extends Model
         return $this->hasMany(APD::class);
     }
 
-    public function Lazer():HasOne
+    public function Lazer():HasMany
     {
-        return $this->hasOne(LDetails::class);
+        return $this->hasMany(LDetails::class);
     }
 
     public function waitingList()

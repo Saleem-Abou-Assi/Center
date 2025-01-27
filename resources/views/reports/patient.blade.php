@@ -30,15 +30,7 @@
 </head>
 <body>
     <div class="header">
-        
-    
-    
-        
-        
-
-        
-        
-
+        <h1>تقرير المريض</h1>
     </div>
 
     @if(count($data['patientDept']) > 0)
@@ -71,8 +63,6 @@
     </div>
     @endif
 
-    
-
     @if(count($data['lazer']) > 0)
     <div class="section">
         <h2>جلسات الليزر</h2>
@@ -92,7 +82,6 @@
                 @foreach($data['lazer'] as $session)
                 <tr>
                     <td>{{ $session->patient->name }}</td>
-                    <td>{{ $session->doctor->user->name }}</td>
                     <td>{{ $session->device }}</td>
                     <td>{{ $session->point }}</td>
                     <td>{{ $session->raysCount }}</td>
@@ -104,12 +93,36 @@
         </table>
     </div>
     @endif
+
+    @if(isset($data['skinCheckups']) && count($data['skinCheckups']) > 0)
+    <div class="section">
+        <h2>معاينات البشرة</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>اسم المريض</th>
+                    <th>الطبيب</th>
+                    <th>المنطقة</th>
+                    <th>التشخيص</th>
+                    <th>العلاج</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($data['skinCheckups'] as $checkup)
+                <tr>
+                    <td>{{ $checkup->patient->name }}</td>
+                    <td>{{ $checkup->doctor_name }}</td>
+                    <td>{{ $checkup->area }}</td>
+                    <td>{{ $checkup->diagnosis }}</td>
+                    <td>{{ $checkup->treatment }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @endif
     
-    <script>
-        window.onload = function() {
-            window.print(); // Automatically open the print dialog when the page loads
-        };
-    </script>   
+     
 
 </body>
 </html>

@@ -483,7 +483,7 @@ label {
     font-weight: 500;
 }
 
-input[type="text"], input[type="number"], input[type="datetime-local"],[type="email"],[type="password"],[type="date"] {
+input[type="text"], input[type="number"], input[type="datetime-local"],[type="email"],[type="password"],[type="date"],[type="step"] {
     width: 95%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -491,7 +491,7 @@ input[type="text"], input[type="number"], input[type="datetime-local"],[type="em
     font-size: 16px;
 }
 
-input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local"]:focus {
+input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local"]:focus,input[type="step"]:focus {
     outline: none;
     border-color: #007561;
     box-shadow: 0 0 5px rgba(0, 117, 97, 0.2);

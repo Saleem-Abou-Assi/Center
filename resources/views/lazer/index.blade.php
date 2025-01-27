@@ -107,11 +107,12 @@
                 </table>
             </div>
                 <br>
+         
+<div>
+    <span id="denamyCountSpan">0</span> <!-- Count for ax and ay -->
+    <span id="dynamicCountSpan">0</span> <!-- Count for again -->
+</div>
 
-    <div class="form-group">
-        <label for="ray_price">سعر الشعاع</label>
-        <span id="ray_price_display">{{$ray_price->ax_price}}</span>
-    </div>
 
     {{-- <div class="form-group">
         <label for="price">التكلفة لأساسية</label>
@@ -137,7 +138,7 @@
   
     <div class="form-group">
         <label for="notes">ملاحظات</label>
-        <textarea id="notes" name="notes" rows="4" cols="50" required>{{isset($lazer) ? $lazer->notes : ''}}</textarea>
+        <textarea id="notes" name="notes" rows="4" cols="50" >{{isset($lazer) ? $lazer->notes : ''}}</textarea>
     </div>
      
 
@@ -219,6 +220,33 @@
 </script>
 
 <script>
+    function updateDeviceCounts() {
+        const tableBody = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
+        const rows = tableBody.getElementsByTagName('tr');
+        let axAyCount = 0;
+        let againCount = 0;
+
+        for (let row of rows) {
+            const deviceSelect = row.querySelector('select[name="dynamicDevice[]"]');
+            const countInput = row.querySelector('input[name="dynamicCount[]"]');
+
+            if (deviceSelect && countInput) {
+                const deviceValue = deviceSelect.value;
+                const countValue = parseInt(countInput.value) || 0;
+
+                if (deviceValue === 'ax' || deviceValue === 'ay') {
+                    axAyCount += countValue;
+                } else if (deviceValue === 'again') {
+                    againCount += countValue;
+                }
+            }
+        }
+
+        // Update the display or handle the counts as needed
+        document.getElementById('denamyCountSpan').innerText = axAyCount;
+        document.getElementById('dynamicCountSpan').innerText = againCount;
+    }
+
     document.getElementById('addRowBtn').addEventListener('click', function() {
         // Get the table body element  
         var tableBody = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
@@ -319,13 +347,13 @@
 
         // Create input elements
         var speedInput = document.createElement('input');
-        speedInput.setAttribute('type', 'number');
+        speedInput.setAttribute('type', 'step');
         speedInput.setAttribute('name', 'dynamicSpeed[]');
         speedInput.setAttribute('placeholder', 'السرعة');
         speedInput.className = 'inp2';
 
         var powerInput = document.createElement('input');
-        powerInput.setAttribute('type', 'number');
+        powerInput.setAttribute('type', 'step');
         powerInput.setAttribute('name', 'dynamicPower[]');
         powerInput.setAttribute('placeholder', 'الطاقة');
         powerInput.className = 'inp1';
@@ -357,6 +385,7 @@
         deleteBtn.addEventListener('click', function() {
             // Remove the row when the delete button is clicked  
             newRow.remove();
+            updateDeviceCounts(); // Update counts after row deletion
         });
 
         // Append the delete button to the action cell  
@@ -375,7 +404,15 @@
 
         // Append the new row to the table body  
         tableBody.appendChild(newRow);
+
+        // Call updateDeviceCounts after adding a new row
+        // updateDeviceCounts(); // Commented out this line
+
+        // Add event listener to the count input
+        countInput.addEventListener('input', updateDeviceCounts);
     });
+
+
 </script>
 </body>
 </html>

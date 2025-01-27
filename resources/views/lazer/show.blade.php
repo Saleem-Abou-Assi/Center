@@ -78,10 +78,6 @@
                         <td>{{$lazer->real_price}}</td>
                     </tr>
                     <tr>
-                        <th>سعر الشعاع</th>
-                        <td>{{$lazer->lazer_price}}</td>
-                    </tr>
-                    <tr>
                         <th>ملاحظات</th>
                         <td>{{$lazer->notes}}</td>
                     </tr>
