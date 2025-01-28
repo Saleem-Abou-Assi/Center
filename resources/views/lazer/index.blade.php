@@ -39,7 +39,7 @@
     <br>    
     <div class="dynamic">
         <table id="dynamicTable" class="dyn"> 
-        @if(isset($isEditing) && $isEditing) <!-- Check if in edit mode -->
+        @isset($lazer)  <!-- Check if in edit mode -->
                     <thead>
                         <tr>
                             <th>الطبيب</th>
@@ -52,7 +52,7 @@
                             <th>إجراء</th>
                         </tr>
                     </thead>
-                    @endif
+                   @endisset
             <tbody>
                 @if(isset($existingDetails) && count($existingDetails) > 0)
                     @foreach($existingDetails as $detail)
