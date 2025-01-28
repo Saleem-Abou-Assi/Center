@@ -151,5 +151,5 @@ class LazerController extends Controller
 
     }
 
-
+    
 }

@@ -32,91 +32,35 @@
                 </div>
             </div>
 
-            {{-- <div class="form-group , select-box">
-                
-                <label for="device">نوع الجهاز</label>
-                <select id="device" required name="device" autofocus >
-                    <option value="{{isset($lazer) ? $lazer->device : ''}}">{{isset($lazer)? $lazer->device : "اختر الجهاز"}}</option>
-                    <option value="ax">AX</option>
-                    <option value="ay">AY</option>
-                    <option value="again">Again</option>
-                </select>
-            </div>
             
-            
-            <div class="form-group , select-box">
-                <label for="point">المنطقة</label>
-                <select id="point" required name="point" autofocus value="{{isset($lazer) ? $lazer->point : ''}}" >
-                    <option value="{{isset($lazer) ? $lazer->point : ''}}">{{isset($lazer)? $lazer->point : "اختر المنطقة"}}</option>
-                    <option value="وجه">وجه</option>
-                    <option value="ابطين">ابطين</option>
-                    <option value="بكيني">بكيني</option>
-                    <option value="ايدين">ايدين</option>
-                    <option value="ساقين">ساقين</option>
-                    <option value="فخذين">فخذين</option>
-                    <option value="فل بدي">فل بدي</option>
-                    <option value="فل بدي كامل">فل بدي كامل</option>
-                    <option value="بطن">بطن</option>
-                    <option value="ظهر">ظهر</option>
-                    <option value="أرداف">أرداف</option>
-                    <option value="شفة">شفة</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="power">الطاقة</label>
-                <input type="number" required id="power" name="power" value="{{isset($lazer) ? $lazer->power : ''}}">
-            </div>
-         
-            <div class="form-group">
-                <label for="speed">السرعة</label>
-                <input type="number" required id="speed" name="speed" value="{{isset($lazer) ? $lazer->speed : ''}}">
-            </div>
-
-            <form id="myForm">  
-    <div class="form-group">  
-        <label for="pulse">عرض النبضة</label>  
-        <div class="input-group">  
-            <select id="pulse" name="pulse"  value="{{isset($lazer) ? $lazer->pulse : ''}}">  
-                <option value="{{isset($lazer) ? $lazer->pulse : ''}}">{{isset($lazer)? $lazer->pulse : "اختر عرض النبضة"}}</option>
-                <option value="low">Low</option>  
-                <option value="mid">Mid</option>  
-                <option value="high">High</option>  
-            </select>  
-            <input type="text" id="pulse-input" name="pulse" placeholder="أدخل عرض النبضة" value="{{isset($lazer)? $lazer->pulse : ""}}" style="margin-left: 10px;">  
-        </div>  
-    </div>  
-
-    <div class="form-group">
-        <label for="raysCount">عدد الأشعة</label>
-        <input type="number" required id="raysCount" name="raysCount" value="{{isset($lazer) ? $lazer->raysCount : ''}}" >
-    </div> --}}
 
     <button type="button" id="addRowBtn" class="add-btn"><span>تفاصيل الليزر +</span></button>
     <br> 
     <br>    
     <div class="dynamic">
         <table id="dynamicTable" class="dyn"> 
-            <thead>
-                <tr>
-                    <th>الطبيب</th>
-                    <th>المنطقة</th>
-                    <th>الطاقة</th>
-                    <th>السرعة</th>
-                    <th>عرض النبضة</th>
-                    <th>عدد الأشعة</th>
-                    <th>الجهاز</th>
-                    <th>إجراء</th>
-                </tr>
-            </thead>
+        @if(isset($isEditing) && $isEditing) <!-- Check if in edit mode -->
+                    <thead>
+                        <tr>
+                            <th>الطبيب</th>
+                            <th>المنطقة</th>
+                            <th>الطاقة</th>
+                            <th>السرعة</th>
+                            <th>عرض النبضة</th>
+                            <th>عدد الأشعة</th>
+                            <th>الجهاز</th>
+                            <th>إجراء</th>
+                        </tr>
+                    </thead>
+                    @endif
             <tbody>
                 @if(isset($existingDetails) && count($existingDetails) > 0)
                     @foreach($existingDetails as $detail)
-                        <tr>
+                        <tr class="row">
                             <td>
-                                <div class="form-group">
-                                    <label for="dynamicDoc[]">اسم الطبيب</label>
-                                    <select id="doctor" required name="dynamicDoc[]">
+                                <div>
+                                   
+                                    <select id="doctor" required name="dynamicDoc[]" class="mini-select">
                                         <option value="{{$detail->doctor->id}}">{{$detail->doctor->user->name}}</option>
                                         @foreach ($doctors as $doctor)
                                             <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
@@ -125,7 +69,7 @@
                                 </div>
                             </td>
                             <td>
-                                <select name="dynamicPoint[]">
+                                <select name="dynamicPoint[]" class="mini-select">
                                     <option value="{{ $detail->point }}">{{ $detail->point }}</option>
                                     <option value="وجه">وجه</option>
                                     <option value="ابطين">ابطين</option>
@@ -141,19 +85,19 @@
                                     <option value="شفة">شفة</option>
                                 </select>
                             </td>
-                            <td><input type="number" name="dynamicPower[]" value="{{ $detail->power }}"></td>
-                            <td><input type="number" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
+                            <td><input type="step" name="dynamicPower[]" value="{{ $detail->power }}"></td>
+                            <td><input type="step" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
                             <td><input type="text" name="dynamicPulse[]" value="{{ $detail->pulse }}"></td>
-                            <td><input type="number" name="dynamicCount[]" value="{{ $detail->raysCount }}"></td>
+                            <td><input type="step" name="dynamicCount[]" value="{{ $detail->raysCount }}"></td>
                             <td>
-                                <select name="dynamicDevice[]">
+                                <select name="dynamicDevice[]" class="mini-select">
                                     <option value="{{ $detail->device }}">{{ $detail->device }}</option>
                                     <option value="ax">AX</option>
                                     <option value="ay">AY</option>
                                     <option value="again">Again</option>
                                 </select>
                             </td>
-                            <td><button type="button" class="remove-btn">حذف</button></td>
+                            <td><button type="button" class="action-btn">حذف</button></td>
                         </tr>
                     @endforeach
                 @endif
@@ -241,18 +185,20 @@
     }
 
     document.getElementById('addRowBtn').addEventListener('click', function() {
+        console.log("Add button clicked"); // Debugging line
         // Get the table body element  
         var tableBody = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
 
         // Create new row and cells  
         var newRow = document.createElement('tr');
+        var docCell = document.createElement('td');
         var pointCell = document.createElement('td');
         var powerCell = document.createElement('td');
         var speedCell = document.createElement('td');
         var pulseCell = document.createElement('td');
         var countCell = document.createElement('td');
+        var deviceCell = document.createElement('td'); // Cell for dynamicDevice
         var actionCell = document.createElement('td');
-        var docCell = document.createElement('td'); // Corrected to <td>
 
         newRow.className = 'nr';
         pointCell.className = 'sel';
@@ -322,7 +268,7 @@
         var deviceSelect = document.createElement('select');
         deviceSelect.setAttribute('name', 'dynamicDevice[]');
         deviceSelect.setAttribute('required', true);
-        deviceSelect.className = 'inp5';
+        deviceSelect.className = 'inp6';
 
         var options2 = [
             { value: '', text: 'اختر الجهاز' },
@@ -364,16 +310,17 @@
         countInput.className = 'inp4';
 
         // Append input fields to their respective cells  
+        docCell.appendChild(docSelect);
         pointCell.appendChild(pointSelect);
         powerCell.appendChild(powerInput);
         speedCell.appendChild(speedInput);
         pulseCell.appendChild(pulseInput);
         countCell.appendChild(countInput);
-        docCell.appendChild(docSelect);
+        deviceCell.appendChild(deviceSelect);
 
         // Create delete button  
         var deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
+        deleteBtn.textContent = 'حذف';
         deleteBtn.className = 'action-btn'; // Set class for the button  
         deleteBtn.addEventListener('click', function() {
             // Remove the row when the delete button is clicked  
@@ -387,8 +334,8 @@
 
         // Append cells to the new row  
         newRow.appendChild(docCell);
+        newRow.appendChild(deviceCell);
         newRow.appendChild(pointCell);
-        newRow.appendChild(deviceSelect);
         newRow.appendChild(powerCell);
         newRow.appendChild(speedCell);
         newRow.appendChild(pulseCell);
@@ -399,7 +346,7 @@
         tableBody.appendChild(newRow);
 
         // Call updateDeviceCounts after adding a new row
-        // updateDeviceCounts(); // Commented out this line
+        updateDeviceCounts();
 
         // Add event listener to the count input
         countInput.addEventListener('input', updateDeviceCounts);
@@ -409,13 +356,13 @@
     document.addEventListener("DOMContentLoaded", function() {
         const AXraysCountInput = document.getElementById("denamyCountSpan");
         const AgainraysCountInput = document.getElementById("dynamicCountSpan");
-
+        const totalPriceDisplay = document.getElementById("price_dispaly");
+        const totalPriceInput = document.getElementById("price");
         if (AXraysCountInput) { // Check if the element exists
             const axPrice = {{$ray_price->ax_price}};
             const agianPrice = {{$ray_price->again_price}}
             
-            const totalPriceDisplay = document.getElementById("price_dispaly");
-            const totalPriceInput = document.getElementById("price");
+           
 
             function calculateTotalPrice() {
                 const AXraysCount = parseInt(AXraysCountInput.innerText) || 0; // Use innerText to get the displayed value
