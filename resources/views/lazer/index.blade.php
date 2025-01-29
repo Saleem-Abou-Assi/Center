@@ -85,10 +85,10 @@
                                     <option value="شفة">شفة</option>
                                 </select>
                             </td>
-                            <td><input type="step" name="dynamicPower[]" value="{{ $detail->power }}"></td>
-                            <td><input type="step" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
+                            <td><input type="text" name="dynamicPower[]" value="{{ $detail->power }}"></td>
+                            <td><input type="text" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
                             <td><input type="text" name="dynamicPulse[]" value="{{ $detail->pulse }}"></td>
-                            <td><input type="step" name="dynamicCount[]" value="{{ $detail->raysCount }}"></td>
+                            <td><input type="text" name="dynamicCount[]" value="{{ $detail->raysCount }}"></td>
                             <td>
                                 <select name="dynamicDevice[]" class="mini-select">
                                     <option value="{{ $detail->device }}">{{ $detail->device }}</option>
@@ -286,13 +286,13 @@
 
         // Create input elements
         var speedInput = document.createElement('input');
-        speedInput.setAttribute('type', 'step');
+        speedInput.setAttribute('type', 'text');
         speedInput.setAttribute('name', 'dynamicSpeed[]');
         speedInput.setAttribute('placeholder', 'السرعة');
         speedInput.className = 'inp2';
 
         var powerInput = document.createElement('input');
-        powerInput.setAttribute('type', 'step');
+        powerInput.setAttribute('type', 'text');
         powerInput.setAttribute('name', 'dynamicPower[]');
         powerInput.setAttribute('placeholder', 'الطاقة');
         powerInput.className = 'inp1';

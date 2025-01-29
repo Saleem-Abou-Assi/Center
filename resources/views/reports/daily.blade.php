@@ -90,7 +90,7 @@
     </div>
     @endif
 
-    @if(count(value: $data['lazer']) > 0)
+    @if(count($data['lazer']) > 0)
     <div class="section">
         <div class="section-title">Lazer</div>
         <table>
@@ -104,19 +104,30 @@
                     <th>Power</th>
                     <th>Speed</th>
                     <th>Pulse</th>
+                    <th>Real Price</th>
+                    <th>Price</th>
+                    <th>Notes</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($data['lazer'] as $session)
+                @foreach($session->Details as $detail)
                 <tr>
                     <td>{{ $session->patient->name }}</td>
-                    <td>{{ $session->doctor->user->name }}</td>
-                    <td>{{ $session->device }}</td>
-                    <td>{{ $session->point }}</td>
-                    <td>{{ $session->raysCount }}</td>
-                    <td>{{ $session->power }}</td>
-                    <td>{{ $session->speed }}</td>
-                    <td>{{ $session->pulse }}</td>
+                    <td>{{ $detail->doctor->user->name }}</td>
+                    <td>{{ $detail->device }}</td>
+                    <td>{{ $detail->point }}</td>
+                    <td>{{ $detail->raysCount }}</td>
+                    <td>{{ $detail->power }}</td>
+                    <td>{{ $detail->speed }}</td>
+                    <td>{{ $detail->pulse }}</td>
+                
+                @endforeach
+               
+                    <td>{{$session->real_price}} </td>
+                    <td>{{$session->price}} </td>
+                    <td>{{$session->notes}} </td>
+                
                 </tr>
                 @endforeach
             </tbody>
