@@ -15,13 +15,19 @@
     <div class="page-title"> <h1>المرضى</h1></div>
     <div class="all">
     <div class="container">
+    <div class="but">
+    <button onclick="window.history.back();" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></button>
+    </div>
     <a href="{{ route('patient.create') }}" class="cta"><span>أضف مريضاّ</span>
     <svg width="15px" height="10px" viewBox="0 0 13 10">    
         <path d="M1,5 L11,5"></path>
         <polyline points="8 1 12 5 8 9"></polyline>
      </svg>
+     
     </a>
+    
     <br>
+    
     <br>
      <input type="text" id="searchInput" placeholder="Search..." style="width:15vw">
            

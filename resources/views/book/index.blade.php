@@ -10,6 +10,9 @@
     <div class="page-title"><h1>الحجوزات</h1></div>
     <div class="all">
     <div class="container">
+    <div class="but">
+    <button onclick="window.history.back();" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:23px"></span></button>
+    </div>
     <a href="{{ route('book.create') }}" class="cta"><span>إضافة حجز</span>
     <svg width="15px" height="10px" viewBox="0 0 13 10">    
         <path d="M1,5 L11,5"></path>

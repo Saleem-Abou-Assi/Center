@@ -16,8 +16,8 @@
             @csrf
             @if (isset($lazer))
             @method('PUT')
-            @endif
-        
+            @endif          
+            
            
             <div class="form-group">
                 <div class="select-box">
@@ -102,7 +102,9 @@
                     @endforeach
                 @endif
             </tbody>
+        
         </table>
+        
     </div>
   
                 <br>
@@ -153,7 +155,9 @@
                 </button>
             </form>   
 
-
+            <div class="boton">
+    <button onclick="window.history.back();" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:23px"></span></button>
+    </div>
     </div>
     
 <script>

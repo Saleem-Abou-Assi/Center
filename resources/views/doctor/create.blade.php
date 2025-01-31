@@ -62,17 +62,23 @@
                 </select>
             </div>
             <div class="form-group">
-            <button type="submit" class="cta"><span>{{ isset($doctor) ? 'تعديل' : 'إضافة' }}</span>
-            <svg width="15px" height="10px" viewBox="0 0 13 10">
-                <path d="M1,5 L11,5"></path>
-                <polyline points="8 1 12 5 8 9"></polyline>
-                </svg>
-            </button>
+            <button type="submit" class="save-btn">أنشئ</button>
+            
         </form>
         <br/>
         <div class="boton">
     <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
     </div>
     </div>
+    <script>
+        save_btn=document.querySelector(".save-btn");
+
+save_btn.onclick= function(){
+    this.innerHTML="<div class=loader></div>";
+    setTimeout(()=>{
+        this.innerHTML="<span class="fa-check"></span>"
+    },200)
+}
+    </script>
 </body>
 </html>

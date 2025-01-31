@@ -499,8 +499,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
 
 /* Custom Button Styles */
 .custom-btn {
-    width: 30px;
-    height: 20px;
+    
     color: #fff;
     border-radius: 5px;
     padding: 10px 25px;
@@ -522,7 +521,8 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     justify-content: center;
     align-items: center;
     border: none;
-    margin: 5px 
+    margin: 5px; 
+  
 }
 
 .btn-2:hover {
@@ -972,6 +972,10 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     outline: none;
     transition: background-color 0.3s ease;
 }
+.inp5:focus{
+    border-color: #0673c2;
+    transition: ease-in;
+}
 .inp5 {
     background-color: #0562af9f; /* Original background color */
     color: white;
@@ -1001,6 +1005,12 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     outline: none;
     transition: background-color 0.3s ease;
     transform: translateY(-4px);
+}
+.inp6:focus{
+    background-color: #0673c2;
+}
+.inp:focus{
+    background-color: #0673c2;
 }
 .boto{
     position: relative;
@@ -1036,4 +1046,37 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     justify-content: center;
     align-items: center;
     column-gap: 5px;
+}
+.save-btn{
+    font-size: 22px;
+    color: white;
+    background-color: #007bff;
+    width: 100px;
+    height: 45px;
+    cursor: pointer;
+    border-radius: 3px;
+    display: grid;
+    place-content: center;
+    
+}
+.save-btn:focus{
+    background-color: #003366;
+}
+.loader{
+    pointer-events: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    animation:an1 1s ease infinite ;
+
+}
+@keyframes an1{ 
+    0%{
+        transform: rotate(0turn);
+    }
+    100%{
+        transform: rotate(1turn);
+    }
 }

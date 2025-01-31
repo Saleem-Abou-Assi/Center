@@ -134,7 +134,6 @@
                 </table>
                 <br>
                 <button type="submit" class="cta"><span>{{ isset($patient) ? 'عدّل' : 'أدخل' }}</span>
-
                     <svg width="15px" height="10px" viewBox="0 0 13 10">
                         <path d="M1,5 L11,5"></path>
                         <polyline points="8 1 12 5 8 9"></polyline>
@@ -227,6 +226,18 @@
 
             // Append the new row to the table body  
             tableBody.appendChild(newRow);
+        });
+    </script>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            // Get the submit button
+            const submitButton = this.querySelector('button[type="submit"]');
+
+            // Add loading class to the button
+            submitButton.classList.add('loading');
+            submitButton.disabled = true; // Optionally disable the button to prevent multiple submissions
+
+            // Optionally, you can show a loading message or spinner here
         });
     </script>
 </body>

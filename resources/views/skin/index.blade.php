@@ -72,6 +72,9 @@
                 <polyline points="8 1 12 5 8 9"></polyline>
                 </svg>
             </button>
+            <div class="boton">
+    <button onclick="window.history.back();" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:23px"></span></button>
+    </div>
 
             
         </form>

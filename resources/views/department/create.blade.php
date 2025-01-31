@@ -22,12 +22,7 @@
             </div>
         
         
-            <button type="submit" class="cta">
-                <span>{{ isset($department) ? 'عدّل' : 'أنشئ' }}</span>
-                <svg width="15px" height="10px" viewBox="0 0 13 10">
-                <path d="M1,5 L11,5"></path>
-                <polyline points="8 1 12 5 8 9"></polyline>
-                </svg>
+            <button type="submit" class="save-btn">{{ isset($book) ? 'عدّل' : 'أنشئ' }}</span></button>
             </button>
   
         </form>
@@ -35,5 +30,12 @@
     <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
     </div>
     </div>
+    <script>
+        save_btn=document.querySelector(".save-btn");
+
+save_btn.onclick= function(){
+    this.innerHTML="<div class=loader></div>";
+}
+    </script>
 </body>
 </html>

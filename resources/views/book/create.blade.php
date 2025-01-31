@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+   
 <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
     <title>الحجوزات</title>
     @include('layouts.navigation')
@@ -58,12 +59,11 @@
         <input type="datetime-local" required id="bookDate" name="bookDate" value="{{ isset($book) ? $book->bookDate : '' }}">
         </div>
         
-            <button type="submit" class="cta"><span>{{ isset($book) ? 'عدّل' : 'احجز' }}</span>
-            <svg width="15px" height="10px" viewBox="0 0 13 10">
-                <path d="M1,5 L11,5"></path>
-                <polyline points="8 1 12 5 8 9"></polyline>
-                </svg>
+            <button type="submit" class="save-btn">{{ isset($book) ? 'عدّل' : 'احجز' }}</span></button>
             </button>
+           
+        
+            
         </form>
         
         <div class="boton">
@@ -71,5 +71,12 @@
     </div>
         
     </div>
+    <script>
+        save_btn=document.querySelector(".save-btn");
+
+save_btn.onclick= function(){
+    this.innerHTML="<div class=loader></div>";
+}
+    </script>
 </body>
 </html>
