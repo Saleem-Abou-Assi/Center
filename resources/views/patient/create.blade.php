@@ -62,10 +62,11 @@
                         <label for="relation">الحالة الاجتماعية</label>
                         <select id="relation" required name="relation">
                             <option value="{{isset($patient) ? $patient->relation : ""}}">اختر حالة</option>
-                            <option value="married" {{ isset($patient) && $patient->relation == 'married' ? 'selected' : '' }}>متزوج\ة</option>
-                            <option value="single" {{ isset($patient) && $patient->relation == 'single' ? 'selected' : '' }}>عازب\ة</option>
-                            <option value="divorced" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
-
+                            <option value="متزوج\ة" {{ isset($patient) && $patient->relation == 'married' ? 'selected' : '' }}>متزوج\ة</option>
+                            <option value="مخطوب\ة" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مخطوب\ة</option>
+                            <option value="عازب\ة" {{ isset($patient) && $patient->relation == 'single' ? 'selected' : '' }}>عازب\ة</option>
+                            <option value="مطلق\ة" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
+                     
                         </select>
                     </div>
                     <div class="form-group">
@@ -126,10 +127,28 @@
 
                 <table id="dynamicTable"> 
                     <thead>
-
+                        <tr>
+                            <th>اسم الحقل</th>
+                            <th>محتوى الحقل</th>
+                            <th>إجراء</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <!-- Rows will be dynamically added here -->
+                        @if(isset($patient) && $patient->Field)
+                            @foreach($patient->Field as $field)
+                                <tr>
+                                    <td>
+                                        <input type="text" name="dynamicFieldName[]" value="{{ $field->name }}" placeholder="عنوان الحقل">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="dynamicFieldValue[]" value="{{ $field->value }}" placeholder="محتوى الحقل">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="delete-btn">حذف</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <br>
