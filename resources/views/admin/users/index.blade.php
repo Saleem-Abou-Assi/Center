@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="boto">
+        <div class="boton">
     <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>
     </div>
     </div>

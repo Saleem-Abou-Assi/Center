@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('raysCount');
             $table->string('point');
-            $table->integer('power');
+            $table->string('power');
             $table->string('speed');
             $table->string('pulse');
             $table->enum('device',['again','ax','ay']);

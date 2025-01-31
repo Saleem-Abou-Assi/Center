@@ -128,20 +128,31 @@
                         <th>Speed</th>
                         <th>Pulse</th>
                         <th>Time</th>
+                        <th>Real Price</th>
+                        <th>Price</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($dayData['lazer'] as $item)
+                    @foreach($dayData['lazer'] as $session)
+                    @foreach($session->Details as $detail)
                     <tr>
-                        <td>{{ $item->patient->name }}</td>
-                        <td>{{ $item->doctor->user->name }}</td>
-                        <td>{{ $item->device }}</td>
-                        <td>{{ $item->point }}</td>
-                        <td>{{ $item->raysCount }}</td>
-                        <td>{{ $item->power }}</td>
-                        <td>{{ $item->speed }}</td>
-                        <td>{{ $item->pulse }}</td>
-                        <td>{{ $item->created_at->format('H:i') }}</td>
+                        <td>{{ $session->patient->name }}</td>
+                        <td>{{ $detail->doctor->user->name }}</td>
+                        <td>{{ $detail->device }}</td>
+                        <td>{{ $detail->point }}</td>
+                        <td>{{ $detail->raysCount }}</td>
+                        <td>{{ $detail->power }}</td>
+                        <td>{{ $detail->speed }}</td>
+                        <td>{{ $detail->pulse }}</td>
+                        <td>{{ $session->created_at->format('H:i') }}</td>
+                    
+                    @endforeach
+                    
+                        <td>{{$session->real_price}} </td>
+                        <td>{{$session->price}} </td>
+                        <td>{{$session->notes}} </td>
+                    
                     </tr>
                     @endforeach
                 </tbody>

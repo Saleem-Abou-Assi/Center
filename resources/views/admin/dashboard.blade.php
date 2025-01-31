@@ -53,7 +53,7 @@
                         @csrf
                         <div class="export-options">
                             <button type="submit" name="export_type" value="pdf" class="add-btn">PDF تصدير</button>
-                            <button type="submit" name="export_type" value="excel" class="add-btn">Excel تصدير</button>
+                            
                         </div>
                     </form>
                 </div>
@@ -86,7 +86,7 @@
 
                         <div class="export-options">
                             <button type="submit" name="export_type" value="pdf" class="add-btn">PDF تصدير</button>
-                            <button type="submit" name="export_type" value="excel" class="add-btn">Excel تصدير</button>
+                            
                         </div>
                     </form>
                 </div>

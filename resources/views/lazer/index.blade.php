@@ -39,7 +39,7 @@
     <br>    
     <div class="dynamic">
         <table id="dynamicTable" class="dyn"> 
-        @if(isset($isEditing) && $isEditing) <!-- Check if in edit mode -->
+        @isset($lazer)  <!-- Check if in edit mode -->
                     <thead>
                         <tr>
                             <th>الطبيب</th>
@@ -52,7 +52,7 @@
                             <th>إجراء</th>
                         </tr>
                     </thead>
-                    @endif
+                   @endisset
             <tbody>
                 @if(isset($existingDetails) && count($existingDetails) > 0)
                     @foreach($existingDetails as $detail)
@@ -85,10 +85,10 @@
                                     <option value="شفة">شفة</option>
                                 </select>
                             </td>
-                            <td><input type="step" name="dynamicPower[]" value="{{ $detail->power }}"></td>
-                            <td><input type="step" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
+                            <td><input type="text" name="dynamicPower[]" value="{{ $detail->power }}"></td>
+                            <td><input type="text" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
                             <td><input type="text" name="dynamicPulse[]" value="{{ $detail->pulse }}"></td>
-                            <td><input type="step" name="dynamicCount[]" value="{{ $detail->raysCount }}"></td>
+                            <td><input type="text" name="dynamicCount[]" value="{{ $detail->raysCount }}"></td>
                             <td>
                                 <select name="dynamicDevice[]" class="mini-select">
                                     <option value="{{ $detail->device }}">{{ $detail->device }}</option>
@@ -147,12 +147,7 @@
      
 
 
-            <button type="submit" class="cta"><span>{{  isset($lazer) ? 'تعديل' : 'ادخال' }}</span>
-                <svg width="15px" height="10px" viewBox="0 0 13 10">
-                    <path d="M1,5 L11,5"></path>
-                    <polyline points="8 1 12 5 8 9"></polyline>
-                    </svg>
-                </button>
+    <button type="submit" class="save-btn">أنشئ</button>
             </form>   
 
             <div class="boton">
@@ -160,6 +155,8 @@
     </div>
     </div>
     
+ 
+   
 <script>
     function updateDeviceCounts() {
         const tableBody = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
@@ -290,13 +287,13 @@
 
         // Create input elements
         var speedInput = document.createElement('input');
-        speedInput.setAttribute('type', 'step');
+        speedInput.setAttribute('type', 'text');
         speedInput.setAttribute('name', 'dynamicSpeed[]');
         speedInput.setAttribute('placeholder', 'السرعة');
         speedInput.className = 'inp2';
 
         var powerInput = document.createElement('input');
-        powerInput.setAttribute('type', 'step');
+        powerInput.setAttribute('type', 'text');
         powerInput.setAttribute('name', 'dynamicPower[]');
         powerInput.setAttribute('placeholder', 'الطاقة');
         powerInput.className = 'inp1';
@@ -392,6 +389,12 @@
             });
         }
     });
+    save_btn=document.querySelector(".save-btn");
+
+save_btn.onclick= function(){
+    this.innerHTML="<div class=loader></div>";
+    
+}
 </script>
 </body>
 </html>

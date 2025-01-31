@@ -19,7 +19,7 @@ class ReportController extends Controller
             'patientDept' => PatientDept::with(['Department', 'Accounter'])
                 ->whereDate('created_at', today())
                 ->get(),
-            'lazer' => Lazer::with(['Patient', 'Doctor.user'])
+            'lazer' => Lazer::with(['Patient', 'Doctor.user', 'Details.doctor'])
                 ->whereDate('created_at', today())
                 ->get()
         ];

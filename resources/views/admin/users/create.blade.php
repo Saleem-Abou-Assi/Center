@@ -64,10 +64,7 @@
                             <br>
                             
                             <div class="bot">
-                            <button type="submit" 
-                                    class="cta"><span>
-                                أضف مستخدماّ</span>  
-                            </button>
+                            <button type="submit" class="save-btn">أنشئ</button>
 
                             <a href="{{ route('admin.users.index') }}" 
                                class="add-btn2">
@@ -79,4 +76,12 @@
                 
             </div>
         </div>
+        <script>
+        save_btn=document.querySelector(".save-btn");
+
+save_btn.onclick= function(){
+    this.innerHTML="<div class=loader></div>";
+  
+}
+    </script>
     </div>

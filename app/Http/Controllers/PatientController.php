@@ -88,8 +88,8 @@ class PatientController extends Controller
     }
     public function edit($id)
     {
-        $patient = Patient::find($id);
-        return view('patient.create', ['patient' => $patient]);
+        $patient = Patient::with('Field')->findOrFail($id);
+        return view('patient.create', compact('patient'));
     }
 
     public function update(Request $request, $patient_id)

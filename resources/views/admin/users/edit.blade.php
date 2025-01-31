@@ -56,10 +56,7 @@
                         </div>
                         <br>
                         <div class="bot">
-                            <button type="submit" 
-                                    class="cta"><span>
-                                عدّل</span>  
-                            </button>
+                        <button type="submit" class="save-btn">عدّل</button>
 
                             <a href="{{ route('admin.users.index') }}" 
                                class="add-btn2">
@@ -68,6 +65,14 @@
                             </div>
                     </form>
                     </div>
+                    <script>
+        save_btn=document.querySelector(".save-btn");
+
+save_btn.onclick= function(){
+    this.innerHTML="<div class=loader></div>";
+  
+}
+    </script>
             
         
     

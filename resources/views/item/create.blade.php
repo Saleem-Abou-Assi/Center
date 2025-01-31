@@ -26,18 +26,20 @@
             </div>
         
         
-            <button type="submit" class="cta">
-                <span>{{ isset($storage) ? 'عدّل' : 'أنشئ' }}</span>
-                <svg width="15px" height="10px" viewBox="0 0 13 10">
-                <path d="M1,5 L11,5"></path>
-                <polyline points="8 1 12 5 8 9"></polyline>
-                </svg>
-            </button>
+            <button type="submit" class="save-btn">أنشئ</button>
   
         </form>
         <div class="boton">
         <a href="{{ route('item.index') }}" class="custom-btn btn-2">Go Back</a>
         </div>
     </div>
+    <script>
+        save_btn=document.querySelector(".save-btn");
+
+save_btn.onclick= function(){
+    this.innerHTML="<div class=loader></div>";
+  
+}
+    </script>
 </body>
 </html>

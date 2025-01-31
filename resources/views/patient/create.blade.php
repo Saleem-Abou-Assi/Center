@@ -62,10 +62,11 @@
                         <label for="relation">الحالة الاجتماعية</label>
                         <select id="relation" required name="relation">
                             <option value="{{isset($patient) ? $patient->relation : ""}}">اختر حالة</option>
-                            <option value="married" {{ isset($patient) && $patient->relation == 'married' ? 'selected' : '' }}>متزوج\ة</option>
-                            <option value="single" {{ isset($patient) && $patient->relation == 'single' ? 'selected' : '' }}>عازب\ة</option>
-                            <option value="divorced" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
-
+                            <option value="متزوج\ة" {{ isset($patient) && $patient->relation == 'married' ? 'selected' : '' }}>متزوج\ة</option>
+                            <option value="مخطوب\ة" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مخطوب\ة</option>
+                            <option value="عازب\ة" {{ isset($patient) && $patient->relation == 'single' ? 'selected' : '' }}>عازب\ة</option>
+                            <option value="مطلق\ة" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
+                     
                         </select>
                     </div>
                     <div class="form-group">
@@ -108,14 +109,21 @@
                 <div class="form-group">
                     <div class="kok">
                         <div class="bok">
-                    <label for="profile-image">تحميل صورة شخصية</label>
-                    <input type="file" id="profile-image" name="profile-image" class="file-input" accept="image/*" onchange="updateFileName()">
-                    <label for="profile-image" class="custom-file-upload">
-                        <span class="fa fa-upload" style="font-size:24px"></span>
-                    </label> 
-                         </div>
-                    <span id="file-name" class="file-name"></span>
+                            <label for="profile-image">تحميل صورة شخصية</label>
+                            <input type="file" id="profile-image" name="profile-image" class="file-input" accept="image/*" onchange="updateFileName()">
+                            <label for="profile-image" class="custom-file-upload">
+                                <span class="fa fa-upload" style="font-size:24px"></span>
+                            </label>
+                            <button type="button" id="open-webcam" class="custom-file-upload">
+                                <span class="fa fa-camera" style="font-size:24px"></span> فتح الكاميرا
+                            </button>
+                        </div>
+                        <span id="file-name" class="file-name"></span>
                     </div>
+                    <video id="video" width="320" height="240" style="display:none;"></video>
+                    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+                    <button id="capture" style="display:none;">التقاط الصورة</button>
+                    <img id="captured-image" src="" alt="Captured Image" style="display:none;"/>
                 </div>
                 <div class="sep">
                     <hr class="separator">
@@ -126,19 +134,32 @@
 
                 <table id="dynamicTable"> 
                     <thead>
-
+                        <tr>
+                            <th>اسم الحقل</th>
+                            <th>محتوى الحقل</th>
+                            <th>إجراء</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <!-- Rows will be dynamically added here -->
+                        @if(isset($patient) && $patient->Field)
+                            @foreach($patient->Field as $field)
+                                <tr>
+                                    <td>
+                                        <input type="text" name="dynamicFieldName[]" value="{{ $field->name }}" placeholder="عنوان الحقل">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="dynamicFieldValue[]" value="{{ $field->value }}" placeholder="محتوى الحقل">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="delete-btn">حذف</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <br>
-                <button type="submit" class="cta"><span>{{ isset($patient) ? 'عدّل' : 'أدخل' }}</span>
-                    <svg width="15px" height="10px" viewBox="0 0 13 10">
-                        <path d="M1,5 L11,5"></path>
-                        <polyline points="8 1 12 5 8 9"></polyline>
-                    </svg>
-                </button>
+                <button type="submit" class="save-btn">أنشئ</button>
                 <br>
             </form>
         </div>
@@ -149,15 +170,72 @@
         </div>
     </div>
     <script>
-    function updateFileName() {
-        const input = document.getElementById('profile-image');
-        const fileNameDisplay = document.getElementById('file-name');
-        
-        if (input.files.length > 0) {
-            fileNameDisplay.textContent = input.files[0].name; // Display the name of the selected file
-        } else {
-            fileNameDisplay.textContent = ''; // Default message if no file is selected
+        save_btn=document.querySelector(".save-btn");
+
+save_btn.onclick= function(){
+    this.innerHTML="<div class=loader></div>";
+  
+}
+    </script>
+    <script>
+    const openWebcamButton = document.getElementById('open-webcam');
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureButton = document.getElementById('capture');
+    const capturedImage = document.getElementById('captured-image');
+
+    openWebcamButton.addEventListener('click', async () => {
+        // Request access to the webcam
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        video.style.display = 'block'; // Show the video element
+        video.play();
+
+        // Show the capture button
+        captureButton.style.display = 'block';
+    });
+
+    captureButton.addEventListener('click', () => {
+        // Draw the video frame to the canvas
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Get the image data from the canvas
+        const imageData = canvas.toDataURL('image/png');
+        capturedImage.src = imageData; // Set the captured image source
+        capturedImage.style.display = 'block'; // Show the captured image
+
+        // Optionally, you can also set the captured image to the file input
+        const fileName = 'captured-image.png';
+        const blob = dataURLtoBlob(imageData);
+        const file = new File([blob], fileName, { type: 'image/png' });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        document.getElementById('profile-image').files = dataTransfer.files;
+
+        // Stop the video stream
+        const stream = video.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        video.style.display = 'none'; // Hide the video element
+        captureButton.style.display = 'none'; // Hide the capture button
+    });
+
+    function dataURLtoBlob(dataURL) {
+        const byteString = atob(dataURL.split(',')[1]);
+        const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
         }
+        return new Blob([ab], { type: mimeString });
+    }
+
+    function updateFileName() {
+        const fileInput = document.getElementById('profile-image');
+        const fileNameDisplay = document.getElementById('file-name');
+        fileNameDisplay.textContent = fileInput.files[0] ? fileInput.files[0].name : '';
     }
 </script>
 <script>
