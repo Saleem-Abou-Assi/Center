@@ -20,7 +20,7 @@ class WaitingListController extends Controller
         // }
         $waitinglist = WaitingList::all();
 
-        return view('waitingList.index', ['doctors' => $doctors, 'patients' => $patients,'waitingList'=>$waitinglist]);
+        return view('waitingList.index', ['doctors' => $doctors, 'patients' => $patients, 'waitingList' => $waitinglist]);
     }
 
 
@@ -45,11 +45,17 @@ class WaitingListController extends Controller
     }
 
     public function destroy($entryId)
-{
-    $entry = WaitingList::find($entryId);
-    $entry->delete();
+    {
+        $entry = WaitingList::find($entryId);
+        $entry->delete();
 
-    return redirect()->back()->with('success', 'Patient removed from the waitlist.');
-}
+        return redirect()->back()->with('success', 'Patient removed from the waitlist.');
+    }
+
+    public function refresh()
+    {
+        $waitingList = WaitingList::all(); // Fetch the updated waiting list
+        return view('waitingList.partials.table', compact('waitingList')); // Return the view with the table rows
+    }
 
 }

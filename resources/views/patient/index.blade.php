@@ -52,46 +52,51 @@
             <tbody id="dataTable">
                 <!-- Add your patient data rows here -->
                 @foreach ($patients as $patient)
-                @php
-                   
-                @endphp
-                    <tr>
-                        <td>{{ $patient->id }}</td>
-                        <td>{{ $patient->name }}</td>
-                        <td>{{ $patient->phone }}</td>
-                        <td>{{ $patient->address }}</td>
-                        <td>{{ $patient->Gender }}</td>
-                        <td>{{ $patient->age }}</td>
-                        <td>{{ $patient->job }}</td>
-                     
-                        <td>{{ $patient->created_at }}</td>
-                        <td>{{ $patient->updated_at }}</td>
-                      
-                        <td class="action-td">
-                            <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">تعديل</a>
-                        
-                                <form id="deleteForm" action="{{ route('patient.destroy', $patient->id) }}" method="POST" onsubmit="return confirmCustom()">
-                                    @csrf
+                    @php
 
-                                    @method('DELETE')
-                                    <button type="submit" class="action-btn">إزالة</button>
-                                </form>
+                    @endphp
+                        <tr>
+                            <td>{{ $patient->id }}</td>
+                            <td>{{ $patient->name }}</td>
+                            <td>{{ $patient->phone }}</td>
+                            <td>{{ $patient->address }}</td>
+                            @if ($patient->Gender == "male")
+                                <td>ذكر</td>
+                                @else
+                                <td>أنثى</td>
+                            @endif
 
-                                <div id="confirm-modal" class="modal" style="display: none;">
-                                    <div class="modal-content" style="background-color: #4e9dec; color: white; padding: 15px; border-radius: 5px; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 300px; text-align: center;">
-                                        <p>Are you sure you want to delete this patient?</p>
-                                        <p style="font-weight: bold; color: rgb(0, 0, 0);">Warning: all the patient data will be deleted</p>
-                                        <div style="display: flex; justify-content: center;">
-                                            <button onclick="closeModal()" style="background-color: transparent; border:black; color: white; margin-right: 10px;">Cancel</button>
-                                            <button onclick="deletePatient()" style="background-color: transparent; border:black ; color: white; font-weight: bold;">Delete</button>
+                            <td>{{ $patient->age }}</td>
+                            <td>{{ $patient->job }}</td>
+
+                            <td>{{ $patient->created_at }}</td>
+                            <td>{{ $patient->updated_at }}</td>
+
+                            <td class="action-td">
+                                <a href="{{ route('patient.edit', $patient->id) }}" class="action-btn">تعديل</a>
+
+                                    <form id="deleteForm" action="{{ route('patient.destroy', $patient->id) }}" method="POST" onsubmit="return confirmCustom()">
+                                        @csrf
+
+                                        @method('DELETE')
+                                        <button type="submit" class="action-btn">إزالة</button>
+                                    </form>
+
+                                    <div id="confirm-modal" class="modal" style="display: none;">
+                                        <div class="modal-content" style="background-color: #4e9dec; color: white; padding: 15px; border-radius: 5px; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 300px; text-align: center;">
+                                            <p>Are you sure you want to delete this patient?</p>
+                                            <p style="font-weight: bold; color: rgb(0, 0, 0);">Warning: all the patient data will be deleted</p>
+                                            <div style="display: flex; justify-content: center;">
+                                                <button onclick="closeModal()" style="background-color: transparent; border:black; color: white; margin-right: 10px;">Cancel</button>
+                                                <button onclick="deletePatient()" style="background-color: transparent; border:black ; color: white; font-weight: bold;">Delete</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <a href="{{ route('patient.show', $patient->id) }}" class="action-btn">التفاصيل</a>                        
+                                    <a href="{{ route('patient.show', $patient->id) }}" class="action-btn">التفاصيل</a>                        
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                 @endforeach
                
             </tbody>

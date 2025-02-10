@@ -260,7 +260,7 @@
                 customInput.setAttribute('type', 'text');
                 customInput.setAttribute('name', 'dynamicPoint[]'); // Same name for form submission
                 customInput.setAttribute('placeholder', 'أدخل قيمة أخرى');
-                customInput.className = 'inp-custom'; // Optional: add a class for styling
+                customInput.className = 'text-box'; // Optional: add a class for styling
                 this.parentNode.appendChild(customInput); // Append the input next to the select
             }
         });
