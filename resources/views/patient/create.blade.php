@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="age" >المواليد</label>
+                    <label for="age">المواليد</label>
                     <input type="date" required id="age" name="age" value="{{ isset($patient) ? $patient->age : '' }}">
                 </div>
 
@@ -62,16 +62,16 @@
                         <label for="relation">الحالة الاجتماعية</label>
                         <select id="relation" required name="relation">
                             <option value="{{isset($patient) ? $patient->relation : ""}}">اختر حالة</option>
-                            <option value="متزوج\ة" {{ isset($patient) && $patient->relation == 'married' ? 'selected' : '' }}>متزوج\ة</option>
-                            <option value="مخطوب\ة" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مخطوب\ة</option>
-                            <option value="عازب\ة" {{ isset($patient) && $patient->relation == 'single' ? 'selected' : '' }}>عازب\ة</option>
-                            <option value="مطلق\ة" {{ isset($patient) && $patient->relation == 'divorced' ? 'selected' : '' }}>مطلق\ة</option>
+                            <option value="متزوج\ة" {{ isset($patient) && $patient->relation == 'متزوج\ة' ? 'selected' : '' }}>متزوج\ة</option>
+                            <option value="مخطوب\ة" {{ isset($patient) && $patient->relation == 'مخطوب\ة' ? 'selected' : '' }}>مخطوب\ة</option>
+                            <option value="عازب\ة" {{ isset($patient) && $patient->relation == 'عازب\ة' ? 'selected' : '' }}>عازب\ة</option>
+                            <option value="مطلق\ة" {{ isset($patient) && $patient->relation == 'مطلق\ة' ? 'selected' : '' }}>مطلق\ة</option>
                      
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="children">عدد الأطفال</label>
-                        <input type="number" id="children" name="children" value="{{ isset($patient) ? $patient->children : '' }}">
+                        <input type="number" id="children" name="children" value="{{ isset($patient) ? $patient->childerCount : '' }}">
                     </div>
                     <div class="form-group">
                         <label for="smooking">مدخن</label>
@@ -99,11 +99,11 @@
                     </div>
                     <div class="form-group">
                         <label for="cosmetic">عمليات تجميل سابقة</label>
-                        <input type="text" id="cosmetic" name="cosmetic" value="{{ isset($patient) ? $patient->cosmetic : '' }}">
+                        <input type="text" id="cosmetic" name="cosmetic" value="{{ isset($patient) ? $patient->Cosmetic : '' }}">
                     </div>
                     <div class="form-group">
                         <label for="currentDisease">الشكوى حالي</label>
-                        <input type="text" id="currentDisease" name="currentDisease" value="{{ isset($patient) ? $patient->currentDisease : '' }}">
+                        <input type="text" id="currentDisease" name="currentDisease" value="{{ isset($patient) ? $patient->CurrentDiseas : '' }}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -118,7 +118,7 @@
                                 <span class="fa fa-camera" style="font-size:24px"></span> فتح الكاميرا
                             </button>
                         </div>
-                        <span id="file-name" class="file-name"></span>
+                        <span id="file-name" class="file-name">{{isset($patient) ? $patient->profileImagePath : ''}}</span>
                     </div>
                     <video id="video" width="320" height="240" style="display:none;"></video>
                     <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
@@ -151,7 +151,7 @@
                                         <input type="text" name="dynamicFieldValue[]" value="{{ $field->value }}" placeholder="محتوى الحقل">
                                     </td>
                                     <td>
-                                        <button type="button" class="delete-btn">حذف</button>
+                                        <button type="button" class="action-btn" >حذف</button>
                                     </td>
                                 </tr>
                             @endforeach

@@ -10,6 +10,7 @@ use App\Exports\CustomReportExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Mpdf\Mpdf;
 use App\Models\Patient;
+use App\Models\Skin;
 
 class ReportController extends Controller
 {
@@ -21,6 +22,10 @@ class ReportController extends Controller
                 ->get(),
             'lazer' => Lazer::with(['Patient', 'Doctor.user', 'Details.doctor'])
                 ->whereDate('created_at', today())
+                ->get()
+                ,
+                'skin' => Skin::with(['patient','doctor'])
+                ->whereDate('created_at',today())
                 ->get()
         ];
 
@@ -77,6 +82,21 @@ class ReportController extends Controller
             }
         }
 
+        if ($request->report_type === 'all' || $request->report_type === 'skin') {
+            $skinData = Skin::with(['patient', 'doctor'])
+                ->whereBetween('created_at', [
+                    $request->start_date . ' 00:00:00',
+                    $request->end_date . ' 23:59:59'
+                ])
+                ->get();
+
+            // Group skin data by date
+            foreach ($skinData as $record) {
+                $date = $record->created_at->format('Y-m-d');
+                $groupedData[$date]['skin'][] = $record;
+            }
+        }
+
         // Sort dates
         ksort($groupedData);
 
@@ -86,7 +106,8 @@ class ReportController extends Controller
 
         foreach ($groupedData as $date => $dayData) {
             $patientCount = (isset($dayData['patientDept']) ? count($dayData['patientDept']) : 0) +
-                           (isset($dayData['lazer']) ? count($dayData['lazer']) : 0);
+                           (isset($dayData['lazer']) ? count($dayData['lazer']) : 0) +
+                           (isset($dayData['skin']) ? count($dayData['skin']) : 0);
             
             $dayRevenue = 0;
             if (isset($dayData['patientDept'])) {
@@ -97,6 +118,11 @@ class ReportController extends Controller
             if (isset($dayData['lazer'])) {
                 foreach ($dayData['lazer'] as $record) {
                     $dayRevenue += $record->cost;
+                }
+            }
+            if (isset($dayData['skin'])) {
+                foreach ($dayData['skin'] as $record) {
+                    $dayRevenue += $record->cost; // Assuming 'cost' is a field in the Skin model
                 }
             }
 

@@ -107,6 +107,7 @@ class PatientController extends Controller
 
         $profileImagePath = null; 
 
+       
         if ($request->hasFile('profile-image')) {
             $profileImagePath = $request->file('profile-image')->store('patient_images', 'public');
         }
@@ -122,10 +123,10 @@ class PatientController extends Controller
             'childerCount' => $request->children,
             'smooking' => $request->smooking,
             'oldSurgery' => $request->oldSurgery,
-            'alirgy' => $request->aligry,
+            'alirgy' => $request->alirgy,
             'disease' => $request->disease,
             'dite' => $request->dite,
-            'permenantCure' => $request->parmenantCure,
+            'permenantCure' => $request->permenantCure,
             'Cosmetic' => $request->cosmetic,
             'CurrentDiseas' => $request->currentDisease,
             'profileImagePath' => $profileImagePath

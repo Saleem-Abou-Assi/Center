@@ -70,6 +70,8 @@
                                 <option value="">اختر نوع التقرير</option>
                                 <option value="patientDept">المعاينات</option>
                                 <option value="lazer">الليزر</option>
+                                <option value="skin">البشرة</option>
+
                             </select>
                             </div>
                         </div>
