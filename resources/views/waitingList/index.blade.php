@@ -42,16 +42,19 @@
                         </div>
                         <div class="select-box">
                             <label for="device">الجهاز</label>
-                            <select id="device" required name="device" autofocus>
+                            <select id="device" required name="device" autofocus onchange="toggleCustomDeviceInput()">
                                 <option value="">اختر جهاز</option>
-                            
                                 <option value="AX">AX</option>
                                 <option value="AY">AY</option>
                                 <option value="Again">Again</option>
-                             
+                                <option value="custom">خدمة</option>
                             </select>
                         </div>
                     </div>
+                </div>
+                <div id="custom-device-input" style="display: none;">
+                    <label for="custom_device">أدخل قيمة مخصصة</label>
+                    <input type="text" id="custom_device" name="custom_device" placeholder="أدخل قيمة مخصصة">
                 </div>
                 <button type="submit" class="cta cta1"><span>إضافة إلى القائمة</span></button>
 
@@ -65,11 +68,11 @@
                 <h2>قائمة الانتظار للمعالج</h2>
                 <div class="col-container">
                     
-                        <table>
+                        <table id="waiting-list-table">
                             <tr>
                             <th>اسم المريض</th>
                             <th>اسم الطبيب</th>
-                            <th>الجهاز
+                            <th>الخدمة
                                 
                             </th>
                             <th>ازالة</th>
@@ -115,10 +118,33 @@
                     </table>
                     
                 </div>
+
+                <script>
+                    setInterval(function() {
+                        fetch('{{ route('waitingList.refresh') }}')
+                            .then(response => response.text())
+                            .then(html => {
+                                document.getElementById('waiting-list-table').innerHTML = html;
+                            });
+                    }, 10000); // Refresh every 10 seconds
+                </script>
                 
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleCustomDeviceInput() {
+            var deviceSelect = document.getElementById('device');
+            var customInputDiv = document.getElementById('custom-device-input');
+            
+            if (deviceSelect.value === 'custom') {
+                customInputDiv.style.display = 'block'; // Show textbox
+            } else {
+                customInputDiv.style.display = 'none'; // Hide textbox
+            }
+        }
+    </script>
 </body>
 
 </html>
