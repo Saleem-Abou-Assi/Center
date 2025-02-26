@@ -56,7 +56,7 @@
                     <label for="custom_device">أدخل قيمة مخصصة</label>
                     <input type="text" id="custom_device" name="custom_device" placeholder="أدخل قيمة مخصصة">
                 </div>
-                <button type="submit" class="cta cta1"><span>إضافة إلى القائمة</span></button>
+                <button type="submit" class="cta cta1" onclick="setCustomDeviceValue()"><span>إضافة إلى القائمة</span></button>
 
                   
                 </form>
@@ -120,13 +120,11 @@
                 </div>
 
                 <script>
-                    setInterval(function() {
-                        fetch('{{ route('waitingList.refresh') }}')
-                            .then(response => response.text())
-                            .then(html => {
-                                document.getElementById('waiting-list-table').innerHTML = html;
-                            });
-                    }, 10000); // Refresh every 10 seconds
+                window.setTimeout(function {
+                    window.location.reload();,60000 }
+                })
+                
+                // Refresh every 10 seconds
                 </script>
                 
             </div>
@@ -142,6 +140,24 @@
                 customInputDiv.style.display = 'block'; // Show textbox
             } else {
                 customInputDiv.style.display = 'none'; // Hide textbox
+            }
+        }
+
+        function setCustomDeviceValue() {
+            var customInput = document.getElementById('custom_device');
+            var deviceSelect = document.getElementById('device');
+
+            if (deviceSelect.value === 'custom') {
+                // Create a new option element
+                var newOption = document.createElement('option');
+                newOption.value = customInput.value; // Set the value of the new option
+                newOption.text = customInput.value; // Set the display text of the new option
+
+                // Append the new option to the select element
+                deviceSelect.appendChild(newOption);
+
+                // Select the new option
+                deviceSelect.value = customInput.value; 
             }
         }
     </script>

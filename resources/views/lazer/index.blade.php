@@ -24,19 +24,18 @@
 
             <div class="form-group">
                 <div class="select-box">
-                    <label for="patient_id">اسم المريض</label>
+                    <label for="patient_id"><input type="text" id="patientSearch" placeholder="بحث..." class="search-box"></label>
+                    
                     <select id="patient_id" required name="patient_id" autofocus>
                         <option value="{{isset($lazer) ? $lazer->patient_id : ''}}">
                             {{isset($lazer) ? $lazer->Patient->name : "اختر مريض" }}
                         </option>
                         @foreach ($patients as $patient)
                             <option value="{{$patient->id}}">{{$patient->name}}</option>
-
                         @endforeach
                     </select>
                 </div>
             </div>
-
 
 
             <button type="button" id="addRowBtn" class="add-btn"><span>تفاصيل الليزر +</span></button>
@@ -161,7 +160,20 @@
         </div>
     </div>
 
+<script>
+    document.getElementById('patientSearch').addEventListener('input', function () {
+        const searchValue = this.value.toLowerCase();
+        const options = document.querySelectorAll('#patient_id option');
 
+        options.forEach(option => {
+            if (option.textContent.toLowerCase().includes(searchValue)) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    });
+</script>
 
     <script>
         function updateDeviceCounts() {

@@ -10,6 +10,10 @@
         <h1>الإشعارات</h1>
     </div>
     <div class="container">
+        <div class="boton">
+        <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left"
+                style="font-size:25px"></span></a>
+                </div>
         <div class="table-container">
             <table>
                 <thead>
