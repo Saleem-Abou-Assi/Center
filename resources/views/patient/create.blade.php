@@ -155,7 +155,7 @@
                     <tbody>
                         @if(isset($patient) && $patient->Field)
                             @foreach($patient->Field as $field)
-                                <tr>
+                                <tr data-field-id="{{ $field->id }}">
                                     <td>
                                         <input type="text" name="dynamicFieldName[]" value="{{ $field->name }}"
                                             placeholder="عنوان الحقل">
@@ -165,7 +165,7 @@
                                             placeholder="محتوى الحقل">
                                     </td>
                                     <td>
-                                        <button type="button" class="action-btn" >حذف</button>
+                                        <button type="button" class="action-btn">حذف</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -289,28 +289,30 @@
             var fieldNameInput = document.createElement('input');
             fieldNameInput.setAttribute('type', 'text');
             fieldNameInput.setAttribute('name', 'dynamicFieldName[]');
-            fieldNameInput.setAttribute('placeholder', 'عنوان الحقل'); // Add placeholder text 
+            fieldNameInput.setAttribute('placeholder', 'عنوان الحقل');
 
             var fieldValueInput = document.createElement('input');
             fieldValueInput.setAttribute('type', 'text');
             fieldValueInput.setAttribute('name', 'dynamicFieldValue[]');
-            fieldValueInput.setAttribute('placeholder', 'محتوى الحقل'); // Add placeholder text 
+            fieldValueInput.setAttribute('placeholder', 'محتوى الحقل');
+
             // Append input fields to their respective cells  
             fieldNameCell.appendChild(fieldNameInput);
             fieldValueCell.appendChild(fieldValueInput);
 
             // Create delete button  
             var deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Delete';
-            deleteBtn.className = 'action-btn'; // Set class for the button  
-            deleteBtn.addEventListener('click', function () {
+            deleteBtn.textContent = 'حذف';
+            deleteBtn.className = 'action-btn';
+            deleteBtn.type = 'button';
+            deleteBtn.onclick = function() {
                 // Remove the row when the delete button is clicked  
-                newRow.remove();
-            });
+                this.closest('tr').remove();
+            };
 
             // Append the delete button to the action cell  
             actionCell.appendChild(deleteBtn);
-            actionCell.className = 'action-td'; // Set class for the td  
+            actionCell.className = 'action-td';
 
             // Append cells to the new row  
             newRow.appendChild(fieldNameCell);
@@ -319,6 +321,27 @@
 
             // Append the new row to the table body  
             tableBody.appendChild(newRow);
+        });
+
+        // Add event listener for existing delete buttons
+        document.querySelectorAll('.action-btn').forEach(button => {
+            if (button.textContent === 'حذف') {
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const fieldId = row.dataset.fieldId;
+                    
+                    if (fieldId) {
+                        // Add hidden input for deleted field
+                        const deletedInput = document.createElement('input');
+                        deletedInput.type = 'hidden';
+                        deletedInput.name = 'deletedFields[]';
+                        deletedInput.value = fieldId;
+                        document.querySelector('form').appendChild(deletedInput);
+                    }
+                    
+                    row.remove();
+                });
+            }
         });
     </script>
     <script>

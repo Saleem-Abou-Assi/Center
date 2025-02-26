@@ -26,10 +26,19 @@ class NotificationController extends Controller
 
     
     public function getNotificationCount()
-{
-    // Count only unread notifications
-    $notificationCount = Notification::where('is_read', false)->count();
+    {
+        // Count only unread notifications
+        $notificationCount = Notification::where('is_read', false)->count();
 
-    return response()->json(['count' => $notificationCount]);
-}
+        return response()->json(['count' => $notificationCount]);
+    }
+
+    public function destroy($id)
+    {
+        $notification = Notification::findOrFail($id);
+        $notification->delete();
+        
+        return redirect()->route('notifications.index')
+            ->with('success', 'Notification deleted successfully');
+    }
 }

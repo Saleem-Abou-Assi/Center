@@ -12,7 +12,7 @@
     <div class="container">
         <div class="table-container">
             <table>
-                <thead>
+                <thead> 
                     <tr>
                         <th>النوع</th>
                         <th>الطبيب</th>
@@ -40,7 +40,12 @@
                                     </form>
                                 @endif
                                 <a href="{{ route('patient.show', ['patient_id' => $notification->patient->id, 'highlight_operation' => $notification->operation_id, 'operation_type' => $notification->type]) }}" class="action-btn">تفاصيل</a>
-                              </td>
+                                <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="action-btn delete-btn" onclick="return confirm('هل أنت متأكد من حذف هذا الإشعار؟')">حذف</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
