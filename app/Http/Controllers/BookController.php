@@ -13,10 +13,10 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-       
-        return view('book.index',['books'=>$books]);
+        $doctors = Doctor::all();
+        return view('book.index',['books'=>$books, 'doctors' => $doctors]);
     }
-
+    
     public function create()
     {
         $depts = Department::all();

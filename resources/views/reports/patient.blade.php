@@ -76,24 +76,23 @@
             <table>
                 <thead>
                     <tr>
-                        <th>اسم المريض</th>
-                        <th>الطبيب</th>
-                        <th>الجهاز</th>
-                        <th>النقطة</th>
-                        <th>عدد الأشعة</th>
-                        <th>القوة</th>
-                        <th>السرعة</th>
+                
+                        <th>التكلفة الفعلية</th>
+                        <th>التكلفة الأساسية</th>
+                        <th>الملاحظات</th>
+
+                        <th>التاريخ</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($data['lazer'] as $session)
                         <tr>
-                            <td>{{ $session->patient->name }}</td>
-                            <td>{{ $session->device }}</td>
-                            <td>{{ $session->point }}</td>
-                            <td>{{ $session->raysCount }}</td>
-                            <td>{{ $session->power }}</td>
-                            <td>{{ $session->speed }}</td>
+                            <td>{{ $session->price }}</td>
+                            <td>{{ $session->real_price }}</td>
+                            <td>{{ $session->notes }}</td>
+
+                            <td>{{ $session->created_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -101,27 +100,27 @@
         </div>
     @endif
 
-    @if(count($data['skinCheckups']) > 0)
+
+    @if(count($data['skin']) > 0)
         <div class="section">
             <h2>معاينات البشرة</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>اسم المريض</th>
                         <th>الطبيب</th>
-                        <th>المنطقة</th>
-                        <th>التشخيص</th>
                         <th>العلاج</th>
+
+                        <th>التكلفة</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data['skinCheckups'] as $checkup)
+                    @foreach($data['skin'] as $checkup)
                         <tr>
-                            <td>{{ $checkup->patient->name }}</td>
-                            <td>{{ $checkup->doctor_name }}</td>
-                            <td>{{ $checkup->area }}</td>
-                            <td>{{ $checkup->diagnosis }}</td>
-                            <td>{{ $checkup->treatment }}</td>
+
+                            <td>{{ $checkup->doctor->user->name }}</td>
+                            <td>{{ $checkup->options }}</td>
+                            <td>{{ $checkup->cost }}</td>
+
                         </tr>
                     @endforeach
                 </tbody>

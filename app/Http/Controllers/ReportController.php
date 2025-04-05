@@ -23,9 +23,9 @@ class ReportController extends Controller
             'lazer' => Lazer::with(['Patient', 'Doctor.user', 'Details.doctor'])
                 ->whereDate('created_at', today())
                 ->get()
-                ,
-                'skin' => Skin::with(['patient','doctor'])
-                ->whereDate('created_at',today())
+            ,
+            'skin' => Skin::with(['patient', 'doctor'])
+                ->whereDate('created_at', today())
                 ->get()
         ];
 
@@ -106,9 +106,9 @@ class ReportController extends Controller
 
         foreach ($groupedData as $date => $dayData) {
             $patientCount = (isset($dayData['patientDept']) ? count($dayData['patientDept']) : 0) +
-                           (isset($dayData['lazer']) ? count($dayData['lazer']) : 0) +
-                           (isset($dayData['skin']) ? count($dayData['skin']) : 0);
-            
+                (isset($dayData['lazer']) ? count($dayData['lazer']) : 0) +
+                (isset($dayData['skin']) ? count($dayData['skin']) : 0);
+
             $dayRevenue = 0;
             if (isset($dayData['patientDept'])) {
                 foreach ($dayData['patientDept'] as $record) {
@@ -166,67 +166,76 @@ class ReportController extends Controller
             ->where('patient_id', $patientId)
             ->get();
 
-        // Check if there are no records in both tables
-        if ($patientDeptData->isEmpty() && $lazerData->isEmpty()) {
-            return redirect()->back()->with('error', 'لا توجد بيانات لتصدير التقرير.'); // Redirect back with an error message
+        $skinData = Skin::with(['patient', 'doctor'])
+            ->where('patient_id', $patientId)
+            ->get();
+
+        // Check if there are no records in all tables
+        if ($patientDeptData->isEmpty() && $lazerData->isEmpty() && $skinData->isEmpty()) {
+            return redirect()->back()->with('error', 'لا توجد بيانات لتصدير التقرير.');
         }
 
         $data = [
             'patientDept' => $patientDeptData,
             'lazer' => $lazerData,
+            'skin' => $skinData  // Changed from skinCheckups to skin to match the view
         ];
 
         $mpdf = new Mpdf();
         $html = view('reports.patient', ['data' => $data])->render();
-        
+
         // Get the patient's name for the filename
         $patient = Patient::findOrFail($patientId);
-        $filename = "{$patient->name}-report.pdf"; // Create the filename
+        $filename = "{$patient->name}-report.pdf";
 
         $mpdf->WriteHTML($html);
-        return $mpdf->Output($filename, 'D'); // Use the new filename
+        return $mpdf->Output($filename, 'D');
     }
 
     public function printPatientReport($patientId)
     {
-        $patientDeptData = PatientDept::with(['Department', 'Accounter','patient'])
+        $patientDeptData = PatientDept::with(['Department', 'Accounter', 'patient'])
             ->where('patient_id', $patientId)
             ->get();
 
-        $lazerData = Lazer::with(['Patient', 'Doctor.user'])
+        $lazerData = Lazer::with(['Patient'])
+            ->where('patient_id', $patientId)
+            ->get();
+        $skinData = Skin::with(['patient', 'doctor'])
             ->where('patient_id', $patientId)
             ->get();
 
         $data = [
             'patientDept' => $patientDeptData,
             'lazer' => $lazerData,
+            'skin' => $skinData
         ];
 
         return view('reports.patient', ['data' => $data]); // Use the same view for printing
     }
     public function printPatientDeptReport($patientId)
-{
-    $patientDeptData = PatientDept::with(['Department', 'Accounter'])
-        ->where('patient_id', $patientId)
-        ->get();
+    {
+        $patientDeptData = PatientDept::with(['Department', 'Accounter'])
+            ->where('patient_id', $patientId)
+            ->get();
 
-    $data = [
-        'patientDept' => $patientDeptData,
-    ];
+        $data = [
+            'patientDept' => $patientDeptData,
+        ];
 
-    return view('reports.patientDept', ['data' => $data]); // Create a view for printing patient department report
-}
+        return view('reports.patientDept', ['data' => $data]); // Create a view for printing patient department report
+    }
 
-public function printLazerReport($patientId)
-{
-    $lazerData = Lazer::with(['Patient', 'Doctor.user'])
-        ->where('patient_id', $patientId)
-        ->get();
+    public function printLazerReport($patientId)
+    {
+        $lazerData = Lazer::with(['Patient', 'Doctor.user'])
+            ->where('patient_id', $patientId)
+            ->get();
 
-    $data = [
-        'lazer' => $lazerData,
-    ];
+        $data = [
+            'lazer' => $lazerData,
+        ];
 
-    return view('reports.lazer', ['data' => $data]); // Create a view for printing lazer report
-}
+        return view('reports.lazer', ['data' => $data]); // Create a view for printing lazer report
+    }
 }

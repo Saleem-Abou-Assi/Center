@@ -29,10 +29,9 @@
                     <th>ID</th>
                     <th>اسم المريض</th>
                     <th>رقم المريض</th>
-                    <th>القسم</th>
                     <th>الطبيب المعالج</th>
                     <th>الموعد</th>
-                    <th>موعد الانشاء</th>
+                    <th>تاريخ اختيار الموعد</th>
                     <!-- <th>Updated At</th> -->
                     <th>تفاصيل</th>
                 </tr>
@@ -45,11 +44,15 @@
                         <td>{{ $book->id }}</td>
                         <td>{{ $book->patient_name }}</td>
                         <td>{{ $book->phone }}</td>
-                  
-                        <td>{{ $book->doctor_id }}</td>
+                    <td>
+                            @php
+                                $doctorName = $doctors->where('id', $book->doctor_id)->first()->name ?? 'غير محدد';
+                            @endphp
+                            {{ $doctorName }}
+                        </td>
                         <td>{{ $book->bookDate }}</td>
                         <td>{{ $book->created_at }}</td>
-                        <td>{{ $book->updated_at }}</td>
+                        
                         <td class="action-td">
                             <a href="{{ route('book.edit', $book->id) }}" class="action-btn">عدّل</a>
                         
