@@ -38,7 +38,7 @@ class DashboardController extends Controller
             'ax_price'=> $request->ax_price,
             'ay_price'=> $request->ay_price,
             
-            'again_price'=> $request->again_price,
+            'again_+price'=> $request->again_price,
         ]);
 
 
