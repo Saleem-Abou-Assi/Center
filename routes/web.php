@@ -179,4 +179,7 @@ Route::get('/report/patientDept/print/{patientId}', [ReportController::class, 'p
 // Route for printing lazer report
 Route::get('/report/lazer/print/{patientId}', [ReportController::class, 'printLazerReport'])->name('report.lazer.print');
 
+Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])
+    ->name('notifications.destroy');
+
 require __DIR__ . '/auth.php';

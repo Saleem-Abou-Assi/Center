@@ -15,7 +15,7 @@ class PatientController extends Controller
 
     public function index()
     {
-        $patients = Patient::paginate(200);
+        $patients = Patient::paginate(500);
 
         return view('patient.index', ['patients' => $patients]);
     }
@@ -94,7 +94,6 @@ class PatientController extends Controller
 
     public function update(Request $request, $patient_id)
     {
-
         $patient = Patient::where('id', $patient_id)->first();
         $request->validate([
             'name' => ['required', 'string'],
@@ -107,6 +106,7 @@ class PatientController extends Controller
 
         $profileImagePath = null; 
 
+       
         if ($request->hasFile('profile-image')) {
             $profileImagePath = $request->file('profile-image')->store('patient_images', 'public');
         }
@@ -122,10 +122,10 @@ class PatientController extends Controller
             'childerCount' => $request->children,
             'smooking' => $request->smooking,
             'oldSurgery' => $request->oldSurgery,
-            'alirgy' => $request->aligry,
+            'alirgy' => $request->alirgy,
             'disease' => $request->disease,
             'dite' => $request->dite,
-            'permenantCure' => $request->parmenantCure,
+            'permenantCure' => $request->permenantCure,
             'Cosmetic' => $request->cosmetic,
             'CurrentDiseas' => $request->currentDisease,
             'profileImagePath' => $profileImagePath
@@ -134,6 +134,11 @@ class PatientController extends Controller
         $dynamicFieldNames = $request->input('dynamicFieldName');
         $dynamicFieldValues = $request->input('dynamicFieldValue');
 
+        // Get all current fields
+        $currentFields = $patient->Field->pluck('id')->toArray();
+
+        // Array to store new/updated fields
+        $updatedFields = [];
 
         if ($dynamicFieldNames) {
             foreach ($dynamicFieldNames as $key => $fieldName) {
@@ -141,14 +146,22 @@ class PatientController extends Controller
 
                 // Update or create the field
                 $field = Field::updateOrCreate(
-                    ['name' => $fieldName], // Condition to check
-                    ['value' => $fieldValue] // Values to update or create
+                    ['name' => $fieldName],
+                    ['value' => $fieldValue]
                 );
-                $field->save();
-                // Attach the field to the patient
-                $patient->Field()->syncWithoutDetaching([$field->id]);
+                
+                $updatedFields[] = $field->id;
             }
         }
+
+        // Detach fields that were removed
+        $fieldsToDetach = array_diff($currentFields, $updatedFields);
+        if (!empty($fieldsToDetach)) {
+            $patient->Field()->detach($fieldsToDetach);
+        }
+
+        // Attach the updated fields
+        $patient->Field()->sync($updatedFields);
 
         return redirect()->route('patient.index');
     }
@@ -183,4 +196,5 @@ class PatientController extends Controller
         return view('patient.show', ['patient' => $patient, 'apds' => $apds]);
     }
 }
+ 
  

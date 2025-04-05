@@ -135,6 +135,34 @@
     </div>
     @endif
 
+    @if(count($data['skin']) > 0)
+    <div class="section">
+        <div class="section-title">Skin Treatments</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Doctor</th>
+                    <th>Options</th>
+                    <th>Cost</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($data['skin'] as $treatment)
+                <tr>
+                    <td>{{ $treatment->patient->name }}</td>
+                    <td>{{ $treatment->doctor->user->name }}</td>
+                    <td>{{ $treatment->options }}</td>
+                    <td>{{ $treatment->cost }}</td>
+                    <td>{{ $treatment->created_at->format('Y-m-d') }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @endif
+
     <div class="section">
         <div class="section-title">Summary</div>
         <table>

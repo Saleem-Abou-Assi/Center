@@ -4,6 +4,7 @@ import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 
 class ReportGenerator {
+    
     static async generateDailyReport(exportType) {
         try {
             const response = await fetch('/admin/reports/daily', {
@@ -26,6 +27,7 @@ class ReportGenerator {
             console.error('Error generating report:', error);
             alert('Error generating report. Please try again.');
         }
+        
     }
 
     static async generateCustomReport(params) {
