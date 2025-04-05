@@ -14,8 +14,8 @@ class AccounterController extends Controller
 {
     public function index($Dept_id)
     {
+        
     $patientDept = PatientDept::with('Accounter')->find($Dept_id);
-    
         $patient = Patient::findOrFail($patientDept->patient_id);
          $apd = APD::with('storage')->where('PD_id',$patientDept->id)->get();
 

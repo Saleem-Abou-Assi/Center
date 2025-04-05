@@ -92,7 +92,7 @@
                         <td>{{ $patient->Dept[$i]->pivot->illness }}</td>
                         <td>{{ $patient->Dept[$i]->pivot->description }}</td>
                         <td>{{ $patient->Dept[$i]->created_at }}</td>
-                        <td class="action-td"><a href="{{ route('accounter.index', $i+1) }}" class="action-btn">Show</a>
+                        <td class="action-td"><a href="{{ route('accounter.index', $apds[$i]->PD_id) }}" class="action-btn">Show</a>
                             <form id="deleteForm" action="{{ route('Dept.destroy', $patient->Dept[$i]->pivot->id) }}" method="POST" onsubmit="return confirmCustom()">
                                 @csrf
     

@@ -14,6 +14,7 @@ class PatientDept extends Model
         'dept_id','patient_id','doctor_name',
     'illness','description','cure'
     ]; 
+    
 
     
 
