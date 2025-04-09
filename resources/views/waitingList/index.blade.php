@@ -33,6 +33,7 @@
                     <div class="form-group">
                         <div class="select-box">
                             <label for="patient_id">اسم المريض</label>
+                            <input type="text" id="patientSearch" placeholder="بحث..." class="search-box" style="width:48%">
                             <select id="patient_id" required name="patient_id" autofocus>
                                 <option value="">اختر مريض</option>
                                 @foreach ($patients as $patient)
@@ -160,6 +161,19 @@
                 deviceSelect.value = customInput.value; 
             }
         }
+
+        document.getElementById('patientSearch').addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase();
+            const options = document.querySelectorAll('#patient_id option');
+
+            options.forEach(option => {
+                if (option.textContent.toLowerCase().includes(searchValue)) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 
