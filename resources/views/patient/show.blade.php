@@ -80,6 +80,7 @@
                         <th>الشكوى </th>
                         <th>الوصف</th>
                         <th>نوع المعاينة</th>
+                        <th>الأدوات المستخدمة</th>
                         <th>التاريخ</th>
                         <th>تفاصيل</th>
                     </tr>
@@ -93,6 +94,17 @@
                         <td>{{ $patient->Dept[$i]->pivot->illness }}</td> 
                         <td>{{ $patient->Dept[$i]->pivot->description }}</td>
                         <td>{{ $patient->Dept[$i]->pivot->type }}</td>
+                        <td>
+                            @if($apds[$i]->storage->count() > 0)
+                                <ul>
+                                    @foreach($apds[$i]->storage as $storage)
+                                        <li>{{ $storage->item }} ({{ $storage->pivot->quantity }})</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                لا توجد أدوات
+                            @endif
+                        </td>
                         <td>{{ $patient->Dept[$i]->pivot->created_at }}</td>
                         <td class="action-td"><a href="{{ route('accounter.index', $apds[$i]->PD_id) }}" class="action-btn">Show</a>
                             <form id="deleteForm" action="{{ route('Dept.destroy', $patient->Dept[$i]->pivot->id) }}" method="POST" onsubmit="return confirmCustom()">
