@@ -101,35 +101,18 @@
         </div>
     @endif
 
-    @if(count($data['skinCheckups']) > 0)
-        <div class="section">
-            <h2>معاينات البشرة</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>اسم المريض</th>
-                        <th>الطبيب</th>
-                        <th>المنطقة</th>
-                        <th>التشخيص</th>
-                        <th>العلاج</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($data['skinCheckups'] as $checkup)
-                        <tr>
-                            <td>{{ $checkup->patient->name }}</td>
-                            <td>{{ $checkup->doctor_name }}</td>
-                            <td>{{ $checkup->area }}</td>
-                            <td>{{ $checkup->diagnosis }}</td>
-                            <td>{{ $checkup->treatment }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endif
+    
 
 
+
+
+
+
+
+
+
+
+    
 
 </body>
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accounter;
 use App\Models\APD;
 use App\Models\Department;
-use App\Models\Doctor;
+use App\Models\Doctor; 
 use App\Models\Patient;
 use App\Models\PatientDept;
 use Illuminate\Http\Request;

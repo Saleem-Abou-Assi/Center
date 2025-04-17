@@ -89,7 +89,7 @@
                         <td>{{ $i + 1 }}</td>
                         <td>{{ $patient->Dept[$i]->title }}</td>
                         <td>{{ $patient->Dept[$i]->pivot->doctor_name }}</td>
-                        <td>{{ $patient->Dept[$i]->pivot->illness }}</td>
+                        <td>{{ $patient->Dept[$i]->pivot->illness }}</td> 
                         <td>{{ $patient->Dept[$i]->pivot->description }}</td>
                         <td>{{ $patient->Dept[$i]->created_at }}</td>
                         <td class="action-td"><a href="{{ route('accounter.index', $apds[$i]->PD_id) }}" class="action-btn">Show</a>
