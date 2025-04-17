@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LazerPrice;
 use App\Models\User;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Symfony\Component\VarDumper\VarDumper;
 
@@ -12,7 +13,8 @@ class DashboardController extends Controller
     public function index()
     {
         $userCount = User::count();
-        return view('admin.dashboard', compact('userCount'));
+        $doctors = Doctor::with('user')->get();
+        return view('admin.dashboard', compact('userCount', 'doctors'));
     }
 
     public function runBatchFile()

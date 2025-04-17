@@ -182,4 +182,7 @@ Route::get('/report/lazer/print/{patientId}', [ReportController::class, 'printLa
 Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])
     ->name('notifications.destroy');
 
+Route::post('/reports/doctor', [ReportController::class, 'generateDoctorReport'])
+    ->name('admin.reports.doctor');
+
 require __DIR__ . '/auth.php';

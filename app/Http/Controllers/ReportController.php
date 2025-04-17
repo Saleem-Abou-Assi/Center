@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Mpdf\Mpdf;
 use App\Models\Patient;
 use App\Models\Skin;
+use App\Models\Doctor;
 
 class ReportController extends Controller
 {
@@ -237,5 +238,70 @@ class ReportController extends Controller
         ];
 
         return view('reports.lazer', ['data' => $data]); // Create a view for printing lazer report
+    }
+
+    public function generateDoctorReport(Request $request)
+    {
+        $request->validate([
+            'doctor_id' => 'required|exists:doctors,id',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'export_type' => 'required|in:pdf,excel'
+        ]);
+
+        $doctor = Doctor::findOrFail($request->doctor_id);
+
+        // Fetch patient department visits
+        $patientDeptData = PatientDept::with(['patient', 'department'])
+            ->where('doctor_name', $doctor->user->name)
+            ->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00',
+                $request->end_date . ' 23:59:59'
+            ])
+            ->get();
+
+        // Fetch laser sessions
+        $lazerData = Lazer::with(['patient', 'Details'])
+            ->whereHas('Details', function($query) use ($doctor) {
+                $query->where('doctor_id', $doctor->id);
+            })
+            ->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00',
+                $request->end_date . ' 23:59:59'
+            ])
+            ->get();
+
+        // Fetch skin treatments
+        $skinData = Skin::with(['patient'])
+            ->where('doctor_id', $doctor->id)
+            ->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00',
+                $request->end_date . ' 23:59:59'
+            ])
+            ->get();
+
+        $data = [
+            'doctor' => $doctor,
+            'summary' => [
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'total_patients' => $patientDeptData->count() + $lazerData->count() + $skinData->count(),
+                'total_revenue' => $patientDeptData->sum('full_cost') + 
+                                   $lazerData->sum('real_price') + 
+                                   $skinData->sum('cost')
+            ],
+            'patientDept' => $patientDeptData,
+            'lazer' => $lazerData,
+            'skin' => $skinData
+        ];
+
+        if ($request->export_type === 'pdf') {
+            $mpdf = new Mpdf();
+            $html = view('reports.doctor', ['data' => $data])->render();
+            $mpdf->WriteHTML($html);
+            return $mpdf->Output('doctor-report.pdf', 'D');
+        }
+
+        // Add Excel export logic if needed
     }
 }

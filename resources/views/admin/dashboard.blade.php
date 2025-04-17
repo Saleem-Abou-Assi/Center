@@ -92,6 +92,37 @@
                         </div>
                     </form>
                 </div>
+                <div class="report-section">
+                    <h3>تقرير طبيب محدد</h3>
+                    <form action="{{ route('admin.reports.doctor') }}" method="POST" id="doctorReportForm">
+                        @csrf
+                        <div class="form-group">
+                            <div class="select-box-1">
+                                <label for="doctor_id">اختر الطبيب</label>
+                                <select name="doctor_id" id="doctor_id" required>
+                                    <option value="">اختر طبيباً</option>
+                                    @foreach($doctors as $doctor)
+                                        <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="start_date">من تاريخ:</label>
+                            <input type="date" name="start_date" id="start_date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="end_date">إلى تاريخ:</label>
+                            <input type="date" name="end_date" id="end_date" class="form-control" required>
+                        </div>
+
+                        <div class="export-options">
+                            <button type="submit" name="export_type" value="pdf" class="add-btn">PDF تصدير</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             
             </div>
