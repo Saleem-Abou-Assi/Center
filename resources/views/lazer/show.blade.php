@@ -80,6 +80,12 @@
                     <tr>
                         <th>ملاحظات</th>
                         <td>{{$lazer->notes}}</td>
+                        
+                    </tr>
+                    <tr>
+                        <th>التاريخ</th>
+                        <td>{{$lazer->created_at}}</td>
+                        
                     </tr>
                     
                    
