@@ -133,7 +133,7 @@
                             @foreach($dayData['lazer'] as $session)
                             <tr>
                                 <td>{{ $session->patient->name }}</td>
-                                <td>{{ $session->doctor->user->name }}</td>
+                                <td>{{ $session->Doctor->user->name }}</td>
                                 <td>{{ $session->device }}</td>
                                 <td>{{ $session->point }}</td>
                                 <td>{{ $session->raysCount }}</td>

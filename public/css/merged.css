@@ -721,13 +721,13 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     
   }
  .report{
-    grid-column: 2;
+   
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #f1f1f1;
     display: flex;
     width: 50vw;
     height: 600px;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 8px; 
@@ -749,9 +749,11 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
 .report-section{
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: start;
     align-items: center;
-    width: 35vw;
+    width: 25vw;
+    height: 50vh;
+   
    
 }
   .count{

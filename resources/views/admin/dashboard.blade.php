@@ -44,7 +44,7 @@
         
             <!-- Reports Section -->
             <div class="report">
-                <h2>التقارير</h2>
+                
                 
                 <!-- Daily Operations Report -->
                 <div class="report-section">
@@ -57,10 +57,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="line"></div>
-                <!-- Custom Department Report -->
-                 <h3>تقرير مخصص</h3>
+              
                 <div class="report-section">
+                    <h3>تقرير مخصص</h3>
                   
                     <form action="{{ route('admin.reports.custom') }}" method="POST" id="customReportForm">
                         @csrf
