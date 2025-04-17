@@ -54,7 +54,7 @@
                         <option value="دايموند">دايموند</option>
                         <option value="نوتوياج">نوتوياج</option>
                         <option value="هيدروفيشال">هيدروفيشال</option>
-                        <option value="ملكبة">ملكبة</option>
+                        <option value="ملكبة">ملكية</option>
                         <option value="كافيتاشن">كافيتاشن</option>
 
                     </select>

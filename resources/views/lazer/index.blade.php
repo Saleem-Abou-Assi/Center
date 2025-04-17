@@ -393,26 +393,28 @@
             const AgainraysCountInput = document.getElementById("dynamicCountSpan");
             const totalPriceDisplay = document.getElementById("price_dispaly");
             const totalPriceInput = document.getElementById("price");
-            if (AXraysCountInput) { // Check if the element exists
+
+            // Check if we're in edit mode by checking if price-related elements exist
+            const isEditMode = !!totalPriceDisplay && !!totalPriceInput;
+
+            if (isEditMode && AXraysCountInput) { // Only run if in edit mode and elements exist
                 const axPrice = {{$ray_price->ax_price}};
-                const agianPrice = {{$ray_price->again_price}}
+                const agianPrice = {{$ray_price->again_price}};
 
+                function calculateTotalPrice() {
+                    const AXraysCount = parseInt(AXraysCountInput.innerText) || 0;
+                    const AgainraysCount = parseInt(AgainraysCountInput.innerText) || 0;
 
-
-                    function calculateTotalPrice() {
-                        const AXraysCount = parseInt(AXraysCountInput.innerText) || 0; // Use innerText to get the displayed value
-                        const AgainraysCount = parseInt(AgainraysCountInput.innerText) || 0; // Use innerText to get the displayed value
-
-                        const totalPriceAX = axPrice * AXraysCount;
-                        const totalPriceAgain = agianPrice * AgainraysCount; // Corrected to use agianPrice
-                        const total = totalPriceAX + totalPriceAgain;
-                        totalPriceDisplay.innerText = total.toFixed(2);
-                        totalPriceInput.value = total;
-                    }
+                    const totalPriceAX = axPrice * AXraysCount;
+                    const totalPriceAgain = agianPrice * AgainraysCount;
+                    const total = totalPriceAX + totalPriceAgain;
+                    totalPriceDisplay.innerText = total.toFixed(2);
+                    totalPriceInput.value = total;
+                }
 
                 // Initial calculation
                 updateDeviceCounts();
-                calculateTotalPrice(); // Ensure this is called to calculate the price on load
+                calculateTotalPrice();
 
                 // Add event listeners to update counts and recalculate price when inputs change
                 document.querySelectorAll('input[name="dynamicCount[]"]').forEach(input => {
@@ -427,7 +429,6 @@
 
         save_btn.onclick = function () {
             this.innerHTML = "<div class=loader></div>";
-
         }
     </script>
 </body>

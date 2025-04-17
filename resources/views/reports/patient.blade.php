@@ -32,6 +32,44 @@
         th {
             background-color: #f5f5f5;
         }
+
+        .lazer-details-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .lazer-details-list li {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #555;
+            margin-left: 5px;
+        }
+
+        .detail-value {
+            color: #333;
+        }
+
+        .lazer-session-details {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .lazer-notes {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 
@@ -76,24 +114,51 @@
             <table>
                 <thead>
                     <tr>
-                        <th>اسم المريض</th>
+                        <th>الرقم</th>
+                        <th>التاريخ</th>
                         <th>الطبيب</th>
-                        <th>الجهاز</th>
-                        <th>النقطة</th>
-                        <th>عدد الأشعة</th>
-                        <th>القوة</th>
-                        <th>السرعة</th>
+                        <th>التكلفة</th>
+                        <th>تفاصيل الجلسة</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data['lazer'] as $session)
+                    @foreach($data['lazer'] as $index => $session)
                         <tr>
-                            <td>{{ $session->patient->name }}</td>
-                            <td>{{ $session->device }}</td>
-                            <td>{{ $session->point }}</td>
-                            <td>{{ $session->raysCount }}</td>
-                            <td>{{ $session->power }}</td>
-                            <td>{{ $session->speed }}</td>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $session->created_at->format('Y-m-d') }}</td>
+                            <td>{{ $session->Doctor->user->name ?? 'غير محدد' }}</td>
+                            <td>
+                                <div>أساسي: {{ $session->price }} </div>
+                                <div>فعلي: {{ $session->real_price }} </div>
+                            </td>
+                            <td>
+                                <div class="lazer-session-details">
+                                    <ul class="lazer-details-list">
+                                        @foreach($session->Details as $detail)
+                                        <li>
+                                            <span class="detail-label">المعالج:</span> 
+                                            <span class="detail-value">{{ $detail->doctor->user->name }}</span>
+                                            <span class="detail-label">الجهاز:</span> 
+                                            <span class="detail-value">{{ $detail->device }}</span>
+                                            <span class="detail-label">النقطة:</span> 
+                                            <span class="detail-value">{{ $detail->point }}</span>
+                                            <span class="detail-label">الأشعة:</span> 
+                                            <span class="detail-value">{{ $detail->raysCount }}</span>
+                                            <span class="detail-label">القوة:</span> 
+                                            <span class="detail-value">{{ $detail->power }}</span>
+                                            <span class="detail-label">السرعة:</span> 
+                                            <span class="detail-value">{{ $detail->speed }}</span>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    @if($session->notes)
+                                    <div class="lazer-notes">
+                                        <strong>ملاحظات:</strong> 
+                                        <p>{{ $session->notes }}</p>
+                                    </div>
+                                    @endif
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -101,16 +166,33 @@
         </div>
     @endif
 
-    
 
+    @if(count($data['skin']) > 0)
+        <div class="section">
+            <h2>معاينات البشرة</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>الطبيب</th>
+                        <th>العلاج</th>
 
+                        <th>التكلفة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['skin'] as $checkup)
+                        <tr>
 
+                            <td>{{ $checkup->doctor->user->name }}</td>
+                            <td>{{ $checkup->options }}</td>
+                            <td>{{ $checkup->cost }}</td>
 
-
-
-
-
-
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
 
     
 

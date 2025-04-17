@@ -33,6 +33,7 @@
                     <div class="form-group">
                         <div class="select-box">
                             <label for="patient_id">اسم المريض</label>
+                            <input type="text" id="patientSearch" placeholder="بحث..." class="search-box" style="width:48%">
                             <select id="patient_id" required name="patient_id" autofocus>
                                 <option value="">اختر مريض</option>
                                 @foreach ($patients as $patient)
@@ -103,6 +104,9 @@
                     <tr>
                     <td>{{$patient->patient->name}}</td>
                         <td> {{$patient->doctor->user->name}}</td>
+                        <td>
+                            {{$patient->device}}
+                        </td>
                         <td>    <form action="{{ route('waitingList.destroy', $patient->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -119,18 +123,18 @@
                     
                 </div>
 
-                <script>
-                window.setTimeout(function {
-                    window.location.reload();,60000 }
-                })
-                
-                // Refresh every 10 seconds
-                </script>
                 
             </div>
         </div>
     </div>
-
+    <script>
+        window.setTimeout(function() {
+            window.location.reload();
+        }, 60000); // 60000 milliseconds = 1 minute
+        
+        // Refresh every 10 seconds
+        </script>
+       
     <script>
         function toggleCustomDeviceInput() {
             var deviceSelect = document.getElementById('device');
@@ -160,6 +164,19 @@
                 deviceSelect.value = customInput.value; 
             }
         }
+
+        document.getElementById('patientSearch').addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase();
+            const options = document.querySelectorAll('#patient_id option');
+
+            options.forEach(option => {
+                if (option.textContent.toLowerCase().includes(searchValue)) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 

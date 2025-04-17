@@ -14,7 +14,7 @@ class Lazer extends Model
     ];
 
 
-    public function Patient():BelongsTo
+    public function Patient():BelongsTo 
     {
     return $this->belongsTo(Patient::class);
     }

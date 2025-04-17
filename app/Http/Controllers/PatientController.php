@@ -13,10 +13,18 @@ use Illuminate\Support\Facades\Storage;
 class PatientController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $patients = Patient::paginate(500);
+        $query = Patient::query();
 
+        if ($request->has('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'LIKE', "%{$searchTerm}%");
+            });
+        }
+
+        $patients = $query->paginate(500);
         return view('patient.index', ['patients' => $patients]);
     }
 
@@ -104,9 +112,9 @@ class PatientController extends Controller
             'image' => ['nullable', 'profile-image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
-        $profileImagePath = null; 
+        $profileImagePath = null;
 
-       
+
         if ($request->hasFile('profile-image')) {
             $profileImagePath = $request->file('profile-image')->store('patient_images', 'public');
         }
@@ -149,7 +157,7 @@ class PatientController extends Controller
                     ['name' => $fieldName],
                     ['value' => $fieldValue]
                 );
-                
+
                 $updatedFields[] = $field->id;
             }
         }
@@ -189,12 +197,12 @@ class PatientController extends Controller
 
     public function show($patient_id)
     {
-        $patient = Patient::with('Dept', 'Field', 'Lazer.doctor', 'accounter','skin')->find($patient_id);
+        $patient = Patient::with('Dept', 'Field', 'Lazer.doctor', 'accounter', 'skin')->find($patient_id);
 
         $account = Accounter::where('patient_id', $patient_id)->first();
         $apds = APD::where('A_id', $account->id)->get();
+
         return view('patient.show', ['patient' => $patient, 'apds' => $apds]);
     }
 }
- 
- 
+

@@ -6,7 +6,7 @@
     <title>ادارة المرضى</title>
     @include('layouts.navigation')
 </head>
-
+ 
 <body>
 
     <div class="C-container">
@@ -92,6 +92,21 @@
                 <input type="number" required id="full_cost" name="full_cost">
             </div>
 
+            <div class="select-box">
+                <label for="type">نوع المعاينة</label>
+                <select id="type" required name="type" autofocus onchange="toggleCustomType()">
+                    <option value="">اختر نوع المعاينة</option>
+                    <option value="استشارة">استشارة</option>
+                    <option value="مراجعة">مراجعة</option>
+                    <option value="custom">غير ذلك</option>
+            
+                </select>
+            </div>
+            <div id="custom-type-input" style="display: none;">
+                <label for="custom_type">أدخل قيمة مخصصة</label>
+                <input type="text" id="custom_type" name="custom_type" placeholder="أدخل قيمة مخصصة"  onchange="setCustomType()">
+            </div>
+
             <div class="form-group">
                 <div class="select-box">
                     <label for="tools">الأدوات المستخدمة</label>
@@ -115,6 +130,38 @@
 
             </div>
 
+            <script>
+
+         function toggleCustomType() {
+            var deviceSelect = document.getElementById('type');
+            var customInputDiv = document.getElementById('custom-type-input');
+            
+            if (deviceSelect.value === 'custom') {
+                customInputDiv.style.display = 'block'; // Show textbox
+            } else {
+                customInputDiv.style.display = 'none'; // Hide textbox
+            }
+        }
+        function setCustomType() {
+            var customInput = document.getElementById('custom_type');
+            var deviceSelect = document.getElementById('type');
+
+            if (deviceSelect.value === 'custom') {
+                // Create a new option element
+                var newOption = document.createElement('option');
+                newOption.value = customInput.value; // Set the value of the new option
+                newOption.text = customInput.value; // Set the display text of the new option
+
+                // Append the new option to the select element
+                deviceSelect.appendChild(newOption);
+
+                // Select the new option
+                deviceSelect.value = customInput.value; 
+            }
+        }
+
+
+            </script>
             <script>
                 document.getElementById('add-tool-button').addEventListener('click', function () {
                     const toolSelect = document.getElementById('tool-select');

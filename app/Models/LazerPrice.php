@@ -14,7 +14,7 @@ class LazerPrice extends Model
     protected $fillable = [
         'ax_price',
         'ay_price',
-        'again_price'
+        'again_+price'
     ];
 
 }

@@ -81,6 +81,8 @@
                         <th>ملاحظات</th>
                         <td>{{$lazer->notes}}</td>
                     </tr>
+                    
+                   
                 </tbody>
             </table>
             <br>

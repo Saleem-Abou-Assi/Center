@@ -37,6 +37,7 @@ class PatientDeptController extends Controller
             'illness' => $request->illness,
             'description' => $request->description,
             'cure' => $request->cure,
+            'type' => $request->type
             
         ]);
 

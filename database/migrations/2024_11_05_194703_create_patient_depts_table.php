@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('illness');
             $table->text('description');
             $table->string('cure');
+            $table->string('type');
             
 
             $table->timestamps();

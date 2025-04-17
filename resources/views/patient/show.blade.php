@@ -79,6 +79,7 @@
                         <th>المعالج</th>
                         <th>الشكوى </th>
                         <th>الوصف</th>
+                        <th>نوع المعاينة</th>
                         <th>التاريخ</th>
                         <th>تفاصيل</th>
                     </tr>
@@ -91,7 +92,8 @@
                         <td>{{ $patient->Dept[$i]->pivot->doctor_name }}</td>
                         <td>{{ $patient->Dept[$i]->pivot->illness }}</td> 
                         <td>{{ $patient->Dept[$i]->pivot->description }}</td>
-                        <td>{{ $patient->Dept[$i]->created_at }}</td>
+                        <td>{{ $patient->Dept[$i]->pivot->type }}</td>
+                        <td>{{ $patient->Dept[$i]->pivot->created_at }}</td>
                         <td class="action-td"><a href="{{ route('accounter.index', $apds[$i]->PD_id) }}" class="action-btn">Show</a>
                             <form id="deleteForm" action="{{ route('Dept.destroy', $patient->Dept[$i]->pivot->id) }}" method="POST" onsubmit="return confirmCustom()">
                                 @csrf
@@ -105,30 +107,65 @@
             <br>
             <br>
             <h3>معايانات الليزر</h3>
-            <table class="table-container">
+            <table class="table-container lazer-details-table">
                 <thead>
                     <tr>
                         <th>الرقم</th>
                         <th>التاريخ</th>
-                    
-                        <th>تفاصيل</th>
+                        <th>الطبيب</th>
+                        <th>التكلفة</th>
+                        <th>تفاصيل الجلسة</th>
+                        <th>عمليات</th>
                     </tr>
                 </thead>
-                @for ($i = 0; $i < count($patient->Lazer); $i++)
-                    <tr data-laser-operation-id="{{ $patient->Lazer[$i]->id }}" class="laser-operation-row">
-                        <td>{{$i + 1}}</td>
-                        <td>{{$patient->Lazer[$i]->created_at}}</td>
-                        
-                        <td class="action-td"><a href="{{ route('lazer.show', $patient->lazer[$i]->id) }}" class="action-btn">تفاصيل</a>
-                        <a href="{{ route('lazer.edit', $patient->lazer[$i]->id) }}" class="action-btn">تعديل</a>
-                        <form id="deleteForm" action="{{ route('lazer.destroy', $patient->Lazer[$i]->id) }}" method="POST" onsubmit="return confirmCustom()">
-                            @csrf
-
-                            @method('DELETE')
-                            <button type="submit" class="action-btn">إزالة</button>
-                        </form></td>
+                @foreach($patient->Lazer as $i => $lazer)
+                    <tr data-laser-operation-id="{{ $lazer->id }}" class="laser-operation-row">
+                        <td>{{ $i + 1 }}</td>
+                        <td>{{ $lazer->created_at->format('Y-m-d') }}</td>
+                        <td>{{ $lazer->Doctor->user->name ?? 'غير محدد' }}</td>
+                        <td>
+                            <div>أساسي: {{ $lazer->price }} </div>
+                            <div>فعلي: {{ $lazer->real_price }} </div>
+                        </td>
+                        <td>
+                            <div class="lazer-session-details">
+                                <ul class="lazer-details-list">
+                                    @foreach($lazer->Details as $detail)
+                                    <li>
+                                        <span class="detail-label">المعالج:</span> 
+                                        <span class="detail-value">{{ $detail->Doctor->user->name }}</span>
+                                        <span class="detail-label">الجهاز:</span> 
+                                        <span class="detail-value">{{ $detail->device }}</span>
+                                        <span class="detail-label">النقطة:</span> 
+                                        <span class="detail-value">{{ $detail->point }}</span>
+                                        <span class="detail-label">الأشعة:</span> 
+                                        <span class="detail-value">{{ $detail->raysCount }}</span>
+                                        <span class="detail-label">القوة:</span> 
+                                        <span class="detail-value">{{ $detail->power }}</span>
+                                        <span class="detail-label">السرعة:</span> 
+                                        <span class="detail-value">{{ $detail->speed }}</span>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                                @if($lazer->notes)
+                                <div class="lazer-notes">
+                                    <strong>ملاحظات:</strong> 
+                                    <p>{{ $lazer->notes }}</p>
+                                </div>
+                                @endif
+                            </div>
+                        </td>
+                        <td class="action-td">
+                            <a href="{{ route('lazer.show', $lazer->id) }}" class="action-btn">تفاصيل</a>
+                            <a href="{{ route('lazer.edit', $lazer->id) }}" class="action-btn">تعديل</a>
+                            <form id="deleteForm" action="{{ route('lazer.destroy', $lazer->id) }}" method="POST" onsubmit="return confirmCustom()" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="action-btn">إزالة</button>
+                            </form>
+                        </td>
                     </tr>
-                    @endfor
+                @endforeach
             </table>
 
             <h3>معايانات البشرة</h3>
@@ -265,6 +302,101 @@
         }
     </script>
     <script src="{{ asset('js/report-generator.js') }}"></script>
+    <script>
+    function toggleLazerDetails(lazerId) {
+        const detailsRow = document.getElementById(`lazer-details-${lazerId}`);
+        if (detailsRow.style.display === 'none' || detailsRow.style.display === '') {
+            detailsRow.style.display = 'table-row';
+        } else {
+            detailsRow.style.display = 'none';
+        }
+    }
+    </script>
+    <style>
+    .lazer-details-table {
+        width: 100%;
+     
+        margin-bottom: 20px;
+    }
+
+    .lazer-details-table th, 
+    .lazer-details-table td {
+    
+        padding: 8px;
+        text-align: left;
+    }
+
+    .lazer-details-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .lazer-details-list li {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 5px;
+        font-size: 0.9em;
+    }
+
+    .detail-label {
+        font-weight: bold;
+        color: #555;
+        margin-left: 5px;
+    }
+
+    .detail-value {
+        color: #333;
+    }
+
+   
+
+    .lazer-notes {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        font-size: 0.9em;
+    }
+
+    .action-td {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .action-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 3px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .action-btn:hover {
+        background-color: #45a049;
+    }
+
+    /* Delete button specific styling */
+    .action-btn:last-child {
+        background-color: #f44336;
+    }
+
+    .action-btn:last-child:hover {
+        background-color: #d32f2f;
+    }
+    </style>
+
+    <script>
+    function confirmCustom() {
+        return confirm('هل أنت متأكد من حذف هذه الجلسة؟');
+    }
+    </script>
 </body>
 
 </html>
