@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
     <title>الإشعارات</title>
     @include('layouts.navigation')
 </head>
+
 <body>
     <div class="page-title">
         <h1>الإشعارات</h1>
     </div>
     <div class="container">
         <div class="boton">
-        <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left"
-                style="font-size:25px"></span></a>
-                </div>
+            <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left"
+                    style="font-size:25px"></span></a>
+        </div>
         <div class="table-container">
             <table>
-                <thead> 
+                <thead>
                     <tr>
                         <th>النوع</th>
                         <th>الطبيب</th>
@@ -43,11 +45,19 @@
                                         <button type="submit" class="action-btn">تحديد كمقروء</button>
                                     </form>
                                 @endif
-                                <a href="{{ route('patient.show', ['patient_id' => $notification->patient->id, 'highlight_operation' => $notification->operation_id, 'operation_type' => $notification->type]) }}" class="action-btn">تفاصيل</a>
-                                <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST" style="display: inline;">
+                                @if($notification->type === 'patient_dept')
+                                    <a href="{{ route('accounter.index', $notification->operation_id) }}"
+                                        class="action-btn">تفاصيل</a>
+                                @elseif($notification->type === 'lazer')
+                                    <a href="{{ route('lazer.show', $notification->operation_id) }}"
+                                        class="action-btn">تفاصيل</a>
+                                @endif
+                                <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST"
+                                    style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="action-btn delete-btn" onclick="return confirm('هل أنت متأكد من حذف هذا الإشعار؟')">حذف</button>
+                                    <button type="submit" class="action-btn delete-btn"
+                                        onclick="return confirm('هل أنت متأكد من حذف هذا الإشعار؟')">حذف</button>
                                 </form>
                             </td>
                         </tr>
@@ -58,4 +68,5 @@
         {{ $notifications->links() }}
     </div>
 </body>
+
 </html>

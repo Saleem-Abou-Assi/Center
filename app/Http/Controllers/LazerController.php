@@ -12,21 +12,21 @@ use App\Models\Notification;
 
 class LazerController extends Controller
 {
-    
+
 
     public function index()
     {
         $doctors = Doctor::all();
         $patients = Patient::all();
         $ray_price = LazerPrice::first();
-        return view('lazer.index',['doctors'=>$doctors,'patients'=>$patients,'ray_price'=>$ray_price]);
+        return view('lazer.index', ['doctors' => $doctors, 'patients' => $patients, 'ray_price' => $ray_price]);
     }
 
     public function store(Request $request)
     {
 
         //  dd($request);
-     
+
         $request->validate([
             'patient_id' => ['required', 'integer'],
             'notes' => ['nullable', 'string'],
@@ -38,7 +38,7 @@ class LazerController extends Controller
 
         $lazer = Lazer::create([
             'patient_id' => $request->patient_id,
-     
+
             'real_price' => $real_price,
             'lazer_price' => $ray_price->ax_price,
             'notes' => $request->notes,
@@ -65,7 +65,7 @@ class LazerController extends Controller
 
         Notification::create([
             'type' => 'lazer',
-           
+
             'patient_id' => $request->patient_id,
             'message' => "تمت إضافة معاينة ليزر جديدة للمريض {$patient->name}",
             'operation_id' => $lazer->id
@@ -80,7 +80,7 @@ class LazerController extends Controller
         $patients = Patient::all();
         $ray_price = LazerPrice::first();
         $lazer = Lazer::where('id', $lazer_id)->with('Doctor', 'Patient', 'Details.doctor')->first();
-        
+
         return view('lazer.index', [
             'doctors' => $doctors,
             'patients' => $patients,
@@ -132,24 +132,24 @@ class LazerController extends Controller
 
     public function show($lazer_id)
     {
-        $lazer = Lazer::where('id',$lazer_id)->with('Doctor','Patient','Details')->first();
+        $lazer = Lazer::where('id', $lazer_id)->with('Doctor', 'Patient', 'Details')->first();
         $ray_price = LazerPrice::first();
 
-// dd($lazer);
-        return view('lazer.show',['ray_price'=>$ray_price,'lazer'=>$lazer]);
+        // dd($lazer);
+        return view('lazer.show', ['ray_price' => $ray_price, 'lazer' => $lazer]);
 
     }
 
     public function destroy($lazer_id)
-    { 
-       
-       $lazer = Lazer::where('id',$lazer_id)->first();
+    {
+
+        $lazer = Lazer::where('id', $lazer_id)->first();
 
         $lazer->delete();
-      
+
         return redirect()->back();
 
     }
 
-    
+
 }
