@@ -109,14 +109,15 @@ class DoctorController extends Controller
 
          $doctor->delete();
        
-         return redirect()->route('doctor.index');
+         return redirect()->route('doctor.index'); 
 
      }
 
-    public function show($doctor_id) {
-        $doctor = Doctor::with('Dept','APD','Lazer')->find($doctor_id); // Fetch the product by ID
-        // dd($doctor);
-        return view('doctor.show', ['doctor'=>$doctor]); // Pass the product to the view
+    public function show($doctor_id)
+    {
+        $doctor = Doctor::with('Dept', 'APD', 'details.Lazers.patient', 'details.Doctor')->find($doctor_id);
+
+        return view('doctor.show', ['doctor' => $doctor]);
     }
 
 }

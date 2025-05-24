@@ -58,73 +58,74 @@
             </tbody>
         </table>
 
-        <h4>معاينة الليزر</h4>
+        <h3>معايانات الليزر</h3>
         <div class="table-container lazer-details-table">
+           
             <table>
                 <thead>
                     <tr>
                         <th>الرقم</th>
-                        <th>التاريخ</th>
                         <th>المريض</th>
+                        <th>التاريخ</th>
                         <th>التكلفة</th>
                         <th>تفاصيل الجلسة</th>
-                   
+                        <th>عمليات</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($doctor->lazer as $i => $lazer)
-                    <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td>{{ $lazer->created_at->format('Y-m-d') }}</td>
-                        <td>{{ $lazer->patient->name ?? 'غير محدد' }}</td>
-                        <td>
-                            <div>أساسي: {{ $lazer->price }} </div>
-                            <div>فعلي: {{ $lazer->real_price }} </div>
-                        </td>
-                        <td>
-                            <div class="lazer-session-details">
-                                <ul class="lazer-details-list">
-                                    @foreach($lazer->Details as $detail)
-                                    <li>
-                                        <span class="detail-label">المعالج:</span> 
-                                        <span class="detail-value">{{ $detail->doctor->user->name }}</span>
-                                        <span class="detail-label">الجهاز:</span> 
-                                        <span class="detail-value">{{ $detail->device }}</span>
-                                        <span class="detail-label">النقطة:</span> 
-                                        <span class="detail-value">{{ $detail->point }}</span>
-                                        <span class="detail-label">الأشعة:</span> 
-                                        <span class="detail-value">{{ $detail->raysCount }}</span>
-                                        <span class="detail-label">القوة:</span> 
-                                        <span class="detail-value">{{ $detail->power }}</span>
-                                        <span class="detail-label">السرعة:</span> 
-                                        <span class="detail-value">{{ $detail->speed }}</span>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                                @if($lazer->notes)
-                                <div class="lazer-notes">
-                                    <strong>ملاحظات:</strong> 
-                                    <p>{{ $lazer->notes }}</p>
-                                </div>
-                                @endif
-                            </div>
-                        </td>
-                        <td>
-                            @if($lazer->Details->count() > 0)
-                                <ul>
-                                    @foreach($lazer->Details as $detail)
-                                        <li>{{ $detail->device }}</li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                لا توجد أدوات
-                            @endif
-                        </td>
-                    </tr>
+                    @foreach($doctor->details as $i => $detail)
+                        @foreach($detail->Lazers as $lazer)
+                            <tr data-laser-operation-id="{{ $lazer->id }}" class="laser-operation-row">
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $lazer->patient->name }}</td>
+                                <td>{{ $lazer->created_at->format('Y-m-d') }}</td>
+                                <td>
+                                    <div>أساسي: {{ $lazer->price }}</div>
+                                    <div>فعلي: {{ $lazer->real_price }}</div>
+                                </td>
+                                <td>
+                                    <div class="lazer-session-details">
+                                        <ul class="lazer-details-list">
+                                            <li>
+                                                <span class="detail-label">المعالج:</span>
+                                                <span class="detail-value">{{ $detail->Doctor->user->name }}</span>
+                                                <span class="detail-label">الجهاز:</span>
+                                                <span class="detail-value">{{ $detail->device }}</span>
+                                                <span class="detail-label">النقطة:</span>
+                                                <span class="detail-value">{{ $detail->point }}</span>
+                                                <span class="detail-label">الأشعة:</span>
+                                                <span class="detail-value">{{ $detail->raysCount }}</span>
+                                                <span class="detail-label">القوة:</span>
+                                                <span class="detail-value">{{ $detail->power }}</span>
+                                                <span class="detail-label">السرعة:</span>
+                                                <span class="detail-value">{{ $detail->speed }}</span>
+                                            </li>
+                                        </ul>
+                                        @if($lazer->notes)
+                                            <div class="lazer-notes">
+                                                <strong>ملاحظات:</strong>
+                                                <p>{{ $lazer->notes }}</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="action-td">
+                                    <a href="{{ route('lazer.show', $lazer->id) }}" class="action-btn">تفاصيل</a>
+                                    <a href="{{ route('lazer.edit', $lazer->id) }}" class="action-btn">تعديل</a>
+                                    <form id="deleteForm" action="{{ route('lazer.destroy', $lazer->id) }}" method="POST"
+                                        onsubmit="return confirmCustom()" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="action-btn">إزالة</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     @endforeach
                 </tbody>
             </table>
         </div>
+ </div>
 
         <div class="boton">
     <a href="{{ url()->previous() }}" class="custom-btn btn-2"><span class="fa fa-arrow-left" style="font-size:25px"></span></a>

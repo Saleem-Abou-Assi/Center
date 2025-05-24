@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Hash;
 use PHPUnit\Framework\Attributes\Depends;
 
 class Doctor extends Model
-{
+{ 
     protected $fillable = [
         'user_id','phone','address','specialization','dept_id'
     ];
@@ -40,9 +41,16 @@ class Doctor extends Model
         return $this->hasMany(APD::class);
     }
 
-    public function Lazer():HasMany
+    public function Lazers()
     {
-        return $this->hasMany(LDetails::class);
+        return $this->hasManyThrough(
+            Lazer::class,
+            LDetails::class,
+            'doctor_id',      // Foreign key on the l_details table...
+            'patient_id',      // Local key on the lazers table...
+            'id',               // Local key on the doctors table...
+            'lazer_id'         // Foreign key on the l_details table...
+        );
     }
 
     public function waitingList()
@@ -63,7 +71,10 @@ class Doctor extends Model
         return $this->hasMany(Skin::class);
     }
 
-
+    public function details(): HasMany
+    {
+        return $this->hasMany(LDetails::class, 'doctor_id');
+    }
 
 }
 

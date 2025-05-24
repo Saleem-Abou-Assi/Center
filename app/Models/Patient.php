@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory; 
     protected $fillable = [
         'name',
         'age',
