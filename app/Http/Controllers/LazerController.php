@@ -41,6 +41,7 @@ class LazerController extends Controller
 
             'real_price' => $real_price,
             'lazer_price' => $ray_price->ax_price,
+            'again_price' => $ray_price->again_price,
             'notes' => $request->notes,
             'price' => 0,
         ]);
@@ -104,7 +105,7 @@ class LazerController extends Controller
         $lazer->update([
             'patient_id' => $request->patient_id,
 
-            'real_price' => $lazer->real_price,
+            'real_price' => $request->real_price ?? 0,
             'lazer_price' => $ray_price->ax_price,
             'notes' => $request->notes,
             'price' => $request->price ?? 0,

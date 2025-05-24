@@ -79,7 +79,7 @@ body {
     justify-content: center;
 }
 .C-container {
-    max-width: 700px;
+    max-width: 1000px;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
@@ -1020,7 +1020,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     left: 0;
 }
 .mini-select {
-    width:70px; /* Full width */
+    width:100px; /* Full width */
     padding: 10px; /* Padding for better touch targets */
     border: 1px solid #ccc; /* Light border */
     border-radius: 5px; /* Rounded corners */

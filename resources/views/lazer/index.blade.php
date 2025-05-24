@@ -24,8 +24,9 @@
 
             <div class="form-group">
                 <div class="select-box">
-                    <label for="patient_id"><input type="text" id="patientSearch" placeholder="بحث..." class="search-box"></label>
-                    
+                    <label for="patient_id"><input type="text" id="patientSearch" placeholder="بحث..."
+                            class="search-box"></label>
+
                     <select id="patient_id" required name="patient_id" autofocus>
                         <option value="{{isset($lazer) ? $lazer->patient_id : ''}}">
                             {{isset($lazer) ? $lazer->Patient->name : "اختر مريض" }}
@@ -45,7 +46,7 @@
                 <table id="dynamicTable" class="dyn">
                     @isset($lazer) <!-- Check if in edit mode -->
                         <thead>
-                            <tr>
+                            <tr class="row">
                                 <th>الطبيب</th>
                                 <th>المنطقة</th>
                                 <th>الطاقة</th>
@@ -86,6 +87,7 @@
                                             <option value="ظهر">ظهر</option>
                                             <option value="أرداف">أرداف</option>
                                             <option value="شفة">شفة</option>
+                                            <option value="غير ذلك">غير ذلك</option>
                                         </select>
                                     </td>
                                     <td><input type="text" name="dynamicPower[]" value="{{ $detail->power }}"></td>
@@ -115,10 +117,13 @@
             <br>
 
             <div>
+                <p>تكلفة أشعة ax/ay</p>
                 <span id="denamyCountSpan">0</span> <!-- Count for ax and ay -->
+            </div>
+            <div>
+                <p>تكلفة أشعة again</p>
                 <span id="dynamicCountSpan">0</span> <!-- Count for again -->
             </div>
-
 
 
 
@@ -160,20 +165,20 @@
         </div>
     </div>
 
-<script>
-    document.getElementById('patientSearch').addEventListener('input', function () {
-        const searchValue = this.value.toLowerCase();
-        const options = document.querySelectorAll('#patient_id option');
+    <script>
+        document.getElementById('patientSearch').addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase();
+            const options = document.querySelectorAll('#patient_id option');
 
-        options.forEach(option => {
-            if (option.textContent.toLowerCase().includes(searchValue)) {
-                option.style.display = '';
-            } else {
-                option.style.display = 'none';
-            }
+            options.forEach(option => {
+                if (option.textContent.toLowerCase().includes(searchValue)) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
         });
-    });
-</script>
+    </script>
 
     <script>
         function updateDeviceCounts() {
@@ -398,15 +403,15 @@
             const isEditMode = !!totalPriceDisplay && !!totalPriceInput;
 
             if (isEditMode && AXraysCountInput) { // Only run if in edit mode and elements exist
-                const axPrice = {{$ray_price->ax_price}};
-                const agianPrice = {{$ray_price->again_price}};
+                const axPrice = {{ isset($ray_price) ? $ray_price->ax_price : 0 }};
+                const againPrice = 1;
 
                 function calculateTotalPrice() {
                     const AXraysCount = parseInt(AXraysCountInput.innerText) || 0;
                     const AgainraysCount = parseInt(AgainraysCountInput.innerText) || 0;
 
                     const totalPriceAX = axPrice * AXraysCount;
-                    const totalPriceAgain = agianPrice * AgainraysCount;
+                    const totalPriceAgain = againPrice * AgainraysCount;
                     const total = totalPriceAX + totalPriceAgain;
                     totalPriceDisplay.innerText = total.toFixed(2);
                     totalPriceInput.value = total;
@@ -430,6 +435,56 @@
         save_btn.onclick = function () {
             this.innerHTML = "<div class=loader></div>";
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add event listeners for all point selects, including existing ones
+            document.querySelectorAll('select[name="dynamicPoint[]"]').forEach(select => {
+                select.addEventListener('change', function () {
+                    if (this.value === 'غير ذلك') {
+                        // Create a container div to hold both the select and input
+                        const container = document.createElement('div');
+                        container.style.position = 'relative';
+                        container.style.display = 'inline-block';
+
+                        // Hide the select instead of disabling it
+                        this.style.display = 'none';
+
+                        // Create the custom input
+                        const customInput = document.createElement('input');
+                        customInput.setAttribute('type', 'text');
+                        customInput.setAttribute('name', 'dynamicPoint[]');
+                        customInput.setAttribute('placeholder', 'أدخل قيمة أخرى');
+                        customInput.className = 'text-box';
+
+                        // Create a button to switch back to dropdown
+                        const switchBtn = document.createElement('button');
+                        switchBtn.textContent = '↩';
+                        switchBtn.className = 'switch-btn';
+                        switchBtn.style.marginRight = '5px';
+                        switchBtn.style.padding = '2px 5px';
+                        switchBtn.style.cursor = 'pointer';
+
+                        // Add click handler to switch back to dropdown
+                        switchBtn.addEventListener('click', function () {
+                            // Remove the custom input and switch button
+                            container.remove();
+                            // Show the select again
+                            select.style.display = '';
+                            // Reset the select value
+                            select.value = '';
+                        });
+
+                        // Add elements to container
+                        container.appendChild(switchBtn);
+                        container.appendChild(customInput);
+
+                        // Add container after the select
+                        this.parentNode.appendChild(container);
+                        customInput.focus();
+                    }
+                });
+            });
+        });
     </script>
 </body>
 
