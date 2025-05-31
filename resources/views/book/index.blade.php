@@ -37,6 +37,7 @@
                         <th>الطبيب المعالج</th>
                         <th>الموعد</th>
                         <th>تاريخ اختيار الموعد</th>
+                        <th>الملاحظات</th>
                         <!-- <th>Updated At</th> -->
                         <th>تفاصيل</th>
                     </tr>
@@ -50,14 +51,12 @@
                                             <td>{{ $book->patient_name }}</td>
                                             <td>{{ $book->phone }}</td>
                                             <td>
-                                                @php
-                                                    $doctorName = $doctors->where('id', $book->doctor_id)->first()->name ?? 'غير محدد';
-                                                @endphp
-                                                {{ $doctorName }}
+                                                
+                                                {{ $book->doctor->user->name }}
                                             </td>
                                             <td>{{ \Carbon\Carbon::parse($book->bookDate)->format('Y-m-d H:i') }}</td>
                                             <td>{{ $book->created_at }}</td>
-
+                                            <td>{{ $book->notes }}</td>
                                             <td class="action-td">
                                                 <a href="{{ route('book.edit', $book->id) }}" class="action-btn">عدّل</a>
 

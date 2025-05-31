@@ -47,6 +47,7 @@ class BookController extends Controller
             'bookDate' => $request->bookDate,
             'patient_name' => $request->patient_name,
             'phone' => $request->phone,
+            'notes' => $request->notes,
         ]);
 
 
