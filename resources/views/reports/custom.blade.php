@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Custom Report</title>
+    <title>تقرير مخصص</title>
     <style>
         body {
             font-family: "Cairo", sans-serif;
@@ -60,8 +60,8 @@
 
 <body>
     <div class="header">
-        <h1>Custom Report</h1>
-        <p>Period: {{ $data['summary']['start_date'] }} to {{ $data['summary']['end_date'] }}</p>
+        <h1>تقرير مخصص</h1>
+        <p>الفترة: {{ $data['summary']['start_date'] }} إلى {{ $data['summary']['end_date'] }}</p>
     </div>
 
     @if(isset($data['grouped_data']) && count($data['grouped_data']) > 0)
@@ -73,20 +73,20 @@
 
                 @if(isset($dayData['patientDept']) && count($dayData['patientDept']) > 0)
                 <div class="section">
-                    <div class="section-title">Patient Department</div>
+                    <div class="section-title">قسم المرضى</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Patient Name</th>
-                                <th>Department</th>
-                                <th>Doctor</th>
-                                <th>Illness</th>
-                                <th>Description</th>
-                                <th>Cure</th>
-                                <th>Check-in Type</th>
-                                <th>Given Cure</th>
-                                <th>Tools</th>
-                                <th>Time</th>
+                                <th>اسم المريض</th>
+                                <th>القسم</th>
+                                <th>الطبيب</th>
+                                <th>المرض</th>
+                                <th>الوصف</th>
+                                <th>العلاج</th>
+                                <th>نوع الحجز</th>
+                                <th>العلاج المقدم</th>
+                                <th>الأدوات</th>
+                                <th>الوقت</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,9 +98,9 @@
                                 <td>{{ $item->illness }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>{{ $item->cure }}</td>
-                                <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'N/A' }}</td>
-                                <td>{{ $item->accounter->first()->pivot->given_cure ?? 'N/A' }}</td>
-                                <td>{{ $item->accounter->first()->pivot->tools ?? 'N/A' }}</td>
+                                <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'غير متوفر' }}</td>
+                                <td>{{ $item->accounter->first()->pivot->given_cure ?? 'غير متوفر' }}</td>
+                                <td>{{ $item->accounter->first()->pivot->tools ?? 'غير متوفر' }}</td>
                                 <td>{{ $item->created_at->format('H:i') }}</td>
                             </tr>
                             @endforeach
@@ -111,22 +111,22 @@
 
                 @if(isset($dayData['lazer']) && count($dayData['lazer']) > 0)
                 <div class="section">
-                    <div class="section-title">Lazer Sessions</div>
+                    <div class="section-title">جلسات الليزر</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Patient Name</th>
-                                <th>Doctor</th>
-                                <th>Device</th>
-                                <th>Point</th>
-                                <th>Rays Count</th>
-                                <th>Power</th>
-                                <th>Speed</th>
-                                <th>Pulse</th>
-                                <th>Time</th>
-                                <th>Real Price</th>
-                                <th>Price</th>
-                                <th>Notes</th>
+                                <th>اسم المريض</th>
+                                <th>الطبيب</th>
+                                <th>الجهاز</th>
+                                <th>المنطقة</th>
+                                <th>عدد الأشعة</th>
+                                <th>الطاقة</th>
+                                <th>السرعة</th>
+                                <th>عرض النبضة</th>
+                                <th>الوقت</th>
+                                <th>السعر الفعلي</th>
+                                <th>السعر</th>
+                                <th>ملاحظات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,7 +134,7 @@
                                 @foreach($session->Details as $detail)
                                     <tr>
                                         <td>{{ $session->patient->name }}</td>
-                                        <td>{{ $detail->doctor->user->name ?? 'N/A' }}</td>
+                                        <td>{{ $detail->doctor->user->name ?? 'غير متوفر' }}</td>
                                         <td>{{ $detail->device }}</td>
                                         <td>{{ $detail->point }}</td>
                                         <td>{{ $detail->raysCount }}</td>
@@ -155,15 +155,15 @@
 
                 @if(isset($dayData['skin']) && count($dayData['skin']) > 0)
                 <div class="section">
-                    <div class="section-title">Skin Treatments</div>
+                    <div class="section-title">علاجات البشرة</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Patient Name</th>
-                                <th>Doctor</th>
-                                <th>Treatment</th>
-                                <th>Description</th>
-                                <th>Date</th>
+                                <th>اسم المريض</th>
+                                <th>الطبيب</th>
+                                <th>العلاج</th>
+                                <th>الوصف</th>
+                                <th>التاريخ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -182,12 +182,12 @@
                 @endif
 
                 <div class="section">
-                    <div class="section-title">Ray Counts</div>
+                    <div class="section-title">إحصائيات الأشعة</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Type</th>
-                                <th>Count</th>
+                                <th>النوع</th>
+                                <th>العدد</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -226,7 +226,7 @@
                                 <td>{{ $againCount }}</td>
                             </tr>
                             <tr>
-                                <td>Total</td>
+                                <td>المجموع</td>
                                 <td>{{ $totalCount }}</td>
                             </tr>
                         </tbody>
@@ -234,16 +234,16 @@
                 </div>
 
                 <div class="daily-summary">
-                    <p>Daily Total Patients: {{ $dayData['summary']['total_patients'] }}</p>
-                    <p>Daily Total Revenue: {{ $dayData['summary']['total_revenue'] }}</p>
+                    <p>إجمالي المرضى اليومي: {{ $dayData['summary']['total_patients'] }}</p>
+                    <p>إجمالي الإيرادات اليومي: {{ $dayData['summary']['total_revenue'] }}</p>
                 </div>
             </div>
         @endforeach
     @endif
 
     <div class="summary">
-        <h3>Overall Summary</h3>
-        <p>Total Patients: {{ $data['summary']['total_patients'] }}</p>
+        <h3>ملخص عام</h3>
+        <p>إجمالي المرضى: {{ $data['summary']['total_patients'] }}</p>
     </div>
 </body>
 
