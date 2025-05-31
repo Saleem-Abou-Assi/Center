@@ -133,7 +133,7 @@
                     <p>المجموع الكلي = <span id="price_dispaly">0</span></p>
                 </div>
                 <input type="hidden" id="price" name="price">
-                <button type="button" id="calculatePriceBtn" class="calculate-btn">حساب السعر</button>
+                <button type="button" id="calculatePriceBtn" class="add-btn">حساب السعر</button>
             </div>
 
 

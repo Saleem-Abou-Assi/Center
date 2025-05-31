@@ -97,7 +97,7 @@ Route::post('/reports/custom', [ReportController::class, 'generateCustomReport']
 // ------doctor $ reciption-------
 Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
 
-    
+    Route::get('/accounter/{apd_id}', [AccounterController::class, 'index'])->name('accounter.index');
     Route::get('/patients', [PatientController::class, 'index'])->name('patient.index');
     Route::get('/patients/{patient_id}', [PatientController::class, 'show'])->name('patient.show');
 
@@ -145,7 +145,7 @@ Route::middleware(['role:admin|reciption'])->group(function (){
     Route::get('/patients/{patient_id}/edit', [PatientController::class, 'edit'])->name('patient.edit');
     Route::put('/patients/{patient_id}', [PatientController::class, 'update'])->name('patient.update');
 
-    Route::get('/accounter/{apd_id}',[AccounterController::class,'index'])->name('accounter.index');
+    
 
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
