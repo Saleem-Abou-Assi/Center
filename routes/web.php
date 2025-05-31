@@ -19,6 +19,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\WaitingListController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Models\Patient;
+use App\Http\Controllers\FieldController;
 
 //home page with no auth
 Route::get('/report/patient/print/{patientId}', [ReportController::class, 'printPatientReport'])->name('report.patient.print');
@@ -184,5 +186,8 @@ Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])
 
 Route::post('/reports/doctor', [ReportController::class, 'generateDoctorReport'])
     ->name('admin.reports.doctor');
+
+Route::get('patientDept/{patientDept}/edit', [PatientDeptController::class, 'edit'])->name('patientDept.edit');
+Route::put('patientDept/{patientDept}', [PatientDeptController::class, 'update'])->name('patientDept.update');
 
 require __DIR__ . '/auth.php';
