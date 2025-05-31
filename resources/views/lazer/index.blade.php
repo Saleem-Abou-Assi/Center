@@ -118,11 +118,22 @@
 
             <div>
                 <p>عدد أشعة ax/ay</p>
-                <span id="denamyCountSpan">0</span> <!-- Count for ax and ay -->
+                <span id="denamyCountSpan"></span> <!-- Count for ax and ay -->
             </div>
             <div>
                 <p>عدد أشعة again</p>
-                <span id="dynamicCountSpan">0</span> <!-- Count for again -->
+                <span id="dynamicCountSpan"></span> <!-- Count for again -->
+            </div>
+
+            <div class="form-group">
+                <label for="price">التكلفة الأساسية</label>
+       
+                <div id="price_breakdown">
+                    <p>سعر أشعة AX/AY = <span id="ax_price_display">0</span></p>
+                    <p>سعر أشعة Again = <span id="again_price_display">0</span></p>
+                    <p>المجموع الكلي = <span id="price_dispaly">0</span></p>
+                </div>
+                <input type="hidden" id="price" name="price">
             </div>
 
 
@@ -135,11 +146,6 @@
                     {{$ray_price->again_price}}
                 </div>
 
-                <div class="form-group">
-                    <label for="price">التكلفة لأساسية</label>
-                    <span id="price_dispaly"></span>
-                    <input type="hidden" id="price" name="price">
-                </div>
 
                 <div class="form-group">
                     <label for="real_price">التكلفة الفعلية</label>
@@ -397,38 +403,52 @@
             const AXraysCountInput = document.getElementById("denamyCountSpan");
             const AgainraysCountInput = document.getElementById("dynamicCountSpan");
             const totalPriceDisplay = document.getElementById("price_dispaly");
+            const axPriceDisplay = document.getElementById("ax_price_display");
+            const againPriceDisplay = document.getElementById("again_price_display");
             const totalPriceInput = document.getElementById("price");
 
-            // Check if we're in edit mode by checking if price-related elements exist
-            const isEditMode = !!totalPriceDisplay && !!totalPriceInput;
+            
+            const axPrice = {{ isset($ray_price) ? $ray_price->ax_price : 0 }};
+            const againPrice = {{ isset($ray_price) ? $ray_price->again_price : 0 }};
+           
+            function calculateTotalPrice() {
+                const AXraysCount = AXraysCountInput.innerText ;
+                const AgainraysCount = AgainraysCountInput.innerText ;
 
-            if (isEditMode && AXraysCountInput) { // Only run if in edit mode and elements exist
-                const axPrice = {{ isset($ray_price) ? $ray_price->ax_price : 0 }};
-                const againPrice = 1;
+                const totalPriceAX = axPrice * AXraysCount
+                console.log("totalPriceAX", totalPriceAX);
+                const totalPriceAgain = againPrice * AgainraysCount;
+                console.log("totalPriceAgain", totalPriceAgain);
+                const total = totalPriceAX + totalPriceAgain;
+                console.log("total", total);
 
-                function calculateTotalPrice() {
-                    const AXraysCount = parseInt(AXraysCountInput.innerText) || 0;
-                    const AgainraysCount = parseInt(AgainraysCountInput.innerText) || 0;
 
-                    const totalPriceAX = axPrice * AXraysCount;
-                    const totalPriceAgain = againPrice * AgainraysCount;
-                    const total = totalPriceAX + totalPriceAgain;
+
+                if (axPriceDisplay) {
+                    axPriceDisplay.innerText = totalPriceAX.toFixed(2);
+                }
+                if (againPriceDisplay) {
+                    againPriceDisplay.innerText = totalPriceAgain.toFixed(2);
+                }
+                if (totalPriceDisplay) {
                     totalPriceDisplay.innerText = total.toFixed(2);
+                }
+                if (totalPriceInput) {
                     totalPriceInput.value = total;
                 }
-
-                // Initial calculation
-                updateDeviceCounts();
-                calculateTotalPrice();
-
-                // Add event listeners to update counts and recalculate price when inputs change
-                document.querySelectorAll('input[name="dynamicCount[]"]').forEach(input => {
-                    input.addEventListener('input', function () {
-                        updateDeviceCounts();
-                        calculateTotalPrice();
-                    });
-                });
             }
+
+            // Initial calculation
+            updateDeviceCounts();
+            calculateTotalPrice();
+
+            // Add event listeners to update counts and recalculate price when inputs change
+            document.querySelectorAll('input[name="dynamicCount[]"]').forEach(input => {
+                input.addEventListener('input', function () {
+                    updateDeviceCounts();
+                    calculateTotalPrice();
+                });
+            });
         });
         save_btn = document.querySelector(".save-btn");
 

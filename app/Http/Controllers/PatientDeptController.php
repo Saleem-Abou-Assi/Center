@@ -92,4 +92,67 @@ class PatientDeptController extends Controller
 
     }
 
+    public function edit($id)
+    {
+        $patientDept = PatientDept::findOrFail($id);
+        $depts = Department::all();
+        $patients = Patient::all();
+        $doctors = Doctor::all();
+        $storages = Storage::all();
+
+        return view('editPatientDept', [
+            'patientDept' => $patientDept,
+            'depts' => $depts,
+            'patients' => $patients,
+            'doctors' => $doctors,
+            'storages' => $storages,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $patientDept = PatientDept::findOrFail($id);
+        $doctor = Doctor::findOrFail($request->doctor);
+
+        $patientDept->update([
+            'dept_id' => $request->department,
+            'patient_id' => $request->patient,
+            'doctor_name' => $doctor->user->name,
+            'illness' => $request->illness,
+            'description' => $request->description,
+            'cure' => $request->cure,
+            'type' => $request->type,
+        ]);
+
+        $apd = APD::where('PD_id', $patientDept->id)->firstOrFail();
+
+        $apd->update([
+            'doctor_id' => $request->doctor,
+            'check_in_type' => $request->check_in_type,
+            'given_cure' => $request->given_cure,
+            'full_cost' => $request->full_cost,
+        ]);
+
+        // Sync selected tools and their quantities
+        $selectedTools = $request->input('selected_tools', []);
+        $toolQuantities = $request->input('quantities', []);
+
+        // Detach all existing tools
+        $apd->storage()->detach();
+
+        // Loop through selected tools
+        for ($i = 0; $i < count($selectedTools); $i++) {
+            $quantity = $toolQuantities[$i] ?? 1; // Default to 1 if not set
+            $storage = Storage::find($selectedTools[$i]);
+            if ($storage && $storage->quantity >= $quantity) {
+                $storage->decrement('quantity', $quantity);
+
+                // Attach the tool to the APD or any relevant model
+                $apd->storage()->attach($storage->id, ['quantity' => $quantity]);
+            }
+        }
+
+        return redirect()->route('patient.show', $patientDept->patient_id)->with('success', 'Patient Department visit updated successfully.');
+    }
+
 }

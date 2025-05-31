@@ -82,6 +82,7 @@ class LazerController extends Controller
         $ray_price = LazerPrice::first();
         $lazer = Lazer::where('id', $lazer_id)->with('Doctor', 'Patient', 'Details.doctor')->first();
 
+       
         return view('lazer.index', [
             'doctors' => $doctors,
             'patients' => $patients,

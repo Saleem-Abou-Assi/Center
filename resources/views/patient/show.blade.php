@@ -111,7 +111,9 @@
                     </td>
                     <td>{{ $patient->Dept[$i]->pivot->created_at }}</td>
                     <td class="action-td">
-                        <a href="{{ route('accounter.index', $apds[$i]->PD_id) }}" class="action-btn">Show</a>
+                        <a href="{{ route('accounter.index', $apds[$i]->PD_id) }}"
+                            class="action-btn">Show</a>
+                        <a href="{{ route('patientDept.edit', $patient->Dept[$i]->pivot->id) }}" class="action-btn">Edit</a>
                         <form id="deleteForm" action="{{ route('Dept.destroy', $patient->Dept[$i]->pivot->id) }}"
                             method="POST" onsubmit="return confirmCustom()">
                             @csrf
@@ -132,7 +134,7 @@
                 <tr>
                     <th>الرقم</th>
                     <th>التاريخ</th>
-                    <th>الطبيب</th>
+                   
                     <th>التكلفة</th>
                     <th>تفاصيل الجلسة</th>
                     <th>عمليات</th>
@@ -142,7 +144,7 @@
                 <tr data-laser-operation-id="{{ $lazer->id }}" class="laser-operation-row">
                     <td>{{ $i + 1 }}</td>
                     <td>{{ $lazer->created_at->format('Y-m-d') }}</td>
-                    <td>{{ $lazer->Doctor->user->name ?? 'غير محدد' }}</td>
+                
                     <td>
                         <div>أساسي: {{ $lazer->price }} </div>
                         <div>فعلي: {{ $lazer->real_price }} </div>
@@ -150,7 +152,7 @@
                     <td>
                         <div class="lazer-session-details">
                             <ul class="lazer-details-list">
-                                @foreach($lazer->Details as $detail)
+                                @foreach($lazer->Details as $detail) 
                                     <li>
                                         <span class="detail-label">المعالج:</span>
                                         <span class="detail-value">{{ $detail->Doctor->user->name }}</span>

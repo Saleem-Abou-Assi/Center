@@ -30,4 +30,10 @@ class Lazer extends Model
     {
         return $this->belongsToMany(LDetails::class, 'lazer_details', 'lazer_id', 'l_details_id');
     }
+
+    public function Doctor():BelongsTo
+    {
+    return $this->belongsTo(Doctor::class,'doctor_id');
+    }
 }
+ 

@@ -25,6 +25,13 @@
                         المرضى
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('patient.index') }}"
+                        class="text-gray-700 hover:text-gray-900 {{ request()->routeIs('patients.*') ? 'border-b-2 border-blue-500' : '' }}">
+                        كل المرضى
+                    </a>
+                </li>
+
             @else
                 <li>
                     <a href="{{ route('patient.index') }}"

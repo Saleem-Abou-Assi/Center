@@ -39,6 +39,7 @@
                             <td>{{ $notification->created_at->diffForHumans() }}</td>
                             <td>{{ $notification->is_read ? 'مقروء' : 'جديد' }}</td>
                             <td class="action-td">
+
                                 @if(!$notification->is_read)
                                     <form action="{{ route('notifications.markAsRead', $notification->id) }}" method="POST">
                                         @csrf
@@ -48,9 +49,14 @@
                                 @if($notification->type === 'patient_dept')
                                     <a href="{{ route('accounter.index', $notification->operation_id) }}"
                                         class="action-btn">تفاصيل</a>
+                                        <a href="{{ route('patientDept.edit', $notification->operation_id) }}"
+                                        class="action-btn">تعديل المعاينة</a>
+
                                 @elseif($notification->type === 'lazer')
                                     <a href="{{ route('lazer.show', $notification->operation_id) }}"
                                         class="action-btn">تفاصيل</a>
+                                        <a href="{{ route('lazer.edit', $notification->operation_id) }}" 
+                                        class="action-btn"> تعديل المعاينة</a>
                                 @endif
                                 <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST"
                                     style="display: inline;">
