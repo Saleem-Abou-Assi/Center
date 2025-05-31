@@ -131,20 +131,22 @@
                         </thead>
                         <tbody>
                             @foreach($dayData['lazer'] as $session)
-                            <tr>
-                                <td>{{ $session->patient->name }}</td>
-                                <td>{{ $session->Doctor->user->name }}</td>
-                                <td>{{ $session->device }}</td>
-                                <td>{{ $session->point }}</td>
-                                <td>{{ $session->raysCount }}</td>
-                                <td>{{ $session->power }}</td>
-                                <td>{{ $session->speed }}</td>
-                                <td>{{ $session->pulse }}</td>
-                                <td>{{ $session->created_at->format('H:i') }}</td>
-                                <td>{{ $session->real_price }}</td>
-                                <td>{{ $session->price }}</td>
-                                <td>{{ $session->notes }}</td>
-                            </tr>
+                                @foreach($session->Details as $detail)
+                                    <tr>
+                                        <td>{{ $session->patient->name }}</td>
+                                        <td>{{ $detail->doctor->user->name ?? 'N/A' }}</td>
+                                        <td>{{ $detail->device }}</td>
+                                        <td>{{ $detail->point }}</td>
+                                        <td>{{ $detail->raysCount }}</td>
+                                        <td>{{ $detail->power }}</td>
+                                        <td>{{ $detail->speed }}</td>
+                                        <td>{{ $detail->pulse }}</td>
+                                        <td>{{ $session->created_at->format('H:i') }}</td>
+                                        <td>{{ $session->real_price }}</td>
+                                        <td>{{ $session->price }}</td>
+                                        <td>{{ $session->notes }}</td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>

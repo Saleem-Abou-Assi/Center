@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('patient_name');
             $table->string('phone');
             $table->dateTime('bookDate');
-
+            $table->string('notes');
             $table->timestamps();
         });
     }
