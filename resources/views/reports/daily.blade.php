@@ -175,6 +175,7 @@
                 <tr>
                     <th>النوع</th>
                     <th>العدد</th>
+                    <th>السعر</th>
                 </tr>
             </thead>
             <tbody>
@@ -200,22 +201,51 @@
                         @php $totalCount += $detail->raysCount; @endphp
                     @endforeach
                 @endforeach
+                @php
+                    $axPrice = 0;
+                    $ayPrice = 0;
+                    $againPrice = 0;
+                    $totalPrice = 0;
+                @endphp
+                @foreach($data['lazer'] as $lazer)
+                    @foreach($lazer->Details as $detail)
+                        @switch($detail->device)
+                            @case('ax')
+                                @php $axPrice += $lazer->price; @endphp
+                                @break
+                            @case('ay')
+                                @php $ayPrice += $lazer->price; @endphp
+                                @break
+                            @case('again')
+                                @php $againPrice += $lazer->price; @endphp
+                                @break
+                        @endswitch
+                        @php $totalPrice += $lazer->price; @endphp
+                    @endforeach
+                @endforeach
                 <tr>
                     <td>AX</td>
                     <td>{{ $axCount }}</td>
+                    
+                    <td>{{ $axPrice }}</td>
                 </tr>
                 <tr>
                     <td>AY</td>
                     <td>{{ $ayCount }}</td>
+                    <td>{{ $ayPrice }}</td>
                 </tr>
                 <tr>
                     <td>Again</td>
                     <td>{{ $againCount }}</td>
+                    <td>{{ $againPrice }}</td>
                 </tr>
                 <tr>
                     <td>المجموع</td>
                     <td>{{ $totalCount }}</td>
+                    <td>{{ $totalPrice }}</td>
                 </tr>
+                 
+                
             </tbody>
         </table>
     </div>
@@ -226,6 +256,18 @@
             <tr>
                 <th>إجمالي المرضى</th>
                 <td>{{ count($data['patientDept']) + count($data['lazer']) }}</td>
+            </tr>
+             <tr>
+                <th>إجمالي السعر الفعلي</th>
+                <td>
+                    @php
+                        $totalRealPrice = 0;
+                        foreach ($data['lazer'] as $lazer) {
+                            $totalRealPrice += $lazer->real_price;
+                        }
+                    @endphp
+                    {{ $totalRealPrice }}
+                </td>
             </tr>
         </table>
     </div>

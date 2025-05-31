@@ -43,7 +43,7 @@ class LazerController extends Controller
             'lazer_price' => $ray_price->ax_price,
             'again_price' => $ray_price->again_price,
             'notes' => $request->notes,
-            'price' => 0,
+            'price' => $request->price ?? 0,
         ]);
 
         // Handle dynamic details
