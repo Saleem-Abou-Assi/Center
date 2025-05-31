@@ -14,7 +14,7 @@
 <ul>
     <li data-label="الاسم:">{{ $doctor->user->name }}</li>
     <li data-label="الرقم:">{{ $doctor->phone }}</li>
-    <li data-label="العوان:">{{ $doctor->address }}</li>
+    <li data-label="العنوان:">{{ $doctor->address }}</li>
     <li data-label="التخصص:">{{ $doctor->specialization }}</li>
     <li data-label="القسم:">{{$doctor->Dept->title}}</li>
 </ul>

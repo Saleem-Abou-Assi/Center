@@ -117,11 +117,11 @@
             <br>
 
             <div>
-                <p>تكلفة أشعة ax/ay</p>
+                <p>عدد أشعة ax/ay</p>
                 <span id="denamyCountSpan">0</span> <!-- Count for ax and ay -->
             </div>
             <div>
-                <p>تكلفة أشعة again</p>
+                <p>عدد أشعة again</p>
                 <span id="dynamicCountSpan">0</span> <!-- Count for again -->
             </div>
 

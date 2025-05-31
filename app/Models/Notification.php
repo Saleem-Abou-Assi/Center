@@ -8,7 +8,6 @@ class Notification extends Model
 {
     protected $fillable = [
         'type',
-     
         'patient_id',
         'message',
         'is_read',

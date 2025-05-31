@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Daily Report</title>
@@ -9,32 +10,40 @@
             padding: 20px;
             direction: rtl;
         }
+
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .section {
             margin-bottom: 30px;
         }
+
         .section-title {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 15px;
             color: #333;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: right;
         }
+
         th {
             background-color: #f5f5f5;
         }
+
         .date {
             text-align: left;
             margin-bottom: 20px;
@@ -42,6 +51,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>تقارير يومية</h1>
@@ -49,119 +59,145 @@
     </div>
 
     @if(count($data['patientDept']) > 0)
-    <div class="section">
-        <div class="section-title">Patients visits</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Patient Name</th>
-                    <th>Department</th>
-                    <th>Doctor</th>
-                    <th>Illness</th>
-                    <th>Description</th>
-                    <th>Cure</th>
-                    <th>Check In Type</th>
-                    <th>Given Cure</th>
-                    <th>Tools</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="section">
+            <div class="section-title">Patients visits</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Department</th>
+                        <th>Doctor</th>
+                        <th>Illness</th>
+                        <th>Description</th>
+                        <th>Cure</th>
+                        <th>Check In Type</th>
+                        <th>Given Cure</th>
+                        <th>Tools</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                @foreach($data['patientDept'] as $patient)
-                @php
-                    $p = App\Models\Patient::findOrFail($patient->patient_id);
-                    $apd_id=$patient->accounter->first()->pivot->id;
-                    $apd = App\Models\APD::findOrFail($apd_id);
-                @endphp
-                <tr>
-                    <td>{{ $p->name }}</td>
-                    <td>{{ $patient->department->title }}</td>
-                    <td>{{ $patient->doctor_name }}</td>
-                    <td>{{ $patient->illness }}</td>
-                    <td>{{ $patient->description }}</td>
-                    <td>{{ $patient->cure }}</td>
-                    <td>{{ $patient->accounter->first()->pivot->check_in_type ?? 'N/A' }}</td>
-                    <td>{{ $patient->accounter->first()->pivot->given_cure ?? 'N/A' }}</td>
-                    <td>{{ $apd->storage->first()->item ?? 'N/a' }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                    @foreach($data['patientDept'] as $patient)
+                        @php
+                            $p = App\Models\Patient::findOrFail($patient->patient_id);
+                            $apd_id = $patient->accounter->first()->pivot->id;
+                            $apd = App\Models\APD::findOrFail($apd_id);
+                        @endphp
+                        <tr>
+                            <td>{{ $p->name }}</td>
+                            <td>{{ $patient->department->title }}</td>
+                            <td>{{ $patient->doctor_name }}</td>
+                            <td>{{ $patient->illness }}</td>
+                            <td>{{ $patient->description }}</td>
+                            <td>{{ $patient->cure }}</td>
+                            <td>{{ $patient->accounter->first()->pivot->check_in_type ?? 'N/A' }}</td>
+                            <td>{{ $patient->accounter->first()->pivot->given_cure ?? 'N/A' }}</td>
+                            <td>{{ $apd->storage->first()->item ?? 'N/a' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endif
 
     @if(count($data['lazer']) > 0)
-    <div class="section">
-        <div class="section-title">Lazer</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Patient Name</th>
-                    <th>Doctor</th>
-                    <th>Device</th>
-                    <th>Point</th>
-                    <th>Rays number</th>
-                    <th>Power</th>
-                    <th>Speed</th>
-                    <th>Pulse</th>
-                    <th>Real Price</th>
-                    <th>Price</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($data['lazer'] as $session)
-                @foreach($session->Details as $detail)
-                <tr>
-                    <td>{{ $session->patient->name }}</td>
-                    <td>{{ $detail->doctor->user->name }}</td>
-                    <td>{{ $detail->device }}</td>
-                    <td>{{ $detail->point }}</td>
-                    <td>{{ $detail->raysCount }}</td>
-                    <td>{{ $detail->power }}</td>
-                    <td>{{ $detail->speed }}</td>
-                    <td>{{ $detail->pulse }}</td>
-                
-                @endforeach
-               
-                    <td>{{$session->real_price}} </td>
-                    <td>{{$session->price}} </td>
-                    <td>{{$session->notes}} </td>
-                
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+        <div class="section">
+            <div class="section-title">Lazer</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Doctor</th>
+                        <th>Device</th>
+                        <th>Point</th>
+                        <th>Rays number</th>
+                        <th>Power</th>
+                        <th>Speed</th>
+                        <th>Pulse</th>
+                        <th>Real Price</th>
+                        <th>Price</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['lazer'] as $session)
+                        @foreach($session->Details as $detail)
+                            <tr>
+                                <td>{{ $session->patient->name }}</td>
+                                <td>{{ $detail->doctor->user->name }}</td>
+                                <td>{{ $detail->device }}</td>
+                                <td>{{ $detail->point }}</td>
+                                <td>{{ $detail->raysCount }}</td>
+                                <td>{{ $detail->power }}</td>
+                                <td>{{ $detail->speed }}</td>
+                                <td>{{ $detail->pulse }}</td>
+
+                        @endforeach
+
+                            <td>{{$session->real_price}} </td>
+                            <td>{{$session->price}} </td>
+                            <td>{{$session->notes}} </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endif
 
     @if(count($data['skin']) > 0)
+        <div class="section">
+            <div class="section-title">Skin Treatments</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Doctor</th>
+                        <th>Options</th>
+                        <th>Cost</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['skin'] as $treatment)
+                        <tr>
+                            <td>{{ $treatment->patient->name }}</td>
+                            <td>{{ $treatment->doctor->user->name }}</td>
+                            <td>{{ $treatment->options }}</td>
+                            <td>{{ $treatment->cost }}</td>
+                            <td>{{ $treatment->created_at->format('Y-m-d') }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+
     <div class="section">
-        <div class="section-title">Skin Treatments</div>
+        <div class="section-title">Ray Counts</div>
         <table>
             <thead>
                 <tr>
-                    <th>Patient Name</th>
-                    <th>Doctor</th>
-                    <th>Options</th>
-                    <th>Cost</th>
-                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Count</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($data['skin'] as $treatment)
                 <tr>
-                    <td>{{ $treatment->patient->name }}</td>
-                    <td>{{ $treatment->doctor->user->name }}</td>
-                    <td>{{ $treatment->options }}</td>
-                    <td>{{ $treatment->cost }}</td>
-                    <td>{{ $treatment->created_at->format('Y-m-d') }}</td>
+                    <td>AX</td>
+                    <td>{{ $data['rayCounts']['ax'] ?? 0 }}</td>
                 </tr>
-                @endforeach
+                <tr>
+                    <td>AY</td>
+                    <td>{{ $data['rayCounts']['ay'] ?? 0 }}</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>{{ ($data['rayCounts']['ax'] ?? 0) + ($data['rayCounts']['ay'] ?? 0) }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
-    @endif
 
     <div class="section">
         <div class="section-title">Summary</div>
@@ -170,8 +206,9 @@
                 <th>Total Patients</th>
                 <td>{{ count($data['patientDept']) + count($data['lazer']) }}</td>
             </tr>
-           
+
         </table>
     </div>
 </body>
+
 </html>
