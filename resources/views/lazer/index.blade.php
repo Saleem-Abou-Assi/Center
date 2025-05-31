@@ -118,22 +118,22 @@
 
             <div>
                 <p>عدد أشعة ax/ay</p>
-                <span id="denamyCountSpan"></span> <!-- Count for ax and ay -->
+                <span id="denamyCountSpan">0</span> <!-- Count for ax and ay -->
             </div>
             <div>
                 <p>عدد أشعة again</p>
-                <span id="dynamicCountSpan"></span> <!-- Count for again -->
+                <span id="dynamicCountSpan">0</span> <!-- Count for again -->
             </div>
 
             <div class="form-group">
                 <label for="price">التكلفة الأساسية</label>
-       
                 <div id="price_breakdown">
                     <p>سعر أشعة AX/AY = <span id="ax_price_display">0</span></p>
                     <p>سعر أشعة Again = <span id="again_price_display">0</span></p>
                     <p>المجموع الكلي = <span id="price_dispaly">0</span></p>
                 </div>
                 <input type="hidden" id="price" name="price">
+                <button type="button" id="calculatePriceBtn" class="calculate-btn">حساب السعر</button>
             </div>
 
 
@@ -406,23 +406,47 @@
             const axPriceDisplay = document.getElementById("ax_price_display");
             const againPriceDisplay = document.getElementById("again_price_display");
             const totalPriceInput = document.getElementById("price");
+            const calculatePriceBtn = document.getElementById("calculatePriceBtn");
 
-            
             const axPrice = {{ isset($ray_price) ? $ray_price->ax_price : 0 }};
             const againPrice = {{ isset($ray_price) ? $ray_price->again_price : 0 }};
-           
+
+            // Store counts in variables
+            let axAyCount = 0;
+            let againCount = 0;
+
+            function updateDeviceCounts() {
+                const tableBody = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
+                const rows = tableBody.getElementsByTagName('tr');
+                axAyCount = 0;
+                againCount = 0;
+
+                for (let row of rows) {
+                    const deviceSelect = row.querySelector('select[name="dynamicDevice[]"]');
+                    const countInput = row.querySelector('input[name="dynamicCount[]"]');
+
+                    if (deviceSelect && countInput) {
+                        const deviceValue = deviceSelect.value;
+                        const countValue = parseInt(countInput.value) || 0;
+
+                        if (deviceValue === 'ax' || deviceValue === 'ay') {
+                            axAyCount += countValue;
+                        } else if (deviceValue === 'again') {
+                            againCount += countValue;
+                        }
+                    }
+                }
+
+                // Update the display spans
+                document.getElementById('denamyCountSpan').innerText = axAyCount;
+                document.getElementById('dynamicCountSpan').innerText = againCount;
+            }
+
             function calculateTotalPrice() {
-                const AXraysCount = AXraysCountInput.innerText ;
-                const AgainraysCount = AgainraysCountInput.innerText ;
-
-                const totalPriceAX = axPrice * AXraysCount
-                console.log("totalPriceAX", totalPriceAX);
-                const totalPriceAgain = againPrice * AgainraysCount;
-                console.log("totalPriceAgain", totalPriceAgain);
+                // Use the stored count variables
+                const totalPriceAX = axPrice * axAyCount;
+                const totalPriceAgain = againPrice * againCount;
                 const total = totalPriceAX + totalPriceAgain;
-                console.log("total", total);
-
-
 
                 if (axPriceDisplay) {
                     axPriceDisplay.innerText = totalPriceAX.toFixed(2);
@@ -438,17 +462,24 @@
                 }
             }
 
-            // Initial calculation
-            updateDeviceCounts();
-            calculateTotalPrice();
+            // Add click event listener to calculate button
+            calculatePriceBtn.addEventListener('click', function () {
+                updateDeviceCounts();
+                calculateTotalPrice();
+            });
 
-            // Add event listeners to update counts and recalculate price when inputs change
-            document.querySelectorAll('input[name="dynamicCount[]"]').forEach(input => {
-                input.addEventListener('input', function () {
+            // Add event listeners to update counts when inputs change
+            document.querySelectorAll('input[name="dynamicCount[]"], select[name="dynamicDevice[]"]').forEach(element => {
+                element.addEventListener('input', function () {
                     updateDeviceCounts();
-                    calculateTotalPrice();
+                });
+                element.addEventListener('change', function () {
+                    updateDeviceCounts();
                 });
             });
+
+            // Initial count update
+            updateDeviceCounts();
         });
         save_btn = document.querySelector(".save-btn");
 

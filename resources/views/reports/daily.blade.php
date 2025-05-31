@@ -183,17 +183,43 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $axCount = 0;
+                    $ayCount = 0;
+                    $againCount = 0;
+                    $totalCount = 0;
+                @endphp
+                @foreach($data['lazer'] as $lazer)
+                    @foreach($lazer->Details as $detail)
+                        @switch($detail->device)
+                            @case('ax')
+                                @php $axCount += $detail->raysCount; @endphp
+                                @break
+                            @case('ay')
+                                @php $ayCount += $detail->raysCount; @endphp
+                                @break
+                            @case('again')
+                                @php $againCount += $detail->raysCount; @endphp
+                                @break
+                        @endswitch
+                        @php $totalCount += $detail->raysCount; @endphp
+                    @endforeach
+                @endforeach
                 <tr>
                     <td>AX</td>
-                    <td>{{ $data['rayCounts']['ax'] ?? 0 }}</td>
+                    <td>{{ $axCount }}</td>
                 </tr>
                 <tr>
                     <td>AY</td>
-                    <td>{{ $data['rayCounts']['ay'] ?? 0 }}</td>
+                    <td>{{ $ayCount }}</td>
+                </tr>
+                <tr>
+                    <td>Again</td>
+                    <td>{{ $againCount }}</td>
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>{{ ($data['rayCounts']['ax'] ?? 0) + ($data['rayCounts']['ay'] ?? 0) }}</td>
+                    <td>{{ $totalCount }}</td>
                 </tr>
             </tbody>
         </table>

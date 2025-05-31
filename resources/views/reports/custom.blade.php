@@ -179,6 +179,58 @@
                 </div>
                 @endif
 
+                <div class="section">
+                    <div class="section-title">Ray Counts</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $axCount = 0;
+                                $ayCount = 0;
+                                $againCount = 0;
+                                $totalCount = 0;
+                            @endphp
+                            @foreach($dayData['lazer'] as $lazer)
+                                @foreach($lazer->Details as $detail)
+                                    @switch($detail->device)
+                                        @case('ax')
+                                            @php $axCount += $detail->raysCount; @endphp
+                                            @break
+                                        @case('ay')
+                                            @php $ayCount += $detail->raysCount; @endphp
+                                            @break
+                                        @case('again')
+                                            @php $againCount += $detail->raysCount; @endphp
+                                            @break
+                                    @endswitch
+                                    @php $totalCount += $detail->raysCount; @endphp
+                                @endforeach
+                            @endforeach
+                            <tr>
+                                <td>AX</td>
+                                <td>{{ $axCount }}</td>
+                            </tr>
+                            <tr>
+                                <td>AY</td>
+                                <td>{{ $ayCount }}</td>
+                            </tr>
+                            <tr>
+                                <td>Again</td>
+                                <td>{{ $againCount }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{ $totalCount }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="daily-summary">
                     <p>Daily Total Patients: {{ $dayData['summary']['total_patients'] }}</p>
                     <p>Daily Total Revenue: {{ $dayData['summary']['total_revenue'] }}</p>
