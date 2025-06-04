@@ -73,22 +73,27 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <select name="dynamicPoint[]" class="mini-select">
-                                            <option value="{{ $detail->point }}">{{ $detail->point }}</option>
-                                            <option value="وجه">وجه</option>
-                                            <option value="ابطين">ابطين</option>
-                                            <option value="بكيني">بكيني</option>
-                                            <option value="ايدين">ايدين</option>
-                                            <option value="ساقين">ساقين</option>
-                                            <option value="فخذين">فخذين</option>
-                                            <option value="فل بدي">فل بدي</option>
-                                            <option value="فل بدي كامل">فل بدي كامل</option>
-                                            <option value="بطن">بطن</option>
-                                            <option value="ظهر">ظهر</option>
-                                            <option value="أرداف">أرداف</option>
-                                            <option value="شفة">شفة</option>
-                                            <option value="غير ذلك">غير ذلك</option>
-                                        </select>
+                                        <div class="point-field-container">
+                                            <select name="dynamicPoint[]" class="mini-select point-select">
+                                                <option value="{{ $detail->point }}">{{ $detail->point }}</option>
+                                                <option value="وجه">وجه</option>
+                                                <option value="ابطين">ابطين</option>
+                                                <option value="بكيني">بكيني</option>
+                                                <option value="ايدين">ايدين</option>
+                                                <option value="ساقين">ساقين</option>
+                                                <option value="فخذين">فخذين</option>
+                                                <option value="فل بدي">فل بدي</option>
+                                                <option value="فل بدي كامل">فل بدي كامل</option>
+                                                <option value="بطن">بطن</option>
+                                                <option value="ظهر">ظهر</option>
+                                                <option value="أرداف">أرداف</option>
+                                                <option value="شفة">شفة</option>
+                                                @if(!isset($lazer))
+                                                    <option value="غير ذلك">غير ذلك</option>
+                                                @endif
+                                            </select>
+                                            <button type="button" class="edit-point-btn" style="display: none;">✎</button>
+                                        </div>
                                     </td>
                                     <td><input type="text" name="dynamicPower[]" value="{{ $detail->power }}"></td>
                                     <td><input type="text" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
@@ -280,8 +285,10 @@
                 { value: 'بطن', text: 'بطن' },
                 { value: 'ظهر', text: 'ظهر' },
                 { value: 'أرداف', text: 'أرداف' },
-                { value: 'شفة', text: 'شفة' },
-                { value: 'غير ذلك', text: 'غير ذلك' }
+                { value: 'شفة', text: 'شفة' }
+                @if(!isset($lazer))
+                    , { value: 'غير ذلك', text: 'غير ذلك' }
+                @endif
             ];
 
             options1.forEach(function (optionData) {
@@ -485,6 +492,14 @@
 
         save_btn.onclick = function () {
             this.innerHTML = "<div class=loader></div>";
+            // Get the patient ID from the select element
+            const patientId = document.getElementById('patient_id').value;
+            // Add a hidden input to store the redirect URL
+            const redirectInput = document.createElement('input');
+            redirectInput.type = 'hidden';
+            redirectInput.name = 'redirect_to';
+            redirectInput.value = `/patients/${patientId}`;
+            this.form.appendChild(redirectInput);
         }
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -517,22 +532,81 @@
 
                         // Add click handler to switch back to dropdown
                         switchBtn.addEventListener('click', function () {
-                            // Remove the custom input and switch button
                             container.remove();
-                            // Show the select again
                             select.style.display = '';
-                            // Reset the select value
                             select.value = '';
                         });
 
-                        // Add elements to container
-                        container.appendChild(switchBtn);
+                        // Add the elements to the container
                         container.appendChild(customInput);
+                        container.appendChild(switchBtn);
 
-                        // Add container after the select
-                        this.parentNode.appendChild(container);
-                        customInput.focus();
+                        // Insert the container after the select
+                        this.parentNode.insertBefore(container, this.nextSibling);
                     }
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add edit functionality for existing records
+            document.querySelectorAll('.point-field-container').forEach(container => {
+                const select = container.querySelector('.point-select');
+                const editBtn = container.querySelector('.edit-point-btn');
+
+                // Show edit button when hovering over the container
+                container.addEventListener('mouseenter', function () {
+                    editBtn.style.display = 'inline-block';
+                });
+
+                container.addEventListener('mouseleave', function () {
+                    editBtn.style.display = 'none';
+                });
+
+                // Handle edit button click
+                editBtn.addEventListener('click', function () {
+                    // Check if there's already an active edit field
+                    if (container.querySelector('.custom-point-input')) {
+                        return; // Exit if an edit is already in progress
+                    }
+
+                    const currentValue = select.value;
+                    const customInput = document.createElement('input');
+                    customInput.setAttribute('type', 'text');
+                    customInput.setAttribute('name', 'dynamicPoint[]');
+                    customInput.setAttribute('value', currentValue);
+                    customInput.className = 'mini-select custom-point-input';
+
+                    // Create save button
+                    const saveBtn = document.createElement('button');
+                    saveBtn.textContent = '✓';
+                    saveBtn.className = 'save-btn';
+                    saveBtn.style.marginLeft = '5px';
+                    saveBtn.style.padding = '2px 5px';
+                    saveBtn.style.cursor = 'pointer';
+
+                    // Add click handler for save button
+                    saveBtn.addEventListener('click', function () {
+                        const inputValue = customInput.value;
+                        // Update select with new value
+                        const option = document.createElement('option');
+                        option.value = inputValue;
+                        option.text = inputValue;
+                        select.innerHTML = '';
+                        select.appendChild(option);
+                        select.value = inputValue;
+                        // Remove input and save button
+                        customInput.remove();
+                        saveBtn.remove();
+                        // Show select again
+                        select.style.display = '';
+                    });
+
+                    // Replace select with input
+                    select.style.display = 'none';
+                    container.appendChild(customInput);
+                    container.appendChild(saveBtn);
+                    customInput.focus();
                 });
             });
         });
