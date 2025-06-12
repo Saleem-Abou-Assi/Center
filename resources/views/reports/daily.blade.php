@@ -216,9 +216,28 @@
         <table>
             <tr>
                 <th>إجمالي المرضى</th>
-                <td>{{ count($data['patientDept']) + count($data['lazer']) }}</td>
+                <td>{{ $data['patientStats']['total'] }}</td>
             </tr>
-             <tr>
+            <tr>
+                <th>تفاصيل المرضى</th>
+                <td>
+                    <table>
+                        <tr>
+                            <th>المعاينات</th>
+                            <td>{{ $data['patientStats']['patientDept'] }}</td>
+                        </tr>
+                        <tr>
+                            <th>الليزر</th>
+                            <td>{{ $data['patientStats']['lazer'] }}</td>
+                        </tr>
+                        <tr>
+                            <th>البشرة</th>
+                            <td>{{ $data['patientStats']['skin'] }}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
                 <th>إجمالي السعر الفعلي</th>
                 <td>
                     @php

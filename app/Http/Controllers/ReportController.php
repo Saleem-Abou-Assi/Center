@@ -30,6 +30,14 @@ class ReportController extends Controller
                 ->get()
         ];
 
+        // Calculate patient type statistics
+        $data['patientStats'] = [
+            'patientDept' => count($data['patientDept']),
+            'lazer' => count($data['lazer']),
+            'skin' => count($data['skin']),
+            'total' => count($data['patientDept']) + count($data['lazer']) + count($data['skin'])
+        ];
+
         if ($request->export_type === 'pdf') {
             $mpdf = new Mpdf();
             $html = view('reports.daily', ['data' => $data])->render();
