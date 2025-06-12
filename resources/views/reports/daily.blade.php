@@ -174,80 +174,41 @@
             <thead>
                 <tr>
                     <th>النوع</th>
-                    <th>العدد</th>
-                    <th>السعر</th>
+                    <th>عدد الأشعة في بداية اليوم</th>
+                    <th>عدد الأشعة في نهاية اليوم</th>
+                    <th>الفرق</th>
                 </tr>
             </thead>
             <tbody>
                 @php
-                    $axCount = 0;
-                    $ayCount = 0;
-                    $againCount = 0;
-                    $totalCount = 0;
+                    $rayCounts = \App\Models\DailyRayCount::where('date', today())->first();
                 @endphp
-                @foreach($data['lazer'] as $lazer)
-                    @foreach($lazer->Details as $detail)
-                        @switch($detail->device)
-                            @case('ax')
-                                @php $axCount += $detail->raysCount; @endphp
-                                @break
-                            @case('ay')
-                                @php $ayCount += $detail->raysCount; @endphp
-                                @break
-                            @case('again')
-                                @php $againCount += $detail->raysCount; @endphp
-                                @break
-                        @endswitch
-                        @php $totalCount += $detail->raysCount; @endphp
-                    @endforeach
-                @endforeach
-                @php
-                    $axPrice = 0;
-                    $ayPrice = 0;
-                    $againPrice = 0;
-                    $totalPrice = 0;
-                @endphp
-                @foreach($data['lazer'] as $lazer)
-                    @foreach($lazer->Details as $detail)
-                        @switch($detail->device)
-                            @case('ax')
-                                @php $axPrice += $lazer->price; @endphp
-                                @break
-                            @case('ay')
-                                @php $ayPrice += $lazer->price; @endphp
-                                @break
-                            @case('again')
-                                @php $againPrice += $lazer->price; @endphp
-                                @break
-                        @endswitch
-                        @php $totalPrice += $lazer->price; @endphp
-                    @endforeach
-                @endforeach
                 <tr>
                     <td>AX</td>
-                    <td>{{ $axCount }}</td>
-                    
-                    <td>{{ $axPrice }}</td>
+                    <td>{{ $rayCounts->ax_start_count ?? 0 }}</td>
+                    <td>{{ $rayCounts->ax_end_count ?? 0 }}</td>
+                    <td>{{ ($rayCounts->ax_end_count ?? 0) - ($rayCounts->ax_start_count ?? 0) }}</td>
                 </tr>
                 <tr>
                     <td>AY</td>
-                    <td>{{ $ayCount }}</td>
-                    <td>{{ $ayPrice }}</td>
+                    <td>{{ $rayCounts->ay_start_count ?? 0 }}</td>
+                    <td>{{ $rayCounts->ay_end_count ?? 0 }}</td>
+                    <td>{{ ($rayCounts->ay_end_count ?? 0) - ($rayCounts->ay_start_count ?? 0) }}</td>
                 </tr>
                 <tr>
                     <td>Again</td>
-                    <td>{{ $againCount }}</td>
-                    <td>{{ $againPrice }}</td>
+                    <td>{{ $rayCounts->again_start_count ?? 0 }}</td>
+                    <td>{{ $rayCounts->again_end_count ?? 0 }}</td>
+                    <td>{{ ($rayCounts->again_end_count ?? 0) - ($rayCounts->again_start_count ?? 0) }}</td>
                 </tr>
-                <tr>
-                    <td>المجموع</td>
-                    <td>{{ $totalCount }}</td>
-                    <td>{{ $totalPrice }}</td>
-                </tr>
-                 
-                
             </tbody>
         </table>
+        @if($rayCounts && $rayCounts->notes)
+            <div class="notes-section">
+                <h4>ملاحظات:</h4>
+                <p>{{ $rayCounts->notes }}</p>
+            </div>
+        @endif
     </div>
 
     <div class="section">

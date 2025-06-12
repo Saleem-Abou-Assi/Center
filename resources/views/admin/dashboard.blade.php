@@ -48,9 +48,105 @@
             </form>
         </div>
 
+        <!-- Rays Statistics Section -->
+        <div class="con">
+            <h2>تسجيل عدد الأشعة اليومي</h2>
+            
+            <!-- Start Counts Section -->
+            <div class="ray-counts-section">
+                <h3 class="section-title">عدد الأشعة في بداية اليوم</h3>
+                <form action="{{ route('admin.ray-counts.store-start') }}" method="POST">
+                    @csrf
+                    <div class="ray-counts-container">
+                        <div class="device-section">
+                            <h3>AX</h3>
+                            <div class="count-inputs">
+                                <div class="input-group">
+                                    <input type="number" id="ax_start_count" name="ax_start_count" 
+                                        value="{{ $todayCounts->ax_start_count ?? '' }}" required min="0"
+                                        placeholder="أدخل عدد الأشعة">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-section">
+                            <h3>AY</h3>
+                            <div class="count-inputs">
+                                <div class="input-group">
+                                    <input type="number" id="ay_start_count" name="ay_start_count" 
+                                        value="{{ $todayCounts->ay_start_count ?? '' }}" required min="0"
+                                        placeholder="أدخل عدد الأشعة">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-section">
+                            <h3>Again</h3>
+                            <div class="count-inputs">
+                                <div class="input-group">
+                                    <input type="number" id="again_start_count" name="again_start_count" 
+                                        value="{{ $todayCounts->again_start_count ?? '' }}" required min="0"
+                                        placeholder="أدخل عدد الأشعة">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="add-btn start-btn">حفظ عدد الأشعة في بداية اليوم</button>
+                </form>
+            </div>
+
+            <!-- End Counts Section -->
+            <div class="ray-counts-section">
+                <h3 class="section-title">عدد الأشعة في نهاية اليوم</h3>
+                <form action="{{ route('admin.ray-counts.store-end') }}" method="POST">
+                    @csrf
+                    <div class="ray-counts-container">
+                        <div class="device-section">
+                            <h3>AX</h3>
+                            <div class="count-inputs">
+                                <div class="input-group">
+                                    <input type="number" id="ax_end_count" name="ax_end_count" 
+                                        value="{{ $todayCounts->ax_end_count ?? '' }}" required min="0"
+                                        placeholder="أدخل عدد الأشعة">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-section">
+                            <h3>AY</h3>
+                            <div class="count-inputs">
+                                <div class="input-group">
+                                    <input type="number" id="ay_end_count" name="ay_end_count" 
+                                        value="{{ $todayCounts->ay_end_count ?? '' }}" required min="0"
+                                        placeholder="أدخل عدد الأشعة">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="device-section">
+                            <h3>Again</h3>
+                            <div class="count-inputs">
+                                <div class="input-group">
+                                    <input type="number" id="again_end_count" name="again_end_count" 
+                                        value="{{ $todayCounts->again_end_count ?? '' }}" required min="0"
+                                        placeholder="أدخل عدد الأشعة">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">ملاحظات</label>
+                        <textarea id="notes" name="notes" rows="3" placeholder="أدخل أي ملاحظات هنا">{{ $todayCounts->notes ?? '' }}</textarea>
+                    </div>
+
+                    <button type="submit" class="add-btn end-btn">حفظ عدد الأشعة في نهاية اليوم</button>
+                </form>
+            </div>
+        </div>
 
         <!-- Reports Section -->
-        <div class="report">
+        <div class="report" >
 
 
             <!-- Daily Operations Report -->

@@ -48,7 +48,8 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/',[DashboardController::class,'index'])->name('');
 
     // In routes/web.php or routes/api.php
-    
+    Route::post('/ray-counts/start', [DashboardController::class, 'storeStartCounts'])->name('ray-counts.store-start');
+    Route::post('/ray-counts/end', [DashboardController::class, 'storeEndCounts'])->name('ray-counts.store-end');
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
