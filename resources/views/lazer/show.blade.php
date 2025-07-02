@@ -13,70 +13,138 @@
         @media print {
             body * {
                 visibility: hidden;
-                /* Hide everything by default */
             }
 
             .printable,
             .printable * {
                 visibility: visible;
-                /* Show only the printable elements */
-
             }
 
             .printable {
-                width: 21cm;
-                /* Set width to A5 landscape */
-                margin: 0 auto;
-                /* Center the content */
+                width: 80mm;
+                max-width: 80mm;
+                margin: 0;
+                margin-left: -1mm;
+                padding: 5mm;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
+            .page-title {
+                text-align: center;
+                margin-bottom: 5mm;
+            }
+
+            h1 {
+                font-size: 16px;
+                margin: 2mm 0;
+            }
+
+            h3 {
+                font-size: 14px;
+                margin: 2mm 0;
+            }
+
+            .container1 {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .table-container {
+                width: 100%;
+                margin-bottom: 5mm;
+                display: flex;
+                justify-content: flex-start;
+            }
+
+            .pron,
+            .prin {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+            }
+
+            .pron table,
+            .prin table {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
             }
 
             table {
                 width: 100%;
-                /* Full width for tables */
-                /* Collapse borders */
-                margin: 0 auto;
-                /* Center the table */
+                border-collapse: collapse;
+                font-size: 12px;
             }
 
             th,
             td {
                 border: 1px solid #000;
-                /* Solid border for cells */
-                padding: 8px;
-                /* Padding for cells */
-                text-align: right;
-                /* Right align text for Arabic */
+                padding: 2mm;
+                text-align: center;
+                width: auto;
+                min-width: 30mm;
             }
 
             th {
                 background-color: #f2f2f2;
-                /* Light background for headers */
+                font-weight: bold;
             }
 
-            h1,
-            h3 {
-                text-align: center;
-                /* Center headings */
+            .pron table {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                justify-content: space-between;
+                overflow: hidden;
+            }
 
+            .prin table {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-between;
+                overflow: hidden;
+            }
+
+            .pron thead,
+            .pron tbody,
+            .prin thead,
+            .prin tbody {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .pron tr,
+            .prin tr {
+                display: flex;
+                flex-direction: column;
+                margin-right: 2mm;
+                flex: 1;
+            }
+
+            .pron th,
+            .pron td,
+            .prin th,
+            .prin td {
+                display: block;
+                width: 100%;
+                text-align: center;
+                border: 1px solid #000;
+                padding: 2mm;
+                font-size: 11px;
             }
 
             .botons {
                 display: none;
-                /* Hide buttons during print */
             }
 
             .add-btn .custom-btn {
                 visibility: hidden;
-
-            }
-
-            .pron {
-                width: 650px;
-            }
-
-            .prin {
-                width: 650px;
             }
         }
     </style>
