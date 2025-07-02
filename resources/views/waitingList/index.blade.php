@@ -79,45 +79,45 @@
                             <th>ازالة</th>
                         </tr>
                         @foreach ($waitingList as $patient)
-                        @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('reciption'))
-                        
-                        <tr>
-                        <td>
-                            {{ $patient->patient->name }} 
-                            </td>
-                            <td>
-                                {{$patient->doctor->user->name}}
-                            
-                            </td>
-                            <td>
-                                {{$patient->device}}
-                            </td>
-                            <td>    <form action="{{ route('waitingList.destroy', $patient->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="action-btn">إزالة</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @elseif (Auth::user()->hasRole('doctor'))
-                    @if ($patient->doctor->user->name == Auth::user()->name)
-                    <tr>
-                    <td>{{$patient->patient->name}}</td>
-                        <td> {{$patient->doctor->user->name}}</td>
-                        <td>
-                            {{$patient->device}}
-                        </td>
-                        <td>    <form action="{{ route('waitingList.destroy', $patient->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="remove-btn">إزالة</button>
-                        </form>
-                    </td>
-                </tr>
-                    @endif
-                    @else
-                    <p>لا يوجد مرضى في قائمة الانتظار</p>
-                        @endif
+                                    @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('reciption'))
+
+                                            <tr>
+                                            <td>
+                                                <a href="{{ route('patient.show', $patient->patient->id) }}" style="color: inherit; text-decoration: none; background-color:#0674c272; border-radius: 5px; padding:5px; ">{{ $patient->patient->name }}</a>
+                                                </td>
+                                                <td>
+                                                    {{$patient->doctor->user->name}}
+
+                                                </td>
+                                                <td>
+                                                    {{$patient->device}}
+                                                </td>
+                                                <td>    <form action="{{ route('waitingList.destroy', $patient->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="action-btn">إزالة</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @elseif (Auth::user()->hasRole('doctor'))
+                                @if ($patient->doctor->user->name == Auth::user()->name)
+                                <tr>
+                                <td>{{$patient->patient->name}}</td>
+                                    <td> {{$patient->doctor->user->name}}</td>
+                                    <td>
+                                        {{$patient->device}}
+                                    </td>
+                                    <td>    <form action="{{ route('waitingList.destroy', $patient->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="remove-btn">إزالة</button>
+                                    </form>
+                                </td>
+                            </tr>
+                                @endif
+                                @else
+                                <p>لا يوجد مرضى في قائمة الانتظار</p>
+                                    @endif
                         @endforeach 
                     </table>
                     

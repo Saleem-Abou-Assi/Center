@@ -236,12 +236,14 @@
             // Create new row and cells  
             var newRow = document.createElement('tr');
             var docCell = document.createElement('td');
+            docCell.className = 'ta-r';
             var pointCell = document.createElement('td');
             var powerCell = document.createElement('td');
             var speedCell = document.createElement('td');
             var pulseCell = document.createElement('td');
             var countCell = document.createElement('td');
             var deviceCell = document.createElement('td'); // Cell for dynamicDevice
+            deviceCell.className = 'ta-r';
             var actionCell = document.createElement('td');
 
             newRow.className = 'nr';

@@ -8,6 +8,7 @@ body {
     background-attachment: fixed;
     margin: 0;
     font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
 }
 
 /* Container Styles */
@@ -221,12 +222,14 @@ tbody tr:nth-child(even) {
 }
 
 .action-td{
+    
     display: flex;
     gap: 10px;  /* Space between buttons */
     align-content: center;
     justify-content: center;
     justify-items: center;
     align-items: center;
+    flex-direction: row;
   }
 
 a.action-btn, .add-btn {
@@ -716,7 +719,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     align-content: center;
     text-align: center; /* Aligns text to the center */
     border-radius: 8px; 
-    height: 600px;
+    height: 740px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     
   }
@@ -726,7 +729,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     background-color: #f1f1f1;
     display: flex;
     width: 50vw;
-    height: 600px;
+    height: 740px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -951,7 +954,7 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     display: flex;
     height: auto;
     flex-direction: column;
-    
+    padding: 10px;
 }
 .nr{
     display: grid;
@@ -1006,13 +1009,19 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     appearance: button;
     outline: none;
     transition: background-color 0.3s ease;
-    transform: translateY(-4px);
+    transform: translateY(9px);
+    
 }
 .inp6:focus{
     background-color: #0673c2;
 }
 .inp:focus{
     background-color: #0673c2;
+}
+.ta-r{
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
 }
 .boto{
     position: relative;
@@ -1152,7 +1161,11 @@ input[type="text"]:focus, input[type="number"]:focus, input[type="datetime-local
     min-width: 250px;
     background-color: #f8f9fa;
     border-radius: 8px;
+<<<<<<< HEAD
     padding: 20px;
+=======
+    padding: 5px;
+>>>>>>> 9d8fed44f9fd029acd64fe3cc8905c2e34fd8ac8
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -1293,7 +1306,11 @@ table th,
 table td {
     padding: 0.75rem;
     text-align: right;
+<<<<<<< HEAD
     border: 1px solid #dee2e6;
+=======
+   
+>>>>>>> 9d8fed44f9fd029acd64fe3cc8905c2e34fd8ac8
 }
 
 table th {
@@ -1308,4 +1325,60 @@ table tr:nth-child(even) {
 
 table tr:hover {
     background-color: #f1f4f6;
+<<<<<<< HEAD
 }
+=======
+}
+ .modal {
+     display: none;
+     position: fixed;
+     z-index: 1000;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.5);
+ }
+
+ .modal-content {
+     background-color: #fefefe;
+     margin: 5% auto;
+     padding: 20px;
+     border: 1px solid #888;
+     width: 80%;
+     max-width: 1000px;
+     border-radius: 8px;
+     position: relative;
+     max-height: 100vh;
+     overflow-y: auto;
+     transform: translateY(-100px);
+     
+    
+ }
+
+ .close {
+     color: #aaa;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+     cursor: pointer;
+ }
+
+ .close:hover,
+ .close:focus {
+     color: black;
+     text-decoration: none;
+     cursor: pointer;
+ }
+ .con1{
+        display: flex;
+        flex-direction: row;
+        justify-items: end;
+        gap: 10px;
+        width: 20vw;
+        background-color: #f1f1f1;
+        place-content: center;
+        place-self: center;
+        
+ }
+>>>>>>> 9d8fed44f9fd029acd64fe3cc8905c2e34fd8ac8

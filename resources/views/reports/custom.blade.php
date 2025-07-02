@@ -124,8 +124,8 @@
                                 <th>السرعة</th>
                                 <th>عرض النبضة</th>
                                 <th>الوقت</th>
-                                <th>السعر الفعلي</th>
-                                <th>السعر</th>
+                                <th>السعر الافتراضي</th>
+                                <th>السعر الحقيقي</th>
                                 <th>ملاحظات</th>
                             </tr>
                         </thead>
@@ -151,36 +151,7 @@
                         </tbody>
                     </table>
                 </div>
-                @endif
-
-                @if(isset($dayData['skin']) && count($dayData['skin']) > 0)
-                <div class="section">
-                    <div class="section-title">علاجات البشرة</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>اسم المريض</th>
-                                <th>الطبيب</th>
-                                <th>العلاج</th>
-                                <th>الوصف</th>
-                                <th>التاريخ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($dayData['skin'] as $treatment)
-                            <tr>
-                                <td>{{ $treatment->patient->name }}</td>
-                                <td>{{ $treatment->doctor->user->name }}</td>
-                                <td>{{ $treatment->treatment }}</td>
-                                <td>{{ $treatment->description }}</td>
-                                <td>{{ $treatment->created_at->format('Y-m-d') }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                @endif
-
+                    
                 <div class="section">
                     <div class="section-title">إحصائيات الأشعة</div>
                     <table>
@@ -273,6 +244,36 @@
                         {{ $totalRealPrice }}
                     </p>
                 </div>
+            </div>
+                @endif
+
+                @if(isset($dayData['skin']) && count($dayData['skin']) > 0)
+                <div class="section">
+                    <div class="section-title">علاجات البشرة</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اسم المريض</th>
+                                <th>الطبيب</th>
+                                <th>العلاج</th>
+                                <th>الوصف</th>
+                                <th>التاريخ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($dayData['skin'] as $treatment)
+                            <tr>
+                                <td>{{ $treatment->patient->name }}</td>
+                                <td>{{ $treatment->doctor->user->name }}</td>
+                                <td>{{ $treatment->treatment }}</td>
+                                <td>{{ $treatment->description }}</td>
+                                <td>{{ $treatment->created_at->format('Y-m-d') }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
             </div>
         @endforeach
     @endif

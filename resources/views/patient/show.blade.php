@@ -212,8 +212,9 @@
                     <td>{{ $patient->skin[$i]->options }}</td>
                     <td>{{ $patient->skin[$i]->cost }}</td>
                     <td>{{ $patient->skin[$i]->created_at }}</td>
-                    <td>{{ $patient->skin[$i]->note }}</td>
-                    <td>
+                    <td class="action-td">
+                        <a href="{{ route('skin.show', $patient->skin[$i]->id) }}" class="action-btn">تفاصيل</a>
+                        <a href="{{ route('skin.edit', $patient->skin[$i]->id) }}" class="action-btn">تعديل</a>
                         <form id="deleteForm" action="{{ route('skin.destroy', $patient->skin[$i]->id) }}" method="POST"
                             onsubmit="return confirmCustom()">
                             @csrf
@@ -386,11 +387,7 @@
             font-size: 0.9em;
         }
 
-        .action-td {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
+      
 
         .action-btn {
             display: inline-block;

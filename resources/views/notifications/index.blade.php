@@ -32,7 +32,17 @@
                 <tbody>
                     @foreach ($notifications as $notification)
                         <tr @if(!$notification->is_read) style="background-color: #f0f8ff;" @endif>
-                            <td>{{ $notification->type === 'patient_dept' ? 'معاينة' : 'ليزر' }}</td>
+                            <td>
+                                @if($notification->type === 'patient_dept')
+                                    معاينة
+                                @elseif($notification->type === 'lazer')
+                                    ليزر
+                                @elseif($notification->type === 'skin')
+                                    بشرة
+                                @else
+                                    {{ $notification->type }}
+                                @endif
+                            </td>
                             <td>{{ $notification->doctor }}</td>
                             <td>{{ $notification->patient->name }}</td>
                             <td>{{ $notification->message }}</td>
@@ -49,14 +59,19 @@
                                 @if($notification->type === 'patient_dept')
                                     <a href="{{ route('accounter.index', $notification->operation_id) }}"
                                         class="action-btn">تفاصيل</a>
-                                        <a href="{{ route('patientDept.edit', $notification->operation_id) }}"
+                                    <a href="{{ route('patientDept.edit', $notification->operation_id) }}"
                                         class="action-btn">تعديل المعاينة</a>
 
                                 @elseif($notification->type === 'lazer')
                                     <a href="{{ route('lazer.show', $notification->operation_id) }}"
                                         class="action-btn">تفاصيل</a>
-                                        <a href="{{ route('lazer.edit', $notification->operation_id) }}" 
-                                        class="action-btn"> تعديل المعاينة</a>
+                                    <a href="{{ route('lazer.edit', $notification->operation_id) }}" class="action-btn"> تعديل
+                                        المعاينة</a>
+                                @elseif($notification->type === 'skin')
+                                    <a href="{{ route('skin.show', $notification->operation_id) }}"
+                                        class="action-btn">تفاصيل</a>
+                                    <a href="{{ route('skin.edit', $notification->operation_id) }}" class="action-btn">تعديل
+                                        المعاينة</a>
                                 @endif
                                 <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST"
                                     style="display: inline;">

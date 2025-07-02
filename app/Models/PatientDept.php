@@ -11,26 +11,36 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class PatientDept extends Model
 {
     protected $fillable = [
-        'dept_id','patient_id','doctor_name',
-    'illness','description','cure','type'
-    ]; 
-    
+        'dept_id',
+        'patient_id',
+        'doctor_name',
+        'illness',
+        'description',
+        'cure',
+        'type'
+    ];
 
-    
 
-    public function Accounter():BelongsToMany
+
+
+    public function Accounter(): BelongsToMany
     {
-        return $this->belongsToMany(Accounter::class,'a_p_d_s','PD_id','A_id')->withPivot('id','doctor_id','check_in_type','given_cure','full_cost','status');
+        return $this->belongsToMany(Accounter::class, 'a_p_d_s', 'PD_id', 'A_id')->withPivot('id', 'doctor_id', 'check_in_type', 'given_cure', 'full_cost', 'status');
     }
 
-    public function Department():BelongsTo
+    public function Department(): BelongsTo
     {
-        return $this->belongsTo(Department::class,'dept_id');
+        return $this->belongsTo(Department::class, 'dept_id');
     }
 
     public function patient()
     {
         return $this->belongsTo(Patient::class);
+    }
+
+    public function apd()
+    {
+        return $this->hasOne(\App\Models\APD::class, 'PD_id');
     }
 
 }

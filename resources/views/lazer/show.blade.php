@@ -10,6 +10,7 @@
     @include('layouts.navigation')
 
     <style>
+<<<<<<< HEAD
         @media print {
             body * {
                 visibility: hidden;
@@ -29,6 +30,116 @@
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
+=======
+          .basic {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                gap: 15mm;
+            }
+            .note{
+                visibility: hidden;
+                display: none;
+            }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .printable,
+            .printable * {
+                visibility: visible;
+            }
+
+            .printable {
+                width: 148mm;
+                /* Set width to A5 */
+                max-width: 148mm;
+                margin: 0 auto;
+                /* Center the content */
+                padding: 10mm;
+                display: flex;
+                place-content: center;
+                
+
+
+
+
+            }
+
+            .printable h3 {
+                text-align: end;
+            }
+
+            .container1 {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 2cm;
+                visibility: visible;
+                place-self: flex-start;
+                transform: translateY(-6cm);
+                max-height:14.5cm;
+            }
+
+            table {
+                width: 18cm;
+                /* Full width for tables */
+
+                /* Collapse borders */
+                margin: 0 auto;
+                /* Center the table */
+                font-size: 12px;
+            }
+            .prin{
+                border:1px solid #000;
+            }
+
+            th,
+            td {
+                border: 1px solid #000;
+                /* Solid border for cells */
+                padding: 4px;
+                /* Padding for cells */
+                text-align: center;
+                /* Center align text */
+            }
+
+            th {
+                background-color: #f2f2f2;
+                /* Light background for headers */
+                font-weight: bold;
+            }
+
+            h1 {
+                font-size: 18px;
+                margin: 3mm 0;
+                text-align: center;
+            }
+
+            h3 {
+                font-size: 16px;
+                margin: 3mm 0;
+                text-align: center;
+                /* Center headings */
+            }
+
+            .botons,
+            .botons * {
+                visibility: hidden;
+            }
+
+            .basic {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                gap: 15mm;
+            }
+            .note{
+                visibility: visible;
+                display: block;
+                text-align: end;
+>>>>>>> 9d8fed44f9fd029acd64fe3cc8905c2e34fd8ac8
             }
 
             .page-title {
@@ -152,6 +263,7 @@
 
 <body>
     <div class="all">
+<<<<<<< HEAD
         <div class="page-title printable">
             <h1>تفاصيل الليزر</h1>
         </div>
@@ -225,7 +337,87 @@
                     <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2"><span
                             class="fa fa-arrow-left" style="font-size:25px"></span></a>
                 </div>
+=======
+        <div class="page-title">
+            <h1>تفاصيل الليزر</h1>
+        </div>
+
+
+        <div class="container1 printable">
+            <div class="basic">
+                
+                <h3 style="color: black; text-align:center;">معاينة الليزر للمريض {{$lazer->Patient->name}}</h3>
             </div>
+            <div class="table-container pron">
+                <table id='lazerTable'>
+                    <tbody>
+
+                        <tr>
+                            <th>التكلفة الأساسية</th>
+                            <td>{{$lazer->price}}</td>
+                        </tr>
+                        <tr>
+                            <th>التكلفة الفعلية</th>
+                            <td>{{$lazer->real_price}}</td>
+                        </tr>
+                        <tr>
+                            <th>ملاحظات</th>
+                            <td>{{$lazer->notes}}</td>
+
+                        </tr>
+                        <tr>
+                            <th>التاريخ</th>
+                            <td>{{$lazer->created_at}}</td>
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+                <br>
+>>>>>>> 9d8fed44f9fd029acd64fe3cc8905c2e34fd8ac8
+            </div>
+
+            <div class="table-container prin">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>اسم الدكتور</th>
+                            <th>عدد الأشعة</th>
+                            <th>المنطقة</th>
+                            <th>الطاقة</th>
+                            <th>السرعة</th>
+                            <th>عرض النبضة</th>
+                            <th>الجهاز</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($lazer->Details as $detail)
+                            <tr>
+                                <td>{{$detail->doctor->user->name}}</td>
+                                <td>{{$detail->raysCount}}</td>
+                                <td>{{$detail->point}}</td>
+                                <td>{{$detail->power}}</td>
+                                <td>{{$detail->speed}}</td>
+                                <td>{{$detail->pulse}}</td>
+                                <td>{{$detail->device}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <h3 class="note">: ملاحظات </h3>
+            </div>
+
+            <div class="botons">
+                <div class="boton">
+                    <button class="add-btn" onclick="printPage()">طباعة التفاصيل</button>
+                </div>
+                <div class="boton">
+                    <a href="javascript:void(0)" onclick="window.history.back()" class="custom-btn btn-2"><span
+                            class="fa fa-arrow-left" style="font-size:25px"></span></a>
+                </div>
+            </div>
+          
         </div>
     </div>
     <script>
