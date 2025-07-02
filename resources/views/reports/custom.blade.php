@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Custom Report</title>
+    <title>تقرير مخصص</title>
     <style>
         body {
             font-family: "Cairo", sans-serif;
@@ -60,8 +60,8 @@
 
 <body>
     <div class="header">
-        <h1>Custom Report</h1>
-        <p>Period: {{ $data['summary']['start_date'] }} to {{ $data['summary']['end_date'] }}</p>
+        <h1>تقرير مخصص</h1>
+        <p>الفترة: {{ $data['summary']['start_date'] }} إلى {{ $data['summary']['end_date'] }}</p>
     </div>
 
     @if(isset($data['grouped_data']) && count($data['grouped_data']) > 0)
@@ -73,20 +73,20 @@
 
                 @if(isset($dayData['patientDept']) && count($dayData['patientDept']) > 0)
                 <div class="section">
-                    <div class="section-title">Patient Department</div>
+                    <div class="section-title">قسم المرضى</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Patient Name</th>
-                                <th>Department</th>
-                                <th>Doctor</th>
-                                <th>Illness</th>
-                                <th>Description</th>
-                                <th>Cure</th>
-                                <th>Check-in Type</th>
-                                <th>Given Cure</th>
-                                <th>Tools</th>
-                                <th>Time</th>
+                                <th>اسم المريض</th>
+                                <th>القسم</th>
+                                <th>الطبيب</th>
+                                <th>المرض</th>
+                                <th>الوصف</th>
+                                <th>العلاج</th>
+                                <th>نوع الحجز</th>
+                                <th>العلاج المقدم</th>
+                                <th>الأدوات</th>
+                                <th>الوقت</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,9 +98,9 @@
                                 <td>{{ $item->illness }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>{{ $item->cure }}</td>
-                                <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'N/A' }}</td>
-                                <td>{{ $item->accounter->first()->pivot->given_cure ?? 'N/A' }}</td>
-                                <td>{{ $item->accounter->first()->pivot->tools ?? 'N/A' }}</td>
+                                <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'غير متوفر' }}</td>
+                                <td>{{ $item->accounter->first()->pivot->given_cure ?? 'غير متوفر' }}</td>
+                                <td>{{ $item->accounter->first()->pivot->tools ?? 'غير متوفر' }}</td>
                                 <td>{{ $item->created_at->format('H:i') }}</td>
                             </tr>
                             @endforeach
@@ -111,57 +111,153 @@
 
                 @if(isset($dayData['lazer']) && count($dayData['lazer']) > 0)
                 <div class="section">
-                    <div class="section-title">Lazer Sessions</div>
+                    <div class="section-title">جلسات الليزر</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Patient Name</th>
-                                <th>Doctor</th>
-                                <th>Device</th>
-                                <th>Point</th>
-                                <th>Rays Count</th>
-                                <th>Power</th>
-                                <th>Speed</th>
-                                <th>Pulse</th>
-                                <th>Time</th>
-                                <th>Real Price</th>
-                                <th>Price</th>
-                                <th>Notes</th>
+                                <th>اسم المريض</th>
+                                <th>الطبيب</th>
+                                <th>الجهاز</th>
+                                <th>المنطقة</th>
+                                <th>عدد الأشعة</th>
+                                <th>الطاقة</th>
+                                <th>السرعة</th>
+                                <th>عرض النبضة</th>
+                                <th>الوقت</th>
+                                <th>السعر الافتراضي</th>
+                                <th>السعر الحقيقي</th>
+                                <th>ملاحظات</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($dayData['lazer'] as $session)
-                            <tr>
-                                <td>{{ $session->patient->name }}</td>
-                                <td>{{ $session->Doctor->user->name }}</td>
-                                <td>{{ $session->device }}</td>
-                                <td>{{ $session->point }}</td>
-                                <td>{{ $session->raysCount }}</td>
-                                <td>{{ $session->power }}</td>
-                                <td>{{ $session->speed }}</td>
-                                <td>{{ $session->pulse }}</td>
-                                <td>{{ $session->created_at->format('H:i') }}</td>
-                                <td>{{ $session->real_price }}</td>
-                                <td>{{ $session->price }}</td>
-                                <td>{{ $session->notes }}</td>
-                            </tr>
+                                @foreach($session->Details as $detail)
+                                    <tr>
+                                        <td>{{ $session->patient->name }}</td>
+                                        <td>{{ $detail->doctor->user->name ?? 'غير متوفر' }}</td>
+                                        <td>{{ $detail->device }}</td>
+                                        <td>{{ $detail->point }}</td>
+                                        <td>{{ $detail->raysCount }}</td>
+                                        <td>{{ $detail->power }}</td>
+                                        <td>{{ $detail->speed }}</td>
+                                        <td>{{ $detail->pulse }}</td>
+                                        <td>{{ $session->created_at->format('H:i') }}</td>
+                                        <td>{{ $session->real_price }}</td>
+                                        <td>{{ $session->price }}</td>
+                                        <td>{{ $session->notes }}</td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+                    
+                <div class="section">
+                    <div class="section-title">إحصائيات الأشعة</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>النوع</th>
+                                <th>العدد</th>
+                                <th>السعر</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $axCount = 0;
+                                $ayCount = 0;
+                                $againCount = 0;
+                                $totalCount = 0;
+                            @endphp
+                            @foreach($dayData['lazer'] as $lazer)
+                                @foreach($lazer->Details as $detail)
+                                    @switch($detail->device)
+                                        @case('ax')
+                                            @php $axCount += $detail->raysCount; @endphp
+                                            @break
+                                        @case('ay')
+                                            @php $ayCount += $detail->raysCount; @endphp
+                                            @break
+                                        @case('again')
+                                            @php $againCount += $detail->raysCount; @endphp
+                                            @break
+                                    @endswitch
+                                    @php $totalCount += $detail->raysCount; @endphp
+                                @endforeach
+                            @endforeach
+                            @php
+                                $axPrice = 0;
+                                $ayPrice = 0;
+                                $againPrice = 0;
+                                $totalPrice = 0;
+                            @endphp
+                            @foreach($dayData['lazer'] as $lazer)
+                                @foreach($lazer->Details as $detail)
+                                    @switch($detail->device)
+                                        @case('ax')
+                                            @php $axPrice += $lazer->price; @endphp
+                                            @break
+                                        @case('ay')
+                                            @php $ayPrice += $lazer->price; @endphp
+                                            @break
+                                        @case('again')
+                                            @php $againPrice += $lazer->price; @endphp
+                                            @break
+                                    @endswitch
+                                    @php $totalPrice += $lazer->price; @endphp
+                                @endforeach
+                            @endforeach
+                            <tr>
+                                <td>AX</td>
+                                <td>{{ $axCount }}</td>
+                                <td>{{ $axPrice }}</td>
+                            </tr>
+                            <tr>
+                                <td>AY</td>
+                                <td>{{ $ayCount }}</td>
+                                <td>{{ $ayPrice }}</td>
+                            </tr>
+                            <tr>
+                                <td>Again</td>
+                                <td>{{ $againCount }}</td>
+                                <td>{{ $againPrice }}</td>
+                            </tr>
+                            <tr>
+                                <td>المجموع</td>
+                                <td>{{ $totalCount }}</td>
+                                <td>{{ $totalPrice }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="daily-summary">
+                    <p>إجمالي المرضى اليومي: {{ $dayData['summary']['total_patients'] }}</p>
+                    <p>إجمالي الإيرادات اليومي: {{ $dayData['summary']['total_revenue'] }}</p>
+                    <p>إجمالي السعر الفعلي: 
+                        @php
+                            $totalRealPrice = 0;
+                            foreach ($dayData['lazer'] as $lazer) {
+                                $totalRealPrice += $lazer->real_price;
+                            }
+                        @endphp
+                        {{ $totalRealPrice }}
+                    </p>
+                </div>
+            </div>
                 @endif
 
                 @if(isset($dayData['skin']) && count($dayData['skin']) > 0)
                 <div class="section">
-                    <div class="section-title">Skin Treatments</div>
+                    <div class="section-title">علاجات البشرة</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Patient Name</th>
-                                <th>Doctor</th>
-                                <th>Treatment</th>
-                                <th>Description</th>
-                                <th>Date</th>
+                                <th>اسم المريض</th>
+                                <th>الطبيب</th>
+                                <th>العلاج</th>
+                                <th>الوصف</th>
+                                <th>التاريخ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -178,18 +274,13 @@
                     </table>
                 </div>
                 @endif
-
-                <div class="daily-summary">
-                    <p>Daily Total Patients: {{ $dayData['summary']['total_patients'] }}</p>
-                    <p>Daily Total Revenue: {{ $dayData['summary']['total_revenue'] }}</p>
-                </div>
             </div>
         @endforeach
     @endif
 
     <div class="summary">
-        <h3>Overall Summary</h3>
-        <p>Total Patients: {{ $data['summary']['total_patients'] }}</p>
+        <h3>ملخص عام</h3>
+        <p>إجمالي المرضى: {{ $data['summary']['total_patients'] }}</p>
     </div>
 </body>
 

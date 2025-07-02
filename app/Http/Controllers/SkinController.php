@@ -10,31 +10,31 @@ use Illuminate\Http\Request;
 
 class SkinController extends Controller
 {
-     public function index()
+    public function index()
     {
-      
+
         $patients = Patient::all();
         $doctors = Doctor::all();
-        
 
-        return view('skin.index' , ['patients'=>$patients,'doctors'=>$doctors ]);
+
+        return view('skin.index', ['patients' => $patients, 'doctors' => $doctors]);
     }
 
     public function store(Request $request)
     {
 
         $patient = Patient::find($request->patient);
-     
-       
-        $skin = Skin::create([
-            'patient_id' => $patient->id    ,
-            'doctor_id' => $request->doctor,
-            'options'=>$request->options,
-            'cost'=>$request->cost,
 
-            
+
+        $skin = Skin::create([
+            'patient_id' => $patient->id,
+            'doctor_id' => $request->doctor,
+            'options' => $request->options,
+            'cost' => $request->cost,
+
+
         ]);
-  
+
         Notification::create([
             'type' => 'skin',
             'doctor_id' => $request->doctor,
@@ -48,14 +48,46 @@ class SkinController extends Controller
 
 
     public function destroy($skin_id)
-    { 
-       
-       $dept = Skin::where('id',$skin_id)->first();
+    {
+
+        $dept = Skin::where('id', $skin_id)->first();
 
         $dept->delete();
-      
+
         return redirect()->back();
 
+    }
+
+    public function show($skin_id)
+    {
+        $skin = Skin::with(['patient', 'doctor.user'])->findOrFail($skin_id);
+        return view('skin.show', compact('skin'));
+    }
+
+    public function edit($skin_id)
+    {
+        $skin = Skin::with(['patient', 'doctor.user'])->findOrFail($skin_id);
+        $patients = Patient::all();
+        $doctors = Doctor::all();
+        return view('skin.edit', compact('skin', 'patients', 'doctors'));
+    }
+
+    public function update(Request $request, $skin_id)
+    {
+        $request->validate([
+            'patient' => 'required|exists:patients,id',
+            'doctor' => 'required|exists:doctors,id',
+            'options' => 'required|string',
+            'cost' => 'required|numeric',
+        ]);
+        $skin = Skin::findOrFail($skin_id);
+        $skin->update([
+            'patient_id' => $request->patient,
+            'doctor_id' => $request->doctor,
+            'options' => $request->options,
+            'cost' => $request->cost,
+        ]);
+        return redirect()->route('skin.show', $skin->id)->with('success', 'تم تحديث المعاينة بنجاح');
     }
 
 }

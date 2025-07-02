@@ -64,9 +64,9 @@
             </div>
 
             <div class="form-group">
-                <label for="additional_details">تفاصيل إضافية</label>
-                <textarea id="additional_details" name="additional_details" rows="4"
-                    placeholder="أدخل أي تفاصيل إضافية هنا...">{{ isset($book) ? $book->additional_details : '' }}</textarea>
+                <label for="notes">تفاصيل إضافية</label>
+                <textarea id="notes" name="notes" rows="4"
+                    placeholder="أدخل أي تفاصيل إضافية هنا...">{{ isset($book) ? $book->notes : '' }}</textarea>
             </div>
 
             <button type="submit" class="save-btn">{{ isset($book) ? 'عدّل' : 'احجز' }}</span></button>

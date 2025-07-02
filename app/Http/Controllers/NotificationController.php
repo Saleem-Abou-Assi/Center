@@ -12,7 +12,7 @@ class NotificationController extends Controller
         $notifications = Notification::with(['doctor', 'patient'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-            
+
         return view('notifications.index', compact('notifications'));
     }
 
@@ -20,11 +20,11 @@ class NotificationController extends Controller
     {
         $notification = Notification::findOrFail($id);
         $notification->update(['is_read' => true]);
-        
+
         return redirect()->back();
     }
 
-    
+
     public function getNotificationCount()
     {
         // Count only unread notifications
@@ -37,7 +37,7 @@ class NotificationController extends Controller
     {
         $notification = Notification::findOrFail($id);
         $notification->delete();
-        
+
         return redirect()->route('notifications.index')
             ->with('success', 'Notification deleted successfully');
     }

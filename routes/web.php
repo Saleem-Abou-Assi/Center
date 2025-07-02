@@ -19,50 +19,53 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\WaitingListController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Models\Patient;
+use App\Http\Controllers\FieldController;
 
 //home page with no auth
 Route::get('/report/patient/print/{patientId}', [ReportController::class, 'printPatientReport'])->name('report.patient.print');
 Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount']);
 Route::get('/waitingList/refresh', [WaitingListController::class, 'refresh'])->name('waitingList.refresh');
 // groub the routes
-Route::middleware(['checkBeta'])->group(function (){
+Route::middleware(['checkBeta'])->group(function () {
 
     Route::middleware(['auth'])->group(function () {
-        Route::get('/', function() {
+        Route::get('/', function () {
             return view('welcome');
         })->name('home');
-    
+
+    });
 });
-});
-    
+
 //must be roll admin
 Route::middleware(['role:admin'])->group(function () {
     // admin dashboard group
 
-    Route::get('/backup',[DashboardController::class,'runBatchFile'])->name('backup');
+    Route::get('/backup', [DashboardController::class, 'runBatchFile'])->name('backup');
 
-    Route::prefix('admin')->name('admin.')->group(function (){
-        
-    Route::get('/',[DashboardController::class,'index'])->name('');
+    Route::prefix('admin')->name('admin.')->group(function () {
 
-    // In routes/web.php or routes/api.php
-    
+        Route::get('/', [DashboardController::class, 'index'])->name('');
 
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+        // In routes/web.php or routes/api.php
+        Route::post('/ray-counts/start', [DashboardController::class, 'storeStartCounts'])->name('ray-counts.store-start');
+        Route::post('/ray-counts/end', [DashboardController::class, 'storeEndCounts'])->name('ray-counts.store-end');
 
-//lazer Price
-    Route::post('/lazerPrice', [DashboardController::class, 'LazerPrice'])->name('lazerPrice.store');
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+        //lazer Price
+        Route::post('/lazerPrice', [DashboardController::class, 'LazerPrice'])->name('lazerPrice.store');
 
 
-    Route::post('/reports/daily', [ReportController::class, 'generateDailyReport'])
-    ->name('reports.daily');
-Route::post('/reports/custom', [ReportController::class, 'generateCustomReport'])
-    ->name('reports.custom');
+        Route::post('/reports/daily', [ReportController::class, 'generateDailyReport'])
+            ->name('reports.daily');
+        Route::post('/reports/custom', [ReportController::class, 'generateCustomReport'])
+            ->name('reports.custom');
 
     });
 
@@ -93,9 +96,9 @@ Route::post('/reports/custom', [ReportController::class, 'generateCustomReport']
 });
 
 // ------doctor $ reciption-------
-Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
+Route::group(['middleware' => ['role:doctor|admin|reciption']], function () {
 
-    
+    Route::get('/accounter/{apd_id}', [AccounterController::class, 'index'])->name('accounter.index');
     Route::get('/patients', [PatientController::class, 'index'])->name('patient.index');
     Route::get('/patients/{patient_id}', [PatientController::class, 'show'])->name('patient.show');
 
@@ -106,20 +109,23 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
     Route::put('/books/{book_id}', [BookController::class, 'update'])->name('book.update');
     Route::delete('/books/{book_id}', [BookController::class, 'destroy'])->name('book.destroy');
 
-    Route::get('/patientDept',[PatientDeptController::class,'index'])->name('patientDept.index');
+    Route::get('/patientDept', [PatientDeptController::class, 'index'])->name('patientDept.index');
     Route::post('/patientDept', [PatientDeptController::class, 'store'])->name('patientDept.store');
-    Route::delete('patientDept/{dept_id}', [PatientDeptController::class,'destroy' ])->name('Dept.destroy');
+    Route::delete('patientDept/{dept_id}', [PatientDeptController::class, 'destroy'])->name('Dept.destroy');
 
 
-    Route::get('/skin',[SkinController::class,'index'])->name('skin.index');
+    Route::get('/skin', [SkinController::class, 'index'])->name('skin.index');
     Route::post('/skin', [SkinController::class, 'store'])->name('skin.store');
-    Route::delete('skin/{skin_id}', [SkinController::class,'destroy' ])->name('skin.destroy');
+    Route::delete('skin/{skin_id}', [SkinController::class, 'destroy'])->name('skin.destroy');
+    Route::get('/skin/show/{skin_id}', [SkinController::class, 'show'])->name('skin.show');
+    Route::get('/skin/edit/{skin_id}', [SkinController::class, 'edit'])->name('skin.edit');
+    Route::put('/skin/update/{skin_id}', [SkinController::class, 'update'])->name('skin.update');
 
 
-    Route::get('/lazer',[LazerController::class,'index'])->name('lazer.index');
-    Route::get('/lazer/show/{lazer_id}',[LazerController::class,'show'])->name('lazer.show');
-    Route::get('/lazer/edit/{lazer_id}',[LazerController::class,'edit'])->name('lazer.edit');
-    Route::delete('lazer/{lazer_id}',[LazerController::class, 'destroy' ])->name('lazer.destroy');
+    Route::get('/lazer', [LazerController::class, 'index'])->name('lazer.index');
+    Route::get('/lazer/show/{lazer_id}', [LazerController::class, 'show'])->name('lazer.show');
+    Route::get('/lazer/edit/{lazer_id}', [LazerController::class, 'edit'])->name('lazer.edit');
+    Route::delete('lazer/{lazer_id}', [LazerController::class, 'destroy'])->name('lazer.destroy');
 
     Route::post('/lazer', [LazerController::class, 'store'])->name('lazer.store');
     Route::put('/lazer/update/{lazer_id}', [LazerController::class, 'update'])->name('lazer.update');
@@ -127,23 +133,23 @@ Route::group(['middleware' => ['role:doctor|admin|reciption']],function (){
 
     Route::get('/doctors/{doctor_id}', [DoctorController::class, 'show'])->name('doctor.show');
 
-    Route::get('/waiting-list',[WaitingListController::class,'index'])->name('waitingList.index');
+    Route::get('/waiting-list', [WaitingListController::class, 'index'])->name('waitingList.index');
     Route::post('/waiting-list', [WaitingListController::class, 'store'])->name('waitingList.store');
     Route::delete('/waitlist/{id}', [WaitingListController::class, 'destroy'])->name('waitingList.destroy');
-    
+
 });
 
 
-Route::middleware(['role:admin|reciption'])->group(function (){
+Route::middleware(['role:admin|reciption'])->group(function () {
 
-// ------reciption-------
+    // ------reciption-------
 
     Route::get('/patient/create', [PatientController::class, 'create'])->name('patient.create');
     Route::post('/patients', [PatientController::class, 'store'])->name('patient.store');
     Route::get('/patients/{patient_id}/edit', [PatientController::class, 'edit'])->name('patient.edit');
     Route::put('/patients/{patient_id}', [PatientController::class, 'update'])->name('patient.update');
 
-    Route::get('/accounter/{apd_id}',[AccounterController::class,'index'])->name('accounter.index');
+
 
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
@@ -152,19 +158,19 @@ Route::middleware(['role:admin|reciption'])->group(function (){
 
 
 
-Route::middleware(['role:admin|store'])->group(function (){
+Route::middleware(['role:admin|store'])->group(function () {
 
-//-----store--------
+    //-----store--------
 
-Route::get('/item', [StorageController::class, 'index'])->name('item.index');
-Route::get('/item/show/{item_id}', [StorageController::class, 'show'])->name('item.show');
-Route::get('/item/create', [StorageController::class, 'create'])->name('item.create');
-Route::post('/item', [StorageController::class, 'store'])->name('item.store');
-Route::get('/item/{item_id}/edit', [StorageController::class, 'edit'])->name('item.edit');
-Route::put('/item/{item_id}', [StorageController::class, 'update'])->name('item.update');
-Route::delete('/item/{item_id}', [StorageController::class, 'destroy'])->name('item.destroy');
+    Route::get('/item', [StorageController::class, 'index'])->name('item.index');
+    Route::get('/item/show/{item_id}', [StorageController::class, 'show'])->name('item.show');
+    Route::get('/item/create', [StorageController::class, 'create'])->name('item.create');
+    Route::post('/item', [StorageController::class, 'store'])->name('item.store');
+    Route::get('/item/{item_id}/edit', [StorageController::class, 'edit'])->name('item.edit');
+    Route::put('/item/{item_id}', [StorageController::class, 'update'])->name('item.update');
+    Route::delete('/item/{item_id}', [StorageController::class, 'destroy'])->name('item.destroy');
 
-// Route::get('/item/{item_id}', [StorageController::class, 'show'])->name('item.show');
+    // Route::get('/item/{item_id}', [StorageController::class, 'show'])->name('item.show');
 
 
 
@@ -184,5 +190,8 @@ Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])
 
 Route::post('/reports/doctor', [ReportController::class, 'generateDoctorReport'])
     ->name('admin.reports.doctor');
+
+Route::get('patientDept/{patientDept}/edit', [PatientDeptController::class, 'edit'])->name('patientDept.edit');
+Route::put('patientDept/{patientDept}', [PatientDeptController::class, 'update'])->name('patientDept.update');
 
 require __DIR__ . '/auth.php';

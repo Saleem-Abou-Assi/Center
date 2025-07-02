@@ -73,22 +73,27 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <select name="dynamicPoint[]" class="mini-select">
-                                            <option value="{{ $detail->point }}">{{ $detail->point }}</option>
-                                            <option value="وجه">وجه</option>
-                                            <option value="ابطين">ابطين</option>
-                                            <option value="بكيني">بكيني</option>
-                                            <option value="ايدين">ايدين</option>
-                                            <option value="ساقين">ساقين</option>
-                                            <option value="فخذين">فخذين</option>
-                                            <option value="فل بدي">فل بدي</option>
-                                            <option value="فل بدي كامل">فل بدي كامل</option>
-                                            <option value="بطن">بطن</option>
-                                            <option value="ظهر">ظهر</option>
-                                            <option value="أرداف">أرداف</option>
-                                            <option value="شفة">شفة</option>
-                                            <option value="غير ذلك">غير ذلك</option>
-                                        </select>
+                                        <div class="point-field-container">
+                                            <select name="dynamicPoint[]" class="mini-select point-select">
+                                                <option value="{{ $detail->point }}">{{ $detail->point }}</option>
+                                                <option value="وجه">وجه</option>
+                                                <option value="ابطين">ابطين</option>
+                                                <option value="بكيني">بكيني</option>
+                                                <option value="ايدين">ايدين</option>
+                                                <option value="ساقين">ساقين</option>
+                                                <option value="فخذين">فخذين</option>
+                                                <option value="فل بدي">فل بدي</option>
+                                                <option value="فل بدي كامل">فل بدي كامل</option>
+                                                <option value="بطن">بطن</option>
+                                                <option value="ظهر">ظهر</option>
+                                                <option value="أرداف">أرداف</option>
+                                                <option value="شفة">شفة</option>
+                                                @if(!isset($lazer))
+                                                    <option value="غير ذلك">غير ذلك</option>
+                                                @endif
+                                            </select>
+                                            <button type="button" class="edit-point-btn" style="display: none;">✎</button>
+                                        </div>
                                     </td>
                                     <td><input type="text" name="dynamicPower[]" value="{{ $detail->power }}"></td>
                                     <td><input type="text" name="dynamicSpeed[]" value="{{ $detail->speed }}"></td>
@@ -125,6 +130,17 @@
                 <span id="dynamicCountSpan">0</span> <!-- Count for again -->
             </div>
 
+            <div class="form-group">
+                <label for="price">التكلفة الأساسية</label>
+                <div id="price_breakdown">
+                    <p>سعر أشعة AX/AY = <span id="ax_price_display">0</span></p>
+                    <p>سعر أشعة Again = <span id="again_price_display">0</span></p>
+                    <p>المجموع الكلي = <span id="price_dispaly">0</span></p>
+                </div>
+                <input type="hidden" id="price" name="price">
+                <button type="button" id="calculatePriceBtn" class="add-btn">حساب السعر</button>
+            </div>
+
 
 
             @isset($lazer)
@@ -135,11 +151,6 @@
                     {{$ray_price->again_price}}
                 </div>
 
-                <div class="form-group">
-                    <label for="price">التكلفة لأساسية</label>
-                    <span id="price_dispaly"></span>
-                    <input type="hidden" id="price" name="price">
-                </div>
 
                 <div class="form-group">
                     <label for="real_price">التكلفة الفعلية</label>
@@ -225,12 +236,14 @@
             // Create new row and cells  
             var newRow = document.createElement('tr');
             var docCell = document.createElement('td');
+            docCell.className = 'ta-r';
             var pointCell = document.createElement('td');
             var powerCell = document.createElement('td');
             var speedCell = document.createElement('td');
             var pulseCell = document.createElement('td');
             var countCell = document.createElement('td');
             var deviceCell = document.createElement('td'); // Cell for dynamicDevice
+            deviceCell.className = 'ta-r';
             var actionCell = document.createElement('td');
 
             newRow.className = 'nr';
@@ -274,8 +287,10 @@
                 { value: 'بطن', text: 'بطن' },
                 { value: 'ظهر', text: 'ظهر' },
                 { value: 'أرداف', text: 'أرداف' },
-                { value: 'شفة', text: 'شفة' },
-                { value: 'غير ذلك', text: 'غير ذلك' }
+                { value: 'شفة', text: 'شفة' }
+                @if(!isset($lazer))
+                    , { value: 'غير ذلك', text: 'غير ذلك' }
+                @endif
             ];
 
             options1.forEach(function (optionData) {
@@ -397,43 +412,96 @@
             const AXraysCountInput = document.getElementById("denamyCountSpan");
             const AgainraysCountInput = document.getElementById("dynamicCountSpan");
             const totalPriceDisplay = document.getElementById("price_dispaly");
+            const axPriceDisplay = document.getElementById("ax_price_display");
+            const againPriceDisplay = document.getElementById("again_price_display");
             const totalPriceInput = document.getElementById("price");
+            const calculatePriceBtn = document.getElementById("calculatePriceBtn");
 
-            // Check if we're in edit mode by checking if price-related elements exist
-            const isEditMode = !!totalPriceDisplay && !!totalPriceInput;
+            const axPrice = {{ isset($ray_price) ? $ray_price->ax_price : 0 }};
+            const againPrice = {{ isset($ray_price) ? $ray_price->again_price : 0 }};
 
-            if (isEditMode && AXraysCountInput) { // Only run if in edit mode and elements exist
-                const axPrice = {{ isset($ray_price) ? $ray_price->ax_price : 0 }};
-                const againPrice = 1;
+            // Store counts in variables
+            let axAyCount = 0;
+            let againCount = 0;
 
-                function calculateTotalPrice() {
-                    const AXraysCount = parseInt(AXraysCountInput.innerText) || 0;
-                    const AgainraysCount = parseInt(AgainraysCountInput.innerText) || 0;
+            function updateDeviceCounts() {
+                const tableBody = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
+                const rows = tableBody.getElementsByTagName('tr');
+                axAyCount = 0;
+                againCount = 0;
 
-                    const totalPriceAX = axPrice * AXraysCount;
-                    const totalPriceAgain = againPrice * AgainraysCount;
-                    const total = totalPriceAX + totalPriceAgain;
-                    totalPriceDisplay.innerText = total.toFixed(2);
-                    totalPriceInput.value = total;
+                for (let row of rows) {
+                    const deviceSelect = row.querySelector('select[name="dynamicDevice[]"]');
+                    const countInput = row.querySelector('input[name="dynamicCount[]"]');
+
+                    if (deviceSelect && countInput) {
+                        const deviceValue = deviceSelect.value;
+                        const countValue = parseInt(countInput.value) || 0;
+
+                        if (deviceValue === 'ax' || deviceValue === 'ay') {
+                            axAyCount += countValue;
+                        } else if (deviceValue === 'again') {
+                            againCount += countValue;
+                        }
+                    }
                 }
 
-                // Initial calculation
+                // Update the display spans
+                document.getElementById('denamyCountSpan').innerText = axAyCount;
+                document.getElementById('dynamicCountSpan').innerText = againCount;
+            }
+
+            function calculateTotalPrice() {
+                // Use the stored count variables
+                const totalPriceAX = axPrice * axAyCount;
+                const totalPriceAgain = againPrice * againCount;
+                const total = totalPriceAX + totalPriceAgain;
+
+                if (axPriceDisplay) {
+                    axPriceDisplay.innerText = totalPriceAX.toFixed(2);
+                }
+                if (againPriceDisplay) {
+                    againPriceDisplay.innerText = totalPriceAgain.toFixed(2);
+                }
+                if (totalPriceDisplay) {
+                    totalPriceDisplay.innerText = total.toFixed(2);
+                }
+                if (totalPriceInput) {
+                    totalPriceInput.value = total;
+                }
+            }
+
+            // Add click event listener to calculate button
+            calculatePriceBtn.addEventListener('click', function () {
                 updateDeviceCounts();
                 calculateTotalPrice();
+            });
 
-                // Add event listeners to update counts and recalculate price when inputs change
-                document.querySelectorAll('input[name="dynamicCount[]"]').forEach(input => {
-                    input.addEventListener('input', function () {
-                        updateDeviceCounts();
-                        calculateTotalPrice();
-                    });
+            // Add event listeners to update counts when inputs change
+            document.querySelectorAll('input[name="dynamicCount[]"], select[name="dynamicDevice[]"]').forEach(element => {
+                element.addEventListener('input', function () {
+                    updateDeviceCounts();
                 });
-            }
+                element.addEventListener('change', function () {
+                    updateDeviceCounts();
+                });
+            });
+
+            // Initial count update
+            updateDeviceCounts();
         });
         save_btn = document.querySelector(".save-btn");
 
         save_btn.onclick = function () {
             this.innerHTML = "<div class=loader></div>";
+            // Get the patient ID from the select element
+            const patientId = document.getElementById('patient_id').value;
+            // Add a hidden input to store the redirect URL
+            const redirectInput = document.createElement('input');
+            redirectInput.type = 'hidden';
+            redirectInput.name = 'redirect_to';
+            redirectInput.value = `/patients/${patientId}`;
+            this.form.appendChild(redirectInput);
         }
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -466,22 +534,81 @@
 
                         // Add click handler to switch back to dropdown
                         switchBtn.addEventListener('click', function () {
-                            // Remove the custom input and switch button
                             container.remove();
-                            // Show the select again
                             select.style.display = '';
-                            // Reset the select value
                             select.value = '';
                         });
 
-                        // Add elements to container
-                        container.appendChild(switchBtn);
+                        // Add the elements to the container
                         container.appendChild(customInput);
+                        container.appendChild(switchBtn);
 
-                        // Add container after the select
-                        this.parentNode.appendChild(container);
-                        customInput.focus();
+                        // Insert the container after the select
+                        this.parentNode.insertBefore(container, this.nextSibling);
                     }
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add edit functionality for existing records
+            document.querySelectorAll('.point-field-container').forEach(container => {
+                const select = container.querySelector('.point-select');
+                const editBtn = container.querySelector('.edit-point-btn');
+
+                // Show edit button when hovering over the container
+                container.addEventListener('mouseenter', function () {
+                    editBtn.style.display = 'inline-block';
+                });
+
+                container.addEventListener('mouseleave', function () {
+                    editBtn.style.display = 'none';
+                });
+
+                // Handle edit button click
+                editBtn.addEventListener('click', function () {
+                    // Check if there's already an active edit field
+                    if (container.querySelector('.custom-point-input')) {
+                        return; // Exit if an edit is already in progress
+                    }
+
+                    const currentValue = select.value;
+                    const customInput = document.createElement('input');
+                    customInput.setAttribute('type', 'text');
+                    customInput.setAttribute('name', 'dynamicPoint[]');
+                    customInput.setAttribute('value', currentValue);
+                    customInput.className = 'mini-select custom-point-input';
+
+                    // Create save button
+                    const saveBtn = document.createElement('button');
+                    saveBtn.textContent = '✓';
+                    saveBtn.className = 'save-btn';
+                    saveBtn.style.marginLeft = '5px';
+                    saveBtn.style.padding = '2px 5px';
+                    saveBtn.style.cursor = 'pointer';
+
+                    // Add click handler for save button
+                    saveBtn.addEventListener('click', function () {
+                        const inputValue = customInput.value;
+                        // Update select with new value
+                        const option = document.createElement('option');
+                        option.value = inputValue;
+                        option.text = inputValue;
+                        select.innerHTML = '';
+                        select.appendChild(option);
+                        select.value = inputValue;
+                        // Remove input and save button
+                        customInput.remove();
+                        saveBtn.remove();
+                        // Show select again
+                        select.style.display = '';
+                    });
+
+                    // Replace select with input
+                    select.style.display = 'none';
+                    container.appendChild(customInput);
+                    container.appendChild(saveBtn);
+                    customInput.focus();
                 });
             });
         });

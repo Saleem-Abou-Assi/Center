@@ -43,7 +43,7 @@ class LazerController extends Controller
             'lazer_price' => $ray_price->ax_price,
             'again_price' => $ray_price->again_price,
             'notes' => $request->notes,
-            'price' => 0,
+            'price' => $request->price ?? 0,
         ]);
 
         // Handle dynamic details
@@ -72,7 +72,12 @@ class LazerController extends Controller
             'operation_id' => $lazer->id
         ]);
 
-        return redirect()->route('lazer.index')->with('success', 'Lazer created successfully.');
+        // Check if redirect_to is present in the request
+        if ($request->has('redirect_to')) {
+            return redirect($request->redirect_to);
+        }
+
+        return redirect()->route('lazer.index');
     }
 
     public function edit($lazer_id)
@@ -81,6 +86,7 @@ class LazerController extends Controller
         $patients = Patient::all();
         $ray_price = LazerPrice::first();
         $lazer = Lazer::where('id', $lazer_id)->with('Doctor', 'Patient', 'Details.doctor')->first();
+
 
         return view('lazer.index', [
             'doctors' => $doctors,
@@ -128,6 +134,11 @@ class LazerController extends Controller
         }
 
         $patient = Patient::findOrFail($request->patient_id);
+
+        // Check if redirect_to is present in the request
+        if ($request->has('redirect_to')) {
+            return redirect($request->redirect_to);
+        }
 
         return redirect()->back()->with('success', 'Lazer updated successfully.');
     }

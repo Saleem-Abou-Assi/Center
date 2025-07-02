@@ -30,6 +30,14 @@ class ReportController extends Controller
                 ->get()
         ];
 
+        // Calculate patient type statistics
+        $data['patientStats'] = [
+            'patientDept' => count($data['patientDept']),
+            'lazer' => count($data['lazer']),
+            'skin' => count($data['skin']),
+            'total' => count($data['patientDept']) + count($data['lazer']) + count($data['skin'])
+        ];
+
         if ($request->export_type === 'pdf') {
             $mpdf = new Mpdf();
             $html = view('reports.daily', ['data' => $data])->render();
@@ -252,7 +260,7 @@ class ReportController extends Controller
         $doctor = Doctor::findOrFail($request->doctor_id);
 
         // Fetch patient department visits
-        $patientDeptData = PatientDept::with(['patient', 'department'])
+        $patientDeptData = PatientDept::with(['patient', 'department', 'apd'])
             ->where('doctor_name', $doctor->user->name)
             ->whereBetween('created_at', [
                 $request->start_date . ' 00:00:00',
@@ -262,7 +270,7 @@ class ReportController extends Controller
 
         // Fetch laser sessions
         $lazerData = Lazer::with(['patient', 'Details'])
-            ->whereHas('Details', function($query) use ($doctor) {
+            ->whereHas('Details', function ($query) use ($doctor) {
                 $query->where('doctor_id', $doctor->id);
             })
             ->whereBetween('created_at', [
@@ -286,9 +294,9 @@ class ReportController extends Controller
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'total_patients' => $patientDeptData->count() + $lazerData->count() + $skinData->count(),
-                'total_revenue' => $patientDeptData->sum('full_cost') + 
-                                   $lazerData->sum('real_price') + 
-                                   $skinData->sum('cost')
+                'total_revenue' => $patientDeptData->sum('full_cost') +
+                    $lazerData->sum('real_price') +
+                    $skinData->sum('cost')
             ],
             'patientDept' => $patientDeptData,
             'lazer' => $lazerData,
