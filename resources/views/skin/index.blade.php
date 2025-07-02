@@ -68,6 +68,13 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <div class="select-box">
+                    <label for="note">ملاحظة</label>
+                    <textarea name="note" id="note" class="form-control" placeholder="أدخل ملاحظة (اختياري)"></textarea>
+                </div>
+            </div>
+
             <button type="submit" class="save-btn">أنشئ</button>
             <div class="boton">
                 <button onclick="window.history.back();" class="custom-btn btn-2"><span class="fa fa-arrow-left"

@@ -200,6 +200,7 @@
                     <th>الحالة </th>
                     <th>التكلفة</th>
                     <th>التاريخ</th>
+                    <th>ملاحظة</th>
                     <th>تفاصيل</th>
                 </tr>
             </thead>
@@ -211,6 +212,7 @@
                     <td>{{ $patient->skin[$i]->options }}</td>
                     <td>{{ $patient->skin[$i]->cost }}</td>
                     <td>{{ $patient->skin[$i]->created_at }}</td>
+                    <td>{{ $patient->skin[$i]->note }}</td>
                     <td>
                         <form id="deleteForm" action="{{ route('skin.destroy', $patient->skin[$i]->id) }}" method="POST"
                             onsubmit="return confirmCustom()">
