@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <title>Lazer Details</title>
     <link rel="stylesheet" href="{{ asset('css/merged.css') }}">
     @include('layouts.navigation')
+   
 
     <style>
           .basic {
@@ -28,7 +32,12 @@
             .printable,
             .printable * {
                 visibility: visible;
+
+            .printable,
+            .printable * {
+                visibility: visible;
             }
+
 
             .printable {
                 width: 148mm;
@@ -60,6 +69,7 @@
                 transform: translateY(-6cm);
                 max-height:14.5cm;
             }
+
 
             table {
                 width: 18cm;
@@ -123,6 +133,7 @@
         }
     </style>
 </head>
+
 
 <body>
     <div class="all">
@@ -245,5 +256,6 @@
     </script>
 
 </body>
+
 
 </html>

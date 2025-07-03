@@ -10,45 +10,37 @@
             padding: 20px;
             direction: rtl;
         }
-
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
-
         .section {
             margin-bottom: 30px;
         }
-
         .section-title {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 15px;
             color: #333;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-
         th,
         td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: right;
         }
-
         th {
             background-color: #f5f5f5;
         }
-
         .date-section {
             margin-bottom: 40px;
             page-break-inside: avoid;
         }
-
         .date-header {
             background-color: #f5f5f5;
             padding: 10px;
@@ -86,6 +78,7 @@
                                 <th>نوع الحجز</th>
                                 <th>العلاج المقدم</th>
                                 <th>الأدوات</th>
+                                <th>سعر الحجز</th>
                                 <th>الوقت</th>
                             </tr>
                         </thead>
@@ -101,6 +94,7 @@
                                 <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'غير متوفر' }}</td>
                                 <td>{{ $item->accounter->first()->pivot->given_cure ?? 'غير متوفر' }}</td>
                                 <td>{{ $item->accounter->first()->pivot->tools ?? 'غير متوفر' }}</td>
+                                <td>{{ $item->total_cost }}</td>
                                 <td>{{ $item->created_at->format('H:i') }}</td>
                             </tr>
                             @endforeach
@@ -151,7 +145,6 @@
                         </tbody>
                     </table>
                 </div>
-                    
                 <div class="section">
                     <div class="section-title">إحصائيات الأشعة</div>
                     <table>
@@ -230,7 +223,6 @@
                         </tbody>
                     </table>
                 </div>
-
                 <div class="daily-summary">
                     <p>إجمالي المرضى اليومي: {{ $dayData['summary']['total_patients'] }}</p>
                     <p>إجمالي الإيرادات اليومي: {{ $dayData['summary']['total_revenue'] }}</p>
@@ -255,8 +247,9 @@
                             <tr>
                                 <th>اسم المريض</th>
                                 <th>الطبيب</th>
-                                <th>العلاج</th>
-                                <th>الوصف</th>
+                               
+                                <th>الحالة</th>
+                                <th>التكلفة</th>
                                 <th>التاريخ</th>
                             </tr>
                         </thead>
@@ -265,8 +258,9 @@
                             <tr>
                                 <td>{{ $treatment->patient->name }}</td>
                                 <td>{{ $treatment->doctor->user->name }}</td>
-                                <td>{{ $treatment->treatment }}</td>
-                                <td>{{ $treatment->description }}</td>
+                                
+                                <td>{{ $treatment->options }}</td>
+                                <td>{{ $treatment->cost }}</td>
                                 <td>{{ $treatment->created_at->format('Y-m-d') }}</td>
                             </tr>
                             @endforeach

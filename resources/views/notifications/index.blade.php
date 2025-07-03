@@ -50,6 +50,7 @@
                             <td>{{ $notification->is_read ? 'مقروء' : 'جديد' }}</td>
                             <td class="action-td">
 
+
                                 @if(!$notification->is_read)
                                     <form action="{{ route('notifications.markAsRead', $notification->id) }}" method="POST">
                                         @csrf

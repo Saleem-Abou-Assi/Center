@@ -154,7 +154,7 @@
             </div>
         </div>
         <!-- Reports Section -->
-        <div class="report">
+        <div class="report" >
 
 
             <!-- Daily Operations Report -->

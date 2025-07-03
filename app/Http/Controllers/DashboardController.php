@@ -37,6 +37,9 @@ class DashboardController extends Controller
                 'ax_start_count' => $request->ax_start_count,
                 'ay_start_count' => $request->ay_start_count,
                 'again_start_count' => $request->again_start_count,
+                'ax_end_count' => 0,
+                'ay_end_count' => 0,
+                'again_end_count' => 0,
             ]
         );
 

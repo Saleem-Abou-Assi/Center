@@ -113,6 +113,14 @@
 </head>
 
 <body>
+    <div class="header">
+        <h1>ملخص تقرير العمل اليومي</h1>
+        <div class="date">
+            <h3>ليوم: {{ now()->locale('ar')->isoFormat('dddd') }}</h3>
+            <h3>التاريخ: {{ now()->format('Y-m-d') }}</h3>
+    
+        </div>
+    </div>
     @if(isset($data['patientDept']) && count($data['patientDept']) > 0)
     <div class="section">
         <div class="section-title">قسم المرضى</div>
@@ -154,7 +162,8 @@
     @endif
 
     @php
-    $customTypeItems = collect($data['patientDept'])->filter(function($item) { return $item->type === 'custom_type'; });
+$customTypeItems = collect($data['patientDept'])->filter(function ($item) {
+    return $item->type === 'custom_type'; });
     @endphp
 
     @if($customTypeItems->count() > 0)
@@ -268,14 +277,7 @@
         </table>
     </div>
     @endif
-    <div class="header">
-        <h1>ملخص تقرير العمل اليومي</h1>
-        <div class="date">
-            <h3>ليوم: {{ now()->locale('ar')->isoFormat('dddd') }}</h3>
-            <h3>التاريخ: {{ now()->format('Y-m-d') }}</h3>
-
-        </div>
-    </div>
+   
         <h1>احصائيات اليوم</h1>
     @if(isset($data['lazer']) && count($data['lazer']) > 0)
         <div class="section">

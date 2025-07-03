@@ -11,7 +11,7 @@
             padding: 15px;
             background: #f5f5f5;
             border-radius: 5px;
-            
+
         }
 
         .date-range {
@@ -50,13 +50,15 @@
                 padding: 20px;
                 visibility: hidden;
             }
-            .print{
+
+            .print {
                 visibility: visible;
-                top:0;
+                top: 0;
                 position: absolute;
                 margin-top: 5mm;
             }
-            .action-td{
+
+            .action-td {
                 visibility: hidden;
             }
         }
