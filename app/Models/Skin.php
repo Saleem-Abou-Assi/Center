@@ -8,7 +8,7 @@ class Skin extends Model
 {
     protected $fillable = [
         'patient_id','doctor_id',
-        'options','cost'
+        'options','cost','note'
     ];
 
     public function patient()

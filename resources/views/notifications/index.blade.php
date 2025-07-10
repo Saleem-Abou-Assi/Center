@@ -87,7 +87,33 @@
                 </tbody>
             </table>
         </div>
-        {{ $notifications->links() }}
+        <!-- Custom Pagination Controls -->
+        @if ($notifications->hasPages())
+            <div class="custom-pagination">
+                {{-- Previous Page Link --}}
+                @if ($notifications->onFirstPage())
+                    <button class="page-btn" disabled>
+                << @else <a href="{{ $notifications->previousPageUrl() }}" class="page-btn">
+                    << @endif {{-- Pagination Elements --}} @foreach (range(1, $notifications->lastPage()) as $page)
+                            @if ($page == 1 || $page == $notifications->lastPage() || ($page >= $notifications->currentPage() - 1 && $page <= $notifications->currentPage() + 1))
+                                @if ($page == $notifications->currentPage())
+                                    <button class="page-btn active">{{ $page }}</button>
+                                @else
+                                    <a href="{{ $notifications->url($page) }}" class="page-btn">{{ $page }}</a>
+                                @endif
+                            @elseif ($page == 2 || $page == $notifications->lastPage() - 1)
+                                <span class="page-btn">...</span>
+                            @endif
+                        @endforeach
+
+                            {{-- Next Page Link --}}
+                            @if ($notifications->hasMorePages())
+                                <a href="{{ $notifications->nextPageUrl() }}" class="page-btn">>></a>
+                            @else
+                                <button class="page-btn" disabled>>></button>
+                            @endif
+            </div>
+        @endif
     </div>
 </body>
 

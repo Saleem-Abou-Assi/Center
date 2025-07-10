@@ -92,6 +92,7 @@ class DashboardController extends Controller
             'ay_price'=> $request->ay_price,
             
             'again_price'=> $request->again_price,
+            'again_price'=> $request->again_price,
         ]);
 
 

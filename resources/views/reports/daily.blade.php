@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>تقرير يومي</title>
     <style>
-      body {
+        body {
             font-family: "Cairo", sans-serif;
             padding: 20px;
             direction: rtl;
@@ -122,160 +122,161 @@
         </div>
     </div>
     @if(isset($data['patientDept']) && count($data['patientDept']) > 0)
-    <div class="section">
-        <div class="section-title">قسم المرضى</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>اسم المريض</th>
-                    <th>القسم</th>
-                    <th>الطبيب</th>
-                    <th>المرض</th>
-                    <th>الوصف</th>
-                    <th>العلاج</th>
-                    <th>نوع الحجز</th>
-                    <th>العلاج المقدم</th>
-                    <th>الأدوات</th>
-                    <th>الوقت</th>
-                    <th>نوع العملية</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($data['patientDept'] as $item)
-                <tr>
-                    <td>{{ $item->patient->name }}</td>
-                    <td>{{ $item->department->title }}</td>
-                    <td>{{ $item->doctor_name }}</td>
-                    <td>{{ $item->illness }}</td>
-                    <td>{{ $item->description }}</td>
-                    <td>{{ $item->cure }}</td>
-                    <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'غير متوفر' }}</td>
-                    <td>{{ $item->accounter->first()->pivot->given_cure ?? 'غير متوفر' }}</td>
-                    <td>{{ $item->accounter->first()->pivot->tools ?? 'غير متوفر' }}</td>
-                    <td>{{ $item->created_at->format('H:i') }}</td>
-                    <td>{{ $item->type ?? '-' }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+        <div class="section">
+            <div class="section-title">قسم المرضى</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم المريض</th>
+                        <th>القسم</th>
+                        <th>الطبيب</th>
+                        <th>المرض</th>
+                        <th>الوصف</th>
+                        <th>العلاج</th>
+                        <th>نوع الحجز</th>
+                        <th>العلاج المقدم</th>
+                        <th>الأدوات</th>
+                        <th>الوقت</th>
+                        <th>نوع العملية</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['patientDept'] as $item)
+                        <tr>
+                            <td>{{ $item->patient->name }}</td>
+                            <td>{{ $item->department->title }}</td>
+                            <td>{{ $item->doctor_name }}</td>
+                            <td>{{ $item->illness }}</td>
+                            <td>{{ $item->description }}</td>
+                            <td>{{ $item->cure }}</td>
+                            <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->accounter->first()->pivot->given_cure ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->accounter->first()->pivot->tools ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->created_at->format('H:i') }}</td>
+                            <td>{{ $item->type ?? '-' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endif
 
     @php
-$customTypeItems = collect($data['patientDept'])->filter(function ($item) {
-    return $item->type === 'custom_type'; });
+        $customTypeItems = collect($data['patientDept'])->filter(function ($item) {
+            return $item->type === 'custom_type';
+        });
     @endphp
 
     @if($customTypeItems->count() > 0)
-    <div class="section">
-        <div class="section-title">عمليات النوع المخصص</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>اسم المريض</th>
-                    <th>القسم</th>
-                    <th>الطبيب</th>
-                    <th>المرض</th>
-                    <th>الوصف</th>
-                    <th>العلاج</th>
-                    <th>نوع الحجز</th>
-                    <th>العلاج المقدم</th>
-                    <th>الأدوات</th>
-                    <th>الوقت</th>
-                    <th>نوع العملية</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($customTypeItems as $item)
-                <tr>
-                    <td>{{ $item->patient->name }}</td>
-                    <td>{{ $item->department->title }}</td>
-                    <td>{{ $item->doctor_name }}</td>
-                    <td>{{ $item->illness }}</td>
-                    <td>{{ $item->description }}</td>
-                    <td>{{ $item->cure }}</td>
-                    <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'غير متوفر' }}</td>
-                    <td>{{ $item->accounter->first()->pivot->given_cure ?? 'غير متوفر' }}</td>
-                    <td>{{ $item->accounter->first()->pivot->tools ?? 'غير متوفر' }}</td>
-                    <td>{{ $item->created_at->format('H:i') }}</td>
-                    <td>{{ $item->type ?? '-' }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+        <div class="section">
+            <div class="section-title">عمليات النوع المخصص</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم المريض</th>
+                        <th>القسم</th>
+                        <th>الطبيب</th>
+                        <th>المرض</th>
+                        <th>الوصف</th>
+                        <th>العلاج</th>
+                        <th>نوع الحجز</th>
+                        <th>العلاج المقدم</th>
+                        <th>الأدوات</th>
+                        <th>الوقت</th>
+                        <th>نوع العملية</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($customTypeItems as $item)
+                        <tr>
+                            <td>{{ $item->patient->name }}</td>
+                            <td>{{ $item->department->title }}</td>
+                            <td>{{ $item->doctor_name }}</td>
+                            <td>{{ $item->illness }}</td>
+                            <td>{{ $item->description }}</td>
+                            <td>{{ $item->cure }}</td>
+                            <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->accounter->first()->pivot->given_cure ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->accounter->first()->pivot->tools ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->created_at->format('H:i') }}</td>
+                            <td>{{ $item->type ?? '-' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endif
 
     @if(isset($data['lazer']) && count($data['lazer']) > 0)
-    <div class="section">
-        <div class="section-title">جلسات الليزر</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>اسم المريض</th>
-                    <th>الطبيب</th>
-                    <th>الجهاز</th>
-                    <th>المنطقة</th>
-                    <th>عدد الأشعة</th>
-                    <th>الطاقة</th>
-                    <th>السرعة</th>
-                    <th>عرض النبضة</th>
-                    <th>الوقت</th>
-                    <th>السعر الفعلي</th>
-                    <th>السعر</th>
-                    <th>ملاحظات</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($data['lazer'] as $session)
-                    @foreach($session->Details as $detail)
-                        <tr>
-                            <td>{{ $session->patient->name }}</td>
-                            <td>{{ $detail->doctor->user->name ?? 'غير متوفر' }}</td>
-                            <td>{{ $detail->device }}</td>
-                            <td>{{ $detail->point }}</td>
-                            <td>{{ $detail->raysCount }}</td>
-                            <td>{{ $detail->power }}</td>
-                            <td>{{ $detail->speed }}</td>
-                            <td>{{ $detail->pulse }}</td>
-                            <td>{{ $session->created_at->format('H:i') }}</td>
-                            <td>{{ $session->real_price }}</td>
-                            <td>{{ $session->price }}</td>
-                            <td>{{ $session->notes }}</td>
-                        </tr>
+        <div class="section">
+            <div class="section-title">جلسات الليزر</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم المريض</th>
+                        <th>الطبيب</th>
+                        <th>الجهاز</th>
+                        <th>المنطقة</th>
+                        <th>عدد الأشعة</th>
+                        <th>الطاقة</th>
+                        <th>السرعة</th>
+                        <th>عرض النبضة</th>
+                        <th>الوقت</th>
+                        <th>السعر الفعلي</th>
+                        <th>السعر</th>
+                        <th>ملاحظات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['lazer'] as $session)
+                        @foreach($session->Details as $detail)
+                            <tr>
+                                <td>{{ $session->patient->name }}</td>
+                                <td>{{ $detail->doctor->user->name ?? 'غير متوفر' }}</td>
+                                <td>{{ $detail->device }}</td>
+                                <td>{{ $detail->point }}</td>
+                                <td>{{ $detail->raysCount }}</td>
+                                <td>{{ $detail->power }}</td>
+                                <td>{{ $detail->speed }}</td>
+                                <td>{{ $detail->pulse }}</td>
+                                <td>{{ $session->created_at->format('H:i') }}</td>
+                                <td>{{ $session->real_price }}</td>
+                                <td>{{ $session->price }}</td>
+                                <td>{{ $session->notes }}</td>
+                            </tr>
+                        @endforeach
                     @endforeach
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
     @endif
 
     @if(isset($data['skin']) && count($data['skin']) > 0)
-    <div class="section">
-        <div class="section-title">علاجات البشرة</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>اسم المريض</th>
-                    <th>الطبيب</th>
-                    <th>العلاج</th>
-                    <th>الوصف</th>
-                    <th>التاريخ</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($data['skin'] as $treatment)
-                <tr>
-                    <td>{{ $treatment->patient->name }}</td>
-                    <td>{{ $treatment->doctor->user->name }}</td>
-                    <td>{{ $treatment->treatment }}</td>
-                    <td>{{ $treatment->description }}</td>
-                    <td>{{ $treatment->created_at->format('Y-m-d') }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+        <div class="section">
+            <div class="section-title">علاجات البشرة</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم المريض</th>
+                        <th>الطبيب</th>
+                        <th>العلاج</th>
+                        <th>الوصف</th>
+                        <th>التاريخ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['skin'] as $treatment)
+                        <tr>
+                            <td>{{ $treatment->patient->name }}</td>
+                            <td>{{ $treatment->doctor->user->name }}</td>
+                            <td>{{ $treatment->treatment }}</td>
+                            <td>{{ $treatment->description }}</td>
+                            <td>{{ $treatment->created_at->format('Y-m-d') }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endif
    
         <h1>احصائيات اليوم</h1>
@@ -296,45 +297,45 @@ $customTypeItems = collect($data['patientDept'])->filter(function ($item) {
                 </thead>
                 <tbody>
                     @php
-    $axSessions = 0;
-    $aySessions = 0;
-    $agSessions = 0;
-    $axRays = 0;
-    $ayRays = 0;
-    $agRays = 0;
-    $axRevenue = 0;
-    $ayRevenue = 0;
-    $agRevenue = 0;
-    $axDefaultPrice = 0;
-    $ayDefaultPrice = 0;
-    $agDefaultPrice = 0;
-    $axFinancial = 0;
-    $ayFinancial = 0;
-    $agFinancial = 0;
+                        $axSessions = 0;
+                        $aySessions = 0;
+                        $agSessions = 0;
+                        $axRays = 0;
+                        $ayRays = 0;
+                        $agRays = 0;
+                        $axRevenue = 0;
+                        $ayRevenue = 0;
+                        $agRevenue = 0;
+                        $axDefaultPrice = 0;
+                        $ayDefaultPrice = 0;
+                        $agDefaultPrice = 0;
+                        $axFinancial = 0;
+                        $ayFinancial = 0;
+                        $agFinancial = 0;
                     @endphp
 
                     @foreach($data['lazer'] as $lazer)
                         @foreach($lazer->Details as $detail)
                             @php
-            if ($detail->device == 'ax') {
-                $axSessions++;
-                $axRays += $detail->raysCount;
-                $axRevenue += $lazer->real_price;
-                $axDefaultPrice += $lazer->price;
-                $axFinancial += $lazer->lazer_price;
-            } elseif ($detail->device == 'ay') {
-                $aySessions++;
-                $ayRays += $detail->raysCount;
-                $ayRevenue += $lazer->real_price;
-                $ayDefaultPrice += $lazer->price;
-                $ayFinancial += $lazer->lazer_price;
-            } elseif ($detail->device == 'again') {
-                $agSessions++;
-                $agRays += $detail->raysCount;
-                $agRevenue += $lazer->real_price;
-                $agDefaultPrice += $lazer->price;
-                $agFinancial += $lazer->lazer_price;
-            }
+                                if ($detail->device == 'ax') {
+                                    $axSessions++;
+                                    $axRays += $detail->raysCount;
+                                    $axRevenue += $lazer->real_price;
+                                    $axDefaultPrice += $lazer->price;
+                                    $axFinancial += $lazer->lazer_price;
+                                } elseif ($detail->device == 'ay') {
+                                    $aySessions++;
+                                    $ayRays += $detail->raysCount;
+                                    $ayRevenue += $lazer->real_price;
+                                    $ayDefaultPrice += $lazer->price;
+                                    $ayFinancial += $lazer->lazer_price;
+                                } elseif ($detail->device == 'again') {
+                                    $agSessions++;
+                                    $agRays += $detail->raysCount;
+                                    $agRevenue += $lazer->real_price;
+                                    $agDefaultPrice += $lazer->price;
+                                    $agFinancial += $lazer->lazer_price;
+                                }
                             @endphp
                         @endforeach
                     @endforeach
@@ -400,30 +401,30 @@ $customTypeItems = collect($data['patientDept'])->filter(function ($item) {
                 </thead>
                 <tbody>
                     @php
-    $deptStats = [];
-    $totalDeptRevenue = 0;
+                        $deptStats = [];
+                        $totalDeptRevenue = 0;
                     @endphp
 
                     @foreach($data['patientDept'] as $item)
                         @php
-        $deptKey = $item->department->title . '-' . $item->doctor_name;
-        if (!isset($deptStats[$deptKey])) {
-            $deptStats[$deptKey] = [
-                'department' => $item->department->title,
-                'doctor' => $item->doctor_name,
-                'count' => 0,
-                'revenue' => 0
-            ];
-        }
-        $deptStats[$deptKey]['count']++;
+                            $deptKey = $item->department->title . '-' . $item->doctor_name;
+                            if (!isset($deptStats[$deptKey])) {
+                                $deptStats[$deptKey] = [
+                                    'department' => $item->department->title,
+                                    'doctor' => $item->doctor_name,
+                                    'count' => 0,
+                                    'revenue' => 0
+                                ];
+                            }
+                            $deptStats[$deptKey]['count']++;
 
-        // Calculate revenue from accounter pivot
-        $revenue = 0;
-        foreach ($item->Accounter as $accounter) {
-            $revenue += $accounter->pivot->full_cost ?? 0;
-        }
-        $deptStats[$deptKey]['revenue'] += $revenue;
-        $totalDeptRevenue += $revenue;
+                            // Calculate revenue from accounter pivot
+                            $revenue = 0;
+                            foreach ($item->Accounter as $accounter) {
+                                $revenue += $accounter->pivot->full_cost ?? 0;
+                            }
+                            $deptStats[$deptKey]['revenue'] += $revenue;
+                            $totalDeptRevenue += $revenue;
                         @endphp
                     @endforeach
 
@@ -460,24 +461,24 @@ $customTypeItems = collect($data['patientDept'])->filter(function ($item) {
                 </thead>
                 <tbody>
                     @php
-    $skinStats = [];
-    $totalSkinRevenue = 0;
+                        $skinStats = [];
+                        $totalSkinRevenue = 0;
                     @endphp
 
                     @foreach($data['skin'] as $treatment)
                         @php
-        $skinKey = 'علاجات البشرة-' . $treatment->doctor->user->name;
-        if (!isset($skinStats[$skinKey])) {
-            $skinStats[$skinKey] = [
-                'department' => 'علاجات البشرة',
-                'doctor' => $treatment->doctor->user->name,
-                'count' => 0,
-                'revenue' => 0
-            ];
-        }
-        $skinStats[$skinKey]['count']++;
-        $skinStats[$skinKey]['revenue'] += $treatment->cost;
-        $totalSkinRevenue += $treatment->cost;
+                            $skinKey = 'علاجات البشرة-' . $treatment->doctor->user->name;
+                            if (!isset($skinStats[$skinKey])) {
+                                $skinStats[$skinKey] = [
+                                    'department' => 'علاجات البشرة',
+                                    'doctor' => $treatment->doctor->user->name,
+                                    'count' => 0,
+                                    'revenue' => 0
+                                ];
+                            }
+                            $skinStats[$skinKey]['count']++;
+                            $skinStats[$skinKey]['revenue'] += $treatment->cost;
+                            $totalSkinRevenue += $treatment->cost;
                         @endphp
                     @endforeach
 
@@ -513,7 +514,7 @@ $customTypeItems = collect($data['patientDept'])->filter(function ($item) {
             </thead>
             <tbody>
                 @php
-$rayCounts = \App\Models\DailyRayCount::where('date', today())->first();
+                    $rayCounts = \App\Models\DailyRayCount::where('date', today())->first();
                 @endphp
                 <tr>
                     <td>AX</td>
@@ -537,30 +538,30 @@ $rayCounts = \App\Models\DailyRayCount::where('date', today())->first();
         </table>
 
         @php
-$totalLazerRevenue = 0;
-if (isset($data['lazer']) && count($data['lazer']) > 0) {
-    foreach ($data['lazer'] as $lazer) {
-        $totalLazerRevenue += $lazer->real_price;
-    }
-}
+            $totalLazerRevenue = 0;
+            if (isset($data['lazer']) && count($data['lazer']) > 0) {
+                foreach ($data['lazer'] as $lazer) {
+                    $totalLazerRevenue += $lazer->real_price;
+                }
+            }
 
-$totalDeptRevenue = 0;
-if (isset($data['patientDept']) && count($data['patientDept']) > 0) {
-    foreach ($data['patientDept'] as $item) {
-        foreach ($item->Accounter as $accounter) {
-            $totalDeptRevenue += $accounter->pivot->full_cost ?? 0;
-        }
-    }
-}
+            $totalDeptRevenue = 0;
+            if (isset($data['patientDept']) && count($data['patientDept']) > 0) {
+                foreach ($data['patientDept'] as $item) {
+                    foreach ($item->Accounter as $accounter) {
+                        $totalDeptRevenue += $accounter->pivot->full_cost ?? 0;
+                    }
+                }
+            }
 
-$totalSkinRevenue = 0;
-if (isset($data['skin']) && count($data['skin']) > 0) {
-    foreach ($data['skin'] as $treatment) {
-        $totalSkinRevenue += $treatment->cost;
-    }
-}
+            $totalSkinRevenue = 0;
+            if (isset($data['skin']) && count($data['skin']) > 0) {
+                foreach ($data['skin'] as $treatment) {
+                    $totalSkinRevenue += $treatment->cost;
+                }
+            }
 
-$grandTotal = $totalLazerRevenue + $totalDeptRevenue + $totalSkinRevenue;
+            $grandTotal = $totalLazerRevenue + $totalDeptRevenue + $totalSkinRevenue;
         @endphp
 
         <h2>اجمالي دخل المركز: {{ $grandTotal }}</h2>

@@ -29,10 +29,9 @@ class SkinController extends Controller
         $skin = Skin::create([
             'patient_id' => $patient->id,
             'doctor_id' => $request->doctor,
-            'options' => $request->options,
-            'cost' => $request->cost,
-
-
+            'options'=>$request->options,
+            'cost'=>$request->cost,
+            'note'=>$request->note,
         ]);
 
         Notification::create([

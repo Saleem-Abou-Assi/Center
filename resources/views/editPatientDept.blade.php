@@ -116,7 +116,17 @@
                     <button type="button" id="add-tool-button" class="add-btn-2">أضف اداة</button>
                 </div>
                 <br>
-                <div id="added-tools-container" class="added-stuf"></div>
+                <div id="added-tools-container" class="added-stuf">
+                    @if(isset($usedTools) && $usedTools->count())
+                        @foreach($usedTools as $tool)
+                            <div>
+                                {{ $tool->item }} - كمية: {{ $tool->pivot->quantity }}
+                                <input type="hidden" name="selected_tools[]" value="{{ $tool->id }}">
+                                <input type="hidden" name="quantities[]" value="{{ $tool->pivot->quantity }}">
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
             </div>
 
             <script>

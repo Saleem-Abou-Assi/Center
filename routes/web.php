@@ -149,7 +149,7 @@ Route::middleware(['role:admin|reciption'])->group(function () {
     Route::get('/patients/{patient_id}/edit', [PatientController::class, 'edit'])->name('patient.edit');
     Route::put('/patients/{patient_id}', [PatientController::class, 'update'])->name('patient.update');
 
-    
+
 
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');

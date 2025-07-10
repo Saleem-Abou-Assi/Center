@@ -20,7 +20,7 @@ class PatientDeptController extends Controller
         $doctors = Doctor::all();
         $storages = Storage::all();
 
-        return view('patientDept' , ['depts' => $depts,'patients'=>$patients,'doctors'=>$doctors ,'storages'=>$storages]);
+        return view('patientDept', ['depts' => $depts, 'patients' => $patients, 'doctors' => $doctors, 'storages' => $storages]);
     }
 
     public function store(Request $request)
@@ -32,13 +32,13 @@ class PatientDeptController extends Controller
 
         $patientDept = PatientDept::create([
             'dept_id' => $request->department,
-            'patient_id' => $patient->id    ,
+            'patient_id' => $patient->id,
             'doctor_name' => $doctor->user->name,
             'illness' => $request->illness,
             'description' => $request->description,
             'cure' => $request->cure,
             'type' => $request->type
-            
+
         ]);
 
         $apd = APD::create([
@@ -48,7 +48,7 @@ class PatientDeptController extends Controller
             'patient_name' => $patient->name,
             'check_in_type' => $request->check_in_type,
             'given_cure' => $request->given_cure,
-            'full_cost'=> $request->full_cost,
+            'full_cost' => $request->full_cost,
             'status' => 'unpaid',
         ]);
 
@@ -56,20 +56,19 @@ class PatientDeptController extends Controller
         $selectedTools = $request->input('selected_tools', []);
         $toolQuantities = $request->input('quantities', []);
         // Loop through selected tools
-        for($i = 0; $i < count($selectedTools); $i++) 
-        {
+        for ($i = 0; $i < count($selectedTools); $i++) {
             $quantity = $toolQuantities[$i] ?? 1; // Default to 1 if not set
-            $storage = Storage::find($selectedTools[$i]);        
+            $storage = Storage::find($selectedTools[$i]);
             if ($storage && $storage->quantity >= $quantity) {
                 $storage->decrement('quantity', $quantity);
-                
+
                 // Attach the tool to the APD or any relevant model
                 $apd->storage()->attach($storage->id, ['quantity' => $quantity]);
             }
-        }        
-            
-        
-  
+        }
+
+
+
         Notification::create([
             'type' => 'patient_dept',
             'doctor_id' => $request->doctor,
@@ -82,12 +81,12 @@ class PatientDeptController extends Controller
     }
 
     public function destroy($dept_id)
-    { 
-       
-       $dept = PatientDept::where('id',$dept_id)->first();
+    {
+
+        $dept = PatientDept::where('id', $dept_id)->first();
 
         $dept->delete();
-      
+
         return redirect()->back();
 
     }
@@ -100,17 +99,27 @@ class PatientDeptController extends Controller
         $doctors = Doctor::all();
         $storages = Storage::all();
 
+        // Fetch the APD record for this patient department
+        $apd = $patientDept->apd;
+        $usedTools = collect();
+        if ($apd) {
+            $usedTools = $apd->storage; // This will be a collection of Storage models with pivot->quantity
+        }
+
         return view('editPatientDept', [
             'patientDept' => $patientDept,
             'depts' => $depts,
             'patients' => $patients,
             'doctors' => $doctors,
             'storages' => $storages,
+            'usedTools' => $usedTools,
         ]);
     }
 
     public function update(Request $request, $id)
     {
+      
+
         $patientDept = PatientDept::findOrFail($id);
         $doctor = Doctor::findOrFail($request->doctor);
 

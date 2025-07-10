@@ -31,7 +31,7 @@
         display: flex;
         place-content: center;
       }
-    
+
       table {
         width: 100%;
         /* Full width for tables */
@@ -76,7 +76,7 @@
         /* Hide buttons during print */
       }
 
-   
+
       .trtr {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -90,17 +90,17 @@
       }
 
       .container1 {
-         display:flex;
-        flex-direction:column;
-        justify-content:center;
-        gap:2cm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2cm;
         visibility: visible;
       }
 
       .table-container {
         width: 100%;
         margin-bottom: 8mm;
-        color:black;
+        color: black;
       }
 
       .tab {
@@ -110,6 +110,7 @@
         padding: 15mm;
         margin-top: 20mm;
       }
+
       .tab2 {
         position: absolute;
         left: 0;
@@ -119,10 +120,10 @@
       }
 
       .storage-container {
-       display:flex;
-        flex-direction:column;
-        justify-content:center;
-        gap:2cm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2cm;
         visibility: visible;
       }
 
@@ -135,7 +136,7 @@
         top: 0;
         place-self: center;
         position: absolute;
-        color:black;
+        color: black;
       }
     }
   </style>
@@ -147,43 +148,43 @@
       <h1>حسابات</h1>
     </div>
 
-    
+
     <div class="container1 printable">
       <h3 style="text-align:center;" class="printable-text">فاتورة المريض {{$patient->name}}</h3>
       <div class="table-container">
         <table id='myTable' class="tab">
           <tbody>
             <tr>
-              <th>القسم المعني</th>
               <td>{{$patientDept->Department->title}}</td>
+              <th>القسم المعني</th>
             </tr>
             <tr>
-              <th>الطبيب المعالج</th>
               <td>{{$patientDept->doctor_name}} </td>
+              <th>الطبيب المعالج</th>
             </tr>
             <tr>
-              <th>نوع المعاينة</th>
               <td>{{$patientDept->Accounter[0]->pivot->check_in_type}}</td>
+              <th>نوع المعاينة</th>
             </tr>
             <tr>
-              <th>المرض</th>
               <td>{{$patientDept->illness}} </td>
+              <th>المرض</th>
             </tr>
             <tr>
-              <th>الوصف</th>
               <td>{{$patientDept->description}} </td>
+              <th>الوصف</th>
             </tr>
             <tr>
-              <th>العلاج</th>
               <td>{{$patientDept->cure}} </td>
+              <th>العلاج</th>
             </tr>
             <tr>
-              <th>الدواء الداخلي</th>
               <td>{{$patientDept->Accounter[0]->pivot->given_cure}} </td>
+              <th>الدواء الداخلي</th>
             </tr>
             <tr>
-              <th>اجرة الطبيب</th>
               <td>{{$patientDept->Accounter[0]->pivot->full_cost}} </td>
+              <th>اجمالي الفاتورة</th>  
             </tr>
           </tbody>
         </table>
