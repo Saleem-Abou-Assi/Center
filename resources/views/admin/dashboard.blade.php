@@ -14,7 +14,7 @@
     </div>
     <div class="r-all">
         <!-- Add Ray Counts Button -->
-       
+
 
         <!-- User Management Section -->
         <div class="con">
@@ -154,7 +154,7 @@
             </div>
         </div>
         <!-- Reports Section -->
-        <div class="report" >
+        <div class="report">
 
 
             <!-- Daily Operations Report -->
@@ -162,9 +162,12 @@
                 <h3>تقرير العمليات اليومية</h3>
                 <form action="{{ route('admin.reports.daily') }}" method="POST">
                     @csrf
+                    <div class="form-group">
+                        <label for="report_date">اختر اليوم:</label>
+                        <input type="date" name="report_date" id="report_date" class="form-control" required>
+                    </div>
                     <div class="export-options">
                         <button type="submit" name="export_type" value="pdf" class="add-btn">PDF تصدير</button>
-
                     </div>
                 </form>
             </div>

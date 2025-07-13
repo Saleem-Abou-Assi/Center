@@ -17,16 +17,17 @@ class ReportController extends Controller
 {
     public function generateDailyReport(Request $request)
     {
+        $reportDate = $request->input('report_date', today()->toDateString());
         $data = [
             'patientDept' => PatientDept::with(['Department', 'Accounter'])
-                ->whereDate('created_at', today())
+                ->whereDate('created_at', $reportDate)
                 ->get(),
             'lazer' => Lazer::with(['Patient', 'Doctor.user', 'Details.doctor'])
-                ->whereDate('created_at', today())
+                ->whereDate('created_at', $reportDate)
                 ->get()
             ,
             'skin' => Skin::with(['patient', 'doctor'])
-                ->whereDate('created_at', today())
+                ->whereDate('created_at', $reportDate)
                 ->get()
         ];
 
@@ -39,8 +40,11 @@ class ReportController extends Controller
         ];
 
         if ($request->export_type === 'pdf') {
-            $mpdf = new Mpdf();
-            $html = view('reports.daily', ['data' => $data])->render();
+            $mpdf = new Mpdf([
+                'default_font_size' => 9,
+                'default_font' => 'Cairo'
+            ]);
+            $html = view('reports.daily', ['data' => $data, 'report_date' => $reportDate])->render();
             $mpdf->WriteHTML($html);
             return $mpdf->Output('daily-report.pdf', 'D'); // 'D' for download
         }

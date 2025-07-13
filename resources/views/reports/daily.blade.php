@@ -6,7 +6,7 @@
     <title>تقرير يومي</title>
     <style>
         body {
-            font-family: "Cairo", sans-serif;
+            font-family: "Arial", sans-serif;
             padding: 20px;
             direction: rtl;
         }
@@ -41,58 +41,7 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: right;
-            
-        }
 
-        th {
-            background-color: #f5f5f5;
-        }
-
-        .date {
-            text-align: left;
-            margin-bottom: 20px;
-            color: #666;
-            display: flex;
-            justify-content: space-evenly;
-        }
-        @media print{
-             body {
-            font-family: "Cairo", sans-serif;
-            padding: 20px;
-            direction: rtl;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #000;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: right;
-            
         }
 
         th {
@@ -107,8 +56,61 @@
             justify-content: space-evenly;
         }
 
-        }
+        @media print {
+            body {
+                font-family: "Cairo", "Arial", sans-serif;
+                padding: 20px;
+                direction: rtl;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
 
+            .header {
+                text-align: center;
+                margin-bottom: 30px;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .section {
+                margin-bottom: 30px;
+            }
+
+            .section-title {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 15px;
+                color: #000;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: right;
+
+            }
+
+            th {
+                background-color: #f5f5f5;
+            }
+
+            .date {
+                text-align: left;
+                margin-bottom: 20px;
+                color: #666;
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+        }
     </style>
 </head>
 
@@ -116,14 +118,20 @@
     <div class="header">
         <h1>ملخص تقرير العمل اليومي</h1>
         <div class="date">
-            <h3>ليوم: {{ now()->locale('ar')->isoFormat('dddd') }}</h3>
-            <h3>التاريخ: {{ now()->format('Y-m-d') }}</h3>
-    
+            <h3>ليوم: {{ \Carbon\Carbon::parse($report_date ?? today())->locale('ar')->isoFormat('dddd') }}</h3>
+            <h3>التاريخ: {{ \Carbon\Carbon::parse($report_date ?? today())->format('Y-m-d') }}</h3>
+
         </div>
     </div>
-    @if(isset($data['patientDept']) && count($data['patientDept']) > 0)
+    @php
+        $consultationReviewItems = collect($data['patientDept'])->filter(function ($item) {
+            return $item->type === 'استشارة' || $item->type === 'مراجعة';
+        });
+    @endphp
+
+    @if($consultationReviewItems->count() > 0)
         <div class="section">
-            <div class="section-title">قسم المرضى</div>
+            <div class="section-title">قسم المرضى (استشارة و مراجعة)</div>
             <table>
                 <thead>
                     <tr>
@@ -141,7 +149,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data['patientDept'] as $item)
+                    @foreach($consultationReviewItems as $item)
                         <tr>
                             <td>{{ $item->patient->name }}</td>
                             <td>{{ $item->department->title }}</td>
@@ -188,6 +196,52 @@
                 </thead>
                 <tbody>
                     @foreach($customTypeItems as $item)
+                        <tr>
+                            <td>{{ $item->patient->name }}</td>
+                            <td>{{ $item->department->title }}</td>
+                            <td>{{ $item->doctor_name }}</td>
+                            <td>{{ $item->illness }}</td>
+                            <td>{{ $item->description }}</td>
+                            <td>{{ $item->cure }}</td>
+                            <td>{{ $item->accounter->first()->pivot->check_in_type ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->accounter->first()->pivot->given_cure ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->accounter->first()->pivot->tools ?? 'غير متوفر' }}</td>
+                            <td>{{ $item->created_at->format('H:i') }}</td>
+                            <td>{{ $item->type ?? '-' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+
+    @php
+        $otherOperations = collect($data['patientDept'])->filter(function ($item) {
+            return $item->type && $item->type !== 'مراجعة' && $item->type !== 'استشارة' && $item->type !== 'custom_type';
+        });
+    @endphp
+
+    @if($otherOperations->count() > 0)
+        <div class="section">
+            <div class="section-title">العمليات الأخرى</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم المريض</th>
+                        <th>القسم</th>
+                        <th>الطبيب</th>
+                        <th>المرض</th>
+                        <th>الوصف</th>
+                        <th>العلاج</th>
+                        <th>نوع الحجز</th>
+                        <th>العلاج المقدم</th>
+                        <th>الأدوات</th>
+                        <th>الوقت</th>
+                        <th>نوع العملية</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($otherOperations as $item)
                         <tr>
                             <td>{{ $item->patient->name }}</td>
                             <td>{{ $item->department->title }}</td>
@@ -278,8 +332,8 @@
             </table>
         </div>
     @endif
-   
-        <h1>احصائيات اليوم</h1>
+
+    <h1>احصائيات اليوم</h1>
     @if(isset($data['lazer']) && count($data['lazer']) > 0)
         <div class="section">
             <div class="section-title">احصائيات الليزر</div>
@@ -379,7 +433,7 @@
                         <td>{{ $axRays + $ayRays + $agRays }}</td>
                         <td>{{ $axRevenue + $ayRevenue + $agRevenue }}</td>
                         <td>{{ $axDefaultPrice + $ayDefaultPrice + $agDefaultPrice }}</td>
-                        <td>    </td>
+                        <td> </td>
                     </tr>
                 </tbody>
             </table>
@@ -390,60 +444,41 @@
     @if(isset($data['patientDept']) && count($data['patientDept']) > 0)
         <div class="section">
             <div class="section-title">احصائيات العيادات:</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>اسم العيادة</th>
-                        <th>الطبيب</th>
-                        <th>عدد الاستشارات</th>
-                        <th>القيمة المستوفاة</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $deptStats = [];
-                        $totalDeptRevenue = 0;
-                    @endphp
-
-                    @foreach($data['patientDept'] as $item)
-                        @php
-                            $deptKey = $item->department->title . '-' . $item->doctor_name;
-                            if (!isset($deptStats[$deptKey])) {
-                                $deptStats[$deptKey] = [
-                                    'department' => $item->department->title,
-                                    'doctor' => $item->doctor_name,
-                                    'count' => 0,
-                                    'revenue' => 0
-                                ];
-                            }
-                            $deptStats[$deptKey]['count']++;
-
-                            // Calculate revenue from accounter pivot
-                            $revenue = 0;
-                            foreach ($item->Accounter as $accounter) {
-                                $revenue += $accounter->pivot->full_cost ?? 0;
-                            }
-                            $deptStats[$deptKey]['revenue'] += $revenue;
-                            $totalDeptRevenue += $revenue;
-                        @endphp
-                    @endforeach
-
-                    @foreach($deptStats as $stat)
-                        <tr>
-                            <td>{{ $stat['department'] }}</td>
-                            <td>{{ $stat['doctor'] }}</td>
-                            <td>{{ $stat['count'] }}</td>
-                            <td>{{ $stat['revenue'] }}</td>
-                        </tr>
-                    @endforeach
-
-                    <tr class="total-row">
-                        <td colspan="2">المجموع</td>
-                        <td>{{ count($data['patientDept']) }}</td>
-                        <td>{{ $totalDeptRevenue }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            @php
+                $deptStats = [];
+                foreach ($data['patientDept'] as $item) {
+                    $deptKey = $item->department->title . '-' . $item->doctor_name;
+                    if (!isset($deptStats[$deptKey])) {
+                        $deptStats[$deptKey] = [
+                            'department' => $item->department->title,
+                            'doctor' => $item->doctor_name,
+                            'consultations' => 0,
+                            'reviews' => 0,
+                            'revenue' => 0,
+                            'other' => 0,
+                        ];
+                    }
+                    if ($item->type === 'استشارة') {
+                        $deptStats[$deptKey]['consultations']++;
+                    } elseif ($item->type === 'مراجعة') {
+                        $deptStats[$deptKey]['reviews']++;
+                    }
+                    foreach ($item->Accounter as $accounter) {
+                        $deptStats[$deptKey]['revenue'] += $accounter->pivot->full_cost ?? 0;
+                    }
+                    $deptStats[$deptKey]['other'] = $item->type && $item->type !== 'مراجعة' && $item->type !== 'استشارة' && $item->type !== 'custom_type' ? 1 : 0;
+                }
+            @endphp
+            @foreach($deptStats as $stat)
+                <div style="border:1px solid #ddd; padding:16px; margin-bottom:16px; border-radius:8px">
+                    <div style="margin-bottom:8px;"><strong>اسم العيادة:</strong> {{ $stat['department'] }}</div>
+                    <div style="margin-bottom:8px;"><strong>الطبيب:</strong> {{ $stat['doctor'] }}</div>
+                    <div style="margin-bottom:8px;"><strong>عدد الاستشارات:</strong> {{ $stat['consultations'] }}</div>
+                    <div style="margin-bottom:8px;"><strong>عدد المراجعات:</strong> {{ $stat['reviews'] }}</div>
+                    <div style="margin-bottom:8px;"><strong>عدد العمليات الأخرى:</strong> {{ $stat['other'] ?? 0 }}</div>
+                    <div style="margin-bottom:8px;"><strong>القيمة المستوفاة:</strong> {{ $stat['revenue'] }}</div>
+                </div>
+            @endforeach
         </div>
     @endif
 
